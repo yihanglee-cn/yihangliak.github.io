@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io/blog/</id>
     <title>Alex的小黑屋</title>
-    <updated>2019-06-20T16:34:53.888Z</updated>
+    <updated>2019-06-20T16:41:41.128Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io/blog/"/>
     <link rel="self" href="https://yihangliak.github.io/blog//atom.xml"/>
@@ -25,7 +25,14 @@
         <link href="https://yihangliak.github.io/blog//post/RjvYDSerC">
         </link>
         <updated>2019-06-20T15:22:32.000Z</updated>
-        <content type="html"><![CDATA[<p>to be continue</p>
+        <content type="html"><![CDATA[<h1 id="svn简介">SVN简介</h1>
+<p><code>Subversion</code>是一个开源的版本控制系统</p>
+<ul>
+<li>所有数据存放在一个中央资料档案库中</li>
+<li>可以记住每一次文件的变动</li>
+<li>可以恢复到旧版本档案</li>
+<li>可以浏览文件的变动历史</li>
+</ul>
 ]]></content>
     </entry>
 </feed>
