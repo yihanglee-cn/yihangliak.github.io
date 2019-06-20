@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io/blog/</id>
     <title>Alex的小黑屋</title>
-    <updated>2019-06-20T15:27:05.056Z</updated>
+    <updated>2019-06-20T15:43:10.529Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io/blog/"/>
     <link rel="self" href="https://yihangliak.github.io/blog//atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://yihangliak.github.io/blog//images/avatar.png</logo>
     <icon>https://yihangliak.github.io/blog//favicon.ico</icon>
     <rights>All rights reserved 2019, Alex的小黑屋</rights>
+    <entry>
+        <title type="html"><![CDATA[Python 魔法]]></title>
+        <id>https://yihangliak.github.io/blog//post/python-mo-fa</id>
+        <link href="https://yihangliak.github.io/blog//post/python-mo-fa">
+        </link>
+        <updated>2019-06-20T15:35:14.000Z</updated>
+        <content type="html"><![CDATA[<p>to be continue</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[SVN版本控制系统使用技巧]]></title>
         <id>https://yihangliak.github.io/blog//post/RjvYDSerC</id>
