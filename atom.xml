@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io/blog/</id>
     <title>一杭的树洞</title>
-    <updated>2019-06-21T03:41:50.265Z</updated>
+    <updated>2019-06-21T04:01:23.879Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io/blog/"/>
     <link rel="self" href="https://yihangliak.github.io/blog//atom.xml"/>
@@ -25,7 +25,72 @@
         <link href="https://yihangliak.github.io/blog//post/python-mo-fa">
         </link>
         <updated>2019-06-20T15:35:14.000Z</updated>
-        <content type="html"><![CDATA[<p>to be continue</p>
+        <summary type="html"><![CDATA[<p>Life is short ， you need Python！</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Life is short ， you need Python！</p>
+<!-- more -->
+<h1 id="python简介">Python简介</h1>
+<h2 id="1python起源">1.Python起源</h2>
+<ul>
+<li>Python是<code>吉多*范罗苏姆</code>在1989年圣诞节，为了打发无聊而编写的一个解释程序</li>
+<li>python的意思：蟒蛇
+<ul>
+<li>BBC电视剧《飞行的马戏团》</li>
+</ul>
+</li>
+<li>解释型编程语言，无需编译
+<ul>
+<li>先翻译成中间代码，再解释给机器运行</li>
+</ul>
+</li>
+<li>一般情况下，同样的功能，python的代码量是java的1/5
+<ul>
+<li>名言：life is short，you need python（人生苦短，我用python）</li>
+</ul>
+</li>
+<li>现有版本
+<ul>
+<li>python2.X（过去的版本），发布于2001年</li>
+<li>python3.X（现在和未来主流版本，3.0发布于2008年）</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-python的应用">2. Python的应用</h2>
+<ul>
+<li><strong>云计算</strong>：云计算最火语言</li>
+</ul>
+<blockquote>
+<p>OpenStack公司，开源云计算平台就是基于python开发的</p>
+</blockquote>
+<ul>
+<li><strong>web开发</strong>
+<ul>
+<li>代表：YouTube，豆瓣，知乎</li>
+<li>典型框架：Django，flask</li>
+</ul>
+</li>
+<li><strong>人工智能</strong></li>
+</ul>
+<blockquote>
+<p>python是机器学习，神经网络，深度学习等方面主流的编程语言</p>
+</blockquote>
+<ul>
+<li><strong>自动化运维</strong></li>
+</ul>
+<h2 id="3-python的优点">3. Python的优点</h2>
+<ul>
+<li>易学</li>
+<li>免费，开源</li>
+<li>可移植性强
+<ul>
+<li>几乎所有的操作系统都支持：Windows，macOS，Linux等</li>
+</ul>
+</li>
+<li>丰富的模块</li>
+</ul>
+<blockquote>
+<p>2019-06-21     更新Python简介章节</p>
+</blockquote>
 ]]></content>
     </entry>
     <entry>
