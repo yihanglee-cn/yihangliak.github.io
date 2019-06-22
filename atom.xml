@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io/blog/</id>
-    <title>Alex&apos;s  Blog</title>
-    <updated>2019-06-21T09:24:49.306Z</updated>
+    <title>一杭的小黑屋</title>
+    <updated>2019-06-22T10:59:43.322Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io/blog/"/>
     <link rel="self" href="https://yihangliak.github.io/blog//atom.xml"/>
     <subtitle>你好  靓仔   :D</subtitle>
     <logo>https://yihangliak.github.io/blog//images/avatar.png</logo>
     <icon>https://yihangliak.github.io/blog//favicon.ico</icon>
-    <rights>All rights reserved 2019, Alex&apos;s  Blog</rights>
+    <rights>All rights reserved 2019, 一杭的小黑屋</rights>
     <entry>
         <title type="html"><![CDATA[Flask 超轻 到无法想象]]></title>
         <id>https://yihangliak.github.io/blog//post/flask-chao-qing-dao-wu-fa-xiang-xiang</id>
