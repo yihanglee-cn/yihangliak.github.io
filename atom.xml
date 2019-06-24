@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io/blog/</id>
     <title>一杭的小黑屋</title>
-    <updated>2019-06-24T03:58:25.292Z</updated>
+    <updated>2019-06-24T06:25:17.784Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io/blog/"/>
     <link rel="self" href="https://yihangliak.github.io/blog//atom.xml"/>
@@ -96,8 +96,15 @@ insert into score values('07' , '03' , 98);
 <ol>
 <li>查询<code>01</code>课程比<code>02</code>课程成绩高的学生的信息及课程分数</li>
 </ol>
-<pre><code class="language-mysql">select a.* ,b.s_score as 01_score,c.s_score as 02_score from student a join score b on a.s_id=b.s_id and b.c_id='01' left join score c on a.s_id=c.s_id and c.c_id='02' or c.c_id = NULL where b.s_score&gt;c.s_score;
+<ul>
+<li>
+<pre><code class="language-mysql">select a.* ,b.s_score as 01_score,c.s_score as 02_score 
+from student a join score b on a.s_id=b.s_id and b.c_id='01' 
+left join score c on a.s_id=c.s_id and c.c_id='02' or c.c_id = NULL 
+where b.s_score&gt;c.s_score;
 </code></pre>
+</li>
+</ul>
 ]]></content>
     </entry>
     <entry>
@@ -208,11 +215,17 @@ app.config.from_pyfile('config.py') # 这样可以少些一行倒模块方法
 </li>
 </ul>
 <h2 id="4-url的传参方式">4. URL的传参方式</h2>
-<p>视图函数上面的装饰器中URL的传参语法为：<code>/&lt;参数名&gt;</code></p>
+<ul>
+<li>视图函数上面的装饰器中URL的传参语法为：<code>/&lt;参数名&gt;</code></li>
+</ul>
 <blockquote>
 <p>视图函数中要定义同名参数</p>
 </blockquote>
+<ul>
+<li>
 <p>举例，新增一个url_view.py文件，url为文章详情页面</p>
+</li>
+<li>
 <pre><code class="language-python">from flask import Flask
 
 app = Flask(__name__)
@@ -228,11 +241,17 @@ def article_detail(articel_id):  # 在视图函数中也要定义同名参数
 if __name__=='__main__':
     app.run(debug=True, port=81)
 </code></pre>
+</li>
+</ul>
 <h2 id="5url参数的数据类型">5.URL参数的数据类型</h2>
 <p>1.如果没有指定具体的数据类型,那么就是使用<code>string</code>类型</p>
 <p>2.<code>int</code>类型只能传递整数类型</p>
+<ul>
+<li>
 <pre><code>@app.route('/article/&lt;int:test&gt;')
 </code></pre>
+</li>
+</ul>
 <p>3.<code>float</code>传递浮点型数据</p>
 <p>4.<code>path</code>数据类型和<code>string</code>类型都可以接受任意的字符串,但是path可以接收路径,也就是说可以包含斜杠</p>
 <pre><code class="language-python">@app.route('/article/&lt;path:test&gt;')

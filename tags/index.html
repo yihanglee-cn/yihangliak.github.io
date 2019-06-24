@@ -1,198 +1,265 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>一杭的小黑屋</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8" >
 
-<meta name="description" content="你好  靓仔   :D"/>
-<meta name="keywords" content="你好  靓仔   :D"/>
+<title>标签列表 | 一杭的小黑屋</title>
+<meta name="description" content="你好  靓仔   :D">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-<link rel="shortcut icon" href="https://yihangliak.github.io/blog//favicon.ico">
-
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://yihangliak.github.io/blog//favicon.ico?v=1561357515072">
+<!--字体-->
+<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Libre+Barcode+39" rel="stylesheet">
+<!--主要CSS-->
 <link rel="stylesheet" href="https://yihangliak.github.io/blog//styles/main.css">
+<style type="text/css">
+      .tilt{
+        margin: 0;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+        background: #49beb7;
+        background: linear-gradient(to top left, #4CB8C4 -40%, #2196F3);
+        position:fixed;
+        top:0;
+        left:0;
+        z-index: 999 !important;
+      }
+      .container {
+        position: absolute;
+        top:0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 250px;
+        height: 250px;
+        margin: auto;
+      }
 
-<!-- Modernizr JS -->
-<script src="https://yihangliak.github.io/blog//media/scripts/_vendors/modernizr-2.6.2.min.js"></script>
-<!-- FOR IE9 below -->
-<!--[if lt IE 9]>
-<scripts src="https://yihangliak.github.io/blog//media/scripts/_vendors/respond.min.js"></scripts>
-<![endif]-->
+      .part {
+        width: 250px;
+        position: absolute;
+      }
 
-<!-- Comment -->
+      .svgpath {
+        fill: rgba(145,220,90,0);
+        stroke: aqua;
+        stroke-width: 1.5px;
+        stroke-dasharray: 1000;
+        stroke-linecap: round;
+        z-index: 2;
+      }
+
+      .svgbg {
+        fill: rgba(255,255,255,0.2);
+        z-index: 1;
+       }
+
+      #playload {
+        animation: dash 2.5s reverse ease-in-out infinite;
+      }
+
+      @keyframes dash {
+        to {
+          stroke-dashoffset: 2000;
+        }
+      }</style>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/tomorrow-night.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
-<link crossorigin="anonymous" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" href="https://lib.baomitu.com/font-awesome/5.8.1/css/all.min.css" rel="stylesheet">
 
-    </head>
-    <body>
-    
-<div id="fh5co-offcanvas">
-    <a href="#!" class="fh5co-close-offcanvas js-fh5co-close-offcanvas">
-        <span><i class="icon-cross3"></i> <span>Close</span></span>
-    </a>
-    <div class="fh5co-bio">
-        <figure>
-            <img src="https://yihangliak.github.io/blog//media/images/avatar.png" alt="一杭的小黑屋" class="img-responsive">
-        </figure>
-        <h3 class="heading">ABOUT ME</h3>
-        <h2>一杭的小黑屋</h2>
-        <p>你好  靓仔   :D</p>
-        <ul class="fh5co-social">
-            
-                <li>
-                    
-                </li>
-            
-                <li>
-                    
-                </li>
-            
-                <li>
-                    
-                </li>
-            
-                <li>
-                    
-                </li>
-            
-                <li>
-                    
-                </li>
-            
+
+<script src="https://yihangliak.github.io/blog//media/dict/js/Vue.js"></script>
+<script src="https://yihangliak.github.io/blog//media/dict/js/JQuery.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://yihangliak.github.io/blog//media/dict/css/aos.css" />
+
+
+
+
+
+  </head>
+  <body>
+    <div class="tilt">
+      <div class='container'>
+        <svg class='part' x="0px" y="0px" viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
+          <path class="svgpath" id="playload" d="M189.5,140.5c-6.6,29.1-32.6,50.9-63.7,50.9c-36.1,0-65.3-29.3-65.3-65.3
+        c0,0,17,0,23.5,0c10.4,0,6.6-45.9,11-46c5.2-0.1,3.6,94.8,7.4,94.8c4.1,0,4.1-92.9,8.2-92.9c4.1,0,4.1,83,8.1,83
+        c4.1,0,4.1-73.6,8.1-73.6c4.1,0,4.1,63.9,8.1,63.9c4.1,0,4.1-53.9,8.1-53.9c4.1,0,4.1,44.1,8.2,44.1c4.1,0,3.1-34.5,7.2-34.5
+        c4.1,0,3.1,24.6,7.2,24.6c4.1,0,2.5-14.5,5.2-14.5c2.2,0,0.8,5.1,4.2,4.9c0.4,0,13.1,0,13.1,0c0-34.4-27.9-62.3-62.3-62.3
+        c-27.4,0-50.7,17.7-59,42.3" />
+
+          <path class="svgbg" d="M61,126c0,0,16.4,0,23,0c10.4,0,6.6-45.9,11-46c5.2-0.1,3.6,94.8,7.4,94.8c4.1,0,4.1-92.9,8.2-92.9
+        c4.1,0,4.1,83,8.1,83c4.1,0,4.1-73.6,8.1-73.6c4.1,0,4.1,63.9,8.1,63.9c4.1,0,4.1-53.9,8.1-53.9c4.1,0,4.1,44.1,8.2,44.1
+        c4.1,0,3.1-34.5,7.2-34.5c4.1,0,3.1,24.6,7.2,24.6c4.1,0,2.5-14.5,5.2-14.5c2.2,0,0.8,5.1,4.2,4.9c0.4,0,22.5,0,23,0" />
+        </svg></div> 
+    </div>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+
+  <div class="overlay"></div>
+  <div class="top-container" data-aos="fade-right">
+    <!--头像-->
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://yihangliak.github.io/blog/">
+        <img src="https://yihangliak.github.io/blog//images/avatar.png?v=1561357515072" class="site-logo">
+      </a>
+      <h1 class="site-title">
+            一杭的小黑屋
+            <p></p>
+        </h1>
+    </div>
+    <!--导航-->
+    <div class="top-header-nav">
+
+
+      
+        
+          <a href="https://yihangliak.github.io/blog/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://yihangliak.github.io/blog//archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="https://yihangliak.github.io/blog//tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="https://yihangliak.github.io/blog//post/guan-yu-wo/" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+    <div class="icons">
+        <ul>
+          <li v-for="(le,index) in alin.like">
+            <a :href="le.aim" :alt="le.alt">
+              <img :src="le.src" />
+            </a>
+          </li>
         </ul>
-    </div>
+    </div> 
 
-    <div class="fh5co-menu">
-        <div class="fh5co-box">
-            <h3 class="heading">搜索</h3>
-            <form action="#">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="输入关键字">
-                </div>
-            </form>
-        </div>
-        <div class="fh5co-box">
-            <h3 class="heading">标签</h3>
-            <ul>
-                
-                    <li><a href="https://yihangliak.github.io/blog//tag/RIfr7ujrR">Selenium</a></li>
-                
-                    <li><a href="https://yihangliak.github.io/blog//tag/kFYrwlZ3T">Python</a></li>
-                
-                    <li><a href="https://yihangliak.github.io/blog//tag/1bMilhU6w">SVN</a></li>
-                
-            </ul>
-        </div>
-    </div>
+  </div>
+
+
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+      <div class="site-footer">
+          Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+      </div>
+      <div class="site-description">
+          <p><a href="#">你好  靓仔   :D</a></p>
+          <p>
+            
+            <span>&nbsp;</span>
+            Powered by <a href="https://gridea.dev">Gridea</a>
+            <span>•</span>Theme <a href="http://www.itaolaity.com/">Alin</a>
+          </p>
+      </div>
+  </div>
 </div>
 
-<header id="fh5co-header">
-    <div class="container-fluid">
-        <div class="row">
-            <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
-            <ul class="fh5co-social">
-                
-                    <li>
-                        <a href="https://yihangliak.github.io/blog/"
-                         >
-                            首页
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://yihangliak.github.io/blog//archives"
-                         >
-                            归档
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://yihangliak.github.io/blog//tags"
-                         >
-                            标签
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://yihangliak.github.io/blog//post/guan-yu-wo/"
-                         >
-                            关于
-                        </a>
-                    </li>
-                
-            </ul>
-            <div class="col-lg-12 col-md-12 text-center">
-                <h1 id="fh5co-logo">
-                    <a href="https://yihangliak.github.io/blog/">一杭的小黑屋</a>
-                </h1>
-            </div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <h2 class="tag-list-title">标签列表</h2>
+          <div class="tags-container">
+            
+              <a class="tag" href="https://yihangliak.github.io/blog//tag/RIfr7ujrR">Selenium</a>
+            
+              <a class="tag" href="https://yihangliak.github.io/blog//tag/kFYrwlZ3T">Python</a>
+            
+              <a class="tag" href="https://yihangliak.github.io/blog//tag/1bMilhU6w">SVN</a>
+            
+          </div>
+
+
         </div>
+      </div>
     </div>
-</header>
 
-
-    <div class="container-fluid" style="height: 620px;">
-        <div class="row fh5co-post-entry">
-
-            
-                <article class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-xxs-12 animate-box">
-                    <h2 class="fh5co-article-title">
-                        <i class="fa fa-tag" style="opacity: .6; font-size: 19px;"></i>
-                        <a href="https://yihangliak.github.io/blog//tag/RIfr7ujrR">Selenium</a>
-                    </h2>
-                </article>
-            
-                <article class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-xxs-12 animate-box">
-                    <h2 class="fh5co-article-title">
-                        <i class="fa fa-tag" style="opacity: .6; font-size: 19px;"></i>
-                        <a href="https://yihangliak.github.io/blog//tag/kFYrwlZ3T">Python</a>
-                    </h2>
-                </article>
-            
-                <article class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-xxs-12 animate-box">
-                    <h2 class="fh5co-article-title">
-                        <i class="fa fa-tag" style="opacity: .6; font-size: 19px;"></i>
-                        <a href="https://yihangliak.github.io/blog//tag/1bMilhU6w">SVN</a>
-                    </h2>
-                </article>
-            
-            <div class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"></div>
-
-        </div>
-
-        
-<footer id="fh5co-footer">
-  <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></p>
+    <footer>
+	<div class="foo-con">
+    	<p><a href="#">你好  靓仔   :D</a></p>
+      	<p>
+	        
+	        <span>&nbsp;</span>
+	        Powered by <a href="https://gridea.dev">Gridea</a>
+	        <span>•</span>Theme <a href="http://www.itaolaity.com/">Alin</a>
+     	</p>
+    </div>
 </footer>
 
-    </div>
 
-    
-<!-- jQuery -->
-<script src="https://yihangliak.github.io/blog//media/scripts/_vendors/jquery.min.js"></script>
-<!-- jQuery Easing -->
-<script src="https://yihangliak.github.io/blog//media/scripts/_vendors/jquery.easing.1.3.js"></script>
-<!-- Bootstrap -->
-<script src="https://yihangliak.github.io/blog//media/scripts/_vendors/bootstrap.min.js"></script>
-<!-- Waypoints -->
-<script src="https://yihangliak.github.io/blog//media/scripts/_vendors/jquery.waypoints.min.js"></script>
-<!-- Main JS -->
-<script src="https://yihangliak.github.io/blog//media/scripts/_vendors/main.js"></script>
-<!-- Md5 Min JS -->
-<script src="https://yihangliak.github.io/blog//media/scripts/_vendors/md5.min.js"></script>
+
+<script src="https://yihangliak.github.io/blog//media/dict/js/aos.js"></script>
+
+<!--Self-->
+<script>
+    $(window).on('load',function(){ 
+  　　$('.tilt').fadeOut(1000);
+　　}); 
+</script>
+
 
 <script type="application/javascript">
-    hljs.initHighlightingOnLoad();
+
+/*动画初始化*/
+AOS.init(
+  {
+  offset: 200,
+  duration: 600,
+  easing: 'ease-in-sine',
+  delay: 100,
+  }
+);
+
+/*代码高亮*/
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible:false,
+    alin:{
+      like:[
+          {
+            "alt":"我的博客",
+            "aim":"http://www.itaolaity.com/index.php",
+            "src":"http://itaolaity.com/20190429220545.png"
+          },
+          {
+            "alt":"GitHub",
+            "aim":"https://github.com/taoya7",
+            "src":"http://itaolaity.com/20190429220612.png"
+          },
+          {
+            "alt":"Email",
+            "aim":"mailto:569781231@qq.com",
+            "src":"http://itaolaity.com/20190429220636.png"
+          }
+      ]
+    }
+  }
+});
+
 </script>
 
 
 
 
-    </body>
+
+
+  </body>
 </html>
