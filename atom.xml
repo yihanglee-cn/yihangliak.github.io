@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io/blog/</id>
     <title>一杭的小黑屋</title>
-    <updated>2019-07-19T09:39:35.594Z</updated>
+    <updated>2019-07-19T09:40:26.898Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io/blog/"/>
     <link rel="self" href="https://yihangliak.github.io/blog//atom.xml"/>
@@ -95,7 +95,7 @@ pm.test(&quot;Response time is less than 200ms&quot;, function () {
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[MySQL  练习]]></title>
+        <title type="html"><![CDATA[MySQL  整理]]></title>
         <id>https://yihangliak.github.io/blog//post/mysql-lian-xi</id>
         <link href="https://yihangliak.github.io/blog//post/mysql-lian-xi">
         </link>
@@ -192,7 +192,7 @@ GROUP BY b.s_id,b.s_name HAVING avg_score&gt;=60;
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Flask 之路]]></title>
+        <title type="html"><![CDATA[进入Flask世界！ ]]></title>
         <id>https://yihangliak.github.io/blog//post/flask-chao-qing-dao-wu-fa-xiang-xiang</id>
         <link href="https://yihangliak.github.io/blog//post/flask-chao-qing-dao-wu-fa-xiang-xiang">
         </link>
