@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Postman使用技巧 | 一杭的小黑屋</title>
-<link rel="shortcut icon" href="https://yihangliak.github.io/blog//favicon.ico?v=1563507760869">
+<link rel="shortcut icon" href="https://yihangliak.github.io/blog//favicon.ico?v=1563528323649">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://yihangliak.github.io/blog//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://yihangliak.github.io/blog/">
-  <img class="avatar" src="https://yihangliak.github.io/blog//images/avatar.png?v=1563507760869" alt="">
+  <img class="avatar" src="https://yihangliak.github.io/blog//images/avatar.png?v=1563528323649" alt="">
   </a>
   <h1 class="site-title">
     一杭的小黑屋
@@ -87,17 +87,17 @@
               </div>
             
             <div class="post-content">
-              <h1 id="postman使用心得">Postman使用心得</h1>
-<h1 id="1postman介绍">1.Postman介绍</h1>
+              <h1 id="postman使用教程">Postman使用教程</h1>
+<h1 id="1介绍">1.介绍</h1>
 <p>postman是一个接口测试工具，在做接口测试的时候，postman相当于一个客户端，他可以模拟用户发起各类的<code>HTTP请求</code>，将<code>请求</code>你数据发送至<code>服务端</code>，获取对应的响应结果，从而验证响应中的结果是否与预期值匹配；并确保开发人员能够及时处理接口中的bug，进而保证产品上线后的<code>稳定性</code>与<code>安全性</code></p>
-<h1 id="2postman优势">2.postman优势</h1>
+<h1 id="2优势">2.优势</h1>
 <ul>
 <li>简单易用的图形用户界面</li>
 <li>可以保存API请求历史记录</li>
 <li>可用集合Runner来自动化测试</li>
 <li>灵活的API监控</li>
 </ul>
-<h1 id="3postman安装">3.postman安装</h1>
+<h1 id="3安装">3.安装</h1>
 <p>官网下载地址：<a href="https://www.getpostman.com/downloads/">https://www.getpostman.com/downloads/</a></p>
 <p>下载安装包安装即可，注意系统位数</p>
 <h1 id="4工具界面简介">4.工具界面简介</h1>
@@ -112,18 +112,10 @@
 <p><img src="https://i.loli.net/2019/07/19/5d312fc3d3cb542136.png" alt=""></p>
 <p>在响应内容中：</p>
 <ul>
-<li>
-<p><code>pretty</code>显示为格式化后的json</p>
-</li>
-<li>
-<p><code>raw</code>是未经处理的数据</p>
-</li>
-<li>
-<p><code>preview</code>可以预览HTML页面</p>
-</li>
-<li>
-<p><code>status</code>为状态码</p>
-</li>
+<li><code>pretty</code>显示为格式化后的json</li>
+<li><code>raw</code>是未经处理的数据</li>
+<li><code>preview</code>可以预览HTML页面</li>
+<li><code>status</code>为状态码</li>
 </ul>
 <h1 id="6使用用例集">6.使用用例集</h1>
 <p>postman中可以通过新建<code>Collections</code>的方式来保存测试请求</p>
@@ -153,6 +145,24 @@ pm.test(&quot;Response time is less than 200ms&quot;, function () {
     pm.expect(pm.response.responseTime).to.be.below(200);
 }); //检查响应时间是否小于200ms
 </code></pre>
+<h1 id="8批量运行用例集">8.批量运行用例集</h1>
+<p>用例集创建好并且每个请求都写好断言以后，则可以批量执行用例集，并生成相应的报告</p>
+<p>首先点击用例集列表中的箭头，调出批量执行界面，点击<code>run</code></p>
+<p><img src="https://i.loli.net/2019/07/19/5d3161067b60254081.png" alt=""></p>
+<p>配置执行参数</p>
+<p><img src="https://i.loli.net/2019/07/19/5d3161e332ee623513.png" alt=""></p>
+<p>执行结果页面</p>
+<p><img src="https://i.loli.net/2019/07/19/5d31622bc6e0673691.png" alt=""></p>
+<h1 id="9设置环境变量">9.设置环境变量</h1>
+<h2 id="91-添加环境变量">9.1 添加环境变量</h2>
+<p>在postman中，设置环境变量可以快速变换接口地址</p>
+<p>比如分别设置<code>生产环境</code>与<code>测试环境</code>环境变量，之后需要改变接口地址只需切换不同的环境即可</p>
+<p><img src="https://i.loli.net/2019/07/19/5d3166b3ec8f688394.png" alt=""></p>
+<h2 id="93-切换环境">9.3 切换环境</h2>
+<p>在接口请求界面右上角可以切换该接口的环境，</p>
+<p>在接口地址使用变量为双花括号包围变量名，如：</p>
+<p><code>{{url}}autonumber/autoComNum?resultv2=1&amp;text=3102615141528</code></p>
+<p><img src="https://i.loli.net/2019/07/19/5d31681ac9dbb19061.png" alt=""></p>
 
             </div>
           </article>
