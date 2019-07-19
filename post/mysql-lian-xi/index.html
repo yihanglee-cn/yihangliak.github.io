@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>MySQL  练习 | 一杭的小黑屋</title>
-<link rel="shortcut icon" href="https://yihangliak.github.io/blog//favicon.ico?v=1561358231862">
+<link rel="shortcut icon" href="https://yihangliak.github.io/blog//favicon.ico?v=1563507760869">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://yihangliak.github.io/blog//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://yihangliak.github.io/blog/">
-  <img class="avatar" src="https://yihangliak.github.io/blog//images/avatar.png?v=1561358231862" alt="">
+  <img class="avatar" src="https://yihangliak.github.io/blog//images/avatar.png?v=1563507760869" alt="">
   </a>
   <h1 class="site-title">
     一杭的小黑屋
@@ -167,10 +167,12 @@ insert into score values('07' , '03' , 98);
 <ol>
 <li>查询<code>01</code>课程比<code>02</code>课程成绩高的学生的信息及课程分数</li>
 </ol>
-<pre><code class="language-mysql">select a.* ,b.s_score as 01_score,c.s_score as 02_score 
-from student a join score b on a.s_id=b.s_id and b.c_id='01' 
-left join score c on a.s_id=c.s_id and c.c_id='02' or c.c_id = NULL 
-where b.s_score&gt;c.s_score;
+<pre><code class="language-mysql">select a.* ,b.s_score as 01_score,c.s_score as 02_score from student a join score b on a.s_id=b.s_id and b.c_id='01' left join score c on a.s_id=c.s_id and c.c_id='02' or c.c_id = NULL where b.s_score&gt;c.s_score;
+</code></pre>
+<ol start="2">
+<li>查询平均成绩大于等于60分的同学的学生编号和学生姓名和平均成绩</li>
+</ol>
+<pre><code class="language-mysql">select b.s_id,b.s_name,ROUND(AVG(a.s_score),2) as avg_score from student b join score a on b.s_id=a.s_id GROUP BY b.s_id,b.s_name HAVING avg_score&gt;=60;
 </code></pre>
 
             </div>
