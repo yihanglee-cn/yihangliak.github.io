@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io/blog/</id>
     <title>一杭的小黑屋</title>
-    <updated>2019-07-19T09:27:09.521Z</updated>
+    <updated>2019-07-19T09:33:02.757Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io/blog/"/>
     <link rel="self" href="https://yihangliak.github.io/blog//atom.xml"/>
@@ -102,7 +102,7 @@ pm.test(&quot;Response time is less than 200ms&quot;, function () {
         <updated>2019-06-24T02:11:00.000Z</updated>
         <content type="html"><![CDATA[<h1 id="创建表数据">创建表数据</h1>
 <h2 id="创建学生表">创建学生表</h2>
-<pre><code class="language-mysql">CREATE TABLE `student`(
+<pre><code>CREATE TABLE `student`(
 	`s_id` VARCHAR(20),
 	`s_name` VARCHAR(20) NOT NULL DEFAULT '',
 	`s_birth` VARCHAR(20) NOT NULL DEFAULT '',
@@ -111,7 +111,7 @@ pm.test(&quot;Response time is less than 200ms&quot;, function () {
 );
 </code></pre>
 <h2 id="创建课程表">创建课程表</h2>
-<pre><code class="language-mysql">CREATE TABLE `course`(
+<pre><code>CREATE TABLE `course`(
 	`c_id` VARCHAR(20),
     `c_name` VARCHAR(20) NOT NULL DEFAULT '',
     `t_id` VARCHAR(20) NOT NULL,
@@ -119,14 +119,14 @@ pm.test(&quot;Response time is less than 200ms&quot;, function () {
 );
 </code></pre>
 <h2 id="创建教师表">创建教师表</h2>
-<pre><code class="language-mysql">CREATE TABLE `teacher`(
+<pre><code>CREATE TABLE `teacher`(
 	`t_id` VARCHAR(20),
     `t_name` VARCHAR(20) NOT NULL DEFAULT '',
     PRIMARY KEY(`t_id`)
 );
 </code></pre>
 <h2 id="创建成绩表">创建成绩表</h2>
-<pre><code class="language-mysql">CREATE TABLE `score`(
+<pre><code>CREATE TABLE `score`(
 	`s_id` VARCHAR(20),
     `c_id` VARCHAR(20),
     `s_score` INT(3),
@@ -134,7 +134,7 @@ pm.test(&quot;Response time is less than 200ms&quot;, function () {
 );
 </code></pre>
 <h2 id="在学生表中插入数据">在学生表中插入数据</h2>
-<pre><code class="language-mysql">insert iinto student values('01', '赵雷', '1990-01-01', '男');
+<pre><code>insert iinto student values('01', '赵雷', '1990-01-01', '男');
 insert into student values('02' , '钱电' , '1990-12-21' , '男');
 insert into student values('03' , '孙风' , '1990-05-20' , '男');
 insert into student values('04' , '李云' , '1990-08-06' , '男');
@@ -145,17 +145,17 @@ insert into student values('08' , '王菊' , '1990-01-20' , '女');
 
 </code></pre>
 <h2 id="在课程表中插入数据">在课程表中插入数据</h2>
-<pre><code class="language-mysql">insert into course values('01' , '语文' , '02');
+<pre><code>insert into course values('01' , '语文' , '02');
 insert into course values('02' , '数学' , '01');
 insert into course values('03' , '英语' , '03');
 </code></pre>
 <h2 id="在教师表中插入数据">在教师表中插入数据</h2>
-<pre><code class="language-mysql">insert into teacher values('01' , '张三');
+<pre><code>insert into teacher values('01' , '张三');
 insert into teacher values('02' , '李四');
 insert into teacher values('03' , '王五');
 </code></pre>
 <h2 id="在成绩表中插入数据">在成绩表中插入数据</h2>
-<pre><code class="language-mysql">insert into score values('01' , '01' , 80);
+<pre><code>insert into score values('01' , '01' , 80);
 insert into score values('01' , '02' , 90);
 insert into score values('01' , '03' , 99);
 insert into score values('02' , '01' , 70);
@@ -180,12 +180,12 @@ insert into score values('07' , '03' , 98);
 <ol>
 <li>查询<code>01</code>课程比<code>02</code>课程成绩高的学生的信息及课程分数</li>
 </ol>
-<pre><code class="language-mysql">select a.* ,b.s_score as 01_score,c.s_score as 02_score from student a join score b on a.s_id=b.s_id and b.c_id='01' left join score c on a.s_id=c.s_id and c.c_id='02' or c.c_id = NULL where b.s_score&gt;c.s_score;
+<pre><code>select a.* ,b.s_score as 01_score,c.s_score as 02_score from student a join score b on a.s_id=b.s_id and b.c_id='01' left join score c on a.s_id=c.s_id and c.c_id='02' or c.c_id = NULL where b.s_score&gt;c.s_score;
 </code></pre>
 <ol start="2">
 <li>查询平均成绩大于等于60分的同学的学生编号和学生姓名和平均成绩</li>
 </ol>
-<pre><code class="language-mysql">select b.s_id,b.s_name,ROUND(AVG(a.s_score),2) as avg_score from student b join score a on b.s_id=a.s_id GROUP BY b.s_id,b.s_name HAVING avg_score&gt;=60;
+<pre><code>select b.s_id,b.s_name,ROUND(AVG(a.s_score),2) as avg_score from student b join score a on b.s_id=a.s_id GROUP BY b.s_id,b.s_name HAVING avg_score&gt;=60;
 </code></pre>
 ]]></content>
     </entry>
