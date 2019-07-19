@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io/blog/</id>
     <title>一杭的小黑屋</title>
-    <updated>2019-07-19T09:33:02.757Z</updated>
+    <updated>2019-07-19T09:34:24.079Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io/blog/"/>
     <link rel="self" href="https://yihangliak.github.io/blog//atom.xml"/>
@@ -185,7 +185,9 @@ insert into score values('07' , '03' , 98);
 <ol start="2">
 <li>查询平均成绩大于等于60分的同学的学生编号和学生姓名和平均成绩</li>
 </ol>
-<pre><code>select b.s_id,b.s_name,ROUND(AVG(a.s_score),2) as avg_score from student b join score a on b.s_id=a.s_id GROUP BY b.s_id,b.s_name HAVING avg_score&gt;=60;
+<pre><code>select b.s_id,b.s_name,ROUND(AVG(a.s_score),2) as avg_score 
+from student b join score a on b.s_id=a.s_id 
+GROUP BY b.s_id,b.s_name HAVING avg_score&gt;=60;
 </code></pre>
 ]]></content>
     </entry>
