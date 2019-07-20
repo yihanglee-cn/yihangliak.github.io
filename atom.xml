@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io/blog/</id>
     <title>Alex&apos;s Blog</title>
-    <updated>2019-07-20T02:50:04.469Z</updated>
+    <updated>2019-07-20T04:01:54.603Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io/blog/"/>
     <link rel="self" href="https://yihangliak.github.io/blog//atom.xml"/>
@@ -16,9 +16,23 @@
         <link href="https://yihangliak.github.io/blog//post/python-requests">
         </link>
         <updated>2019-07-20T01:53:31.000Z</updated>
-        <content type="html"><![CDATA[<ol>
-<li></li>
-</ol>
+        <content type="html"><![CDATA[<h1 id="1-安装requests">1. 安装requests</h1>
+<p>命令行使用pip安装：<code>pip install requests</code></p>
+<h1 id="2-发送请求">2. 发送请求</h1>
+<h2 id="21-get请求">2.1 get请求</h2>
+<pre><code class="language-python">import requests
+
+r = requests.get('https://www.kuaidi100.com/query?type=yunda&amp;postid=3102615141528')
+</code></pre>
+<h2 id="22-post请求">2.2 post请求</h2>
+<pre><code class="language-python">import requests
+
+r = requests.post('http://127.0.0.1/zentao/user-login.html', data={'account':'admin','password':'lin123456', 'referer':'http://127.0.0.1/zentao/my/','verifyRand':'53933322'})
+</code></pre>
+<h2 id="23-传递url参数">2.3 传递URL参数</h2>
+<p>使用<code>params</code>关键字参数，可以手工构建URL</p>
+<pre><code>
+</code></pre>
 ]]></content>
     </entry>
     <entry>
