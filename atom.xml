@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io/blog/</id>
     <title>Alex&apos;s Blog</title>
-    <updated>2019-07-22T02:32:56.989Z</updated>
+    <updated>2019-07-22T03:42:41.723Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io/blog/"/>
     <link rel="self" href="https://yihangliak.github.io/blog//atom.xml"/>
@@ -75,6 +75,7 @@ print(r.text)                         # 打印响应文本内容
 <pre><code>http://www.baidu.com/s?wd=python
 </code></pre>
 <h1 id="3-post请求">3. post请求</h1>
+<h2 id="31-data">3.1 data</h2>
 <p><code>data</code>参数是字典类型，传入<code>form</code>里</p>
 <pre><code class="language-python">import requests
 
@@ -101,6 +102,71 @@ print(r.text)
   &quot;origin&quot;: &quot;119.123.77.203, 119.123.77.203&quot;, 
   &quot;url&quot;: &quot;https://httpbin.org/post&quot;
 }
+</code></pre>
+<h2 id="32-json">3.2 json</h2>
+<pre><code class="language-python">import requests
+
+data = {'key1':'value1', 'key2':'value2'}
+r = requests.post('http://httpbin.org/post', json=json.dumps(data))
+print(r.text)
+</code></pre>
+<pre><code>{
+  &quot;args&quot;: {}, 
+  &quot;data&quot;: &quot;\&quot;{\\\&quot;key1\\\&quot;: \\\&quot;value1\\\&quot;, \\\&quot;key2\\\&quot;: \\\&quot;value2\\\&quot;}\&quot;&quot;,   # json传到这里
+  &quot;files&quot;: {}, 
+  &quot;form&quot;: {}, 
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, 
+    &quot;Content-Length&quot;: &quot;46&quot;, 
+    &quot;Content-Type&quot;: &quot;application/json&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;python-requests/2.18.4&quot;
+  }, 
+  &quot;json&quot;: &quot;{\&quot;key1\&quot;: \&quot;value1\&quot;, \&quot;key2\&quot;: \&quot;value2\&quot;}&quot;, 
+  &quot;origin&quot;: &quot;119.123.77.203, 119.123.77.203&quot;, 
+  &quot;url&quot;: &quot;https://httpbin.org/post&quot;
+}
+
+</code></pre>
+<h2 id="33-实例">3.3 实例</h2>
+<p>ecshop登录实例：</p>
+<p>首先，通过<code>fiddler</code>抓包，查看ecshop登录请求头中的<code>Content-Type</code>，可以看到请求中的数据是以<code>表单</code>的形式发送到服务器的，如图：</p>
+<p><img src="https://i.loli.net/2019/07/22/5d352bcc4179d47999.png" alt=""></p>
+<p>所以，在使用<code>requests</code>发送<code>post</code>请求时，用户名与密码都会以<code>data</code>关键字参数传入</p>
+<pre><code class="language-python">import requests
+import re
+
+url = 'http://localhost:82/ecshop/user.php'
+datas = {'username':'liyihang', 'password':'tashi123', 'act':'act_login'}
+r = requests.post(url, data=datas)
+print(r.text)
+
+# 可以用re模块，正则匹配的方式，提取出用户名
+t = re.findall('&lt;font class=&quot;f4_b&quot;&gt;(.+?)&lt;/font&gt;', r.text)
+print(t)
+</code></pre>
+<pre><code>['liyihang']
+</code></pre>
+<h1 id="4-保持会话">4. 保持会话</h1>
+<p>一般在项目中，很多操作都是需要先登录再进行，所以需要先发送登录请求，登录成功后，保持登录状态，再进行后续操作，在requests中保持会话的方式如下：</p>
+<pre><code class="language-python">import requests
+
+# 保持登录，然后充值100
+s = requests.session()  # 建立一个session
+
+# 定义登录与充值需要的数据
+url = 'http://localhost:82/ecshop/user.php'
+datas1 = {'username':'liyihang', 'password':'tashi123', 'act':'act_login'}
+datas2 = {'amount':'100', 'user_note':'jiekou', 'payment_id':'2', 'act':'act_account'}
+
+# 使用建立的session对象发送登录请求
+# 登录成功后会返回的cookie会被保存在该session中
+r = s.post(url, data=datas1)
+# print(r.cookies)
+# 发送充值请求
+r2 = s.post(url, data=datas2 )
+print(r2.text)
 </code></pre>
 ]]></content>
     </entry>
