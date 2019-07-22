@@ -1,0 +1,269 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MySQL  整理 | Alex&#39;s Blog</title>
+<meta name="description" content="你好  靓仔   :D" />
+<link rel="shortcut icon" href="https://yihangliak.github.io/blog//favicon.ico?v=1563757164420">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://yihangliak.github.io/blog//styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://yihangliak.github.io/blog/">
+  <img class="avatar" src="https://yihangliak.github.io/blog//images/avatar.png?v=1563757164420" alt="">
+  </a>
+  <h1 class="site-title">
+    Alex&#39;s Blog
+  </h1>
+  <p class="site-description">
+    你好  靓仔   :D
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="https://yihangliak.github.io/blog/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="https://yihangliak.github.io/blog//archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="https://yihangliak.github.io/blog//tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://yihangliak.github.io/blog//post/guan-yu-wo/" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              MySQL  整理
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-06-24
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://yihangliak.github.io/blog//post-images/mysql-lian-xi.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="创建表数据">创建表数据</h1>
+<h2 id="创建学生表">创建学生表</h2>
+<pre><code>CREATE TABLE `student`(
+	`s_id` VARCHAR(20),
+	`s_name` VARCHAR(20) NOT NULL DEFAULT '',
+	`s_birth` VARCHAR(20) NOT NULL DEFAULT '',
+	`s_sex` VARCHAR(10) NOT NULL DEFAULT '',
+	PRIMARY KEY(`s_id`)
+);
+</code></pre>
+<h2 id="创建课程表">创建课程表</h2>
+<pre><code>CREATE TABLE `course`(
+	`c_id` VARCHAR(20),
+    `c_name` VARCHAR(20) NOT NULL DEFAULT '',
+    `t_id` VARCHAR(20) NOT NULL,
+    PRIMARY KEY(`c_id`)
+);
+</code></pre>
+<h2 id="创建教师表">创建教师表</h2>
+<pre><code>CREATE TABLE `teacher`(
+	`t_id` VARCHAR(20),
+    `t_name` VARCHAR(20) NOT NULL DEFAULT '',
+    PRIMARY KEY(`t_id`)
+);
+</code></pre>
+<h2 id="创建成绩表">创建成绩表</h2>
+<pre><code>CREATE TABLE `score`(
+	`s_id` VARCHAR(20),
+    `c_id` VARCHAR(20),
+    `s_score` INT(3),
+    PRIMARY KEY(`s_id`, `c_id`)
+);
+</code></pre>
+<h2 id="在学生表中插入数据">在学生表中插入数据</h2>
+<pre><code>insert iinto student values('01', '赵雷', '1990-01-01', '男');
+insert into student values('02' , '钱电' , '1990-12-21' , '男');
+insert into student values('03' , '孙风' , '1990-05-20' , '男');
+insert into student values('04' , '李云' , '1990-08-06' , '男');
+insert into student values('05' , '周梅' , '1991-12-01' , '女');
+insert into student values('06' , '吴兰' , '1992-03-01' , '女');
+insert into student values('07' , '郑竹' , '1989-07-01' , '女');
+insert into student values('08' , '王菊' , '1990-01-20' , '女');
+
+</code></pre>
+<h2 id="在课程表中插入数据">在课程表中插入数据</h2>
+<pre><code>insert into course values('01' , '语文' , '02');
+insert into course values('02' , '数学' , '01');
+insert into course values('03' , '英语' , '03');
+</code></pre>
+<h2 id="在教师表中插入数据">在教师表中插入数据</h2>
+<pre><code>insert into teacher values('01' , '张三');
+insert into teacher values('02' , '李四');
+insert into teacher values('03' , '王五');
+</code></pre>
+<h2 id="在成绩表中插入数据">在成绩表中插入数据</h2>
+<pre><code>insert into score values('01' , '01' , 80);
+insert into score values('01' , '02' , 90);
+insert into score values('01' , '03' , 99);
+insert into score values('02' , '01' , 70);
+insert into score values('02' , '02' , 60);
+insert into score values('02' , '03' , 80);
+insert into score values('03' , '01' , 80);
+insert into score values('03' , '02' , 80);
+insert into score values('03' , '03' , 80);
+insert into score values('04' , '01' , 50);
+insert into score values('04' , '02' , 30);
+insert into score values('04' , '03' , 20);
+insert into score values('05' , '01' , 76);
+insert into score values('05' , '02' , 87);
+insert into score values('06' , '01' , 31);
+insert into score values('06' , '03' , 34);
+insert into score values('07' , '02' , 89);
+insert into score values('07' , '03' , 98);
+</code></pre>
+<h2 id="最终数据结构">最终数据结构</h2>
+<p><img src="https://i.loli.net/2019/06/24/5d1047a00429076901.png" alt=""></p>
+<h1 id="练习">练习</h1>
+<ol>
+<li>查询<code>01</code>课程比<code>02</code>课程成绩高的学生的信息及课程分数</li>
+</ol>
+<pre><code>select a.* ,b.s_score as 01_score,c.s_score as 02_score from student a join score b on a.s_id=b.s_id and b.c_id='01' left join score c on a.s_id=c.s_id and c.c_id='02' or c.c_id = NULL where b.s_score&gt;c.s_score;
+</code></pre>
+<ol start="2">
+<li>查询平均成绩大于等于60分的同学的学生编号和学生姓名和平均成绩</li>
+</ol>
+<pre><code>select b.s_id,b.s_name,ROUND(AVG(a.s_score),2) as avg_score 
+from student b join score a on b.s_id=a.s_id 
+GROUP BY b.s_id,b.s_name HAVING avg_score&gt;=60;
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%88%9B%E5%BB%BA%E8%A1%A8%E6%95%B0%E6%8D%AE">创建表数据</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%AD%A6%E7%94%9F%E8%A1%A8">创建学生表</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E8%AF%BE%E7%A8%8B%E8%A1%A8">创建课程表</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E6%95%99%E5%B8%88%E8%A1%A8">创建教师表</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E6%88%90%E7%BB%A9%E8%A1%A8">创建成绩表</a></li>
+<li><a href="#%E5%9C%A8%E5%AD%A6%E7%94%9F%E8%A1%A8%E4%B8%AD%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE">在学生表中插入数据</a></li>
+<li><a href="#%E5%9C%A8%E8%AF%BE%E7%A8%8B%E8%A1%A8%E4%B8%AD%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE">在课程表中插入数据</a></li>
+<li><a href="#%E5%9C%A8%E6%95%99%E5%B8%88%E8%A1%A8%E4%B8%AD%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE">在教师表中插入数据</a></li>
+<li><a href="#%E5%9C%A8%E6%88%90%E7%BB%A9%E8%A1%A8%E4%B8%AD%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE">在成绩表中插入数据</a></li>
+<li><a href="#%E6%9C%80%E7%BB%88%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">最终数据结构</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%83%E4%B9%A0">练习</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://yihangliak.github.io/blog//post/flask-chao-qing-dao-wu-fa-xiang-xiang">
+              <h3 class="post-title">
+                进入Flask世界！ 
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by Alexxx | 
+  <a class="rss" href="https://yihangliak.github.io/blog//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

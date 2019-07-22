@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io/blog/</id>
     <title>Alex&apos;s Blog</title>
-    <updated>2019-07-21T14:37:35.248Z</updated>
+    <updated>2019-07-22T00:59:26.759Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io/blog/"/>
     <link rel="self" href="https://yihangliak.github.io/blog//atom.xml"/>
@@ -224,7 +224,7 @@ GROUP BY b.s_id,b.s_name HAVING avg_score&gt;=60;
         <updated>2019-06-21T08:44:53.000Z</updated>
         <content type="html"><![CDATA[<h1 id="flask简介">Flask简介</h1>
 <blockquote>
-<p>Flask是一个使用<code>Python</code>编写的轻量级web应用框架
+<p>Flask是一个使用<code>Python</code>编写的轻量级web应用框架<br>
 WSGI工具箱采用<code>Werzeug</code>，模板引擎使用<code>Jinjia2</code></p>
 </blockquote>
 <h1 id="进入flask世界">进入Flask世界</h1>
@@ -412,7 +412,7 @@ def d():
     return '通过字符串传递的参数是：wd=%s,ie=%s' %(wd,ie)
 </code></pre>
 <p><img src="https://i.loli.net/2019/06/06/5cf8dbe03246a52713.png" alt=""></p>
-<p>==如果页面想要做SEO优化，就是被搜索引擎搜索到，那么推荐使用第一种（path）传递方式，如果不在乎SEO，则可以使用第二种==</p>
+<p><mark>如果页面想要做SEO优化，就是被搜索引擎搜索到，那么推荐使用第一种（path）传递方式，如果不在乎SEO，则可以使用第二种</mark></p>
 <h2 id="7-url_for">7. url_for</h2>
 <p>url_for第一个参数，应该是视图函数的名字的字符串，后面的参数传递给url</p>
 <h2 id="8自定义url转换器">8.自定义URL转换器</h2>
