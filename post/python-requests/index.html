@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Python Requests | Alex&#39;s Blog</title>
 <meta name="description" content="你好  靓仔   :D" />
-<link rel="shortcut icon" href="https://yihangliak.github.io/blog//favicon.ico?v=1563757164420">
+<link rel="shortcut icon" href="https://yihangliak.github.io/blog//favicon.ico?v=1563762347908">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://yihangliak.github.io/blog//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://yihangliak.github.io/blog/">
-  <img class="avatar" src="https://yihangliak.github.io/blog//images/avatar.png?v=1563757164420" alt="">
+  <img class="avatar" src="https://yihangliak.github.io/blog//images/avatar.png?v=1563762347908" alt="">
   </a>
   <h1 class="site-title">
     Alex&#39;s Blog
@@ -80,7 +80,7 @@
                 2019-07-20
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
                 <a href="https://yihangliak.github.io/blog//tag/YrWwR_CC9" class="post-tag">
@@ -93,35 +93,106 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h1 id="1-安装requests">1. 安装requests</h1>
+                <h1 id="requests">Requests</h1>
+<h1 id="1-安装requests">1. 安装requests</h1>
 <p>命令行使用pip安装：<code>pip install requests</code></p>
-<h1 id="2-发送请求">2. 发送请求</h1>
+<h1 id="2-get请求">2. get请求</h1>
 <h2 id="21-get请求">2.1 get请求</h2>
+<p>该方法用于向目标网址发送请求，接收响应</p>
+<p><code>get</code>方法中的参数说明：</p>
+<ul>
+<li>url：必填，指定请求的目标网址</li>
+<li>params：字典类型，指定请求参数</li>
+</ul>
+<p>该方法返回一个response对象，常用的方法和属性如下：</p>
 <pre><code class="language-python">import requests
 
-r = requests.get('https://www.kuaidi100.com/query?type=yunda&amp;postid=3102615141528')
+r = requests.get('https://api.github.com/events')  # 使用get请求访问github
+print(r.status_code)                      # 打印响应状态码
+print(r.text)                             # 返回str类型的响应
+print(r.url)                              # 返回请求网站的url
+print(r.encoding)                         # 返回响应时间的编码方式
+print(r.cookies)                          # 返回响应的cookies信息
+print(r.headers)                          # 返回响应头部
+print(r.content)                          # 返回bytes类型的响应体
+print(r.json())                           # 返回字典类型的响应体
 </code></pre>
-<h2 id="22-post请求">2.2 post请求</h2>
+<h2 id="22-传递url参数">2.2 传递URL参数</h2>
+<p>在get请求中，使用<code>params</code>关键字参数，可将字典类型的自定义参数传入到URL中进行拼接</p>
 <pre><code class="language-python">import requests
 
-r = requests.post('http://127.0.0.1/zentao/user-login.html', data={'account':'admin','password':'lin123456', 'referer':'http://127.0.0.1/zentao/my/','verifyRand':'53933322'})
+url = 'http://httpbin.org/get'   # 定义请求目标网址
+params = {                       # 定义自定义请求参数
+    'key1':'value1',
+    'key2':'value2'
+}
+r = requests.get(url, params=params)  # get请求中传入自定义参数
+print(r.status_code)               # 打印状态码
+print(r.url)                       # 打印传入参数后的URL
+print(r.json())                    # 返回dict响应
 </code></pre>
-<h2 id="23-传递url参数">2.3 传递URL参数</h2>
-<p>使用<code>params</code>关键字参数，可以手工构建URL</p>
-<pre><code>
+<pre><code># 状态码
+200
+# 传入参数后的url
+http://httpbin.org/get?key1=value1&amp;key2=value2    
+# 返回的dict类型数据中可以看到自定义参数
+{'args': {'key1': 'value1', 'key2': 'value2'}, 'headers': {'Accept': '*/*', 'Accept-Encodinh': 'gzip, deflate', 'Connectioo': 'keep-alive', 'Host': 'httpbin.org', 'User-Agent': 'python-requests/2.18.4'}, 'origin': '119.123.77.203, 119.123.77.203', 'url': 'https://httpbin.org/get?key1=value1&amp;key2=value2'}
+
+</code></pre>
+<h2 id="23-实例">2.3 实例</h2>
+<p>以百度搜索为例</p>
+<pre><code class="language-python">import requests
+
+url = 'http://www.baidu.com/s'
+params = {'wd':'python'}
+r = requests.get(url, params=params)  # get方法中传入params参数，可以讲自定义参数拼接到URL中
+print(r.url)                          # 打印拼接过后的URL
+print(r.text)                         # 打印响应文本内容
+</code></pre>
+<pre><code>http://www.baidu.com/s?wd=python
+</code></pre>
+<h1 id="3-post请求">3. post请求</h1>
+<p><code>data</code>参数是字典类型，传入<code>form</code>里</p>
+<pre><code class="language-python">import requests
+
+r = requests.post('http://httpbin.org/post', data={'key1':'value1', 'key2':'value2'})
+print(r.text)
+</code></pre>
+<pre><code>{
+  &quot;args&quot;: {}, 
+  &quot;data&quot;: &quot;&quot;, 
+  &quot;files&quot;: {}, 
+  &quot;form&quot;: {               # data传入到这里
+    &quot;key1&quot;: &quot;value1&quot;, 
+    &quot;key2&quot;: &quot;value2&quot;
+  }, 
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, 
+    &quot;Content-Length&quot;: &quot;23&quot;, 
+    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;python-requests/2.18.4&quot;
+  }, 
+  &quot;json&quot;: null, 
+  &quot;origin&quot;: &quot;119.123.77.203, 119.123.77.203&quot;, 
+  &quot;url&quot;: &quot;https://httpbin.org/post&quot;
+}
 </code></pre>
 
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
+<li><a href="#requests">Requests</a></li>
 <li><a href="#1-%E5%AE%89%E8%A3%85requests">1. 安装requests</a></li>
-<li><a href="#2-%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82">2. 发送请求</a>
+<li><a href="#2-get%E8%AF%B7%E6%B1%82">2. get请求</a>
 <ul>
 <li><a href="#21-get%E8%AF%B7%E6%B1%82">2.1 get请求</a></li>
-<li><a href="#22-post%E8%AF%B7%E6%B1%82">2.2 post请求</a></li>
-<li><a href="#23-%E4%BC%A0%E9%80%92url%E5%8F%82%E6%95%B0">2.3 传递URL参数</a></li>
+<li><a href="#22-%E4%BC%A0%E9%80%92url%E5%8F%82%E6%95%B0">2.2 传递URL参数</a></li>
+<li><a href="#23-%E5%AE%9E%E4%BE%8B">2.3 实例</a></li>
 </ul>
 </li>
+<li><a href="#3-post%E8%AF%B7%E6%B1%82">3. post请求</a></li>
 </ul>
 
               </div>
