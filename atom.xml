@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://yihangliak.github.io/blog/</id>
+    <id>https://yihangliak.github.io</id>
     <title>Alex&apos;s Blog</title>
-    <updated>2019-07-22T03:42:41.723Z</updated>
+    <updated>2019-07-22T07:03:53.825Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://yihangliak.github.io/blog/"/>
-    <link rel="self" href="https://yihangliak.github.io/blog//atom.xml"/>
+    <link rel="alternate" href="https://yihangliak.github.io"/>
+    <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
     <subtitle>你好  靓仔   :D</subtitle>
-    <logo>https://yihangliak.github.io/blog//images/avatar.png</logo>
-    <icon>https://yihangliak.github.io/blog//favicon.ico</icon>
+    <logo>https://yihangliak.github.io/images/avatar.png</logo>
+    <icon>https://yihangliak.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, Alex&apos;s Blog</rights>
     <entry>
         <title type="html"><![CDATA[Python Requests]]></title>
-        <id>https://yihangliak.github.io/blog//post/python-requests</id>
-        <link href="https://yihangliak.github.io/blog//post/python-requests">
+        <id>https://yihangliak.github.io/post/python-requests</id>
+        <link href="https://yihangliak.github.io/post/python-requests">
         </link>
         <updated>2019-07-20T01:53:31.000Z</updated>
         <content type="html"><![CDATA[<h1 id="requests">Requests</h1>
@@ -172,8 +172,8 @@ print(r2.text)
     </entry>
     <entry>
         <title type="html"><![CDATA[Postman使用技巧]]></title>
-        <id>https://yihangliak.github.io/blog//post/postman-shi-yong-ji-qiao</id>
-        <link href="https://yihangliak.github.io/blog//post/postman-shi-yong-ji-qiao">
+        <id>https://yihangliak.github.io/post/postman-shi-yong-ji-qiao</id>
+        <link href="https://yihangliak.github.io/post/postman-shi-yong-ji-qiao">
         </link>
         <updated>2019-07-19T03:40:49.000Z</updated>
         <content type="html"><![CDATA[<h1 id="postman使用教程">Postman使用教程</h1>
@@ -256,8 +256,8 @@ pm.test(&quot;Response time is less than 200ms&quot;, function () {
     </entry>
     <entry>
         <title type="html"><![CDATA[MySQL  整理]]></title>
-        <id>https://yihangliak.github.io/blog//post/mysql-lian-xi</id>
-        <link href="https://yihangliak.github.io/blog//post/mysql-lian-xi">
+        <id>https://yihangliak.github.io/post/mysql-lian-xi</id>
+        <link href="https://yihangliak.github.io/post/mysql-lian-xi">
         </link>
         <updated>2019-06-24T02:11:00.000Z</updated>
         <content type="html"><![CDATA[<h1 id="创建表数据">创建表数据</h1>
@@ -353,8 +353,8 @@ GROUP BY b.s_id,b.s_name HAVING avg_score&gt;=60;
     </entry>
     <entry>
         <title type="html"><![CDATA[进入Flask世界！ ]]></title>
-        <id>https://yihangliak.github.io/blog//post/flask-chao-qing-dao-wu-fa-xiang-xiang</id>
-        <link href="https://yihangliak.github.io/blog//post/flask-chao-qing-dao-wu-fa-xiang-xiang">
+        <id>https://yihangliak.github.io/post/flask-chao-qing-dao-wu-fa-xiang-xiang</id>
+        <link href="https://yihangliak.github.io/post/flask-chao-qing-dao-wu-fa-xiang-xiang">
         </link>
         <updated>2019-06-21T08:44:53.000Z</updated>
         <content type="html"><![CDATA[<h1 id="flask简介">Flask简介</h1>
@@ -810,8 +810,8 @@ if __name__ == '__main__':
     </entry>
     <entry>
         <title type="html"><![CDATA[Selenium 从入门到实战]]></title>
-        <id>https://yihangliak.github.io/blog//post/selenium-cong-ru-men-dao-shi-zhan</id>
-        <link href="https://yihangliak.github.io/blog//post/selenium-cong-ru-men-dao-shi-zhan">
+        <id>https://yihangliak.github.io/post/selenium-cong-ru-men-dao-shi-zhan</id>
+        <link href="https://yihangliak.github.io/post/selenium-cong-ru-men-dao-shi-zhan">
         </link>
         <updated>2019-06-21T03:29:54.000Z</updated>
         <content type="html"><![CDATA[<p>即将上线</p>
@@ -819,8 +819,8 @@ if __name__ == '__main__':
     </entry>
     <entry>
         <title type="html"><![CDATA[Python 踩坑之路]]></title>
-        <id>https://yihangliak.github.io/blog//post/python-mo-fa</id>
-        <link href="https://yihangliak.github.io/blog//post/python-mo-fa">
+        <id>https://yihangliak.github.io/post/python-mo-fa</id>
+        <link href="https://yihangliak.github.io/post/python-mo-fa">
         </link>
         <updated>2019-06-20T15:35:14.000Z</updated>
         <content type="html"><![CDATA[<h1 id="python简介">Python简介</h1>
@@ -920,8 +920,8 @@ username = int(input('请输入您的用户名：'))
     </entry>
     <entry>
         <title type="html"><![CDATA[SVN版本控制系统使用技巧]]></title>
-        <id>https://yihangliak.github.io/blog//post/RjvYDSerC</id>
-        <link href="https://yihangliak.github.io/blog//post/RjvYDSerC">
+        <id>https://yihangliak.github.io/post/RjvYDSerC</id>
+        <link href="https://yihangliak.github.io/post/RjvYDSerC">
         </link>
         <updated>2019-06-20T15:22:32.000Z</updated>
         <content type="html"><![CDATA[<h1 id="svn简介">SVN简介</h1>
