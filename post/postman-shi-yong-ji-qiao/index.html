@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Postman使用技巧 | Alex&#39;s Blog</title>
 <meta name="description" content="你好  靓仔   :D" />
-<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1563843802262">
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1563844317672">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://yihangliak.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://yihangliak.github.io">
-  <img class="avatar" src="https://yihangliak.github.io/images/avatar.png?v=1563843802262" alt="">
+  <img class="avatar" src="https://yihangliak.github.io/images/avatar.png?v=1563844317672" alt="">
   </a>
   <h1 class="site-title">
     Alex&#39;s Blog
@@ -108,20 +108,28 @@
 <p>下载安装包安装即可，注意系统位数</p>
 <h1 id="4工具界面简介">4.工具界面简介</h1>
 <p><img src="https://i.loli.net/2019/07/19/5d3122915979f43319.png" alt=""></p>
-<h1 id="5第一个请求">5.第一个请求</h1>
+<h1 id="5发送请求">5.发送请求</h1>
 <h2 id="51-创建请求选项卡">5.1 创建请求选项卡</h2>
 <p>点击请求构建器中的<code>+</code>号，创建一个新的选项卡</p>
 <p><img src="https://i.loli.net/2019/07/19/5d3123fcbb04589086.png" alt=""></p>
 <h2 id="52-填写请求地址">5.2 填写请求地址</h2>
-<p>以百度首页为例，在请求地址栏中填写请求地址：<code>https://www.baidu.com/?wd=python</code></p>
+<p>以百度首页为例，在请求地址栏中填写请求地址：<code>https://www.baidu.com/s?wd=python</code></p>
 <p>请求方式选择<code>get</code></p>
-<p><img src="https://i.loli.net/2019/07/19/5d312fc3d3cb542136.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/07/23/5d365e4b03f0020602.png" alt=""></p>
 <p>在响应内容中：</p>
 <ul>
-<li><code>pretty</code>显示为格式化后的json</li>
-<li><code>raw</code>是未经处理的数据</li>
-<li><code>preview</code>可以预览HTML页面</li>
-<li><code>status</code>为状态码</li>
+<li>
+<p><code>pretty</code>显示为格式化后的json</p>
+</li>
+<li>
+<p><code>raw</code>是未经处理的数据</p>
+</li>
+<li>
+<p><code>preview</code>可以预览HTML页面</p>
+</li>
+<li>
+<p><code>status</code>为状态码</p>
+</li>
 </ul>
 <h1 id="6使用用例集">6.使用用例集</h1>
 <p>postman中可以通过新建<code>Collections</code>的方式来保存测试请求</p>
@@ -178,7 +186,7 @@ pm.test(&quot;Response time is less than 200ms&quot;, function () {
 <li><a href="#2%E4%BC%98%E5%8A%BF">2.优势</a></li>
 <li><a href="#3%E5%AE%89%E8%A3%85">3.安装</a></li>
 <li><a href="#4%E5%B7%A5%E5%85%B7%E7%95%8C%E9%9D%A2%E7%AE%80%E4%BB%8B">4.工具界面简介</a></li>
-<li><a href="#5%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82">5.第一个请求</a>
+<li><a href="#5%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82">5.发送请求</a>
 <ul>
 <li><a href="#51-%E5%88%9B%E5%BB%BA%E8%AF%B7%E6%B1%82%E9%80%89%E9%A1%B9%E5%8D%A1">5.1 创建请求选项卡</a></li>
 <li><a href="#52-%E5%A1%AB%E5%86%99%E8%AF%B7%E6%B1%82%E5%9C%B0%E5%9D%80">5.2 填写请求地址</a></li>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>Alex&apos;s Blog</title>
-    <updated>2019-07-23T01:03:24.516Z</updated>
+    <updated>2019-07-23T01:12:01.859Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -191,20 +191,28 @@ print(r2.text)
 <p>下载安装包安装即可，注意系统位数</p>
 <h1 id="4工具界面简介">4.工具界面简介</h1>
 <p><img src="https://i.loli.net/2019/07/19/5d3122915979f43319.png" alt=""></p>
-<h1 id="5第一个请求">5.第一个请求</h1>
+<h1 id="5发送请求">5.发送请求</h1>
 <h2 id="51-创建请求选项卡">5.1 创建请求选项卡</h2>
 <p>点击请求构建器中的<code>+</code>号，创建一个新的选项卡</p>
 <p><img src="https://i.loli.net/2019/07/19/5d3123fcbb04589086.png" alt=""></p>
 <h2 id="52-填写请求地址">5.2 填写请求地址</h2>
-<p>以百度首页为例，在请求地址栏中填写请求地址：<code>https://www.baidu.com/?wd=python</code></p>
+<p>以百度首页为例，在请求地址栏中填写请求地址：<code>https://www.baidu.com/s?wd=python</code></p>
 <p>请求方式选择<code>get</code></p>
-<p><img src="https://i.loli.net/2019/07/19/5d312fc3d3cb542136.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/07/23/5d365e4b03f0020602.png" alt=""></p>
 <p>在响应内容中：</p>
 <ul>
-<li><code>pretty</code>显示为格式化后的json</li>
-<li><code>raw</code>是未经处理的数据</li>
-<li><code>preview</code>可以预览HTML页面</li>
-<li><code>status</code>为状态码</li>
+<li>
+<p><code>pretty</code>显示为格式化后的json</p>
+</li>
+<li>
+<p><code>raw</code>是未经处理的数据</p>
+</li>
+<li>
+<p><code>preview</code>可以预览HTML页面</p>
+</li>
+<li>
+<p><code>status</code>为状态码</p>
+</li>
 </ul>
 <h1 id="6使用用例集">6.使用用例集</h1>
 <p>postman中可以通过新建<code>Collections</code>的方式来保存测试请求</p>
