@@ -1,0 +1,679 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jemeter性能测试完整入门 | Alex&#39;s Blog</title>
+<meta name="description" content="你好  靓仔   :D" />
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1563845155496">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://yihangliak.github.io/styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://yihangliak.github.io">
+  <img class="avatar" src="https://yihangliak.github.io/images/avatar.png?v=1563845155496" alt="">
+  </a>
+  <h1 class="site-title">
+    Alex&#39;s Blog
+  </h1>
+  <p class="site-description">
+    你好  靓仔   :D
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="https://yihangliak.github.io" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="https://yihangliak.github.io/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="https://yihangliak.github.io/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://yihangliak.github.io/post/guan-yu/" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Jemeter性能测试完整入门
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-07-23
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://yihangliak.github.io/tag/zMtSYVLzL" class="post-tag">
+                  # 性能
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://yihangliak.github.io/post-images/begin_jemeter.jpg" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="第一章-性能基础知识">第一章 性能基础知识</h1>
+<h2 id="1-性能测试的概念">1. 性能测试的概念</h2>
+<p>通过性能测试工具模拟多种正常，峰值，以及异常负载条件来对系统的各项性能指标进行测试</p>
+<h2 id="2性能测试的目的">2.性能测试的目的</h2>
+<ul>
+<li>评估系统能力</li>
+<li>测试系统可靠性</li>
+<li>识别系统的弱点（内存泄漏）</li>
+<li>性能调优（满足用户需求，优化瓶颈，提高整体性能）</li>
+</ul>
+<blockquote>
+<p>性能测试时间点，功能测试之后</p>
+</blockquote>
+<h2 id="3性能测试归属">3.性能测试归属</h2>
+<p>测试阶段划分：系统测试</p>
+<p>性能测试属于黑盒测试</p>
+<p>属于6大质量特性中的：效率特性</p>
+<h1 id="第二章-性能测试的分类">第二章 性能测试的分类</h1>
+<h2 id="1-负载测试">1 负载测试</h2>
+<ul>
+<li>通过逐步给服务器增加压力，直到某项数据不达标，测试软件的瓶颈</li>
+<li>评测和评估对象在不同工作量条件下的性能行为</li>
+<li>负载的目标是确保系统测试超出预期工作量的情况下仍然可以继续运行</li>
+</ul>
+<h2 id="2-压力测试">2 压力测试</h2>
+<ul>
+<li>强度测试，通过高负载的手段来使服务器资源处于极限状态，直到某项数据失效，测试系统的极限</li>
+<li>通过高负载的手段，可以更快的发现系统内存泄漏以及稳定性等问题</li>
+</ul>
+<h2 id="3-失效恢复性测试">3 失效恢复性测试</h2>
+<ul>
+<li>出现问题后能否根据预先制定的策略恢复，且恢复后能正常工作</li>
+</ul>
+<h2 id="4-并发测试">4 并发测试</h2>
+<ul>
+<li>测试多用户按照预定的场景请求某个业务或者功能时，是否会出现问题</li>
+<li>几乎所有的性能测试都会涉及到并发测试，并发测试的主要目的是找出并发问题（资源争用）</li>
+</ul>
+<h2 id="5-稳定性测试">5 稳定性测试</h2>
+<ul>
+<li>一般使用目标负载的1.5-2倍的负载量或者CPU占用达到70%，测试系统长时间运行（7x24），观察系统稳定性</li>
+</ul>
+<h2 id="6-配置测试">6 配置测试</h2>
+<ul>
+<li>通过调整系统软件、硬件环境，了解在不同情况下系统性能指标情况，从而找到系统最优配置</li>
+</ul>
+<blockquote>
+<p>新产品上线以前，先做一个配置测试，找到最优配置，然后进行负载，压力，稳定，失效恢复性等测试</p>
+<p>产品上线以后主要做压力测试</p>
+<p>当然，具体做什么类型的性能测试，需要根据项目背景去灵活选择</p>
+</blockquote>
+<h1 id="第三章-性能术语">第三章 性能术语</h1>
+<h2 id="1-事务">1 事务</h2>
+<p>一个任务从开始到结束的过程</p>
+<blockquote>
+<p>事务具有原子性</p>
+<p>原子性：整个程序操作过程中的所有操作，要么全部完成，要么全部不完成</p>
+</blockquote>
+<h2 id="2-响应时间">2 响应时间</h2>
+<p>系统对请求作出响应的时间（一个事务处理完成的时间）</p>
+<blockquote>
+<p>响应时间=网络传输时间+web服务器处理时间+DB服务器处理时间+浪费时间</p>
+<p>258原则：</p>
+<p>&lt;2秒快<br>
+大于2小于5秒可以<br>
+大于5小于8秒勉强接受<br>
+大于8秒不耐烦了，或者认为系统已经失去响应，而选择离开这个Web站点，或者发起第二次请</p>
+</blockquote>
+<h2 id="3-吞吐量">3 吞吐量</h2>
+<p>每秒服务器处理的请求或者事务数</p>
+<p>吞吐量衡量单位：</p>
+<ul>
+<li>每秒请求数</li>
+<li>每秒事务数（TPS）</li>
+<li>每秒页面数</li>
+<li>每秒查询数（QPS）</li>
+</ul>
+<h2 id="4-并发">4 并发</h2>
+<ul>
+<li>绝对并发：不同用户，在同一时刻，做同一个操作</li>
+<li>相对并发：不用用户，在同一时刻，做不同操作</li>
+</ul>
+<h2 id="5-并发数">5 并发数</h2>
+<p>同一时间操作的用户个数</p>
+<h2 id="6-场景">6 场景</h2>
+<p>模拟用户的真实操作过程</p>
+<p>分类：</p>
+<ul>
+<li>单一场景：单个操作</li>
+<li>混合场景：多个组合操作</li>
+</ul>
+<h2 id="7-思考时间">7 思考时间</h2>
+<p>用户每个操作之间的间隔时间，增加间隔时间可以更真实地模拟用户使用的场景</p>
+<h2 id="8-性能瓶颈">8 性能瓶颈</h2>
+<p>软件的性能缺陷</p>
+<p>这个缺陷主要分布在：</p>
+<ul>
+<li>硬件：如cpu等配置过低</li>
+<li>应用服务器：如web服务器，数据库系统等</li>
+<li>程序：程序设计的问题</li>
+<li>操作系统：如Windows虚拟内存交换效果不理想等</li>
+<li>网络设备：防火墙，交换机等</li>
+</ul>
+<h1 id="第四章-性能测试工具">第四章 性能测试工具</h1>
+<h2 id="1-工具分类">1 工具分类</h2>
+<p><strong>jmeter</strong></p>
+<ul>
+<li>免费，开源</li>
+<li>支持二次开发</li>
+<li>支持分布式部署</li>
+<li>支持命令行模式</li>
+</ul>
+<p><strong>LoadRunner</strong></p>
+<ul>
+<li>商业，收费</li>
+</ul>
+<p><strong>Locust</strong></p>
+<ul>
+<li>python开源性能测试工具</li>
+</ul>
+<p><strong>Apache ab</strong></p>
+<ul>
+<li>Apache的web性能测试工具</li>
+</ul>
+<h1 id="第五章-jmeter原理与安装">第五章  Jmeter原理与安装</h1>
+<h2 id="1-工作原理">1 工作原理</h2>
+<p>使用取样器向服务器发送请求，从服务器获取响应结果，然后通过线程组模拟服务器压力</p>
+<h2 id="2-安装">2 安装</h2>
+<p>安装JDK并配置环境变量</p>
+<p>官网下载jmeter压缩包，并解压</p>
+<p>双击bin目录下的jmeter.bat启动即可</p>
+<h2 id="3-常用组件">3 常用组件</h2>
+<p>Test Plan：测试计划（场景）</p>
+<ul>
+<li>Thread Group：线程组，模拟并发数
+<ul>
+<li>http request ：取样器，模拟用户请求
+<ul>
+<li>view result tree：查看结果树，监听取样器的结果</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2019/05/23/5ce651c23611220681.png" alt=""></p>
+<p>在取样器中添加响应断言</p>
+<p><img src="https://i.loli.net/2019/05/23/5ce654857964383456.png" alt=""></p>
+<p>断言界面详解</p>
+<p><img src="https://i.loli.net/2019/05/23/5ce655cf44fc126049.png" alt=""></p>
+<p>添加聚合报告</p>
+<p><img src="https://i.loli.net/2019/05/23/5ce656572cffc62167.png" alt=""></p>
+<p>聚合报告详情</p>
+<p><img src="https://i.loli.net/2019/05/23/5ce658c11d59d64211.png" alt=""></p>
+<h2 id="4-第一个脚本">4 第一个脚本</h2>
+<p>1.新建测试计划</p>
+<p>2.创建线程组</p>
+<p>3.添加http取样器</p>
+<p>4.添加监听器-view result tree</p>
+<p>5.添加断言-response assertion</p>
+<p>6.添加聚合报告</p>
+<p>ecshop登录脚本</p>
+<p><img src="https://i.loli.net/2019/05/23/5ce66637dacc955298.png" alt=""></p>
+<h1 id="第六章-jmeter常用组件">第六章 jmeter常用组件</h1>
+<h2 id="1-参数化">1 参数化</h2>
+<p>1.设置用户自定义变量</p>
+<p><img src="https://i.loli.net/2019/05/23/5ce66b3899da523409.png" alt=""></p>
+<p>调用方式与RF一致，${变量名}</p>
+<p><img src="https://i.loli.net/2019/05/23/5ce66f8a9d53b90774.png" alt=""></p>
+<p>添加参数化文件读取组件</p>
+<p><img src="https://i.loli.net/2019/05/23/5ce66f2c1f19c73246.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/05/23/5ce66fa76129952059.png" alt=""></p>
+<h2 id="2-cookie关联">2 cookie关联</h2>
+<p>把上一个取样器的结果关联到一下个取样器</p>
+<p>http cookie manager 可以把cookie自动关联到下一个取样器的请求中</p>
+<p>在同一个线程组中添加一个 HTTP cookie manager</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce75a94d259889153.png" alt=""></p>
+<p>添加完成以后无需配置，即可将第一个取样器中的cookie自动同步至所有线程组</p>
+<h2 id="3-上传文件">3  上传文件</h2>
+<p>以ecshop留言上传文件为例</p>
+<p>首先添加一个发表留言并且要上传文件的取样器，并配置好取样器</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce75d54d671b93977.png" alt=""></p>
+<p>配置文件上传参数</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce75e271af0025911.png" alt=""></p>
+<p>运行成功示意图</p>
+<h2 id="4-正则提取器">4  正则提取器</h2>
+<p>提取取样器结果中的任何内容</p>
+<p>通过表达式从一堆数据中提取符合表达式规则的数据</p>
+<p>语法：</p>
+<pre><code>[0-9]  : 表示任意一个数字，等价于/d
+[a-z]  : 表示任意一个小写字母
+[A-Z]  : 表示任意一个大写字母
+\w     : 表示任意一个字符，包含大小写字母，中文，数字以及一个_
+\s     : 表示一个空格
+{}     : 表示匹配前面表达式的连续n个
+{m,n}  : 表示匹配前面表达式的连续m-n个
++      : 表示匹配前面表达式的一个或多个
+\      : 去转义
+.      : 表示出了换行符之外的任意一个字符
+$      : 结尾
+^      : 开头
+？     ： 非贪婪匹配，匹配到一个结果后结束匹配
+()     : 需要提取的内容用小括号包围
+
+</code></pre>
+<p>添加正则提取器</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce79fbf48c9a19994.png" alt=""></p>
+<p>配置正则提取器</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7a0dc8de5817775.png" alt=""></p>
+<p>在一下个查询订单详情的取样器中使用上述提取出的变量</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7a1a2cae6f21453.png" alt=""></p>
+<h2 id="5-添加debug组件">5  添加debug组件</h2>
+<p>该组件可以查看所有使用过的变量</p>
+<p>添加debug组件</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7aa82246b181060.png" alt=""></p>
+<p>为该组件添加一个结果树，即可查看使用过的变量</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1558686516491.png" alt=""></p>
+<h2 id="6-逻辑控制器">6  逻辑控制器</h2>
+<p>逻辑控制器，可以控制取样器的执行顺序</p>
+<h3 id="61-for">6.1 for</h3>
+<p>添加for循环控制器</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7ae70d9dda97533.png" alt=""></p>
+<p>将查询订单详情挪至for控制器里面</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7ae13e19b824772.png" alt=""></p>
+<p>配置for控制器</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7ba0abf23475823.png" alt=""></p>
+<p>修改正则提取中的配置</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7af62df31663732.png" alt=""></p>
+<p>在查询订单中使用遍历出来得变量即可</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7ba3b3d35a16894.png" alt=""></p>
+<h3 id="62-if">6.2 if</h3>
+<p>添加if控制器</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7bb8e3673832089.png" alt=""></p>
+<p>确定判断逻辑</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1558691180942.png" alt=""></p>
+<p>在第一步登录取样器中提取登录结果</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7bdb68b02631353.png" alt=""></p>
+<p>然后分别配置登录成功与登录失败需要执行的步骤</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7be22baf8b41429.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7be509b33387820.png" alt=""></p>
+<h2 id="7-开关控制器">7 开关控制器</h2>
+<p>方式一：通过0和1决定执行哪个，0执行第一个，1执行第二个</p>
+<p>方式二：通过取样器名字决定执行哪个，名字必须与取样器完成一致才会执行</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7c63a893d843848.png" alt=""></p>
+<h2 id="8-循环控制器">8  循环控制器</h2>
+<p>对单个取样器进行循环操作</p>
+<p><img src="https://i.loli.net/2019/05/24/5ce7c6e140e4d40844.png" alt=""></p>
+<h1 id="第七章-并发数">第七章  并发数</h1>
+<h2 id="1-平均并发数">1 平均并发数</h2>
+<p>计算平均并发数</p>
+<pre><code>平均并发数 = 每日活跃用户数*用户使用时间/访问时间段
+</code></pre>
+<p>一个系统，每天2000个用户访问，访问时间集中在上午9-12点，平均每个用户访问10分钟，计算并发数</p>
+<pre><code>(2000*10)/(60*3)=111(大约)
+# 2000为用户数量
+# 10为用户使用时间
+# 60*3是为了前后单位统一，访问时间段为3个小时
+</code></pre>
+<h2 id="2-峰值用户数">2 峰值用户数</h2>
+<pre><code>峰值用户数 = 平均并发数 + 3*sqrt（平均并发数）
+</code></pre>
+<h1 id="第八章-搭建资源监控环境">第八章  搭建资源监控环境</h1>
+<h2 id="1服务端">1.服务端</h2>
+<ul>
+<li>在服务器端安装java，并且配置环境变量</li>
+</ul>
+<pre><code>创建java存放目录：/usr/local/java
+Linux配置环境变量
+cd ~   # 进入root目录
+vi .bash_profile
+
+
+yum -y install java-1.8.0-openjdk*
+</code></pre>
+<ul>
+<li>上传ServerAgent.zip到/opt目录，然后解压</li>
+<li>进入ServerAgent目录，启动该代理</li>
+</ul>
+<pre><code>./startAgent.sh     # 启动监控代理
+./startAgent.sh &amp;   # 以进程方式启动监控代理
+</code></pre>
+<h2 id="2-jmeter端">2. jmeter端</h2>
+<ul>
+<li>jmeter安装插件管理器</li>
+</ul>
+<pre><code>将jmeter-plugins-manager-1.3.jar放至jmeter安装目录下的lib\ext中
+重启jmeter
+</code></pre>
+<ul>
+<li>在option菜单中启动插件管理器</li>
+<li>在打开的插件管理器安装</li>
+</ul>
+<p><img src="https://i.loli.net/2019/05/27/5cebad6c81ac693657.png" alt=""></p>
+<ul>
+<li>在jmeter脚本线程组中添加jpgc监听器</li>
+</ul>
+<p><img src="https://i.loli.net/2019/05/27/5cebadd487f8598359.png" alt=""></p>
+<ul>
+<li>配置该监听器</li>
+</ul>
+<p><img src="https://i.loli.net/2019/05/27/5cebae25df76815710.png" alt=""></p>
+<ul>
+<li>不要忘了设置线程组，配置几个线程，运行时间等</li>
+</ul>
+<p><img src="https://i.loli.net/2019/05/27/5cebaf5d655f499007.png" alt=""></p>
+<h1 id="第九章-性能测试流程">第九章  性能测试流程</h1>
+<ul>
+<li>需求分析(学习业务，分析规格文档)</li>
+<li>场景设计(测试场景、测试类型、并发数、步长、思考时间)</li>
+<li>编写计划</li>
+<li>环境搭建、数据准备、脚本开发</li>
+<li>性能测试(性能数据收集)</li>
+<li>性能分析、性能调优</li>
+<li>性能测试报告</li>
+<li>结束</li>
+</ul>
+<h1 id="第十章-centos搭建ecshop">第十章  centos搭建ecshop</h1>
+<p>1.上传xampp压缩包并解压</p>
+<pre><code>tar -xzvf xampp-linux-1.7.7.tar.gz
+</code></pre>
+<p>2.进入lampp目录</p>
+<p>3.输入命令启动xampp</p>
+<pre><code class="language-shell">./lampp start
+
+# 如果提示xampp只能在32位系统运行
+# 使用yum命令安装32位包
+yum install -y glibc*i686
+</code></pre>
+<p>3.启动成功后，验证是否启动成功</p>
+<pre><code>netstat -anp|grep 80   # 查看httpd端口是否启动，httpd就是Apache的进程
+netstat -anp|grep 3306 # 查看mysql的端口是否存在
+</code></pre>
+<p><img src="https://i.loli.net/2019/05/27/5cec07cf0cd3824063.png" alt=""></p>
+<p>4.上传ecshop项目包到htdocs目录</p>
+<p>5.解压安装即可</p>
+<h1 id="第十一章-练习">第十一章  练习</h1>
+<h2 id="1-ecshop登录实现参数化">1. ecshop登录实现参数化</h2>
+<h3 id="11-创建登录脚本">1.1 创建登录脚本</h3>
+<p>创建测试计划</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce81d0f7d9b041641.png" alt=""></p>
+<p>添加线程组</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce81d3fdfca938484.png" alt=""></p>
+<p>添加取样器</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce81d6076a3d26826.png" alt=""></p>
+<p>配置取样器</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce81f7d0f95e89886.png" alt=""></p>
+<p>添加观察结果树</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce81f9cb20ea79058.png" alt=""></p>
+<p>验证是否登录成功</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce81fe80066343193.png" alt=""></p>
+<h3 id="12-添加参数化组件">1.2 添加参数化组件</h3>
+<p>添加参数读取组件</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce82020025e261962.png" alt=""></p>
+<p>创建参数化文件</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce820debcf3155100.png" alt=""></p>
+<p>配置参数化组件</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce821bec8c8c90652.png" alt=""></p>
+<p>重新用参数化形式配置取样器</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce823c7235d651409.png" alt=""></p>
+<h3 id="13-添加循环控制器">1.3 添加循环控制器</h3>
+<p>添加一个循环控制器</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce8229f4b87e20141.png" alt=""></p>
+<p>配置循环控制器，循环执行次数为3次，与参数化源文件数量对应</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce822c29a73c34944.png" alt=""></p>
+<h3 id="14-验证结果">1.4 验证结果</h3>
+<p>执行，验证是否三个账号都登录成功</p>
+<p>添加断言</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce825276b49549803.png" alt=""></p>
+<p>手工验证</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce824161278f49947.png" alt=""></p>
+<h2 id="2-ecshop浏览器商品">2. ecshop浏览器商品</h2>
+<h3 id="21-准备工作">2.1 准备工作</h3>
+<p>以登录脚本为基础</p>
+<ul>
+<li>去掉参数化配置</li>
+<li>去掉循环控制器</li>
+<li>保证登录成功</li>
+</ul>
+<h3 id="22-关联cookie">2.2 关联cookie</h3>
+<p>添加cookie关联</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce8282a21f5839026.png" alt=""></p>
+<h3 id="23-配置用户自定义变量">2.3 配置用户自定义变量</h3>
+<p>配置用户自定义变量可以在创建多个取样器时，方便取样器的配置统一性</p>
+<p>添加用户自定义变量组件</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce829196fa8387851.png" alt=""></p>
+<p>配置用户自定义变量组件</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce82962c2e9b75133.png" alt=""></p>
+<p>修改登录取样器，调用用户自定义变量</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce82999679b343666.png" alt=""></p>
+<p>修改浏览商品取样器配置</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce82a15dd3b776964.png" alt=""></p>
+<h3 id="24-观察结果与断言">2.4 观察结果与断言</h3>
+<p>为浏览器商品分别添加结果树，断言，以及整个线程组的聚合报告</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce82af98792689035.png" alt=""></p>
+<h3 id="25-验证结果">2.5 验证结果</h3>
+<p>执行脚本，查看聚合报告中的结果是否正确</p>
+<p><img src="https://i.loli.net/2019/05/25/5ce82b68eefdf11673.png" alt=""></p>
+<h1 id="第十二章-图形化报告">第十二章 图形化报告</h1>
+<p>以命令行的模式运行jmeter脚本,生成图形化的报告</p>
+<pre><code>jmeter -n -t C:\Users\Administrator\Desktop\lejifen.jmx -l result.jtl -e -o E:\apache-jmeter-5.1.1\bin\WebReport
+</code></pre>
+<ul>
+<li>n：非GUI模式执行JMeter；</li>
+<li>t： 脚本文件(.jmx文件)的路径；</li>
+<li>l： 指定生成测试结果的保存文件(.jtl格式)，此文件必须不存在；</li>
+<li>e：测试结束后，生成测试报告；</li>
+<li>o：用于存放测试报告的路径；</li>
+</ul>
+<blockquote>
+<p>注意：如果要重新生成一份测试报告，都需要将Jmeter的bin目录下的jtl文件以及webreport文件夹进行删除。<br>
+可以在Jmeter的bin目录下手动直接删除，也可以通过命令删除。</p>
+</blockquote>
+<pre><code>del /s /Q D:\Jmeter\apache-jmeter-3.2\bin\result.jtl //删除jtl文件
+rd /s /Q D:\Jmeter\apache-jmeter-3.2\bin\WebReport //删除webreport文件夹
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86">第一章 性能基础知识</a>
+<ul>
+<li><a href="#1-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E7%9A%84%E6%A6%82%E5%BF%B5">1. 性能测试的概念</a></li>
+<li><a href="#2%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E7%9A%84%E7%9B%AE%E7%9A%84">2.性能测试的目的</a></li>
+<li><a href="#3%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%BD%92%E5%B1%9E">3.性能测试归属</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E7%9A%84%E5%88%86%E7%B1%BB">第二章 性能测试的分类</a>
+<ul>
+<li><a href="#1-%E8%B4%9F%E8%BD%BD%E6%B5%8B%E8%AF%95">1 负载测试</a></li>
+<li><a href="#2-%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95">2 压力测试</a></li>
+<li><a href="#3-%E5%A4%B1%E6%95%88%E6%81%A2%E5%A4%8D%E6%80%A7%E6%B5%8B%E8%AF%95">3 失效恢复性测试</a></li>
+<li><a href="#4-%E5%B9%B6%E5%8F%91%E6%B5%8B%E8%AF%95">4 并发测试</a></li>
+<li><a href="#5-%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%B5%8B%E8%AF%95">5 稳定性测试</a></li>
+<li><a href="#6-%E9%85%8D%E7%BD%AE%E6%B5%8B%E8%AF%95">6 配置测试</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E6%80%A7%E8%83%BD%E6%9C%AF%E8%AF%AD">第三章 性能术语</a>
+<ul>
+<li><a href="#1-%E4%BA%8B%E5%8A%A1">1 事务</a></li>
+<li><a href="#2-%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4">2 响应时间</a></li>
+<li><a href="#3-%E5%90%9E%E5%90%90%E9%87%8F">3 吞吐量</a></li>
+<li><a href="#4-%E5%B9%B6%E5%8F%91">4 并发</a></li>
+<li><a href="#5-%E5%B9%B6%E5%8F%91%E6%95%B0">5 并发数</a></li>
+<li><a href="#6-%E5%9C%BA%E6%99%AF">6 场景</a></li>
+<li><a href="#7-%E6%80%9D%E8%80%83%E6%97%B6%E9%97%B4">7 思考时间</a></li>
+<li><a href="#8-%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88">8 性能瓶颈</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7">第四章 性能测试工具</a>
+<ul>
+<li><a href="#1-%E5%B7%A5%E5%85%B7%E5%88%86%E7%B1%BB">1 工具分类</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-jmeter%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%89%E8%A3%85">第五章  Jmeter原理与安装</a>
+<ul>
+<li><a href="#1-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86">1 工作原理</a></li>
+<li><a href="#2-%E5%AE%89%E8%A3%85">2 安装</a></li>
+<li><a href="#3-%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6">3 常用组件</a></li>
+<li><a href="#4-%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%84%9A%E6%9C%AC">4 第一个脚本</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-jmeter%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6">第六章 jmeter常用组件</a>
+<ul>
+<li><a href="#1-%E5%8F%82%E6%95%B0%E5%8C%96">1 参数化</a></li>
+<li><a href="#2-cookie%E5%85%B3%E8%81%94">2 cookie关联</a></li>
+<li><a href="#3-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6">3  上传文件</a></li>
+<li><a href="#4-%E6%AD%A3%E5%88%99%E6%8F%90%E5%8F%96%E5%99%A8">4  正则提取器</a></li>
+<li><a href="#5-%E6%B7%BB%E5%8A%A0debug%E7%BB%84%E4%BB%B6">5  添加debug组件</a></li>
+<li><a href="#6-%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6%E5%99%A8">6  逻辑控制器</a>
+<ul>
+<li><a href="#61-for">6.1 for</a></li>
+<li><a href="#62-if">6.2 if</a></li>
+</ul>
+</li>
+<li><a href="#7-%E5%BC%80%E5%85%B3%E6%8E%A7%E5%88%B6%E5%99%A8">7 开关控制器</a></li>
+<li><a href="#8-%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%99%A8">8  循环控制器</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E5%B9%B6%E5%8F%91%E6%95%B0">第七章  并发数</a>
+<ul>
+<li><a href="#1-%E5%B9%B3%E5%9D%87%E5%B9%B6%E5%8F%91%E6%95%B0">1 平均并发数</a></li>
+<li><a href="#2-%E5%B3%B0%E5%80%BC%E7%94%A8%E6%88%B7%E6%95%B0">2 峰值用户数</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E6%90%AD%E5%BB%BA%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7%E7%8E%AF%E5%A2%83">第八章  搭建资源监控环境</a>
+<ul>
+<li><a href="#1%E6%9C%8D%E5%8A%A1%E7%AB%AF">1.服务端</a></li>
+<li><a href="#2-jmeter%E7%AB%AF">2. jmeter端</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B">第九章  性能测试流程</a></li>
+<li><a href="#%E7%AC%AC%E5%8D%81%E7%AB%A0-centos%E6%90%AD%E5%BB%BAecshop">第十章  centos搭建ecshop</a></li>
+<li><a href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0-%E7%BB%83%E4%B9%A0">第十一章  练习</a>
+<ul>
+<li><a href="#1-ecshop%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0%E5%8F%82%E6%95%B0%E5%8C%96">1. ecshop登录实现参数化</a>
+<ul>
+<li><a href="#11-%E5%88%9B%E5%BB%BA%E7%99%BB%E5%BD%95%E8%84%9A%E6%9C%AC">1.1 创建登录脚本</a></li>
+<li><a href="#12-%E6%B7%BB%E5%8A%A0%E5%8F%82%E6%95%B0%E5%8C%96%E7%BB%84%E4%BB%B6">1.2 添加参数化组件</a></li>
+<li><a href="#13-%E6%B7%BB%E5%8A%A0%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%99%A8">1.3 添加循环控制器</a></li>
+<li><a href="#14-%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%9C">1.4 验证结果</a></li>
+</ul>
+</li>
+<li><a href="#2-ecshop%E6%B5%8F%E8%A7%88%E5%99%A8%E5%95%86%E5%93%81">2. ecshop浏览器商品</a>
+<ul>
+<li><a href="#21-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C">2.1 准备工作</a></li>
+<li><a href="#22-%E5%85%B3%E8%81%94cookie">2.2 关联cookie</a></li>
+<li><a href="#23-%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F">2.3 配置用户自定义变量</a></li>
+<li><a href="#24-%E8%A7%82%E5%AF%9F%E7%BB%93%E6%9E%9C%E4%B8%8E%E6%96%AD%E8%A8%80">2.4 观察结果与断言</a></li>
+<li><a href="#25-%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%9C">2.5 验证结果</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0-%E5%9B%BE%E5%BD%A2%E5%8C%96%E6%8A%A5%E5%91%8A">第十二章 图形化报告</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://yihangliak.github.io/post/python-requests">
+              <h3 class="post-title">
+                Python Requests
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by Alexxx | 
+  <a class="rss" href="https://yihangliak.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
