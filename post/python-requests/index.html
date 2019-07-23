@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Python Requests | Alex&#39;s Blog</title>
 <meta name="description" content="你好  靓仔   :D" />
-<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1563861703941">
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1563872644750">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://yihangliak.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://yihangliak.github.io">
-  <img class="avatar" src="https://yihangliak.github.io/images/avatar.png?v=1563861703941" alt="">
+  <img class="avatar" src="https://yihangliak.github.io/images/avatar.png?v=1563872644750" alt="">
   </a>
   <h1 class="site-title">
     Alex&#39;s Blog
@@ -80,7 +80,7 @@
                 2019-07-20
               </span>
               <span>
-                2 min read
+                3 min read
               </span>
               
                 <a href="https://yihangliak.github.io/tag/YrWwR_CC9" class="post-tag">
@@ -118,6 +118,9 @@ print(r.content)                          # 返回bytes类型的响应体
 print(r.json())                           # 返回字典类型的响应体
 </code></pre>
 <h2 id="22-传递url参数">2.2 传递URL参数</h2>
+<blockquote>
+<p>注意：<code>httpbin.org</code>是一个开源的，用于测试网页请求的网站</p>
+</blockquote>
 <p>在get请求中，使用<code>params</code>关键字参数，可将字典类型的自定义参数传入到URL中进行拼接</p>
 <pre><code class="language-python">import requests
 
@@ -245,6 +248,110 @@ r = s.post(url, data=datas1)
 r2 = s.post(url, data=datas2 )
 print(r2.text)
 </code></pre>
+<h1 id="5请求头">5.请求头</h1>
+<h2 id="51-获取请求头">5.1 获取请求头</h2>
+<blockquote>
+<p><code>httpbin.org/headers</code>会返回发送请求的请求头</p>
+</blockquote>
+<p>请求头内容可以用<code>r.headers</code>获取</p>
+<pre><code class="language-python">import requests
+
+r = requests.get('http://httpbin.org/headers')
+print(r.headers)
+print(r.text)
+
+</code></pre>
+<p>结果如下，可以看到<code>user-agent</code>为requests</p>
+<pre><code>{
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Accept-Encodinh&quot;: &quot;gzip, deflate&quot;, 
+    &quot;Connectioo&quot;: &quot;keep-alive&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;python-requests/2.18.4&quot;   
+  }
+}
+</code></pre>
+<h2 id="52-自定义请求头">5.2 自定义请求头</h2>
+<p>很多网站为了保证安全会设置<code>反爬虫机制</code>，也就是说对于<code>非浏览器</code>的访问拒绝响应，在这种情况下，就需要修改请求中的<code>headers</code>信息<code>伪装</code>成浏览器访问</p>
+<p><strong>使用浏览器访问httpbin 获取headers</strong></p>
+<p>打开浏览器，在地址栏中输入：<code>http://httpbin.org/headers</code></p>
+<p>该URL会返回发送请求的请求头，所以会将浏览器发送的请求头部返回，如下：</p>
+<pre><code>{
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3&quot;, 
+    &quot;Accept-Encodinh&quot;: &quot;gzip, deflate&quot;, 
+    &quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.9,en;q=0.8&quot;, 
+    &quot;Connectioo&quot;: &quot;keep-alive&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;, 
+    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&quot;
+  }
+}
+</code></pre>
+<p><strong><code>headers</code>中各参数的作用如下：</strong></p>
+<ul>
+<li>accept：指定客户单接受的内容类型，<code>/</code>表示任意类型，其余按照字义</li>
+<li>accept-encoding：指定客户端接受的编码类型</li>
+<li>accept-language：指定客户端接受的语言类型，<code>q=0.9</code>表示喜欢程度，不写则是1，数值越高越喜欢</li>
+<li>connection：指定长链接处理方式，<code>keep-alive</code>表示希望保持传输链接，http本身是无状态的</li>
+<li>host：服务器主机名</li>
+<li>user-agent：用户代理，服务器从此处知道客户端的系统类型以及版本等信息</li>
+</ul>
+<p><strong>将获取到的headers 传给<code>get</code></strong></p>
+<pre><code class="language-python">import requests
+
+url = 'http://httpbin.org/headers'
+header = {
+    &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3&quot;,
+    &quot;Accept-Encodinh&quot;: &quot;gzip, deflate&quot;,
+    &quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.9,en;q=0.8&quot;,
+    &quot;Connectioo&quot;: &quot;keep-alive&quot;,
+    &quot;Host&quot;: &quot;httpbin.org&quot;,
+    &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;,
+    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&quot;
+  }
+# url = 'http://www.baidu.com'
+r = requests.get(url, headers=header)  # 将自定义headers信息通过headers关键字参数传入
+# print(r.headers)
+print(r.text)
+</code></pre>
+<p>自定义headers后，返回的结果如下：</p>
+<pre><code>{
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3&quot;, 
+    &quot;Accept-Encodinh&quot;: &quot;gzip, deflate,gzip, deflate&quot;, 
+    &quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.9,en;q=0.8&quot;, 
+    &quot;Connectioo&quot;: &quot;keep-alive,keep-alive&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;, 
+    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&quot;
+  }
+}
+
+</code></pre>
+<h1 id="6https">6.HTTPS</h1>
+<p>requests在发送<code>HTTPS</code>请求时，会报证书错误，代码与错误如下：</p>
+<pre><code class="language-python">import requests
+
+url = 'https://login.51job.com/login.php'
+r = requests.post(url)
+print(r.encoding)   # 查看响应的编码格式
+r.encoding = 'gbk'  # 指定响应的编码格式，不指定响应内容中的中文会乱码
+print(r.text)       # 查看响应的文本信息
+</code></pre>
+<p>执行上述代码会报证书错误：<code>requests.exceptions.SSLError: HTTPSConnectionPool</code></p>
+<p>解决办法为：</p>
+<pre><code class="language-python">import requests
+import urllib3
+urllib3.disable_warnings()   # 使用urllib3关闭警告
+
+url = 'https://login.51job.com/login.php'
+r = requests.post(url, verify=False)    # 关闭证书验证
+print(r.encoding)
+r.encoding = 'gbk'
+print(r.text)
+</code></pre>
 
               </div>
               <div class="toc-container">
@@ -266,6 +373,13 @@ print(r2.text)
 </ul>
 </li>
 <li><a href="#4-%E4%BF%9D%E6%8C%81%E4%BC%9A%E8%AF%9D">4. 保持会话</a></li>
+<li><a href="#5%E8%AF%B7%E6%B1%82%E5%A4%B4">5.请求头</a>
+<ul>
+<li><a href="#51-%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E5%A4%B4">5.1 获取请求头</a></li>
+<li><a href="#52-%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%B7%E6%B1%82%E5%A4%B4">5.2 自定义请求头</a></li>
+</ul>
+</li>
+<li><a href="#6https">6.HTTPS</a></li>
 </ul>
 
               </div>
