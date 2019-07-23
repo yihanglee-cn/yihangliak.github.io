@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>Alex&apos;s Blog</title>
-    <updated>2019-07-23T01:30:18.851Z</updated>
+    <updated>2019-07-23T02:06:13.200Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -1249,8 +1249,8 @@ if __name__ == '__main__':
     </entry>
     <entry>
         <title type="html"><![CDATA[Python 基础]]></title>
-        <id>https://yihangliak.github.io/post/python-mo-fa</id>
-        <link href="https://yihangliak.github.io/post/python-mo-fa">
+        <id>https://yihangliak.github.io/post/begin_python</id>
+        <link href="https://yihangliak.github.io/post/begin_python">
         </link>
         <updated>2019-06-20T15:35:14.000Z</updated>
         <content type="html"><![CDATA[<h1 id="第一章-python简介">第一章 Python简介</h1>
@@ -4409,8 +4409,8 @@ for i in range(5):      # 循环次数决定生成个数
     </entry>
     <entry>
         <title type="html"><![CDATA[SVN版本控制系统使用技巧]]></title>
-        <id>https://yihangliak.github.io/post/RjvYDSerC</id>
-        <link href="https://yihangliak.github.io/post/RjvYDSerC">
+        <id>https://yihangliak.github.io/post/svn01</id>
+        <link href="https://yihangliak.github.io/post/svn01">
         </link>
         <updated>2019-06-20T15:22:32.000Z</updated>
         <content type="html"><![CDATA[<h1 id="svn简介">SVN简介</h1>
