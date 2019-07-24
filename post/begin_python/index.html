@@ -1,99 +1,105 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" >
+
 <title>Python 基础 | Alex&#39;s Blog</title>
-<meta name="description" content="你好  靓仔   :D" />
-<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1563930566078">
+<meta name="description" content="你好  靓仔   :D">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1563931334035">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://yihangliak.github.io/styles/main.css">
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
 
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://yihangliak.github.io">
-  <img class="avatar" src="https://yihangliak.github.io/images/avatar.png?v=1563930566078" alt="">
-  </a>
-  <h1 class="site-title">
-    Alex&#39;s Blog
-  </h1>
-  <p class="site-description">
-    你好  靓仔   :D
-  </p>
-  <div class="menu-container">
-    
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://yihangliak.github.io">
+        <img src="https://yihangliak.github.io/images/avatar.png?v=1563931334035" class="site-logo">
+        <h1 class="site-title">Alex&#39;s Blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
       
-        <a href="https://yihangliak.github.io" class="menu">
-          首页
-        </a>
+        
+          <a href="https://yihangliak.github.io" class="site-nav">
+            首页
+          </a>
+        
       
-    
+        
+          <a href="https://yihangliak.github.io/archives" class="site-nav">
+            归档
+          </a>
+        
       
-        <a href="https://yihangliak.github.io/archives" class="menu">
-          归档
-        </a>
+        
+          <a href="https://yihangliak.github.io/tags" class="site-nav">
+            标签
+          </a>
+        
       
-    
+        
+          <a href="https://yihangliak.github.io/post/about/" class="site-nav">
+            关于
+          </a>
+        
       
-        <a href="https://yihangliak.github.io/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="https://yihangliak.github.io/post/about/" class="menu">
-          关于
-        </a>
-      
-    
+    </div>
   </div>
-  <div class="social-container">
-    
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
+      
+    </div>
+    <div class="site-description">
+      你好  靓仔   :D
+    </div>
+    <div class="site-footer">
+      Powered by Alexxx | <a class="rss" href="https://yihangliak.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
   </div>
 </div>
 
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              Python 基础
-            </h2>
-            <div class="post-info">
-              <span>
-                2019-06-20
-              </span>
-              <span>
-                30 min read
-              </span>
-              
-                <a href="https://yihangliak.github.io/tag/kFYrwlZ3T" class="post-tag">
-                  # Python
-                </a>
-              
-            </div>
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Python 基础</h2>
+            <div class="post-date">2019-06-20</div>
             
-              <img class="post-feature-image" src="https://yihangliak.github.io/post-images/begin_python.jpg" alt="">
+              <div class="feature-container" style="background-image: url('https://yihangliak.github.io/post-images/begin_python.jpg')">
+              </div>
             
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <h1 id="第一章-python简介">第一章 Python简介</h1>
+            <div class="post-content">
+              <h1 id="第一章-python简介">第一章 Python简介</h1>
 <h2 id="1python起源">1.Python起源</h2>
 <ul>
 <li>Python是<code>吉多*范罗苏姆</code>在1989年圣诞节，为了打发无聊而编写的一个解释程序</li>
@@ -3246,412 +3252,54 @@ for i in range(5):      # 循环次数决定生成个数
 764951832@qq.com
 </code></pre>
 
-              </div>
-              <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li><a href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-python%E7%AE%80%E4%BB%8B">第一章 Python简介</a>
-<ul>
-<li><a href="#1python%E8%B5%B7%E6%BA%90">1.Python起源</a></li>
-<li><a href="#2-python%E7%9A%84%E5%BA%94%E7%94%A8">2. Python的应用</a></li>
-<li><a href="#3-python%E7%9A%84%E4%BC%98%E7%82%B9">3. Python的优点</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E5%AE%89%E8%A3%85python">第二章 安装Python</a>
-<ul>
-<li><a href="#1-%E4%B8%8B%E8%BD%BDpython%E5%AE%89%E8%A3%85%E5%8C%85">1. 下载Python安装包</a></li>
-<li><a href="#2-%E5%AE%89%E8%A3%85">2. 安装</a></li>
-<li><a href="#3pip-%E6%8C%87%E5%AE%9A%E5%9B%BD%E5%86%85%E5%AE%89%E8%A3%85%E6%BA%90">3.pip 指定国内安装源</a></li>
-<li><a href="#4%E7%AC%AC%E4%B8%80%E4%B8%AApython%E7%A8%8B%E5%BA%8F">4.第一个python程序</a></li>
-<li><a href="#5%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3python%E4%B8%8D%E6%98%AF%E5%86%85%E9%83%A8%E6%88%96%E5%A4%96%E9%83%A8%E5%91%BD%E4%BB%A4star">5.问题解决：Python不是内部或外部命令:star:</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E8%BE%93%E5%87%BA%E4%B8%8E%E8%BE%93%E5%85%A5">第三章 输出与输入</a>
-<ul>
-<li><a href="#1%E8%BE%93%E5%87%BA">1.输出</a>
-<ul>
-<li><a href="#11-%E8%BE%93%E5%87%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%95%B0%E5%AD%97">1.1 输出字符串和数字</a></li>
-<li><a href="#12-%E8%BE%93%E5%87%BA%E5%A4%9A%E4%B8%AA%E5%86%85%E5%AE%B9">1.2 输出多个内容</a></li>
-<li><a href="#13-%E8%BE%93%E5%87%BA%E4%B8%8D%E6%8D%A2%E8%A1%8C">1.3 输出不换行</a></li>
-</ul>
-</li>
-<li><a href="#2%E8%BE%93%E5%85%A5">2.输入</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AE%89%E8%A3%85ide%E7%BC%96%E8%BE%91%E5%99%A8">第四章 安装IDE(编辑器)</a>
-<ul>
-<li><a href="#1%E4%B8%8B%E8%BD%BDpycharm">1.下载Pycharm</a></li>
-<li><a href="#2%E5%AE%89%E8%A3%85pycharm">2.安装Pycharm</a></li>
-<li><a href="#3%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E8%A7%A3%E9%87%8A%E5%99%A8">3.配置本地解释器</a></li>
-<li><a href="#4pycharm%E8%AE%BE%E7%BD%AE%E6%A8%A1%E6%9D%BF">4.pycharm设置模板</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E6%B3%A8%E9%87%8A">第五章 注释</a>
-<ul>
-<li><a href="#1-%E6%B3%A8%E9%87%8A%E7%9A%84%E4%BD%9C%E7%94%A8">1. 注释的作用</a></li>
-<li><a href="#2-%E5%8D%95%E8%A1%8C%E6%B3%A8%E9%87%8A">2. 单行注释</a></li>
-<li><a href="#3-%E5%A4%9A%E8%A1%8C%E6%B3%A8%E9%87%8A%E5%9D%97%E6%B3%A8%E9%87%8A">3. 多行注释（块注释）</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">第六章 基础数据类型</a>
-<ul>
-<li><a href="#1-%E6%95%B4%E6%95%B0int">1. 整数（int）</a></li>
-<li><a href="#2-%E6%B5%AE%E7%82%B9%E6%95%B0float">2. 浮点数（float）</a></li>
-<li><a href="#3-%E5%AD%97%E7%AC%A6%E4%B8%B2str">3. 字符串（str）</a></li>
-<li><a href="#4-%E5%B8%83%E5%B0%94%E5%80%BCbool">4. 布尔值（bool）</a></li>
-<li><a href="#5-%E7%A9%BA%E5%80%BCnone">5. 空值（None）</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E5%8F%98%E9%87%8F">第七章 变量</a>
-<ul>
-<li><a href="#1-%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89">1. 变量的定义</a></li>
-<li><a href="#2-%E5%8F%98%E9%87%8F%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83">2. 变量的命名规范</a>
-<ul>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B3%BB%E7%BB%9F%E5%85%B3%E9%94%AE%E5%AD%97">什么是系统关键字？</a></li>
-<li><a href="#%E6%80%8E%E4%B9%88%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6%E5%85%B3%E9%94%AE%E5%AD%97">怎么查看系统自带关键字</a></li>
-</ul>
-</li>
-<li><a href="#3-%E5%8F%98%E9%87%8F%E7%9A%84%E8%B5%8B%E5%80%BC">3. 变量的赋值</a>
-<ul>
-<li><a href="#%E6%99%AE%E9%80%9A%E8%B5%8B%E5%80%BC">普通赋值</a></li>
-<li><a href="#%E5%BA%8F%E5%88%97%E8%A7%A3%E5%8C%85%E8%B5%8B%E5%80%BC">序列解包赋值</a></li>
-<li><a href="#%E9%93%BE%E5%BC%8F%E8%B5%8B%E5%80%BC">链式赋值</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E8%BF%90%E7%AE%97%E7%AC%A6">第八章 运算符</a>
-<ul>
-<li><a href="#1-%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6">1. 算术运算符</a>
-<ul>
-<li><a href="#%E5%8A%A0-%E5%87%8F-%E4%B9%98-%E9%99%A4">加、减、乘、除</a></li>
-<li><a href="#%E5%8F%96%E6%95%B4%E9%99%A4">取整除</a></li>
-<li><a href="#%E5%8F%96%E4%BD%99">取余</a></li>
-<li><a href="#%E5%B9%82%E8%BF%90%E7%AE%97">幂运算</a></li>
-</ul>
-</li>
-<li><a href="#2-%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6">2. 赋值运算符</a>
-<ul>
-<li><a href="#%E5%8A%A0%E6%B3%95%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6">加法赋值运算符</a></li>
-<li><a href="#%E5%87%8F%E6%B3%95%E8%B5%8B%E5%80%BC%E4%BA%91%E7%AE%97%E7%AC%A6">减法赋值云算符</a></li>
-<li><a href="#%E4%B9%98%E6%B3%95%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6">乘法赋值运算符</a></li>
-<li><a href="#%E9%99%A4%E6%B3%95%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6">除法赋值运算符</a></li>
-<li><a href="#%E5%8F%96%E6%A8%A1%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6">取模赋值运算符</a></li>
-<li><a href="#%E5%B9%82%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6">幂赋值运算符</a></li>
-</ul>
-</li>
-<li><a href="#4-%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6">4. 逻辑运算符</a></li>
-<li><a href="#5-%E6%88%90%E5%91%98%E8%BF%90%E7%AE%97%E7%AC%A6x">5. 成员运算符（x）</a></li>
-<li><a href="#6%E6%AF%94%E8%BE%83%E8%BF%90%E7%AE%97%E7%AC%A6">6.比较运算符</a></li>
-<li><a href="#7-%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7">7. 运算符的优先级</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E5%AD%97%E7%AC%A6%E4%B8%B2">第九章 字符串</a>
-<ul>
-<li><a href="#1-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%AE%9A%E4%B9%89">1. 字符串的定义</a></li>
-<li><a href="#2-%E6%A0%BC%E5%BC%8F%E5%8C%96">2. 格式化</a>
-<ul>
-<li><a href="#21-%E7%99%BE%E5%88%86%E5%8F%B7%E6%A0%BC%E5%BC%8F%E5%8C%96">2.1 百分号格式化</a></li>
-<li><a href="#22-format%E6%A0%BC%E5%BC%8F%E5%8C%96">2.2 format格式化</a></li>
-</ul>
-</li>
-<li><a href="#3-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BE%93%E5%85%A5">3. 字符串的输入</a></li>
-<li><a href="#4-%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6">4. 转义字符</a></li>
-<li><a href="#5-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E7%B4%A2%E5%BC%95%E5%92%8C%E5%8F%96%E5%80%BC">5. 字符串的索引和取值</a>
-<ul>
-<li><a href="#%E7%B4%A2%E5%BC%95">索引</a></li>
-<li><a href="#%E5%8F%96%E5%80%BC">取值</a></li>
-<li><a href="#%E5%8F%8D%E5%90%91%E5%8F%96%E5%80%BC">反向取值</a></li>
-</ul>
-</li>
-<li><a href="#6-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%B8%B8%E8%A7%81%E6%96%B9%E6%B3%95">6. 字符串的常见方法</a></li>
-<li><a href="#7-%E6%9F%A5%E6%89%BE%E5%AD%97%E7%AC%A6%E4%B8%B2star">7. 查找字符串:star:</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E5%8D%81%E7%AB%A0-%E5%88%97%E8%A1%A8">第十章 列表</a>
-<ul>
-<li><a href="#1%E5%88%97%E8%A1%A8%E7%9A%84%E5%AE%9A%E4%B9%89">1.列表的定义</a></li>
-<li><a href="#2-%E5%88%97%E8%A1%A8%E7%9A%84%E5%BE%AA%E7%8E%AF%E5%B5%8C%E5%A5%97%E5%8F%96%E5%80%BC">2. 列表的循环嵌套取值</a></li>
-<li><a href="#3-%E5%88%97%E8%A1%A8%E7%9A%84%E5%B8%B8%E8%A7%81%E6%96%B9%E6%B3%95">3. 列表的常见方法</a></li>
-<li><a href="#4%E9%81%8D%E5%8E%86%E5%88%97%E8%A1%A8">4.遍历列表</a>
-<ul>
-<li><a href="#41-%E4%BD%BF%E7%94%A8for%E5%BE%AA%E7%8E%AF">4.1 使用for循环</a></li>
-<li><a href="#42-%E4%BD%BF%E7%94%A8for%E5%92%8Cenumerate%E5%87%BD%E6%95%B0">4.2 使用for和enumerate()函数</a></li>
-</ul>
-</li>
-<li><a href="#5%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F">5.列表推导式</a>
-<ul>
-<li><a href="#51-%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E6%8C%87%E5%AE%9A%E8%8C%83%E5%9B%B4%E7%9A%84%E6%95%B0%E5%80%BC%E5%88%97%E8%A1%A8">5.1 生成一个指定范围的数值列表</a></li>
-<li><a href="#52-%E6%A0%B9%E6%8D%AE%E5%88%97%E8%A1%A8%E7%94%9F%E6%88%90%E6%8C%87%E5%AE%9A%E5%88%97%E8%A1%A8">5.2 根据列表生成指定列表</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0-%E5%85%83%E7%A5%96">第十一章 元祖</a>
-<ul>
-<li><a href="#1%E5%85%83%E7%A5%96%E7%9A%84%E5%AE%9A%E4%B9%89">1.元祖的定义</a></li>
-<li><a href="#2-%E5%85%83%E7%A5%96%E7%9A%84%E5%B8%B8%E8%A7%81%E6%96%B9%E6%B3%95">2. 元祖的常见方法</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0-%E5%AD%97%E5%85%B8">第十二章 字典</a>
-<ul>
-<li><a href="#1%E5%AD%97%E5%85%B8%E7%9A%84%E5%AE%9A%E4%B9%89">1.字典的定义</a></li>
-<li><a href="#2-%E5%AD%97%E5%85%B8%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95">2. 字典的常用方法</a>
-<ul>
-<li><a href="#%E8%8E%B7%E5%8F%96%E5%80%BC">获取值</a></li>
-<li><a href="#%E4%BF%AE%E6%94%B9%E5%80%BC">修改值</a></li>
-<li><a href="#%E5%88%A0%E9%99%A4%E5%80%BC">删除值</a></li>
-<li><a href="#%E8%8E%B7%E5%8F%96%E9%94%AE">获取键</a></li>
-<li><a href="#%E8%8E%B7%E5%8F%96%E5%80%BC-2">获取值</a></li>
-<li><a href="#%E8%8E%B7%E5%8F%96%E9%94%AE%E5%80%BC%E5%AF%B9">获取键值对</a></li>
-<li><a href="#%E5%AD%97%E5%85%B8%E5%90%88%E5%B9%B6x">字典合并（x）</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0-%E9%80%89%E6%8B%A9%E8%AF%AD%E5%8F%A5">第十三章 选择语句</a>
-<ul>
-<li><a href="#1-if-else">1. if-else</a></li>
-<li><a href="#2-elif">2. elif</a></li>
-<li><a href="#3-if%E5%B5%8C%E5%A5%97">3. if嵌套</a></li>
-<li><a href="#4-if%E5%BA%94%E7%94%A8%E7%8C%9C%E6%8B%B3%E6%B8%B8%E6%88%8F">4. if应用：猜拳游戏</a></li>
-<li><a href="#5if%E6%A1%88%E4%BE%8B">5.if案例</a>
-<ul>
-<li><a href="#51-%E5%88%A0%E9%99%A4%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0">5.1 删除列表元素</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5">第十四章 循环语句</a>
-<ul>
-<li><a href="#1-%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%B8%89%E5%A4%A7%E6%89%A7%E8%A1%8C">1. 程序的三大执行</a></li>
-<li><a href="#2-while%E5%BE%AA%E7%8E%AF">2. while循环</a>
-<ul>
-<li><a href="#%E6%89%93%E5%8D%B01-10%E4%B9%8B%E9%97%B4%E7%9A%84%E6%95%B0%E5%AD%97">打印1-10之间的数字</a></li>
-</ul>
-</li>
-<li><a href="#3-while%E5%B5%8C%E5%A5%97">3. while嵌套</a>
-<ul>
-<li><a href="#%E6%89%93%E5%8D%B0%E4%B8%80%E4%B8%AA%E4%B8%89%E8%A7%92%E5%BD%A2">打印一个三角形</a></li>
-<li><a href="#%E6%89%93%E5%8D%B0%E7%9F%A9%E5%BD%A2">打印矩形</a></li>
-<li><a href="#%E6%89%93%E5%8D%B0%E4%B8%89%E8%A7%92%E5%BD%A2">打印三角形</a></li>
-<li><a href="#%E6%89%93%E5%8D%B0%E4%B9%9D%E4%B9%9D%E4%B9%98%E6%B3%95%E8%A1%A8">打印九九乘法表</a></li>
-</ul>
-</li>
-<li><a href="#4-for%E5%BE%AA%E7%8E%AF">4. for循环</a>
-<ul>
-<li><a href="#%E9%81%8D%E5%8E%86%E5%AD%97%E7%AC%A6%E4%B8%B2">遍历字符串</a></li>
-<li><a href="#%E9%81%8D%E5%8E%86%E5%88%97%E8%A1%A8">遍历列表</a></li>
-<li><a href="#%E9%81%8D%E5%8E%86%E5%AD%97%E5%85%B8">遍历字典</a></li>
-<li><a href="#%E6%89%93%E5%8D%B01-10%E4%B9%8B%E9%97%B4%E7%9A%84%E6%95%B0%E5%AD%97-2">打印1-10之间的数字</a></li>
-<li><a href="#%E6%89%93%E5%8D%B0%E7%9F%A9%E5%BD%A2-2">打印矩形</a></li>
-<li><a href="#%E6%89%93%E5%8D%B0%E4%B8%89%E8%A7%92%E5%BD%A2-2">打印三角形</a></li>
-<li><a href="#%E6%89%93%E5%8D%B0%E4%B9%9D%E4%B9%9D%E4%B9%98%E6%B3%95%E8%A1%A8-2">打印九九乘法表</a></li>
-<li><a href="#for-if-%E5%B5%8C%E5%A5%97">for if 嵌套</a></li>
-<li><a href="#for%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%AE%9E%E4%BE%8B">for循环的实例</a>
-<ul>
-<li><a href="#for%E5%BE%AA%E7%8E%AF%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E9%95%BF%E5%BA%A6">for循环获取字符串的长度</a></li>
-<li><a href="#1-10%E4%B9%8B%E9%97%B4%E8%83%BD%E8%A2%AB3%E6%95%B4%E9%99%A4%E5%B9%B6%E4%B8%94%E4%B8%8D%E8%83%BD%E8%A2%AB4%E6%95%B4%E9%99%A4%E7%9A%84%E6%95%B0%E7%9A%84%E5%92%8C">1-10之间能被3整除并且不能被4整除的数的和</a></li>
-<li><a href="#1-10%E4%B9%8B%E9%97%B4%E7%9A%84%E5%81%B6%E6%95%B0%E5%92%8C">1-10之间的偶数和</a></li>
-<li><a href="#for%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8Fx">for冒泡排序（x）</a></li>
-<li><a href="#%E5%81%A5%E5%BA%B7%E9%A3%9F%E8%B0%B1%E8%BE%93%E5%87%BA">健康食谱输出</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#5break%E8%AF%AD%E5%8F%A5">5.break语句</a></li>
-<li><a href="#6continue%E8%AF%AD%E5%8F%A5">6.continue语句</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0-%E5%87%BD%E6%95%B0">第十五章 函数</a>
-<ul>
-<li><a href="#1-%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89">1. 函数的定义</a>
-<ul>
-<li><a href="#%E6%83%B3%E4%B8%80%E6%83%B3">想一想</a></li>
-</ul>
-</li>
-<li><a href="#2-%E5%87%BD%E6%95%B0%E7%9A%84%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A">2. 函数的文档注释</a></li>
-<li><a href="#3-%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0">3. 函数的参数</a>
-<ul>
-<li><a href="#31-%E5%87%BD%E6%95%B0%E4%B8%8D%E5%B8%A6%E5%8F%82%E6%95%B0">3.1 函数不带参数</a></li>
-<li><a href="#32-%E5%87%BD%E6%95%B0%E7%9A%84%E5%BD%A2%E5%8F%82%E5%92%8C%E5%AE%9E%E5%8F%82">3.2 函数的形参和实参</a></li>
-<li><a href="#33-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E7%9A%84%E4%BC%A0%E9%80%92">3.3 函数参数的传递</a>
-<ul>
-<li><a href="#331-%E4%BD%8D%E7%BD%AE%E4%BC%A0%E9%80%92">3.3.1 位置传递</a></li>
-<li><a href="#332-%E5%85%B3%E9%94%AE%E5%AD%97%E4%BC%A0%E9%80%92">3.3.2 关键字传递</a></li>
-<li><a href="#333-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC">3.3.3 函数参数的默认值</a></li>
-<li><a href="#334-%E6%B7%B7%E5%90%88%E4%BC%A0%E5%8F%82star">3.3.4 混合传参:star:</a></li>
-</ul>
-</li>
-<li><a href="#34-%E5%87%BD%E6%95%B0%E9%AB%98%E9%98%B6%E4%BC%A0%E5%8F%82star">3.4 函数高阶传参:star:</a></li>
-</ul>
-</li>
-<li><a href="#4-%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC">4. 函数的返回值</a><br>
-*
-<ul>
-<li><a href="#return">return</a></li>
-<li><a href="#%E5%87%BD%E6%95%B0%E6%B2%A1%E6%9C%89return%E8%BF%94%E5%9B%9Enone">函数没有return，返回None</a></li>
-<li><a href="#%E5%8F%AA%E8%A6%81%E6%89%A7%E8%A1%8C%E4%BA%86return%E5%90%8E%E7%BB%AD%E4%BB%A3%E7%A0%81%E5%B0%86%E4%B8%8D%E4%BC%9A%E6%89%A7%E8%A1%8C">只要执行了return，后续代码将不会执行</a></li>
-</ul>
-</li>
-<li><a href="#5-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E4%B8%8E%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F">5. 局部变量与全局变量</a>
-<ul>
-<li><a href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F">全局变量</a></li>
-<li><a href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F">局部变量</a></li>
-<li><a href="#global">global</a></li>
-</ul>
-</li>
-<li><a href="#6-%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0">6. 匿名函数</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C">第十六章 文件操作</a>
-<ul>
-<li><a href="#1-%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6">1. 打开文件</a>
-<ul>
-<li><a href="#%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%BC%8F%E8%AF%B4%E6%98%8E">访问模式说明</a></li>
-</ul>
-</li>
-<li><a href="#2-%E5%85%B3%E9%97%AD%E6%96%87%E4%BB%B6">2. 关闭文件</a><br>
-*
-<ul>
-<li><a href="#%E5%88%A4%E6%96%AD%E6%96%87%E4%BB%B6%E6%98%AF%E5%90%A6%E5%85%B3%E9%97%AD">判断文件是否关闭</a></li>
-<li><a href="#%E6%96%87%E4%BB%B6%E7%9A%84%E8%87%AA%E5%8A%A8%E6%89%93%E5%BC%80%E4%B8%8E%E5%85%B3%E9%97%AD">文件的自动打开与关闭</a></li>
-</ul>
-</li>
-<li><a href="#3-%E6%96%87%E4%BB%B6%E7%9A%84%E8%AF%BB%E5%86%99">3. 文件的读写</a>
-<ul>
-<li><a href="#%E5%86%99%E6%95%B0%E6%8D%AEwrite">写数据（write）</a></li>
-<li><a href="#%E8%AF%BB%E6%95%B0%E6%8D%AEread">读数据（read）</a></li>
-<li><a href="#%E8%AF%BB%E6%95%B0%E6%8D%AEreadlines">读数据（readlines）</a></li>
-<li><a href="#%E8%AF%BB%E6%95%B0%E6%8D%AEreadline">读数据（readline）</a></li>
-<li><a href="#%E8%AF%BB%E5%8F%96%E4%B8%AD%E6%96%87%E9%97%AE%E9%A2%98">读取中文问题</a></li>
-<li><a href="#%E6%8C%89%E8%A1%8C%E8%AF%BB%E5%8F%96%E5%8E%BB%E6%8E%89n">按行读取去掉\n</a></li>
-<li><a href="#%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8w%E6%A8%A1%E5%BC%8F%E5%9C%A8%E6%96%87%E4%BB%B6%E6%B2%A1%E6%9C%89%E4%BF%9D%E5%AD%98%E4%B9%8B%E5%89%8D%E8%AF%BB%E5%8F%96%E7%9A%84%E9%97%AE%E9%A2%98">关于使用w+模式在文件没有保存之前读取的问题</a></li>
-</ul>
-</li>
-<li><a href="#4-%E5%BA%94%E7%94%A8%E5%88%B6%E4%BD%9C%E6%96%87%E4%BB%B6%E7%9A%84%E5%A4%87%E4%BB%BD">4. 应用：制作文件的备份</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E5%8D%81%E4%B8%83%E7%AB%A0-%E5%BC%82%E5%B8%B8">第十七章 异常</a>
-<ul>
-<li><a href="#1-%E6%8D%95%E8%8E%B7%E5%BC%82%E5%B8%B8">1. 捕获异常</a><br>
-*
-<ul>
-<li><a href="#%E4%BB%A3%E7%A0%81%E5%87%BA%E7%8E%B0%E5%BC%82%E5%B8%B8%E5%90%8E%E4%BC%9A%E5%81%9C%E6%AD%A2%E8%BF%90%E8%A1%8C">代码出现异常后，会停止运行</a></li>
-<li><a href="#%E6%8A%8A%E5%BC%82%E5%B8%B8%E6%8A%9B%E5%87%BA%E5%90%8E%E4%BB%A3%E7%A0%81%E4%BC%9A%E5%BF%BD%E7%95%A5%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98%E7%BB%A7%E7%BB%AD%E5%BE%80%E4%B8%8B%E6%89%A7%E8%A1%8C">把异常抛出后，代码会忽略这个问题，继续往下执行</a></li>
-<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%8D%95%E8%8E%B7%E5%BC%82%E5%B8%B8">为什么要捕获异常？</a></li>
-</ul>
-</li>
-<li><a href="#2-%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8">2. 抛出异常</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E5%8D%81%E5%85%AB%E7%AB%A0-python%E7%9A%84%E6%A8%A1%E5%9D%97">第十八章 Python的模块</a>
-<ul>
-<li><a href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%A8%A1%E5%9D%97">1. 什么是模块</a></li>
-<li><a href="#2-%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9D%97%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95">2. 导入模块的三种方法</a>
-<ul>
-<li><a href="#import">import</a></li>
-<li><a href="#from-%E6%A8%A1%E5%9D%97%E5%90%8D-import-%E5%87%BD%E6%95%B0">from 模块名 import 函数</a></li>
-<li><a href="#from-%E6%A8%A1%E5%9D%97%E5%90%8D-import">from 模块名 import *</a></li>
-</ul>
-</li>
-<li><a href="#3-%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97">3. 常用模块</a>
-<ul>
-<li><a href="#31-time%E6%97%B6%E9%97%B4">3.1 time（时间）</a></li>
-<li><a href="#32-os%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3">3.2 OS（操作系统相关）</a></li>
-<li><a href="#33-random%E9%9A%8F%E6%9C%BA%E6%95%B0">3.3 random（随机数）</a></li>
-</ul>
-</li>
-<li><a href="#4-%E7%BB%99%E6%A8%A1%E5%9D%97%E4%B8%B4%E6%97%B6%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">4. 给模块临时添加环境变量</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E5%8D%81%E4%B9%9D%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1">第十九章 面向对象</a>
-<ul>
-<li><a href="#1%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E4%B8%8E%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B3%E7%B3%BB">1.面向过程与面向对象的关系</a></li>
-<li><a href="#2-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1">2. 类和对象</a>
-<ul>
-<li><a href="#21-%E7%B1%BB%E7%9A%84%E6%9E%84%E6%88%90">2.1 类的构成</a></li>
-<li><a href="#22-%E5%AE%9A%E4%B9%89%E7%B1%BB">2.2 定义类</a></li>
-<li><a href="#23-%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96">2.3 类的实例化</a></li>
-<li><a href="#24-%E7%B1%BB%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">2.4 类的初始化</a></li>
-<li><a href="#25-%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF">2.5 类的继承</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E7%AC%AC%E4%BA%8C%E5%8D%81%E7%AB%A0-%E7%BB%83%E4%B9%A0%E9%A2%98">第二十章  练习题</a></li>
-<li><a href="#%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%80%E7%AB%A0-%E7%9F%A5%E8%AF%86%E6%8B%93%E5%B1%95">第二十一章  知识拓展</a>
-<ul>
-<li><a href="#1%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E5%A4%9A%E4%B8%AAqq%E9%82%AE%E7%AE%B1">1.随机生成多个QQ邮箱</a></li>
-</ul>
-</li>
-</ul>
-
-              </div>
             </div>
-          </article>
-        </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://yihangliak.github.io/tag/kFYrwlZ3T" class="tag">
+                    Python
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://yihangliak.github.io/post/svn01">
+                  <h3 class="post-title">
+                    SVN版本控制系统使用技巧
+                  </h3>
+                </a>
+              </div>
+            
 
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://yihangliak.github.io/post/svn01">
-              <h3 class="post-title">
-                SVN版本控制系统使用技巧
-              </h3>
-            </a>
+            
+
           </div>
-        
 
-        
+        </div>
+      </div>
+    </div>
 
-        <div class="site-footer">
-  Powered by Alexxx | 
-  <a class="rss" href="https://yihangliak.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
-<script>
-  hljs.initHighlightingOnLoad()
+<script type="application/javascript">
 
-  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+AOS.init();
 
-  // This should probably be throttled.
-  // Especially because it triggers during smooth scrolling.
-  // https://lodash.com/docs/4.17.10#throttle
-  // You could do like...
-  // window.addEventListener("scroll", () => {
-  //    _.throttle(doThatStuff, 100);
-  // });
-  // Only not doing it here to keep this Pen dependency-free.
+hljs.initHighlightingOnLoad()
 
-  window.addEventListener("scroll", event => {
-    let fromTop = window.scrollY;
-
-    mainNavLinks.forEach((link, index) => {
-      let section = document.getElementById(decodeURI(link.hash).substring(1));
-      let nextSection = null
-      if (mainNavLinks[index + 1]) {
-        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-      }
-      console.log('section.offsetHeight', section.offsetHeight);
-      if (section.offsetTop <= fromTop) {
-        if (nextSection) {
-          if (nextSection.offsetTop > fromTop) {
-            link.classList.add("current");
-          } else {
-            link.classList.remove("current");    
-          }
-        } else {
-          link.classList.add("current");
-        }
-      } else {
-        link.classList.remove("current");
-      }
-    });
-  });
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
 
 </script>
 
-      </div>
-    </div>
+
+
+
   </body>
 </html>

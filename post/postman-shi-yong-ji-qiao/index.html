@@ -1,99 +1,105 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" >
+
 <title>Postman使用技巧 | Alex&#39;s Blog</title>
-<meta name="description" content="你好  靓仔   :D" />
-<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1563930566078">
+<meta name="description" content="你好  靓仔   :D">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1563931334035">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://yihangliak.github.io/styles/main.css">
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
 
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://yihangliak.github.io">
-  <img class="avatar" src="https://yihangliak.github.io/images/avatar.png?v=1563930566078" alt="">
-  </a>
-  <h1 class="site-title">
-    Alex&#39;s Blog
-  </h1>
-  <p class="site-description">
-    你好  靓仔   :D
-  </p>
-  <div class="menu-container">
-    
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://yihangliak.github.io">
+        <img src="https://yihangliak.github.io/images/avatar.png?v=1563931334035" class="site-logo">
+        <h1 class="site-title">Alex&#39;s Blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
       
-        <a href="https://yihangliak.github.io" class="menu">
-          首页
-        </a>
+        
+          <a href="https://yihangliak.github.io" class="site-nav">
+            首页
+          </a>
+        
       
-    
+        
+          <a href="https://yihangliak.github.io/archives" class="site-nav">
+            归档
+          </a>
+        
       
-        <a href="https://yihangliak.github.io/archives" class="menu">
-          归档
-        </a>
+        
+          <a href="https://yihangliak.github.io/tags" class="site-nav">
+            标签
+          </a>
+        
       
-    
+        
+          <a href="https://yihangliak.github.io/post/about/" class="site-nav">
+            关于
+          </a>
+        
       
-        <a href="https://yihangliak.github.io/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="https://yihangliak.github.io/post/about/" class="menu">
-          关于
-        </a>
-      
-    
+    </div>
   </div>
-  <div class="social-container">
-    
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
+      
+    </div>
+    <div class="site-description">
+      你好  靓仔   :D
+    </div>
+    <div class="site-footer">
+      Powered by Alexxx | <a class="rss" href="https://yihangliak.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
   </div>
 </div>
 
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              Postman使用技巧
-            </h2>
-            <div class="post-info">
-              <span>
-                2019-07-19
-              </span>
-              <span>
-                1 min read
-              </span>
-              
-                <a href="https://yihangliak.github.io/tag/WAOgluHv7" class="post-tag">
-                  # postman
-                </a>
-              
-            </div>
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Postman使用技巧</h2>
+            <div class="post-date">2019-07-19</div>
             
-              <img class="post-feature-image" src="https://yihangliak.github.io/post-images/postman-shi-yong-ji-qiao.png" alt="">
+              <div class="feature-container" style="background-image: url('https://yihangliak.github.io/post-images/postman-shi-yong-ji-qiao.png')">
+              </div>
             
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <h1 id="postman使用教程">Postman使用教程</h1>
+            <div class="post-content">
+              <h1 id="postman使用教程">Postman使用教程</h1>
 <h1 id="1介绍">1.介绍</h1>
 <p>postman是一个接口测试工具，在做接口测试的时候，postman相当于一个客户端，他可以模拟用户发起各类的<code>HTTP请求</code>，将<code>请求</code>你数据发送至<code>服务端</code>，获取对应的响应结果，从而验证响应中的结果是否与预期值匹配；并确保开发人员能够及时处理接口中的bug，进而保证产品上线后的<code>稳定性</code>与<code>安全性</code></p>
 <h1 id="2优势">2.优势</h1>
@@ -178,108 +184,54 @@ pm.test(&quot;Response time is less than 200ms&quot;, function () {
 <p><code>{{url}}autonumber/autoComNum?resultv2=1&amp;text=3102615141528</code></p>
 <p><img src="https://i.loli.net/2019/07/19/5d31681ac9dbb19061.png" alt=""></p>
 
-              </div>
-              <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li><a href="#postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B">Postman使用教程</a></li>
-<li><a href="#1%E4%BB%8B%E7%BB%8D">1.介绍</a></li>
-<li><a href="#2%E4%BC%98%E5%8A%BF">2.优势</a></li>
-<li><a href="#3%E5%AE%89%E8%A3%85">3.安装</a></li>
-<li><a href="#4%E5%B7%A5%E5%85%B7%E7%95%8C%E9%9D%A2%E7%AE%80%E4%BB%8B">4.工具界面简介</a></li>
-<li><a href="#5%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82">5.发送请求</a>
-<ul>
-<li><a href="#51-%E5%88%9B%E5%BB%BA%E8%AF%B7%E6%B1%82%E9%80%89%E9%A1%B9%E5%8D%A1">5.1 创建请求选项卡</a></li>
-<li><a href="#52-%E5%A1%AB%E5%86%99%E8%AF%B7%E6%B1%82%E5%9C%B0%E5%9D%80">5.2 填写请求地址</a></li>
-</ul>
-</li>
-<li><a href="#6%E4%BD%BF%E7%94%A8%E7%94%A8%E4%BE%8B%E9%9B%86">6.使用用例集</a>
-<ul>
-<li><a href="#61-%E6%96%B0%E5%BB%BA%E7%94%A8%E4%BE%8B%E9%9B%86">6.1 新建用例集</a></li>
-<li><a href="#62-%E6%B7%BB%E5%8A%A0%E8%AF%B7%E6%B1%82%E5%88%B0%E7%94%A8%E4%BE%8B%E9%9B%86">6.2 添加请求到用例集</a></li>
-</ul>
-</li>
-<li><a href="#7%E6%96%AD%E8%A8%80">7.断言</a>
-<ul>
-<li><a href="#71-%E6%B7%BB%E5%8A%A0%E6%96%AD%E8%A8%80">7.1 添加断言</a></li>
-<li><a href="#72-%E6%9F%A5%E7%9C%8B%E6%96%AD%E8%A8%80%E7%BB%93%E6%9E%9C">7.2 查看断言结果</a></li>
-<li><a href="#73-%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%AD%E8%A8%80%E6%96%B9%E6%B3%95">7.3 常用的断言方法</a></li>
-</ul>
-</li>
-<li><a href="#8%E6%89%B9%E9%87%8F%E8%BF%90%E8%A1%8C%E7%94%A8%E4%BE%8B%E9%9B%86">8.批量运行用例集</a></li>
-<li><a href="#9%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">9.设置环境变量</a>
-<ul>
-<li><a href="#91-%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">9.1 添加环境变量</a></li>
-<li><a href="#93-%E5%88%87%E6%8D%A2%E7%8E%AF%E5%A2%83">9.3 切换环境</a></li>
-</ul>
-</li>
-</ul>
-
-              </div>
             </div>
-          </article>
-        </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://yihangliak.github.io/tag/WAOgluHv7" class="tag">
+                    postman
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://yihangliak.github.io/post/mysql-lian-xi">
+                  <h3 class="post-title">
+                    MySQL  整理
+                  </h3>
+                </a>
+              </div>
+            
 
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://yihangliak.github.io/post/mysql-lian-xi">
-              <h3 class="post-title">
-                MySQL  整理
-              </h3>
-            </a>
+            
+
           </div>
-        
 
-        
+        </div>
+      </div>
+    </div>
 
-        <div class="site-footer">
-  Powered by Alexxx | 
-  <a class="rss" href="https://yihangliak.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
-<script>
-  hljs.initHighlightingOnLoad()
+<script type="application/javascript">
 
-  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+AOS.init();
 
-  // This should probably be throttled.
-  // Especially because it triggers during smooth scrolling.
-  // https://lodash.com/docs/4.17.10#throttle
-  // You could do like...
-  // window.addEventListener("scroll", () => {
-  //    _.throttle(doThatStuff, 100);
-  // });
-  // Only not doing it here to keep this Pen dependency-free.
+hljs.initHighlightingOnLoad()
 
-  window.addEventListener("scroll", event => {
-    let fromTop = window.scrollY;
-
-    mainNavLinks.forEach((link, index) => {
-      let section = document.getElementById(decodeURI(link.hash).substring(1));
-      let nextSection = null
-      if (mainNavLinks[index + 1]) {
-        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-      }
-      console.log('section.offsetHeight', section.offsetHeight);
-      if (section.offsetTop <= fromTop) {
-        if (nextSection) {
-          if (nextSection.offsetTop > fromTop) {
-            link.classList.add("current");
-          } else {
-            link.classList.remove("current");    
-          }
-        } else {
-          link.classList.add("current");
-        }
-      } else {
-        link.classList.remove("current");
-      }
-    });
-  });
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
 
 </script>
 
-      </div>
-    </div>
+
+
+
   </body>
 </html>
