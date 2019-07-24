@@ -1,105 +1,99 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>进入Flask世界！  | Alex&#39;s Blog</title>
-<meta name="description" content="你好  靓仔   :D">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
+<meta name="description" content="你好  靓仔   :D" />
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1563978073401">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1563974596091">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://yihangliak.github.io/styles/main.css">
 
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-
-      <div class="sidebar" :class="{ 'full-height': menuVisible }">
-  <div class="top-container" data-aos="fade-right">
-    <div class="top-header-container">
-      <a class="site-title-container" href="https://yihangliak.github.io">
-        <img src="https://yihangliak.github.io/images/avatar.png?v=1563974596091" class="site-logo">
-        <h1 class="site-title">Alex&#39;s Blog</h1>
-      </a>
-      <div class="menu-btn" @click="menuVisible = !menuVisible">
-        <div class="line"></div>
-      </div>
-    </div>
-    <div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://yihangliak.github.io">
+  <img class="avatar" src="https://yihangliak.github.io/images/avatar.png?v=1563978073401" alt="">
+  </a>
+  <h1 class="site-title">
+    Alex&#39;s Blog
+  </h1>
+  <p class="site-description">
+    你好  靓仔   :D
+  </p>
+  <div class="menu-container">
+    
       
-        
-          <a href="https://yihangliak.github.io" class="site-nav">
-            首页
-          </a>
-        
+        <a href="https://yihangliak.github.io" class="menu">
+          首页
+        </a>
       
-        
-          <a href="https://yihangliak.github.io/archives" class="site-nav">
-            归档
-          </a>
-        
+    
       
-        
-          <a href="https://yihangliak.github.io/tags" class="site-nav">
-            标签
-          </a>
-        
+        <a href="https://yihangliak.github.io/archives" class="menu">
+          归档
+        </a>
       
-        
-          <a href="https://yihangliak.github.io/post/about/" class="site-nav">
-            关于
-          </a>
-        
+    
       
-    </div>
+        <a href="https://yihangliak.github.io/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://yihangliak.github.io/post/about/" class="menu">
+          关于
+        </a>
+      
+    
   </div>
-  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
-    <div class="social-container">
+  <div class="social-container">
+    
       
-        
+    
       
-        
+    
       
-        
+    
       
-        
+    
       
-        
-      
-    </div>
-    <div class="site-description">
-      你好  靓仔   :D
-    </div>
-    <div class="site-footer">
-      Powered by Alexxx | <a class="rss" href="https://yihangliak.github.io/atom.xml" target="_blank">RSS</a>
-    </div>
+    
   </div>
 </div>
 
-
-      <div class="main-container">
-        <div class="content-container" data-aos="fade-up">
-          <div class="post-detail">
-            <h2 class="post-title">进入Flask世界！ </h2>
-            <div class="post-date">2019-06-21</div>
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              进入Flask世界！ 
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-06-21
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://yihangliak.github.io/tag/ZqPdD_sAA" class="post-tag">
+                  # flask
+                </a>
+              
+            </div>
             
-              <div class="feature-container" style="background-image: url('https://yihangliak.github.io/post-images/flask-chao-qing-dao-wu-fa-xiang-xiang.jpg')">
-              </div>
+              <img class="post-feature-image" src="https://yihangliak.github.io/post-images/flask-chao-qing-dao-wu-fa-xiang-xiang.jpg" alt="">
             
-            <div class="post-content">
-              <h1 id="flask简介">Flask简介</h1>
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="flask简介">Flask简介</h1>
 <blockquote>
 <p>Flask是一个使用<code>Python</code>编写的轻量级web应用框架<br>
 WSGI工具箱采用<code>Werzeug</code>，模板引擎使用<code>Jinjia2</code></p>
@@ -549,54 +543,118 @@ if __name__ == '__main__':
 
 </code></pre>
 
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#flask%E7%AE%80%E4%BB%8B">Flask简介</a></li>
+<li><a href="#%E8%BF%9B%E5%85%A5flask%E4%B8%96%E7%95%8C">进入Flask世界</a>
+<ul>
+<li><a href="#1%E5%AE%89%E8%A3%85python">1.安装Python</a></li>
+<li><a href="#2%E5%AE%89%E8%A3%85python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83">2.安装Python虚拟环境</a></li>
+</ul>
+</li>
+<li><a href="#url%E4%B8%8E%E8%A7%86%E5%9B%BE">URL与视图</a>
+<ul>
+<li><a href="#1%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E9%87%8A">1.服务器解释</a></li>
+<li><a href="#2%E7%AC%AC%E4%B8%80%E4%B8%AAflask%E7%A8%8B%E5%BA%8F">2.第一个Flask程序</a></li>
+<li><a href="#3dubug%E6%A8%A1%E5%BC%8F">3.DUBUG模式</a>
+<ul>
+<li><a href="#31-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BC%80%E5%90%AFdubug%E6%A8%A1%E5%BC%8F">3.1 为什么要开启DUBUG模式</a></li>
+<li><a href="#32-%E5%BC%80%E5%90%AFdebug%E6%A8%A1%E5%BC%8F%E7%9A%844%E7%A7%8D%E6%96%B9%E5%BC%8F">3.2 开启DEBUG模式的4种方式</a></li>
+</ul>
+</li>
+<li><a href="#4-url%E7%9A%84%E4%BC%A0%E5%8F%82%E6%96%B9%E5%BC%8F">4. URL的传参方式</a></li>
+<li><a href="#5url%E5%8F%82%E6%95%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">5.URL参数的数据类型</a></li>
+<li><a href="#6%E6%8E%A5%E6%94%B6%E7%94%A8%E6%88%B7%E4%BC%A0%E9%80%92%E7%9A%84%E5%8F%82%E6%95%B0">6.接收用户传递的参数</a></li>
+<li><a href="#7-url_for">7. url_for</a></li>
+<li><a href="#8%E8%87%AA%E5%AE%9A%E4%B9%89url%E8%BD%AC%E6%8D%A2%E5%99%A8">8.自定义URL转换器</a></li>
+<li><a href="#9%E5%85%B6%E4%BB%96%E7%BB%86%E8%8A%82%E7%9F%A5%E8%AF%86%E7%82%B9">9.其他细节知识点</a>
+<ul>
+<li><a href="#91-%E5%85%B6%E4%BB%96%E7%94%B5%E8%84%91%E8%AE%BF%E9%97%AE">9.1 其他电脑访问</a></li>
+<li><a href="#92-%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3">9.2 指定端口</a></li>
+<li><a href="#93-url%E5%94%AF%E4%B8%80">9.3 URL唯一</a></li>
+<li><a href="#94-%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F">9.4 请求方式</a></li>
+</ul>
+</li>
+<li><a href="#10%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%92%8C%E9%87%8D%E5%AE%9A%E5%90%91">10.页面跳转和重定向</a></li>
+<li><a href="#11%E5%85%B3%E4%BA%8E%E5%93%8D%E5%BA%94response">11.关于响应（Response）</a></li>
+</ul>
+</li>
+<li><a href="#jinja2%E6%A8%A1%E6%9D%BF">Jinja2模板</a>
+<ul>
+<li><a href="#1%E6%A8%A1%E6%9D%BF%E5%9F%BA%E7%A1%80">1.模板基础</a></li>
+<li><a href="#2%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0">2.模板参数</a></li>
+<li><a href="#3%E6%A8%A1%E6%9D%BF%E4%B8%AD%E7%9A%84url_for">3.模板中的url_for</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
             </div>
-            
-              <div class="tag-container">
-                
-                  <a href="https://yihangliak.github.io/tag/ZqPdD_sAA" class="tag">
-                    flask
-                  </a>
-                
-              </div>
-            
-            
-              <div class="next-post">
-                <div class="next">下一篇</div>
-                <a href="https://yihangliak.github.io/post/selenium-cong-ru-men-dao-shi-zhan">
-                  <h3 class="post-title">
-                    Selenium 从入门到实战
-                  </h3>
-                </a>
-              </div>
-            
-
-            
-
-          </div>
-
+          </article>
         </div>
-      </div>
-    </div>
 
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://yihangliak.github.io/post/selenium-cong-ru-men-dao-shi-zhan">
+              <h3 class="post-title">
+                Selenium 从入门到实战
+              </h3>
+            </a>
+          </div>
+        
 
-<script type="application/javascript">
+        
 
-AOS.init();
+        <div class="site-footer">
+  Powered by Alexxx | 
+  <a class="rss" href="https://yihangliak.github.io/atom.xml" target="_blank">RSS</a>
+</div>
 
-hljs.initHighlightingOnLoad()
+<script>
+  hljs.initHighlightingOnLoad()
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
 </script>
 
-
-
-
+      </div>
+    </div>
   </body>
 </html>

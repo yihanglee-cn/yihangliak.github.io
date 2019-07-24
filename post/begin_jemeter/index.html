@@ -1,105 +1,99 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Jemeter性能测试完整入门 | Alex&#39;s Blog</title>
-<meta name="description" content="你好  靓仔   :D">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
+<meta name="description" content="你好  靓仔   :D" />
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1563978073401">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1563974596091">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://yihangliak.github.io/styles/main.css">
 
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-
-      <div class="sidebar" :class="{ 'full-height': menuVisible }">
-  <div class="top-container" data-aos="fade-right">
-    <div class="top-header-container">
-      <a class="site-title-container" href="https://yihangliak.github.io">
-        <img src="https://yihangliak.github.io/images/avatar.png?v=1563974596091" class="site-logo">
-        <h1 class="site-title">Alex&#39;s Blog</h1>
-      </a>
-      <div class="menu-btn" @click="menuVisible = !menuVisible">
-        <div class="line"></div>
-      </div>
-    </div>
-    <div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://yihangliak.github.io">
+  <img class="avatar" src="https://yihangliak.github.io/images/avatar.png?v=1563978073401" alt="">
+  </a>
+  <h1 class="site-title">
+    Alex&#39;s Blog
+  </h1>
+  <p class="site-description">
+    你好  靓仔   :D
+  </p>
+  <div class="menu-container">
+    
       
-        
-          <a href="https://yihangliak.github.io" class="site-nav">
-            首页
-          </a>
-        
+        <a href="https://yihangliak.github.io" class="menu">
+          首页
+        </a>
       
-        
-          <a href="https://yihangliak.github.io/archives" class="site-nav">
-            归档
-          </a>
-        
+    
       
-        
-          <a href="https://yihangliak.github.io/tags" class="site-nav">
-            标签
-          </a>
-        
+        <a href="https://yihangliak.github.io/archives" class="menu">
+          归档
+        </a>
       
-        
-          <a href="https://yihangliak.github.io/post/about/" class="site-nav">
-            关于
-          </a>
-        
+    
       
-    </div>
+        <a href="https://yihangliak.github.io/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="https://yihangliak.github.io/post/about/" class="menu">
+          关于
+        </a>
+      
+    
   </div>
-  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
-    <div class="social-container">
+  <div class="social-container">
+    
       
-        
+    
       
-        
+    
       
-        
+    
       
-        
+    
       
-        
-      
-    </div>
-    <div class="site-description">
-      你好  靓仔   :D
-    </div>
-    <div class="site-footer">
-      Powered by Alexxx | <a class="rss" href="https://yihangliak.github.io/atom.xml" target="_blank">RSS</a>
-    </div>
+    
   </div>
 </div>
 
-
-      <div class="main-container">
-        <div class="content-container" data-aos="fade-up">
-          <div class="post-detail">
-            <h2 class="post-title">Jemeter性能测试完整入门</h2>
-            <div class="post-date">2019-07-23</div>
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Jemeter性能测试完整入门
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-07-23
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://yihangliak.github.io/tag/zMtSYVLzL" class="post-tag">
+                  # 性能
+                </a>
+              
+            </div>
             
-              <div class="feature-container" style="background-image: url('https://mypic-1256006100.cos.ap-chengdu.myqcloud.com/markdown_pic/silvermoon.jpg')">
-              </div>
+              <img class="post-feature-image" src="https://mypic-1256006100.cos.ap-chengdu.myqcloud.com/markdown_pic/silvermoon.jpg" alt="">
             
-            <div class="post-content">
-              <h1 id="第一章-性能基础知识">第一章 性能基础知识</h1>
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="第一章-性能基础知识">第一章 性能基础知识</h1>
 <h2 id="1-性能测试的概念">1. 性能测试的概念</h2>
 <p>通过性能测试工具模拟多种正常，峰值，以及异常负载条件来对系统的各项性能指标进行测试</p>
 <h2 id="2性能测试的目的">2.性能测试的目的</h2>
@@ -514,45 +508,163 @@ netstat -anp|grep 3306 # 查看mysql的端口是否存在
 rd /s /Q D:\Jmeter\apache-jmeter-3.2\bin\WebReport //删除webreport文件夹
 </code></pre>
 
-            </div>
-            
-              <div class="tag-container">
-                
-                  <a href="https://yihangliak.github.io/tag/zMtSYVLzL" class="tag">
-                    性能
-                  </a>
-                
               </div>
-            
-            
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86">第一章 性能基础知识</a>
+<ul>
+<li><a href="#1-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E7%9A%84%E6%A6%82%E5%BF%B5">1. 性能测试的概念</a></li>
+<li><a href="#2%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E7%9A%84%E7%9B%AE%E7%9A%84">2.性能测试的目的</a></li>
+<li><a href="#3%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%BD%92%E5%B1%9E">3.性能测试归属</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E7%9A%84%E5%88%86%E7%B1%BB">第二章 性能测试的分类</a>
+<ul>
+<li><a href="#1-%E8%B4%9F%E8%BD%BD%E6%B5%8B%E8%AF%95">1 负载测试</a></li>
+<li><a href="#2-%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95">2 压力测试</a></li>
+<li><a href="#3-%E5%A4%B1%E6%95%88%E6%81%A2%E5%A4%8D%E6%80%A7%E6%B5%8B%E8%AF%95">3 失效恢复性测试</a></li>
+<li><a href="#4-%E5%B9%B6%E5%8F%91%E6%B5%8B%E8%AF%95">4 并发测试</a></li>
+<li><a href="#5-%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%B5%8B%E8%AF%95">5 稳定性测试</a></li>
+<li><a href="#6-%E9%85%8D%E7%BD%AE%E6%B5%8B%E8%AF%95">6 配置测试</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E6%80%A7%E8%83%BD%E6%9C%AF%E8%AF%AD">第三章 性能术语</a>
+<ul>
+<li><a href="#1-%E4%BA%8B%E5%8A%A1">1 事务</a></li>
+<li><a href="#2-%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4">2 响应时间</a></li>
+<li><a href="#3-%E5%90%9E%E5%90%90%E9%87%8F">3 吞吐量</a></li>
+<li><a href="#4-%E5%B9%B6%E5%8F%91">4 并发</a></li>
+<li><a href="#5-%E5%B9%B6%E5%8F%91%E6%95%B0">5 并发数</a></li>
+<li><a href="#6-%E5%9C%BA%E6%99%AF">6 场景</a></li>
+<li><a href="#7-%E6%80%9D%E8%80%83%E6%97%B6%E9%97%B4">7 思考时间</a></li>
+<li><a href="#8-%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88">8 性能瓶颈</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7">第四章 性能测试工具</a>
+<ul>
+<li><a href="#1-%E5%B7%A5%E5%85%B7%E5%88%86%E7%B1%BB">1 工具分类</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-jmeter%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%89%E8%A3%85">第五章  Jmeter原理与安装</a>
+<ul>
+<li><a href="#1-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86">1 工作原理</a></li>
+<li><a href="#2-%E5%AE%89%E8%A3%85">2 安装</a></li>
+<li><a href="#3-%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6">3 常用组件</a></li>
+<li><a href="#4-%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%84%9A%E6%9C%AC">4 第一个脚本</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-jmeter%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6">第六章 jmeter常用组件</a>
+<ul>
+<li><a href="#1-%E5%8F%82%E6%95%B0%E5%8C%96">1 参数化</a></li>
+<li><a href="#2-cookie%E5%85%B3%E8%81%94">2 cookie关联</a></li>
+<li><a href="#3-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6">3  上传文件</a></li>
+<li><a href="#4-%E6%AD%A3%E5%88%99%E6%8F%90%E5%8F%96%E5%99%A8">4  正则提取器</a></li>
+<li><a href="#5-%E6%B7%BB%E5%8A%A0debug%E7%BB%84%E4%BB%B6">5  添加debug组件</a></li>
+<li><a href="#6-%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6%E5%99%A8">6  逻辑控制器</a>
+<ul>
+<li><a href="#61-for">6.1 for</a></li>
+<li><a href="#62-if">6.2 if</a></li>
+</ul>
+</li>
+<li><a href="#7-%E5%BC%80%E5%85%B3%E6%8E%A7%E5%88%B6%E5%99%A8">7 开关控制器</a></li>
+<li><a href="#8-%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%99%A8">8  循环控制器</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E5%B9%B6%E5%8F%91%E6%95%B0">第七章  并发数</a>
+<ul>
+<li><a href="#1-%E5%B9%B3%E5%9D%87%E5%B9%B6%E5%8F%91%E6%95%B0">1 平均并发数</a></li>
+<li><a href="#2-%E5%B3%B0%E5%80%BC%E7%94%A8%E6%88%B7%E6%95%B0">2 峰值用户数</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E6%90%AD%E5%BB%BA%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7%E7%8E%AF%E5%A2%83">第八章  搭建资源监控环境</a>
+<ul>
+<li><a href="#1%E6%9C%8D%E5%8A%A1%E7%AB%AF">1.服务端</a></li>
+<li><a href="#2-jmeter%E7%AB%AF">2. jmeter端</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B">第九章  性能测试流程</a></li>
+<li><a href="#%E7%AC%AC%E5%8D%81%E7%AB%A0-centos%E6%90%AD%E5%BB%BAecshop">第十章  centos搭建ecshop</a></li>
+<li><a href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0-%E7%BB%83%E4%B9%A0">第十一章  练习</a>
+<ul>
+<li><a href="#1-ecshop%E7%99%BB%E5%BD%95%E5%AE%9E%E7%8E%B0%E5%8F%82%E6%95%B0%E5%8C%96">1. ecshop登录实现参数化</a>
+<ul>
+<li><a href="#11-%E5%88%9B%E5%BB%BA%E7%99%BB%E5%BD%95%E8%84%9A%E6%9C%AC">1.1 创建登录脚本</a></li>
+<li><a href="#12-%E6%B7%BB%E5%8A%A0%E5%8F%82%E6%95%B0%E5%8C%96%E7%BB%84%E4%BB%B6">1.2 添加参数化组件</a></li>
+<li><a href="#13-%E6%B7%BB%E5%8A%A0%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%99%A8">1.3 添加循环控制器</a></li>
+<li><a href="#14-%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%9C">1.4 验证结果</a></li>
+</ul>
+</li>
+<li><a href="#2-ecshop%E6%B5%8F%E8%A7%88%E5%99%A8%E5%95%86%E5%93%81">2. ecshop浏览器商品</a>
+<ul>
+<li><a href="#21-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C">2.1 准备工作</a></li>
+<li><a href="#22-%E5%85%B3%E8%81%94cookie">2.2 关联cookie</a></li>
+<li><a href="#23-%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F">2.3 配置用户自定义变量</a></li>
+<li><a href="#24-%E8%A7%82%E5%AF%9F%E7%BB%93%E6%9E%9C%E4%B8%8E%E6%96%AD%E8%A8%80">2.4 观察结果与断言</a></li>
+<li><a href="#25-%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%9C">2.5 验证结果</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0-%E5%9B%BE%E5%BD%A2%E5%8C%96%E6%8A%A5%E5%91%8A">第十二章 图形化报告</a></li>
+</ul>
 
-            
-
-          </div>
-
+              </div>
+            </div>
+          </article>
         </div>
-      </div>
-    </div>
 
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        
 
-<script type="application/javascript">
+        
 
-AOS.init();
+        <div class="site-footer">
+  Powered by Alexxx | 
+  <a class="rss" href="https://yihangliak.github.io/atom.xml" target="_blank">RSS</a>
+</div>
 
-hljs.initHighlightingOnLoad()
+<script>
+  hljs.initHighlightingOnLoad()
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
 </script>
 
-
-
-
+      </div>
+    </div>
   </body>
 </html>
