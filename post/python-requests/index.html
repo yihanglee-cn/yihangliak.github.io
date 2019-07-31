@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Alex&#39;s Blog</title>
 <meta name="description" content="你好  靓仔   :D" />
-<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1564561483880">
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1564566392544">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -23,7 +23,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://yihangliak.github.io">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yihangliak.github.io/images/avatar.png?v=1564561483880" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yihangliak.github.io/images/avatar.png?v=1564566392544" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Alex&#39;s Blog</h1>
       </div>
@@ -51,13 +51,20 @@
 </ul>
 </li>
 <li><a href="#4-%E4%BF%9D%E6%8C%81%E4%BC%9A%E8%AF%9D">4. 保持会话</a></li>
-<li><a href="#5%E8%AF%B7%E6%B1%82%E5%A4%B4">5.请求头</a>
+<li><a href="#5%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%B7%E6%B1%82%E5%A4%B4">5.自定义请求头</a>
 <ul>
 <li><a href="#51-%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E5%A4%B4">5.1 获取请求头</a></li>
 <li><a href="#52-%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%B7%E6%B1%82%E5%A4%B4">5.2 自定义请求头</a></li>
+<li><a href="#53-%E5%AE%9E%E4%BE%8B">5.3 实例</a></li>
 </ul>
 </li>
-<li><a href="#6https">6.HTTPS</a></li>
+<li><a href="#6%E5%8F%91%E9%80%81https%E8%AF%B7%E6%B1%82">6.发送HTTPS请求</a>
+<ul>
+<li><a href="#61-sslerror">6.1 SSLError</a></li>
+<li><a href="#62-%E5%85%B3%E9%97%AD%E8%AF%81%E4%B9%A6%E9%AA%8C%E8%AF%81">6.2 关闭证书验证</a></li>
+<li><a href="#63-%E5%BF%BD%E7%95%A5%E8%AD%A6%E5%91%8A%E4%BF%A1%E6%81%AF">6.3 忽略警告信息</a></li>
+</ul>
+</li>
 </ul>
 
           </div>
@@ -106,7 +113,7 @@
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
         <h1 class="text-3xl font-bold lg:mt-16">Python Requests</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2019-07-20 / 3 min read
+          2019-07-20 / 4 min read
         </div>
         
           <img class="post-feature-image rounded-lg mx-auto my-4" src="https://yihangliak.github.io/post-images/python-requests.jpg" alt="">
@@ -174,10 +181,12 @@ print(r.text)                         # 打印响应文本内容
 <pre><code>http://www.baidu.com/s?wd=python
 </code></pre>
 <h1 id="3-post请求">3. post请求</h1>
+<p>在web课程中我们已经知晓了，客户端发送一些敏感的信息时，我们需要通过post请求方式，这种传输方式比get请求安全，而且是通过加密的方式传输比较安全，下面我们就介绍一下怎样通过requests库进行发送post请求</p>
 <h2 id="31-data">3.1 data</h2>
-<p><code>data</code>参数是字典类型，传入<code>form</code>里</p>
+<p>如果想要发送一些编码为表单形式的数据，只需要传递一个字典给<code>data</code>关键字参数，你的字典数据在发出请求时自动编码为表单形式</p>
 <pre><code class="language-python">import requests
 
+# 给data传入字典数据
 r = requests.post('http://httpbin.org/post', data={'key1':'value1', 'key2':'value2'})
 print(r.text)
 </code></pre>
@@ -185,7 +194,7 @@ print(r.text)
   &quot;args&quot;: {}, 
   &quot;data&quot;: &quot;&quot;, 
   &quot;files&quot;: {}, 
-  &quot;form&quot;: {               # data传入到这里
+  &quot;form&quot;: {               # data传入到这里，以表单形式
     &quot;key1&quot;: &quot;value1&quot;, 
     &quot;key2&quot;: &quot;value2&quot;
   }, 
@@ -203,10 +212,14 @@ print(r.text)
 }
 </code></pre>
 <h2 id="32-json">3.2 json</h2>
+<p>post方法还可以以<code>json</code>关键字参数传入json数据，传入json数据时，<code>header</code>中的<code>Content-Type</code>默认为<code>application/json</code></p>
+<p>将字典数据转化为<code>json</code>数据，需要导入<code>json</code>模块，并用<code>dumps</code>进行转换</p>
 <pre><code class="language-python">import requests
 
-data = {'key1':'value1', 'key2':'value2'}
-r = requests.post('http://httpbin.org/post', json=json.dumps(data))
+data = {'key1':'value1', 'key2':'value2'}   # 定义字典数据
+
+# 将字典转化为json并传入请求中
+r = requests.post('http://httpbin.org/post', json=json.dumps(data))  
 print(r.text)
 </code></pre>
 <pre><code>{
@@ -229,8 +242,16 @@ print(r.text)
 
 </code></pre>
 <h2 id="33-实例">3.3 实例</h2>
+<blockquote>
+<p>在真实场景中，如何能够确定<code>post</code>请求中应该传入<code>data</code>还是<code>json</code>呢？</p>
+</blockquote>
+<p>确定<code>post</code>请求中，应该传入<code>data</code>还是<code>json</code>，可以通过抓包工具抓取请求数据，查看请求<code>header</code>中<code>Content-Type</code>的值：</p>
+<ul>
+<li><code>Content-Type：application/from</code>：传入data</li>
+<li><code>Content-Type：application/json</code>：传入json</li>
+</ul>
 <p>ecshop登录实例：</p>
-<p>首先，通过<code>fiddler</code>抓包，查看ecshop登录请求头中的<code>Content-Type</code>，可以看到请求中的数据是以<code>表单</code>的形式发送到服务器的，如图：</p>
+<p>首先，通过<code>fiddler</code>抓包，查看ecshop登录请求头中的<code>Content-Type</code>，可以看到请求中的数据是以<code>from</code>的形式发送到服务器的，如图：</p>
 <p><img src="https://i.loli.net/2019/07/22/5d352bcc4179d47999.png" alt=""></p>
 <p>所以，在使用<code>requests</code>发送<code>post</code>请求时，用户名与密码都会以<code>data</code>关键字参数传入</p>
 <pre><code class="language-python">import requests
@@ -241,14 +262,18 @@ datas = {'username':'liyihang', 'password':'tashi123', 'act':'act_login'}
 r = requests.post(url, data=datas)
 print(r.text)
 
-# 可以用re模块，正则匹配的方式，提取出用户名
-t = re.findall('&lt;font class=&quot;f4_b&quot;&gt;(.+?)&lt;/font&gt;', r.text)
-print(t)
-</code></pre>
-<pre><code>['liyihang']
+# 加入判断进行断言
+if &quot;欢迎您回来！&quot; in result:
+    print('登录成功')
+else:
+	print('登录失败')
 </code></pre>
 <h1 id="4-保持会话">4. 保持会话</h1>
-<p>一般在项目中，很多操作都是需要先登录再进行，所以需要先发送登录请求，登录成功后，保持登录状态，再进行后续操作，在requests中保持会话的方式如下：</p>
+<p>一般在项目中，很多操作都是需要先登录再进行，所以需要先发送登录请求，登录成功后，保持登录状态，再进行后续操作，在requests中保持会话，我们可以用<code>session</code>来保持登录状态</p>
+<blockquote>
+<p><strong>为什么session可以实现保持会话呢？</strong></p>
+<p>因为底层使用的是urllib3.connectionpool 一看到连接池就会联想到数据库的连接池，对就是池化的概念。且链接是采用的HTTP 长链接，再底层是用HTTP1.1 Connection: keep-alive来实现的</p>
+</blockquote>
 <pre><code class="language-python">import requests
 
 # 保持登录，然后充值100
@@ -266,8 +291,10 @@ r = s.post(url, data=datas1)
 # 发送充值请求
 r2 = s.post(url, data=datas2 )
 print(r2.text)
+
+# 这里可以加一个简单判断用来断言结果是否正确
 </code></pre>
-<h1 id="5请求头">5.请求头</h1>
+<h1 id="5自定义请求头">5.自定义请求头</h1>
 <h2 id="51-获取请求头">5.1 获取请求头</h2>
 <blockquote>
 <p><code>httpbin.org/headers</code>会返回发送请求的请求头</p>
@@ -311,8 +338,8 @@ print(r.text)
 <p><strong><code>headers</code>中各参数的作用如下：</strong></p>
 <ul>
 <li>accept：指定客户单接受的内容类型，<code>/</code>表示任意类型，其余按照字义</li>
-<li>accept-encoding：指定客户端接受的编码类型</li>
-<li>accept-language：指定客户端接受的语言类型，<code>q=0.9</code>表示喜欢程度，不写则是1，数值越高越喜欢</li>
+<li><s>accept-encoding：指定客户端接受的编码类型</s></li>
+<li><s>accept-language：指定客户端接受的语言类型，<code>q=0.9</code>表示喜欢程度，不写则是1，数值越高越喜欢</s></li>
 <li>connection：指定长链接处理方式，<code>keep-alive</code>表示希望保持传输链接，http本身是无状态的</li>
 <li>host：服务器主机名</li>
 <li>user-agent：用户代理，服务器从此处知道客户端的系统类型以及版本等信息</li>
@@ -349,27 +376,56 @@ print(r.text)
 }
 
 </code></pre>
-<h1 id="6https">6.HTTPS</h1>
-<p>requests在发送<code>HTTPS</code>请求时，会报证书错误，代码与错误如下：</p>
+<h2 id="53-实例">5.3 实例</h2>
+<p>以<code>知乎发现</code>页面为例，在没有通过自定义请求头<code>伪装</code>成真实浏览器时，是获取不到该页面中的信息的，只有在将请求头伪装成与真实浏览器一样以后，才可以获取到该页面的信息</p>
+<p>首先，用<code>fiddler</code>抓取知乎-发现页面请求信息，在headers中找到<code>user-agent</code>信息，并将其复制</p>
+<p><img src="https://mypic-1256006100.cos.ap-chengdu.myqcloud.com/markdown_pic/Snipaste_2019-07-24_10-24-41.png" alt=""></p>
+<p>然后在代码中自定义header</p>
 <pre><code class="language-python">import requests
 
-url = 'https://login.51job.com/login.php'
-r = requests.post(url)
-print(r.encoding)   # 查看响应的编码格式
-r.encoding = 'gbk'  # 指定响应的编码格式，不指定响应内容中的中文会乱码
-print(r.text)       # 查看响应的文本信息
+# 未定义请求头之前
+# r = requests.get('https://www.zhihu.com/explore')
+# print(r.text)   # 不能正常访问页面信息
+
+header = {
+    &quot;User-Agent&quot;:&quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 &quot;
+                 &quot;(KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&quot;
+}
+
+# 通过headers关键字参数将自定义header传入
+r = requests.get('https://www.zhihu.com/explore', headers=header)
+print(r.text)    # 正常访问知乎发现页面
+
+</code></pre>
+<h1 id="6发送https请求">6.发送HTTPS请求</h1>
+<h2 id="61-sslerror">6.1 SSLError</h2>
+<p>requests在发送<code>HTTPS</code>请求时，有时会报证书错误，</p>
+<p>别在开启<code>Fiddler</code>抓包工具时，发送访问百度首页时会报证书错误</p>
+<p>代码与错误如下：</p>
+<pre><code class="language-python">import requests
+
+r = requests.get(&quot;https://www.baidu.com&quot;)
+print(r.status_code)
 </code></pre>
 <p>执行上述代码会报证书错误：<code>requests.exceptions.SSLError: HTTPSConnectionPool</code></p>
-<p>解决办法为：</p>
+<h2 id="62-关闭证书验证">6.2 关闭证书验证</h2>
+<blockquote>
+<p>解决办法为：关闭证书验证</p>
+</blockquote>
+<p>Requests的请求默认<code>verify=True</code>，如果你将<code>verify</code>设置为<code>False</code>，Requests 也能忽略对 SSL 证书的验<br>
+证</p>
 <pre><code class="language-python">import requests
-import urllib3
-urllib3.disable_warnings()   # 使用urllib3关闭警告
 
-url = 'https://login.51job.com/login.php'
-r = requests.post(url, verify=False)    # 关闭证书验证
-print(r.encoding)
-r.encoding = 'gbk'
-print(r.text)
+r = requests.get(&quot;https://www.baidu.com&quot;, verify=False)  # 关闭证书验证
+print(r.status_code)
+</code></pre>
+<h2 id="63-忽略警告信息">6.3 忽略警告信息</h2>
+<pre><code class="language-python">import urllib3
+
+# 关闭警告
+urllib3.disable_warnings()
+r = requests.get(&quot;https://www.baidu.com&quot;, verify=False)  # 关闭证书验证
+print(r.status_code)
 </code></pre>
 
         </div>
