@@ -2,98 +2,124 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Postman使用技巧 | Alex&#39;s Blog</title>
+<title>Alex&#39;s Blog</title>
 <meta name="description" content="你好  靓仔   :D" />
-<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1564382895124">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1564561483880">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="https://yihangliak.github.io/styles/main.css">
-
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://yihangliak.github.io/styles/main.css">
 
 
 
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://yihangliak.github.io">
-  <img class="avatar" src="https://yihangliak.github.io/images/avatar.png?v=1564382895124" alt="">
-  </a>
-  <h1 class="site-title">
-    Alex&#39;s Blog
-  </h1>
-  <p class="site-description">
-    你好  靓仔   :D
-  </p>
-  <div class="menu-container">
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://yihangliak.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yihangliak.github.io/images/avatar.png?v=1564561483880" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Alex&#39;s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B">Postman使用教程</a></li>
+<li><a href="#1%E4%BB%8B%E7%BB%8D">1.介绍</a></li>
+<li><a href="#2%E4%BC%98%E5%8A%BF">2.优势</a></li>
+<li><a href="#3%E5%AE%89%E8%A3%85">3.安装</a></li>
+<li><a href="#4%E5%B7%A5%E5%85%B7%E7%95%8C%E9%9D%A2%E7%AE%80%E4%BB%8B">4.工具界面简介</a></li>
+<li><a href="#5%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82">5.发送请求</a>
+<ul>
+<li><a href="#51-%E5%88%9B%E5%BB%BA%E8%AF%B7%E6%B1%82%E9%80%89%E9%A1%B9%E5%8D%A1">5.1 创建请求选项卡</a></li>
+<li><a href="#52-%E5%A1%AB%E5%86%99%E8%AF%B7%E6%B1%82%E5%9C%B0%E5%9D%80">5.2 填写请求地址</a></li>
+</ul>
+</li>
+<li><a href="#6%E4%BD%BF%E7%94%A8%E7%94%A8%E4%BE%8B%E9%9B%86">6.使用用例集</a>
+<ul>
+<li><a href="#61-%E6%96%B0%E5%BB%BA%E7%94%A8%E4%BE%8B%E9%9B%86">6.1 新建用例集</a></li>
+<li><a href="#62-%E6%B7%BB%E5%8A%A0%E8%AF%B7%E6%B1%82%E5%88%B0%E7%94%A8%E4%BE%8B%E9%9B%86">6.2 添加请求到用例集</a></li>
+</ul>
+</li>
+<li><a href="#7%E6%96%AD%E8%A8%80">7.断言</a>
+<ul>
+<li><a href="#71-%E6%B7%BB%E5%8A%A0%E6%96%AD%E8%A8%80">7.1 添加断言</a></li>
+<li><a href="#72-%E6%9F%A5%E7%9C%8B%E6%96%AD%E8%A8%80%E7%BB%93%E6%9E%9C">7.2 查看断言结果</a></li>
+<li><a href="#73-%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%AD%E8%A8%80%E6%96%B9%E6%B3%95">7.3 常用的断言方法</a></li>
+</ul>
+</li>
+<li><a href="#8%E6%89%B9%E9%87%8F%E8%BF%90%E8%A1%8C%E7%94%A8%E4%BE%8B%E9%9B%86">8.批量运行用例集</a></li>
+<li><a href="#9%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">9.设置环境变量</a>
+<ul>
+<li><a href="#91-%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">9.1 添加环境变量</a></li>
+<li><a href="#93-%E5%88%87%E6%8D%A2%E7%8E%AF%E5%A2%83">9.3 切换环境</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
     
       
-        <a href="https://yihangliak.github.io" class="menu">
+        <a href="https://yihangliak.github.io" class="menu" style="animation-delay: 0s">
           首页
         </a>
       
     
       
-        <a href="https://yihangliak.github.io/archives" class="menu">
+        <a href="https://yihangliak.github.io/archives" class="menu" style="animation-delay: 0.2s">
           归档
         </a>
       
     
       
-        <a href="https://yihangliak.github.io/tags" class="menu">
+        <a href="https://yihangliak.github.io/tags" class="menu" style="animation-delay: 0.4s">
           标签
         </a>
       
     
       
-        <a href="https://yihangliak.github.io/post/about/" class="menu">
+        <a href="https://yihangliak.github.io/post/about/" class="menu" style="animation-delay: 0.6000000000000001s">
           关于
         </a>
       
     
   </div>
-  <div class="social-container">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by Alexxx</div>
+    <a class="rss" href="https://yihangliak.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
-
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              Postman使用技巧
-            </h2>
-            <div class="post-info">
-              <span>
-                2019-07-19
-              </span>
-              <span>
-                1 min read
-              </span>
-              
-                <a href="https://yihangliak.github.io/tag/WAOgluHv7" class="post-tag">
-                  # postman
-                </a>
-              
-            </div>
-            
-              <img class="post-feature-image" src="https://yihangliak.github.io/post-images/postman-shi-yong-ji-qiao.png" alt="">
-            
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <h1 id="postman使用教程">Postman使用教程</h1>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Postman使用技巧</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-07-19 / 1 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://yihangliak.github.io/post-images/postman-shi-yong-ji-qiao.png" alt="">
+        
+        <div class="post-content yue">
+          <h1 id="postman使用教程">Postman使用教程</h1>
 <h1 id="1介绍">1.介绍</h1>
 <p>postman是一个接口测试工具，在做接口测试的时候，postman相当于一个客户端，他可以模拟用户发起各类的<code>HTTP请求</code>，将<code>请求</code>你数据发送至<code>服务端</code>，获取对应的响应结果，从而验证响应中的结果是否与预期值匹配；并确保开发人员能够及时处理接口中的bug，进而保证产品上线后的<code>稳定性</code>与<code>安全性</code></p>
 <h1 id="2优势">2.优势</h1>
@@ -178,108 +204,142 @@ pm.test(&quot;Response time is less than 200ms&quot;, function () {
 <p><code>{{url}}autonumber/autoComNum?resultv2=1&amp;text=3102615141528</code></p>
 <p><img src="https://i.loli.net/2019/07/19/5d31681ac9dbb19061.png" alt=""></p>
 
-              </div>
-              <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li><a href="#postman%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B">Postman使用教程</a></li>
-<li><a href="#1%E4%BB%8B%E7%BB%8D">1.介绍</a></li>
-<li><a href="#2%E4%BC%98%E5%8A%BF">2.优势</a></li>
-<li><a href="#3%E5%AE%89%E8%A3%85">3.安装</a></li>
-<li><a href="#4%E5%B7%A5%E5%85%B7%E7%95%8C%E9%9D%A2%E7%AE%80%E4%BB%8B">4.工具界面简介</a></li>
-<li><a href="#5%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82">5.发送请求</a>
-<ul>
-<li><a href="#51-%E5%88%9B%E5%BB%BA%E8%AF%B7%E6%B1%82%E9%80%89%E9%A1%B9%E5%8D%A1">5.1 创建请求选项卡</a></li>
-<li><a href="#52-%E5%A1%AB%E5%86%99%E8%AF%B7%E6%B1%82%E5%9C%B0%E5%9D%80">5.2 填写请求地址</a></li>
-</ul>
-</li>
-<li><a href="#6%E4%BD%BF%E7%94%A8%E7%94%A8%E4%BE%8B%E9%9B%86">6.使用用例集</a>
-<ul>
-<li><a href="#61-%E6%96%B0%E5%BB%BA%E7%94%A8%E4%BE%8B%E9%9B%86">6.1 新建用例集</a></li>
-<li><a href="#62-%E6%B7%BB%E5%8A%A0%E8%AF%B7%E6%B1%82%E5%88%B0%E7%94%A8%E4%BE%8B%E9%9B%86">6.2 添加请求到用例集</a></li>
-</ul>
-</li>
-<li><a href="#7%E6%96%AD%E8%A8%80">7.断言</a>
-<ul>
-<li><a href="#71-%E6%B7%BB%E5%8A%A0%E6%96%AD%E8%A8%80">7.1 添加断言</a></li>
-<li><a href="#72-%E6%9F%A5%E7%9C%8B%E6%96%AD%E8%A8%80%E7%BB%93%E6%9E%9C">7.2 查看断言结果</a></li>
-<li><a href="#73-%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%AD%E8%A8%80%E6%96%B9%E6%B3%95">7.3 常用的断言方法</a></li>
-</ul>
-</li>
-<li><a href="#8%E6%89%B9%E9%87%8F%E8%BF%90%E8%A1%8C%E7%94%A8%E4%BE%8B%E9%9B%86">8.批量运行用例集</a></li>
-<li><a href="#9%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">9.设置环境变量</a>
-<ul>
-<li><a href="#91-%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">9.1 添加环境变量</a></li>
-<li><a href="#93-%E5%88%87%E6%8D%A2%E7%8E%AF%E5%A2%83">9.3 切换环境</a></li>
-</ul>
-</li>
-</ul>
-
-              </div>
-            </div>
-          </article>
         </div>
 
         
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://yihangliak.github.io/post/mysql-lian-xi">
-              <h3 class="post-title">
-                MySQL  整理
-              </h3>
-            </a>
-          </div>
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://yihangliak.github.io/tag/WAOgluHv7">
+            <span class="flex-auto">postman</span>
+          </a>
         
 
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://yihangliak.github.io/post/python-requests">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  Python Requests
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://yihangliak.github.io/post/mysql-lian-xi">
+                <h3 class="post-title">
+                  MySQL  整理
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
         
-
-        <div class="site-footer">
-  Powered by Alexxx | 
-  <a class="rss" href="https://yihangliak.github.io/atom.xml" target="_blank">RSS</a>
-</div>
-
-<script>
-  hljs.initHighlightingOnLoad()
-
-  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
-
-  // This should probably be throttled.
-  // Especially because it triggers during smooth scrolling.
-  // https://lodash.com/docs/4.17.10#throttle
-  // You could do like...
-  // window.addEventListener("scroll", () => {
-  //    _.throttle(doThatStuff, 100);
-  // });
-  // Only not doing it here to keep this Pen dependency-free.
-
-  window.addEventListener("scroll", event => {
-    let fromTop = window.scrollY;
-
-    mainNavLinks.forEach((link, index) => {
-      let section = document.getElementById(decodeURI(link.hash).substring(1));
-      let nextSection = null
-      if (mainNavLinks[index + 1]) {
-        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-      }
-      console.log('section.offsetHeight', section.offsetHeight);
-      if (section.offsetTop <= fromTop) {
-        if (nextSection) {
-          if (nextSection.offsetTop > fromTop) {
-            link.classList.add("current");
-          } else {
-            link.classList.remove("current");    
-          }
-        } else {
-          link.classList.add("current");
-        }
-      } else {
-        link.classList.remove("current");
-      }
-    });
-  });
-
-</script>
 
       </div>
     </div>
+
+    <script src="/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
   </body>
 </html>
