@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>Alex&apos;s Blog</title>
-    <updated>2019-08-09T07:08:35.713Z</updated>
+    <updated>2019-08-10T08:36:18.834Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -1240,8 +1240,841 @@ driver.save_screenshot('s1.png')
 # 关闭浏览器
 driver.close()
 </code></pre>
+<h2 id="2html基础">2.HTML基础</h2>
 </li>
 </ul>
+<h3 id="21-什么是html">2.1 什么是HTML</h3>
+<ul>
+<li>HTML：超文本标记语言（Hyper Text Markup Language）</li>
+<li>HTML使用标记标签来描述网页</li>
+</ul>
+<h3 id="22-html标签">2.2 HTML标签</h3>
+<ul>
+<li>标签由尖括号包围</li>
+<li>标签是成对出现的</li>
+<li>标签对中：第一个为开始标签，第二个为结束标签</li>
+</ul>
+<h3 id="23-第一个网页">2.3 第一个网页</h3>
+<pre><code class="language-html">&lt;html&gt;
+    &lt;body&gt;
+        &lt;h1&gt;我的第一个标题&lt;/h1&gt;
+        &lt;p&gt;我的第一个段落&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="24-元素常见的属性">2.4 元素常见的属性</h3>
+<ul>
+<li>class：元素的类名</li>
+<li>id：元素的唯一id</li>
+<li>name：元素名，大部分情况唯一</li>
+</ul>
+<h3 id="25-常见的标签">2.5 常见的标签</h3>
+<ul>
+<li><code>&lt;a&gt;</code>：超链接</li>
+<li><code>&lt;input&gt;</code>：输入标签，如输入框，按钮等</li>
+<li><code>&lt;div&gt;</code>：块级元素，把文档分割为独立的、不同的部分</li>
+<li><code>&lt;form&gt;</code>：为用户输入创建HTML表单</li>
+<li><code>&lt;img&gt;</code>：图片</li>
+<li><code>&lt;iframe&gt;</code>：定义内嵌框架，在一个HTML中嵌入另一个HTML（QQ邮箱）</li>
+<li><code>&lt;span&gt;</code>：组合行内元素</li>
+</ul>
+<pre><code class="language-html">&lt;html&gt;
+    &lt;body&gt;
+        &lt;h1&gt;我的第一个标题&lt;/h1&gt;
+        &lt;p&gt;我的第一个段落&lt;/p&gt;
+        &lt;form&gt;
+            账号
+            &lt;input type=&quot;text&quot; name=&quot;uaername&quot;&gt;
+            &lt;/br&gt;
+            密码
+            &lt;input type=&quot;text&quot; name=&quot;password&quot;&gt;
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="3元素定位">3.元素定位</h2>
+<ul>
+<li>元素定位和操作是自动化测试的核心部分</li>
+<li>一个元素就像一个人，有自己的特征（属性）</li>
+<li>webdriver提供了一系列的元素定位方法，常用的有下面几种：
+<ul>
+<li>id：根据元素id值</li>
+<li>name：根据元素name值</li>
+<li>class name：根据元素class值</li>
+<li>tag name：根据元素标签名字</li>
+<li>link text：根据超链接的文本内容</li>
+<li>partial link text：根据超链接的部分文本内容</li>
+<li>xpath：根据xpath</li>
+<li>css selector：通过css定位</li>
+</ul>
+</li>
+</ul>
+<h3 id="31-id和name定位">3.1 id和name定位</h3>
+<ul>
+<li>id：规定元素的唯一id</li>
+<li><code>driver.find_element_by_id('su')</code></li>
+<li><code>driver.find_element_by_name('wd')</code></li>
+</ul>
+<pre><code class="language-html"># 百度搜索框元素
+&lt;input id=&quot;kw&quot; name=&quot;wd&quot; class=&quot;s_ipt&quot; value=&quot;&quot; maxlength=&quot;255&quot; autocomplete=&quot;off&quot;&gt;
+
+# 搜索按钮元素
+&lt;input type=&quot;submit&quot; id=&quot;su&quot; value=&quot;百度一下&quot; class=&quot;bg s_btn&quot;&gt;
+</code></pre>
+<ul>
+<li>根据id定位搜索框，根据name定位到搜索按钮</li>
+</ul>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+driver.maximize_window()
+
+# 根据id定位到百度搜索框,并输入Selenium
+driver.find_element_by_name('wd').send_keys('Selenium')
+
+# 根据name定位到搜索按钮，并点击
+driver.find_element_by_id('su').click()
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<h3 id="32-tag-name和class-name定位">3.2 tag name和class name定位</h3>
+<p>HTML文本</p>
+<pre><code class="language-html">&lt;div id=&quot;searchform&quot; class=&quot;jhp_big&quot; style=&quot;margin-top:-2px&quot;&gt;
+&lt;form id=&quot;tsf&quot; onsubmit=&quot;return name=&quot;f&quot; method=&quot;GET&quot; action=&quot;/search&quot;&gt;
+&lt;input id=&quot;kw&quot; class=&quot;s_ipt&quot; type=&quot;text&quot; name=&quot;wd&quot; autocomplete=&quot;off&quot;&gt;
+</code></pre>
+<ul>
+<li>tag name
+<ul>
+<li>通过标签名定位</li>
+<li>不推荐使用，因为HTML文件中有很多同名的标签名，不唯一</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python">&lt;div&gt;
+find_element_by_tag_name('div')
+</code></pre>
+<ul>
+<li>class name：直接访问百度首页讲解，可以通过class name定位到输入框</li>
+</ul>
+<pre><code>class=&quot;s_ipt&quot;
+find_element_by_class_name('s_ipt')
+</code></pre>
+<h3 id="33-link-text和partial-link-text定位">3.3 link text和partial link text定位</h3>
+<ul>
+<li>根据链接文本定位：<code>driver.find_element_by_link_text('新闻')</code></li>
+<li>根据链接部分文本定位：<code>driver.find_element_by_partial_link_text('央视快评')</code></li>
+<li>根据超链接中的文本内容定位</li>
+</ul>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 根据link_text定位到百度新闻超链接，并点击
+driver.find_element_by_link_text('新闻').click()
+# 暂停1秒
+sleep(1)
+# 在新闻新闻页面，根据一条新闻链接的部分文本定位，并点击
+driver.find_element_by_partial_link_text('央视快评').click()
+# 暂停1秒
+sleep(1)
+
+# 关闭浏览器,quit关闭所有浏览器窗口
+driver.quit()
+</code></pre>
+<h3 id="34-xpath定位">3.4 XPath定位</h3>
+<ul>
+<li>
+<p>XPath是一种在XML文档中定位元素的语言，有多种可能性</p>
+</li>
+<li>
+<p>语法</p>
+<ul>
+<li><code>/</code>：从根节点选取（绝对路径）</li>
+<li><code>//</code>：从当前节点选取，不考虑节点的位置（相对路径）</li>
+<li><code>.</code>：选取当前节点</li>
+<li><code>..</code>：选取当前节点的父节点    搜索框的上两级父节点：<code>//*[@id='kw']/../..</code></li>
+<li><code>@</code>：选取属性</li>
+</ul>
+</li>
+<li>
+<p>绝对路径定位上面文档中的输入框</p>
+<ul>
+<li>不推荐使用绝对路径定位</li>
+<li>难以阅读和维护</li>
+</ul>
+</li>
+<li>
+<p>xpath定位元素时，元素没有属性，可以定位他的父节点再定位到他本身</p>
+</li>
+</ul>
+<blockquote>
+<p>注意：如果一个元素本身没有任何属性值，则可以通过xapth定位到它的父级元素再定位到它自己</p>
+</blockquote>
+<p><code>案例：</code><br>
+使用<code>绝对路径</code>定位百度首页输入框：<code>/html/body/div/div/div/div/div/form/span/input</code><br>
+使用<code>相对路径</code>定位百度首页输入框：<code>//input[@id=&quot;kw&quot;]</code><br>
+当子节点有多个<code>同名</code>标签时，可以用[数字]的方法按顺序选取元素：<code>//input[@id=&quot;kw&quot;]/input[2]</code>  (选取百度首页输入框下的第二个input)</p>
+<pre><code>百度搜索框：//*[@id=&quot;form&quot;]/span/input
+</code></pre>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 通过绝对路径定位到输入框，并且输入selenium
+driver.find_element_by_xpath(&quot;/html/body/div/div/div/div/div/form/span/input&quot;).send_keys('selenium')
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<ul>
+<li>相对路径定位上面文档中的输入框</li>
+</ul>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 通过相对路径定位到输入框，并且输入selenium
+# // 从当前节点选取
+# *：匹配任何标签
+# @：选取id属性为kw的节点
+# 另一种写法：//input[@id='kw']
+driver.find_element_by_xpath(&quot;//*[@id='kw']&quot;).send_keys('selenium')
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<h3 id="35-css定位">3.5 CSS定位</h3>
+<ul>
+<li>
+<p>语法</p>
+<ul>
+<li><code>#</code>：元素id属性选取，如 #kw：id为kw的元素</li>
+<li><code>.</code>：元素class属性选取，如 .s_ipt：class值为s_ipt的元素</li>
+<li><code>[]</code>：其他属性选取，如 [id='kw']</li>
+<li>层级关系选取，如 #form &gt; span:nth-of-type(1) &gt;input
+<ul>
+<li>第几个span用“span:nth-of-type(n)”表示</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>范例</p>
+<ul>
+<li>
+<p><code>#</code>：元素id属性选取</p>
+</li>
+<li>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 使用# 通过id属性定位到百度首页搜索框，并输入selenium
+driver.find_element_by_css_selector(&quot;#kw&quot;).send_keys('selenium')
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<pre><code class="language-python">
+from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 使用. 通过class值定位百度首页搜索框，并输入selenium
+driver.find_element_by_css_selector(&quot;.s_ipt&quot;).send_keys('selenium')
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+
+</code></pre>
+</li>
+<li>
+<p><code>[]</code>：其他属性选取</p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 使用[] 通过id属性定位百度首页搜索框，并输入selenium
+driver.find_element_by_css_selector(&quot;[id='kw']&quot;).send_keys('selenium')
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+</li>
+<li>
+<p>层级关系选取</p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# css层级关系定位
+# 首先通过id属性定位到form
+# 然后定位form里面的第一个span
+# 最后再span的子节点input为最终选取的节点
+driver.find_element_by_css_selector(&quot;#form &gt; span:nth-of-type(1) &gt;input&quot;).send_keys('selenium')
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="36-捕获元素定位失败异常">3.6 捕获元素定位失败异常</h3>
+<p>在元素可能定位失败时，为了让代码继续执行，可以捕获异常</p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+from selenium.common.exceptions import NoSuchElementException # 需要先导入异常包
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+try:
+    driver.find_element_by_id('kw123').send_keys('python')
+except NoSuchElementException as e:
+    print('元素定位失败，异常信息是：{}'.format(e))
+
+sleep(2)
+driver.quit()
+</code></pre>
+<p>输出信息：</p>
+<pre><code>元素定位失败，异常信息是：Message: no such element: Unable to locate element: {&quot;method&quot;:&quot;id&quot;,&quot;selector&quot;:&quot;kw123&quot;}
+  (Session info: chrome=73.0.3683.86)
+  (Driver info: chromedriver=70.0.3538.97 (d035916fe243477005bc95fe2a5778b8f20b6ae1),platform=Windows NT 10.0.14393 x86_64)
+</code></pre>
+<h2 id="4元素操作">4.元素操作</h2>
+<h3 id="41-输入内容">4.1 输入内容</h3>
+<ul>
+<li>
+<p>send_keys()</p>
+<pre><code class="language-python">driver.find_element_by_id('kw').send_keys('selenium')
+</code></pre>
+</li>
+</ul>
+<h3 id="42-点击元素">4.2 点击元素</h3>
+<ul>
+<li>
+<p>click（）</p>
+<pre><code class="language-python">driver.find_element_by_id('kw').click()
+</code></pre>
+</li>
+</ul>
+<h3 id="43-清空元素中的内容">4.3 清空元素中的内容</h3>
+<ul>
+<li>
+<p>clear（）</p>
+<pre><code class="language-python">driver.find_element_by_id('kw').clear()
+</code></pre>
+</li>
+</ul>
+<h3 id="44-获取元素文本内容">4.4 获取元素文本内容</h3>
+<ul>
+<li>
+<p>text</p>
+<pre><code class="language-python">from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 定位到新闻超链接，再获取元素文本
+text = driver.find_element_by_link_text(&quot;新闻&quot;).text
+print(text)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<pre><code>新闻
+</code></pre>
+</li>
+</ul>
+<h3 id="45-获取元素的尺寸">4.5 获取元素的尺寸</h3>
+<ul>
+<li>
+<p>size</p>
+<pre><code class="language-python">from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 定位到搜索框，再获取元素尺寸
+size = driver.find_element_by_css_selector('#kw').size
+print(size)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<pre><code>{'height': 22, 'width': 500}
+</code></pre>
+</li>
+</ul>
+<h3 id="46-获取元素属性">4.6 获取元素属性</h3>
+<ul>
+<li>
+<p>get_attribute（）</p>
+<pre><code class="language-python">from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 定位到搜索框，再获取元素属性
+attribute = driver.find_element_by_css_selector('#kw').get_attribute('type')
+print(attribute)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<pre><code>text
+</code></pre>
+</li>
+</ul>
+<h3 id="47-提交表单">4.7 提交表单</h3>
+<ul>
+<li>
+<p>submit（）</p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 定位到搜索框
+driver.find_element_by_css_selector('#kw').send_keys('selenium')
+# 使用submit，代替click
+driver.find_element_by_css_selector('#su').submit()
+
+sleep(2)
+# 关闭浏览器
+driver.close()
+</code></pre>
+</li>
+</ul>
+<h2 id="5设置等待时间">5.设置等待时间</h2>
+<h3 id="51-强制等待">5.1 强制等待</h3>
+<ul>
+<li>导入time模块下的sleep</li>
+<li>强制让代码等待若干秒</li>
+</ul>
+<h3 id="52-隐式等待">5.2 隐式等待</h3>
+<ul>
+<li>
+<p><code>driver.implicitly_wait（）</code></p>
+</li>
+<li>
+<p>隐式等待是在等待周期内一直检测元素是否出现，元素出现后则马上继续，如果等待超时就会报错</p>
+</li>
+<li>
+<p>隐式等待只需设置一次即可对整个测试周期生效</p>
+</li>
+<li>
+<p>任何时候都应该加上隐式等待</p>
+</li>
+<li>
+<p>建议设置等待时间：30s内</p>
+</li>
+<li>
+<p>隐式等待缺陷</p>
+<ul>
+<li>对一些一直存在但值在变化的元素没有意义</li>
+<li>如网页title</li>
+</ul>
+<pre><code class="language-python">
+from selenium import webdriver
+
+from time import sleep
+
+driver = webdriver.Chrome()
+
+driver.get('https://www.baidu.com')
+
+# 添加智能等待
+
+driver.implicitly_wait(10)
+
+# 获取当前页面的title
+
+old_title  = driver.title
+
+print(old_title)
+
+# 进行搜索操作
+
+driver.find_element_by_css_selector('#kw').send_keys('selenium')
+
+driver.find_element_by_css_selector('#su').click()
+
+# 实验：添加强制等待后再获取新title
+
+#sleep(3)
+
+# 获取搜索界面的title
+
+new_title = driver.title
+
+print(new_title)
+
+if old_title == new_title:
+
+    print('智能等待对title失效，title还没有变化')
+
+else:
+
+    print('智能等待对title已生效')
+
+driver.close()
+</code></pre>
+</li>
+</ul>
+<h3 id="53-显示等待ex">5.3 显示等待（ex）</h3>
+<h4 id="531-title-is">5.3.1 title is</h4>
+<pre><code class="language-python">from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait  # 导入webdriverwait类
+from selenium.webdriver.support.expected_conditions import title_is
+
+driver = webdriver.Chrome()         # 创建浏览器对象
+
+# 创建webdriverwait对象
+# 最长超时时间为10s
+wait = WebDriverWait(driver, 10)
+
+# 访问百度首页
+driver.get('https://www.baidu.com')
+
+# 百度首页的页面标题为：百度一下，你就知道
+# 使用title_is判断
+title = wait.until(title_is('百度一下，你就知道'))
+
+# 打印title值，true表示页面标题正确，反之不正确
+print(title)
+
+# 这部分会抛出timeout异常
+# 因为10s后，页面标题还是百度一下，你就知道
+# 注意是用的until_not
+title2 = wait.until_not(title_is('百度一下，你就知道'))
+print(title2)
+
+driver.quit()
+</code></pre>
+<h2 id="6浏览器控制滚动条">6.浏览器控制滚动条</h2>
+<ul>
+<li>
+<p>阅读用户协议等页面时，通过滚动条是否拉到最下方判断用户阅读情况</p>
+</li>
+<li>
+<p>需要操作的元素不在视觉范围内，需要拖动滚动条</p>
+</li>
+<li>
+<p><mark>注意：拖动滚动条要加强制等待，不然拖不了</mark></p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 添加智能等待
+driver.implicitly_wait(10)
+
+# 进行搜索操作
+driver.find_element_by_css_selector('#kw').send_keys('selenium')
+driver.find_element_by_css_selector('#su').click()
+
+# 加一个等待，避免页面没有加载完成导致不能拖动
+sleep(1)
+
+# 将页面滚动条拖动到底部（纵坐标）
+js = 'window.scrollTo(0,10000)'
+driver.execute_script(js)
+
+# 横坐标可以与纵坐标结合使用
+
+sleep(1)
+
+# 将滚动条拖动到最右（横坐标）
+js2 = 'window.scrollTo(10000,0)'
+driver.execute_script(js2)
+
+sleep(2)
+
+driver.quit()
+</code></pre>
+</li>
+</ul>
+<h2 id="7下拉框操作">7.下拉框操作</h2>
+<ul>
+<li>下拉框源码</li>
+</ul>
+<pre><code class="language-html">&lt;html&gt;
+	&lt;body&gt;
+		&lt;select  id='kw'&gt;
+			&lt;option  value='1'&gt;湖南&lt;/option&gt;
+			&lt;option  value='2'&gt;广东&lt;/option&gt;
+			&lt;option  value='3'&gt;湖北&lt;/option&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="71-使用二次定位">7.1 使用二次定位</h3>
+<ul>
+<li>
+<p>先定位到下拉框，再点击里面的选项</p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+import os
+
+driver = webdriver.Chrome()
+file_path = 'file:///' + os.path.abspath('下拉框.html')
+driver.get(file_path)
+
+sleep(2)
+
+# 定位到下拉框
+m = driver.find_element_by_id('kw')
+# 再点击选择里面的选项
+m.find_element_by_xpath(&quot;//option[@value='2']&quot;).click()
+
+sleep(3)
+
+driver.quit()
+</code></pre>
+</li>
+</ul>
+<h3 id="73-使用select库">7.3 使用Select库</h3>
+<ul>
+<li>
+<p>导入selenium自带的select库</p>
+</li>
+<li>
+<p>再通过索引、值、文本等定位下拉框选项</p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+import os
+from selenium.webdriver.support.select import Select # 导入select
+
+driver = webdriver.Chrome()
+file_path = 'file:///' + os.path.abspath('下拉框.html')
+driver.get(file_path)
+
+sleep(2)
+
+# 定位到下拉框
+m = driver.find_element_by_id('ShippingMethod')
+
+# 使用select库选择
+#Select(m).select_by_index(2)  # 根据索引选择，注意索引从0开始
+#Select(m).select_by_value(&quot;7.45&quot;) # 根据value值选择
+Select(m).select_by_visible_text('UPS Ground ==&gt; $8.34')  # 根据标签文本选择
+
+sleep(3)
+
+driver.quit()
+</code></pre>
+</li>
+</ul>
+<h2 id="8多窗口处理">8.多窗口处理</h2>
+<ul>
+<li>
+<p>根据窗口的handle值进行切换</p>
+</li>
+<li>
+<p>获取当前窗口：<code>driver.current_window_handle</code></p>
+</li>
+<li>
+<p>切换到指定窗口：<code>driver.switch_to.window()</code></p>
+</li>
+<li>
+<p>获取所有窗口：<code>driver.window_handles</code></p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://news.baidu.com')
+driver.implicitly_wait(20)
+
+# 获取当前窗口handle
+shouye_handle = driver.current_window_handle
+print('新闻首页窗口的handle是：{}'.format(shouye_handle))
+
+# 打开一条新闻
+driver.find_element_by_partial_link_text('创新是').click()
+
+sleep(3)
+
+# 切换到新闻首页窗口
+driver.switch_to.window(shouye_handle)
+
+#获取所有窗口handle，返回列表
+all_handle = driver.window_handles
+print('所有窗口的handle是:{}'.format(all_handle))
+
+sleep(2)
+
+driver.quit()
+</code></pre>
+</li>
+</ul>
+<h2 id="9弹框处理">9.弹框处理</h2>
+<ul>
+<li>弹框源码（test目录中alert.html）</li>
+<li>点击弹框中的确定：<code>driver.switch_to.alert.accept()</code></li>
+<li>点击弹框中的取消：<code>driver.switch_to.alert.dismiss()</code></li>
+<li>弹框中输入文本：<code>driver.switch_to.alert.send_keys('xiaoming')</code></li>
+<li>获取弹框中的文本：<code>driver.switch_to.alert.text</code></li>
+</ul>
+<h3 id="91-点击弹框中的确定">9.1 点击弹框中的确定</h3>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+import os
+
+driver = webdriver.Chrome()
+file_path = 'file:///' + os.path.abspath('alert.html')
+driver.get(file_path)
+
+# 点击第三种弹框
+driver.find_element_by_id('b3').click()
+sleep(1)
+# 点击弹框中的确定
+driver.switch_to.alert.accept()
+sleep(1)
+
+# 点击第三种弹框
+driver.find_element_by_id('b3').click()
+sleep(1)
+# 点击弹框中的取消
+driver.switch_to.alert.dismiss()
+
+# 点击第二种弹框
+driver.find_element_by_id('b2').click()
+sleep(1)
+# 在弹框中输入xiaoming
+driver.switch_to.alert.send_keys('xiaoming')
+sleep(2)
+# 点击确定
+driver.switch_to.alert.accept()
+sleep(2)    # 输入小明后，有一句提示语
+driver.switch_to.alert.accept()
+
+# 点击第三种弹框
+driver.find_element_by_id('b3').click()
+print(driver.switch_to.alert.text)
+
+sleep(2)
+
+driver.quit()
+</code></pre>
+<h2 id="10框架切换">10.框架切换</h2>
+<ul>
+<li>
+<p>框架：frame</p>
+</li>
+<li>
+<p>通过frame中的id/name切换：<code>driver.switch_to.frame(frame id/name)</code></p>
+</li>
+<li>
+<p>返回默认框架：<code>driver.switch_to.default_content()</code></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;窗口切换&lt;/title&gt;
+&lt;/head&gt;
+&lt;frameset rows=&quot;50%,50%&quot; ,border=&quot;0&quot; scrolling=&quot;no&quot;
+    noresize=&quot;noresize&quot;&gt;
+    &lt;frame src=&quot;https://www.baidu.com/&quot; name=&quot;top&quot; noresize=&quot;noresize&quot; /&gt;
+    &lt;frame src=&quot;https://www.taobao.com/&quot; name=&quot;bottom&quot; /&gt;
+&lt;/frameset&gt;
+&lt;/frameset&gt;
+&lt;/html&gt;
+</code></pre>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+driver = webdriver.Chrome()
+file_path = 'file:///C:/Users/%E6%9D%8E%E4%B8%80%E6%9D%AD/Desktop/frame.html'
+driver.get(file_path)
+driver.implicitly_wait(20)
+
+# 切换到最顶层frame
+driver.switch_to.frame('top')
+# 在百度搜索框中输入selenium
+driver.find_element_by_id('kw').send_keys('selenium')
+
+# 返回默认层
+driver.switch_to.default_content()
+
+# 切换到中间层frame
+driver.switch_to.frame('body')
+# 如果frame没有id/name属性，则通过二次定位解决
+# f = driver.find_element_by_xpath('/html/frameset/frame[2]')
+# driver.switch_to.frame(f)
+# 点击新浪首页中的新闻链接
+driver.find_element_by_link_text('新闻').click()
+
+sleep(2)
+
+# 返回默认层
+driver.switch_to.default_content()
+
+driver.quit()
+</code></pre>
+</li>
+</ul>
+<pre><code class="language-python"># QQ登录
+from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get(&quot;https://mail.qq.com&quot;)  #/cgi-bin/loginpage
+driver.implicitly_wait(30)
+
+# 切换到登录frame
+driver.switch_to.frame('login_frame')
+# 切换到账号密码登录
+driver.find_element_by_id('switcher_plogin').click()
+# 输入用户名
+driver.find_element_by_id('u').send_keys('630746762')
+# 输入密码
+driver.find_element_by_id('p').send_keys('wo@NI123')
+# 点击登录
+driver.find_element_by_id('login_button').click()
+
+sleep(2)
+driver.quit()
+</code></pre>
 ]]></content>
     </entry>
     <entry>
