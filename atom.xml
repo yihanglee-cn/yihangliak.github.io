@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>Alex&apos;s Blog</title>
-    <updated>2019-08-27T09:08:46.760Z</updated>
+    <updated>2019-08-27T09:10:09.739Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -10,24 +10,6 @@
     <logo>https://yihangliak.github.io/images/avatar.png</logo>
     <icon>https://yihangliak.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, Alex&apos;s Blog</rights>
-    <entry>
-        <title type="html"><![CDATA[Docker安装Tomcat环境]]></title>
-        <id>https://yihangliak.github.io/post/docker-an-zhuang-tomcat-huan-jing</id>
-        <link href="https://yihangliak.github.io/post/docker-an-zhuang-tomcat-huan-jing">
-        </link>
-        <updated>2019-08-27T06:22:17.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="docker简介">Docker简介</h1>
-<p>...</p>
-<h1 id="拉取docker镜像">拉取Docker镜像</h1>
-<pre><code>docker pull tomcat
-</code></pre>
-<h1 id="查看所有已下载镜像">查看所有已下载镜像</h1>
-<pre><code>docker images
-</code></pre>
-<h1 id="运行容器">运行容器</h1>
-<p>使用dcoker run 运行一个tomcat容器</p>
-]]></content>
-    </entry>
     <entry>
         <title type="html"><![CDATA[Jemeter性能测试完整入门]]></title>
         <id>https://yihangliak.github.io/post/begin_jemeter</id>
