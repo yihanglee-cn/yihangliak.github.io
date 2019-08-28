@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>Alex&apos;s Blog</title>
-    <updated>2019-08-28T02:22:05.783Z</updated>
+    <updated>2019-08-28T02:23:13.608Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -16,9 +16,9 @@
         <link href="https://yihangliak.github.io/post/luckyframe-zi-dong-hua-ce-shi-ping-tai-bu-shu-zhi-nan">
         </link>
         <updated>2019-08-28T02:09:31.000Z</updated>
-        <summary type="html"><![CDATA[<p>LuckyFrame<code>测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了</code>接口自动化<code>、</code>WEB UI自动化<code>、</code>APP自动化<code>，并且支持</code>分布式测试<code>，</code>测试关键字驱动`也很大程度上解决了测试同学代码基础弱的问题。</p>
+        <summary type="html"><![CDATA[<p>LuckyFrame测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了接口自动化、WEB UI自动化、APP自动化，并且支持分布式测试，测试关键字驱动也很大程度上解决了测试同学代码基础弱的问题。</p>
 ]]></summary>
-        <content type="html"><![CDATA[<p>LuckyFrame<code>测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了</code>接口自动化<code>、</code>WEB UI自动化<code>、</code>APP自动化<code>，并且支持</code>分布式测试<code>，</code>测试关键字驱动`也很大程度上解决了测试同学代码基础弱的问题。</p>
+        <content type="html"><![CDATA[<p>LuckyFrame测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了接口自动化、WEB UI自动化、APP自动化，并且支持分布式测试，测试关键字驱动也很大程度上解决了测试同学代码基础弱的问题。</p>
 <!-- more -->
 <h1 id="关于luckyframe">关于LuckyFrame</h1>
 <p>​	<code>LuckyFrame</code>测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了<code>接口自动化</code>、<code>WEB UI自动化</code>、<code>APP自动化</code>，并且支持<code>分布式测试</code>，<code>测试关键字驱动</code>也很大程度上解决了测试同学代码基础弱的问题。同时也集成了<code>质量管理</code>相关的一些功能，解决QA的日常工作中，项目过程数据的收集问题，并能展示一些简单质量报表。</p>
