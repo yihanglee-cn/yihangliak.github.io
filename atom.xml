@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>Alex&apos;s Blog</title>
-    <updated>2019-08-28T02:12:44.794Z</updated>
+    <updated>2019-08-28T02:22:05.783Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -89,7 +89,11 @@
         <link href="https://yihangliak.github.io/post/begin_jemeter">
         </link>
         <updated>2019-07-23T01:18:12.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="第一章-性能基础知识">第一章 性能基础知识</h1>
+        <summary type="html"><![CDATA[<p>性能测试是通过自动化的测试工具模拟多种正常、峰值以及异常负载条件来对系统的各项性能指标进行测试。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>性能测试是通过自动化的测试工具模拟多种正常、峰值以及异常负载条件来对系统的各项性能指标进行测试。</p>
+<!-- more -->
+<h1 id="第一章-性能基础知识">第一章 性能基础知识</h1>
 <h2 id="1-性能测试的概念">1. 性能测试的概念</h2>
 <p>通过性能测试工具模拟多种正常，峰值，以及异常负载条件来对系统的各项性能指标进行测试</p>
 <h2 id="2性能测试的目的">2.性能测试的目的</h2>
@@ -547,7 +551,11 @@ WTF  大学毕业旅行就是去的桂林   时隔多年 竟想不到以这种�
         <link href="https://yihangliak.github.io/post/python-requests">
         </link>
         <updated>2019-07-20T01:53:31.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="requests">Requests</h1>
+        <summary type="html"><![CDATA[<p>Requests 唯一的一个非转基因的 Python HTTP 库，人类可以安全享用。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Requests 唯一的一个非转基因的 Python HTTP 库，人类可以安全享用。</p>
+<!-- more -->
+<h1 id="requests">Requests</h1>
 <h1 id="1-安装requests">1. 安装requests</h1>
 <p>命令行使用pip安装：<code>pip install requests</code></p>
 <h1 id="2-get请求">2. get请求</h1>
@@ -863,7 +871,11 @@ print(r.status_code)
         <link href="https://yihangliak.github.io/post/postman-shi-yong-ji-qiao">
         </link>
         <updated>2019-07-19T03:40:49.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="postman使用教程">Postman使用教程</h1>
+        <summary type="html"><![CDATA[<p>Postman是一个接口测试工具，在做接口测试的时候，Postman相当于一个客户端，它可以模拟用户发起的各类HTTP请求，将请求数据发送至服务端，获取对应的响应结果，从而验证响应中的结果数据是否和预期值相匹配；并确保开发人员能够及时处理接口中的bug，进而保证产品上线之后的稳定性和安全性。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Postman是一个接口测试工具，在做接口测试的时候，Postman相当于一个客户端，它可以模拟用户发起的各类HTTP请求，将请求数据发送至服务端，获取对应的响应结果，从而验证响应中的结果数据是否和预期值相匹配；并确保开发人员能够及时处理接口中的bug，进而保证产品上线之后的稳定性和安全性。</p>
+<!-- more -->
+<h1 id="postman使用教程">Postman使用教程</h1>
 <h1 id="1介绍">1.介绍</h1>
 <p>postman是一个接口测试工具，在做接口测试的时候，postman相当于一个客户端，他可以模拟用户发起各类的<code>HTTP请求</code>，将<code>请求</code>你数据发送至<code>服务端</code>，获取对应的响应结果，从而验证响应中的结果是否与预期值匹配；并确保开发人员能够及时处理接口中的bug，进而保证产品上线后的<code>稳定性</code>与<code>安全性</code></p>
 <h1 id="2优势">2.优势</h1>
@@ -955,7 +967,11 @@ pm.test(&quot;Response time is less than 200ms&quot;, function () {
         <link href="https://yihangliak.github.io/post/mysql-lian-xi">
         </link>
         <updated>2019-06-24T02:11:00.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="准备数据">准备数据</h1>
+        <summary type="html"><![CDATA[<p>MySQL -- 最流行的关系型数据库管理系统</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>MySQL -- 最流行的关系型数据库管理系统</p>
+<!-- more -->
+<h1 id="准备数据">准备数据</h1>
 <p><strong>创建学生表</strong></p>
 <pre><code>CREATE TABLE `student`(
 	`s_id` VARCHAR(20),
@@ -1097,7 +1113,11 @@ HAVING COUNT(s1.c_id) &lt; (SELECT COUNT(*) FROM course);
         <link href="https://yihangliak.github.io/post/flask-chao-qing-dao-wu-fa-xiang-xiang">
         </link>
         <updated>2019-06-21T08:44:53.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="flask简介">Flask简介</h1>
+        <summary type="html"><![CDATA[<p>Flask 是一个 Python 实现的 Web 开发微框架。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Flask 是一个 Python 实现的 Web 开发微框架。</p>
+<!-- more -->
+<h1 id="flask简介">Flask简介</h1>
 <blockquote>
 <p>Flask是一个使用<code>Python</code>编写的轻量级web应用框架<br>
 WSGI工具箱采用<code>Werzeug</code>，模板引擎使用<code>Jinjia2</code></p>
@@ -1554,7 +1574,11 @@ if __name__ == '__main__':
         <link href="https://yihangliak.github.io/post/selenium-cong-ru-men-dao-shi-zhan">
         </link>
         <updated>2019-06-21T03:29:54.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="第一章-自动化环境搭建">第一章  自动化环境搭建</h1>
+        <summary type="html"><![CDATA[<p>Selenium是一个用于Web应用程序自动化测试工具</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Selenium是一个用于Web应用程序自动化测试工具</p>
+<!-- more -->
+<h1 id="第一章-自动化环境搭建">第一章  自动化环境搭建</h1>
 <h2 id="1安装python3">1.安装Python3</h2>
 <ul>
 <li>安装好Python3</li>
@@ -2578,7 +2602,11 @@ driver.quit()
         <link href="https://yihangliak.github.io/post/begin_python">
         </link>
         <updated>2019-06-20T15:35:14.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="第一章-python简介">第一章 Python简介</h1>
+        <summary type="html"><![CDATA[<p>全球开发语言前三甲</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>全球开发语言前三甲</p>
+<!-- more -->
+<h1 id="第一章-python简介">第一章 Python简介</h1>
 <h2 id="1python起源">1.Python起源</h2>
 <ul>
 <li>Python是<code>吉多*范罗苏姆</code>在1989年圣诞节，为了打发无聊而编写的一个解释程序</li>
