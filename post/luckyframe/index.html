@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Alex&#39;s Blog</title>
 <meta name="description" content="你好  靓仔   :D" />
-<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1567145981095">
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1567148993566">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -24,7 +24,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://yihangliak.github.io">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yihangliak.github.io/images/avatar.png?v=1567145981095" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yihangliak.github.io/images/avatar.png?v=1567148993566" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Alex&#39;s Blog</h1>
       </div>
@@ -35,10 +35,18 @@
           </p>
           <div class="toc-container hidden lg:block">
             <ul class="markdownIt-TOC">
-<li><a href="#docker%E7%AE%80%E4%BB%8B">Docker简介</a></li>
-<li><a href="#%E6%8B%89%E5%8F%96docker%E9%95%9C%E5%83%8F">拉取Docker镜像</a></li>
-<li><a href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E5%B7%B2%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F">查看所有已下载镜像</a></li>
-<li><a href="#%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8">运行容器</a></li>
+<li><a href="#%E5%85%B3%E4%BA%8Eluckyframe">关于LuckyFrame</a></li>
+<li><a href="#windows%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2">Windows平台部署</a>
+<ul>
+<li><a href="#1-%E5%AE%89%E8%A3%85jdk">1. 安装JDK</a></li>
+<li><a href="#2-%E5%AE%89%E8%A3%85mysql">2. 安装MySQL</a></li>
+<li><a href="#3-%E4%B8%8B%E8%BD%BDluckyframe">3. 下载LuckyFrame</a></li>
+<li><a href="#4%E4%BF%AE%E6%94%B9%E7%BC%96%E8%AF%91%E5%8C%85%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE">4.修改编译包数据库配置</a></li>
+<li><a href="#5%E5%AF%BC%E5%85%A5sql%E6%96%87%E4%BB%B6">5.导入SQL文件</a></li>
+<li><a href="#6%E5%90%AF%E5%8A%A8luckyframe">6.启动LuckyFrame</a></li>
+<li><a href="#7%E8%AE%BF%E9%97%AE">7.访问</a></li>
+</ul>
+</li>
 </ul>
 
           </div>
@@ -85,22 +93,77 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">Docker安装Tomcat环境</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">LuckyFrame自动化测试平台部署指南</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2019-08-27 / 1 min read
+          2019-08-28 / 1 min read
         </div>
         
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://ae01.alicdn.com/kf/Heff8b96d2cfb405db59bce2ff715edb3S.png" alt="">
+        
         <div class="post-content yue">
-          <h1 id="docker简介">Docker简介</h1>
-<p>...</p>
-<h1 id="拉取docker镜像">拉取Docker镜像</h1>
-<pre><code>docker pull tomcat
+          <p>LuckyFrame测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了接口自动化、WEB UI自动化、APP自动化，并且支持分布式测试，测试关键字驱动也很大程度上解决了测试同学代码基础弱的问题。</p>
+<!-- more -->
+<h1 id="关于luckyframe">关于LuckyFrame</h1>
+<p>​	<code>LuckyFrame</code>测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了<code>接口自动化</code>、<code>WEB UI自动化</code>、<code>APP自动化</code>，并且支持<code>分布式测试</code>，<code>测试关键字驱动</code>也很大程度上解决了测试同学代码基础弱的问题。同时也集成了<code>质量管理</code>相关的一些功能，解决QA的日常工作中，项目过程数据的收集问题，并能展示一些简单质量报表。</p>
+<h1 id="windows平台部署">Windows平台部署</h1>
+<h2 id="1-安装jdk">1. 安装JDK</h2>
+<ul>
+<li>部署LuckyFrame之前，需要先安装jdk，且版本要求在<code>1.8</code>以上</li>
+<li>JDK去<code>oracle</code>官网下载即可</li>
+<li>打开环境变量配置界面，在用户变量中新增<code>JAVA_HOME=jdk安装路径</code>，再将<code>%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin</code>添加至系统变量<code>path</code>中即可</li>
+<li>在命令行中输入<code>java -version</code>验证</li>
+</ul>
+<h2 id="2-安装mysql">2. 安装MySQL</h2>
+<p>下载xampp集成环境，免去单独配置安装MySQL的麻烦</p>
+<ul>
+<li>将xampp解压到某磁盘根目录</li>
+<li>打开xampp-control程序，启动MySQL</li>
+<li>进入xampp中的<code>mysql\bin</code>目录，在当前路径下打开命令行</li>
+<li>使用<code>mysql -uroot -p</code>登录（xampp集成的MySQL无密码）</li>
+<li>切换到MySQL数据库：<code>use mysql</code></li>
+<li>修改MySQL密码：<code>update user set password=password('123456') where user='root'</code></li>
+<li>刷新权限：<code>flush privileges</code></li>
+</ul>
+<h2 id="3-下载luckyframe">3. 下载LuckyFrame</h2>
+<p>访问Luckyframe官网，直接下载编译包，下载地址如下：</p>
+<pre><code>链接：  https://pan.baidu.com/s/1SNUhzoKFgH2TRQN2Rx711A 密码：u845
 </code></pre>
-<h1 id="查看所有已下载镜像">查看所有已下载镜像</h1>
-<pre><code>docker images
-</code></pre>
-<h1 id="运行容器">运行容器</h1>
-<p>使用dcoker run 运行一个tomcat容器</p>
+<blockquote>
+<p>注意：下载3.0bata版本，同时还要下载数据库初始化sql文件</p>
+</blockquote>
+<h2 id="4修改编译包数据库配置">4.修改编译包数据库配置</h2>
+<ul>
+<li>使用压缩工具打开下载好的编译包</li>
+<li>找到编译包目录中<code>BOOT-INF\classes\application-druid.yml</code>文件</li>
+<li>用notepad打开，将其中的<code>主数据库源</code>配置项中的密码改成本机MySQL的密码</li>
+</ul>
+<p><img src="https://ae01.alicdn.com/kf/Heabb9bbbc3f94b159ac29c938f9602741.png" alt=""></p>
+<h2 id="5导入sql文件">5.导入SQL文件</h2>
+<p>在启动LuckyFrame之前，需要先在MySQL数据库中导入<code>初始化sql</code>文件</p>
+<ul>
+<li>登录MySQL，新建<code>luckyframe</code>数据库：<code>create database luckyframe charset=utf8;</code></li>
+<li>回到命令行，使用<code>mysql -h localhost -uroot -p luckyframe &lt; V3.sql --default-character-set=utf8</code>将初始化SQL文件导入进数据库，注意要在sql文件所在目录执行该命令</li>
+</ul>
+<h2 id="6启动luckyframe">6.启动LuckyFrame</h2>
+<ul>
+<li>
+<p>进入LuckyFrame服务端jar包存放目录，在此目录打开命令行</p>
+</li>
+<li>
+<p>命令行输入：<code>java -jar LuckyFrameWeb.jar</code>启动服务即可</p>
+</li>
+<li>
+<p>启动成功后，会看到如下提示</p>
+</li>
+</ul>
+<p><img src="https://ae01.alicdn.com/kf/H3bb471a358a64da28a46a31a45dd130eN.png" alt=""></p>
+<h2 id="7访问">7.访问</h2>
+<ul>
+<li>在浏览器中输入<code>本机ip：80</code>即可访问LuckyFrame，默认为80端口，可以省略不写</li>
+<li>如要修改端口号，需要在编译包中找到<code>BOOT-INF\classes\application.yml</code>文件，修改默认端口配置</li>
+</ul>
+<p>访问效果图如下：</p>
+<p><img src="https://ae01.alicdn.com/kf/H50d41bdd78bd40889b1bfdc4a47e89cdr.png" alt=""></p>
 
         </div>
 
@@ -110,6 +173,15 @@
         <div class="flex justify-between py-8">
           
 
+          
+            <div class="next-post">
+              <a href="https://yihangliak.github.io/post/begin_jemeter">
+                <h3 class="post-title">
+                  Jemeter性能测试完整入门
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
           
         </div>
 
