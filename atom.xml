@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>Alex&apos;s Blog</title>
-    <updated>2019-08-30T06:18:13.852Z</updated>
+    <updated>2019-08-30T06:19:50.553Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://yihangliak.github.io/images/avatar.png</logo>
     <icon>https://yihangliak.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, Alex&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[test for url]]></title>
+        <id>https://yihangliak.github.io/post/gocTn4UxC</id>
+        <link href="https://yihangliak.github.io/post/gocTn4UxC">
+        </link>
+        <updated>2019-08-30T06:19:20.000Z</updated>
+        <content type="html"><![CDATA[<p>test</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[LuckyFrame自动化测试平台部署指南]]></title>
         <id>https://yihangliak.github.io/post/luckyframe-zi-dong-hua-ce-shi-ping-tai-bu-shu-zhi-nan</id>
@@ -5758,22 +5767,6 @@ for i in range(5):      # 循环次数决定生成个数
 268794531@qq.com
 764951832@qq.com
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[SVN版本控制系统使用技巧]]></title>
-        <id>https://yihangliak.github.io/post/svn01</id>
-        <link href="https://yihangliak.github.io/post/svn01">
-        </link>
-        <updated>2019-06-20T15:22:32.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="svn简介">SVN简介</h1>
-<p><code>Subversion</code>是一个开源的版本控制系统</p>
-<ul>
-<li>所有数据存放在一个中央资料档案库中</li>
-<li>可以记住每一次文件的变动</li>
-<li>可以恢复到旧版本档案</li>
-<li>可以浏览文件的变动历史</li>
-</ul>
 ]]></content>
     </entry>
 </feed>
