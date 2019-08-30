@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>Alex&apos;s Blog</title>
-    <updated>2019-08-30T07:10:18.877Z</updated>
+    <updated>2019-08-30T09:26:10.686Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -10,6 +10,71 @@
     <logo>https://yihangliak.github.io/images/avatar.png</logo>
     <icon>https://yihangliak.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, Alex&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Dcoker 安装MySQL]]></title>
+        <id>https://yihangliak.github.io/post/SuD1zwuyw</id>
+        <link href="https://yihangliak.github.io/post/SuD1zwuyw">
+        </link>
+        <updated>2019-08-30T08:40:29.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="dcoker-安装mysql">Dcoker 安装MySQL</h1>
+<h2 id="前言">前言</h2>
+<blockquote>
+<p>什么是Docker？</p>
+</blockquote>
+<p>Docker是一个开源的应用容器引擎，可以将应用程序打包成镜像，然后发布到任何的Linux机器上，也可以实现虚拟化</p>
+<p>简单来说，Docker就好比是虚拟机，虚拟机可以模拟出电脑硬件，并且可以很方便的克隆，但是虚拟机的缺点也非常明显，它会占用宿主机非常多的硬件资源，而且启动速度也非常慢。而Linux在此基础之上发展出了一种新的容器技术，容器与宿主机共用硬件资源，启动速度也非常快，这个容器就是Docker。</p>
+<h2 id="1-安装docker">1. 安装Docker</h2>
+<p>Docker的安装十分简单，在Linux系统中，使用<code>yum</code>安装即可（需联网）</p>
+<pre><code>yum -r install docker
+# -r表示后续所有的需要确认的步骤都默认选择“是”
+</code></pre>
+<h2 id="2启动docker">2.启动Docker</h2>
+<pre><code>service docker start
+</code></pre>
+<h2 id="3镜像-容器-仓库">3.镜像 容器 仓库</h2>
+<p>Docker中有仓库，镜像，容器这个三个比较重要的概念。</p>
+<ul>
+<li>仓库类似代码仓库，集中存放镜像的场所</li>
+<li>镜像类似虚拟机的镜像</li>
+<li>容器则是从镜像创建的一个运行实例</li>
+</ul>
+<p><img src="https://ae01.alicdn.com/kf/H508f8c2700f043c79194c1ef521c17fao.jpg" alt=""></p>
+<h2 id="4拉取镜像">4.拉取镜像</h2>
+<p>拉取MySQL镜像，版本选择5.7</p>
+<pre><code>docker pull mysql:5.7
+</code></pre>
+<h2 id="5查看镜像">5.查看镜像</h2>
+<p>验证刚刚拉取的镜像是否成功</p>
+<pre><code>docker images
+</code></pre>
+<p><img src="https://ae01.alicdn.com/kf/Hb52cbf8cac344605b2c688b9bff42b73t.jpg" alt=""></p>
+<h2 id="6创建mysql目录">6.创建MySQL目录</h2>
+<p>创建MySQL的储存目录，用来存放数据库数据</p>
+<p><code>mkdir -p</code>可以递归创建目录</p>
+<pre><code>mkdir -p /usr/local/mysql/conf /usr/local/mysql/data /usr/local/mysql/logs
+</code></pre>
+<h2 id="7运行容器">7.运行容器</h2>
+<pre><code class="language-shell">docker run -p 3309:3306 --name firstmysql -v /usr/local/mysql/conf:/etc/mysql/conf.d -v /usr/local/mysql/logs:/logs -v /usr/local/mysql/data:/var/lib/mysql -e mysql_root_password=123456 -d mysql:5.7
+</code></pre>
+<p>命令说明：</p>
+<ul>
+<li><code>--name</code>：容器命名为firstmysql</li>
+<li><code>-p 3309:3306</code>：将容器的3309端口映射到宿主机的3306</li>
+<li><code>-v</code>：将容器的某个目录挂载到主机的目录</li>
+<li><code>-e mysql_root_password=123456</code>：初始化数据库root用户的密码为123456</li>
+<li><code>-d</code>：挂后台运行</li>
+</ul>
+<h2 id="8查看容器状态">8.查看容器状态</h2>
+<p>查看容器状态命令：</p>
+<pre><code>docker ps -a
+</code></pre>
+<p><img src="https://ae01.alicdn.com/kf/H30935c3f43784024a3b9d640e6a4baf0w.jpg" alt=""></p>
+<h2 id="9进入容器">9.进入容器</h2>
+<pre><code>docker exec -i -t firstmysql bash
+</code></pre>
+<p><img src="https://ae01.alicdn.com/kf/Ha34afe45477240aa8e74e6a1d5eec0fdu.jpg" alt=""></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[LuckyFrame自动化测试平台部署指南]]></title>
         <id>https://yihangliak.github.io/post/luckyframe</id>
@@ -5758,22 +5823,6 @@ for i in range(5):      # 循环次数决定生成个数
 268794531@qq.com
 764951832@qq.com
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[SVN版本控制系统使用技巧]]></title>
-        <id>https://yihangliak.github.io/post/svn01</id>
-        <link href="https://yihangliak.github.io/post/svn01">
-        </link>
-        <updated>2019-06-20T15:22:32.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="svn简介">SVN简介</h1>
-<p><code>Subversion</code>是一个开源的版本控制系统</p>
-<ul>
-<li>所有数据存放在一个中央资料档案库中</li>
-<li>可以记住每一次文件的变动</li>
-<li>可以恢复到旧版本档案</li>
-<li>可以浏览文件的变动历史</li>
-</ul>
 ]]></content>
     </entry>
 </feed>
