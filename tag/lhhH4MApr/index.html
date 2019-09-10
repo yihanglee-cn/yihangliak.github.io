@@ -31,9 +31,29 @@
       
         <div class="animated fadeInLeft" style="animation-delay: 0.4s">
           <p class="my-4 text-gray-600 font-light hidden lg:block">
-            文章目录
+            你好  靓仔   :D
           </p>
-          <div class="toc-container hidden lg:block">
+          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
             
           </div>
         </div>
@@ -78,122 +98,34 @@
 </div>
 <div class="mask" onclick="closeMenu()">
 </div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">Python全栈第一天：子类扩展父类中的方法</h1>
-        <div class="text-sm text-gray-700 lg:my-8">
-          2019-09-10 / 1 min read
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
+        <h2 class="text-lg text-gray-700 mb-8">
+          <i class="remixicon-bookmark-line"></i> 实用工具
+        </h2>
+        
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
+    
+      <a href="https://yihangliak.github.io/post/UQ96yPt5M" class="feature-image-wrapper bg-gray-100 rounded-lg flex-shrink-0 mr-8 w-full h-56 h-32 md:w-56 md:h-40">
+        <div class="post-feature-image lazy w-full h-56 h-32 md:w-56 md:h-40" data-bg="'https://ae01.alicdn.com/kf/H9eb5c5135b9e451db5351516617abfe49.png'">
         </div>
-        
-          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://ae01.alicdn.com/kf/H219820adda554d069684d5ef0ae985c2A.png" alt="">
-        
-        <div class="post-content yue">
-          <blockquote>
-<p>基本介绍</p>
-</blockquote>
-<p>如果在开发中，<strong>子类方法的实现中包含父类方法的实现</strong>，即<strong>父类封装的方法是子类实现的一部分</strong></p>
-<p>则可以使用 <strong>扩展</strong>的方式</p>
-<blockquote>
-<p>使用步骤：</p>
-</blockquote>
-<ol>
-<li>在子类中 <strong>重写</strong> 父类方法</li>
-<li>在需要的位置使用<code>super().父类方法</code>来调用父类方法的执行</li>
-<li>代码其他位置针对子类的需求，编写 <strong>子类特有的代码实现</strong></li>
-</ol>
-<blockquote>
-<p>关于super</p>
-</blockquote>
-<ul>
-<li>在python中，super是一个 <strong>特殊</strong> 的类</li>
-<li>super（）就是使用super类创建出来的对象</li>
-<li>最常使用的场景就是在 <strong>重写父类方法时</strong>，调用 <strong>在父类中的方法实现</strong></li>
-</ul>
-<blockquote>
-<p>代码实现</p>
-</blockquote>
-<pre><code class="language-python"># 定义父类：动物类
-class Animal():
-    def eat(self):
-        print('吃')
+      </a>
+    
+    <div class="content">
+      <a href="https://yihangliak.github.io/post/UQ96yPt5M">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">实用工具大搜罗</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <p>盘点那些不为人知的工具-们！</p>
 
-    def run(self):
-        print('跑')
+      </div>
+      <div class="text-gray-400 text-sm font-light">2019-09-10 / 1 min read</div>
+    </div>
+  </section>
 
-    def bark(self):
-        print('狗吠')
-
-xiaohei = Animal()  # 实例化狗类
-xiaohei.eat()       # 生成对象调用父类方法
-
-print('='*50)
-
-class Dog(Animal):   # 定义狗类，并继承动物类
-    def bark(self):
-        print('汪汪叫')
-
-xiaobai = Dog()
-xiaobai.bark()       # 调用狗吠方法
-
-print('='*50)
-
-class xiaotianquan(Dog):
-    def bark(self):
-        super().bark()  # 使用super().父类方法调用父类方法并执行
-        print('eqweqdasdasdasdsad')  # 编写子类特有的功能，哮天犬除了狗吠还会鸟语...
-
-xtq = xiaotianquan()
-xtq.bark()  # 哮天犬除了不仅会狗吠，还会说鸟语...
-</code></pre>
-<pre><code>吃
-==================================================
-汪汪叫
-==================================================
-汪汪叫
-eqweqdasdasdasdsad
-</code></pre>
-<blockquote>
-<p>提示</p>
-</blockquote>
-<p>在Python2.x时，如果需要调用父类方法，还可以使用一下方式实现：</p>
-<pre><code>父类名.方法（self）
-</code></pre>
-<ul>
-<li>这种方式，在目前的Python3.x中依旧支持</li>
-<li>但是不推荐使用这种方法，因为一旦父类名发生变化，子类中涉及到父类 <strong>类名</strong> 的位置同样需要修改</li>
-</ul>
-<blockquote>
-<p>注意</p>
-</blockquote>
-<ul>
-<li>在开发时，父类名和super（）两种方式不要混用</li>
-<li>如果使用当前子类名调用方法，会形成递归调用，<strong>出现死循环</strong></li>
-</ul>
-
-        </div>
-
-        
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://yihangliak.github.io/tag/UpecsIWWl">
-            <span class="flex-auto">Python全栈</span>
-          </a>
-        
-
-
-        <div class="flex justify-between py-8">
-          
-
-          
-            <div class="next-post">
-              <a href="https://yihangliak.github.io/post/UQ96yPt5M">
-                <h3 class="post-title">
-                  实用工具大搜罗
-                  <i class="remixicon-arrow-right-line"></i>
-                </h3>
-              </a>
-            </div>
-          
-        </div>
-
-        
+        <div class="pagination-container animated fadeIn">
+  
+  
+</div>
 
       </div>
     </div>
