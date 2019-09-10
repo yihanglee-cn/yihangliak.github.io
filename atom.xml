@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>一杭的博客</title>
-    <updated>2019-09-10T09:56:25.637Z</updated>
+    <updated>2019-09-10T10:12:27.383Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -16,7 +16,11 @@
         <link href="https://yihangliak.github.io/post/UQ96yPt5M">
         </link>
         <updated>2019-09-10T06:30:01.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="文字编辑">文字编辑    📕</h1>
+        <summary type="html"><![CDATA[<p>盘点那些不为人知的工具-们！</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>盘点那些不为人知的工具-们！</p>
+ <!-- more -->
+<h1 id="文字编辑">文字编辑    📕</h1>
 <p><strong>思维导图</strong></p>
 <ul>
 <li>幕布：<a href="https://mubu.com/">https://mubu.com</a></li>
