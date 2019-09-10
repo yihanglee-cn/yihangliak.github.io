@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>一杭的博客</title>
-    <updated>2019-09-10T06:50:46.765Z</updated>
+    <updated>2019-09-10T07:19:13.915Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -2473,7 +2473,7 @@ driver.close()
 </code></pre>
 </li>
 </ul>
-<h3 id="53-显示等待ex">5.3 显示等待（ex）</h3>
+<h3 id="53-显示等待">5.3 显示等待</h3>
 <h4 id="531-title-is">5.3.1 title is</h4>
 <pre><code class="language-python">from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait  # 导入webdriverwait类
