@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>一杭的博客</title>
 <meta name="description" content="你好  靓仔   :D" />
-<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1568099947701">
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1568101085415">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -24,7 +24,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://yihangliak.github.io">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yihangliak.github.io/images/avatar.png?v=1568099947701" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yihangliak.github.io/images/avatar.png?v=1568101085415" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">一杭的博客</h1>
       </div>
@@ -266,14 +266,7 @@
 <li><a href="#34-%E5%87%BD%E6%95%B0%E9%AB%98%E9%98%B6%E4%BC%A0%E5%8F%82star">3.4 函数高阶传参:star:</a></li>
 </ul>
 </li>
-<li><a href="#4-%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC">4. 函数的返回值</a><br>
-*
-<ul>
-<li><a href="#return">return</a></li>
-<li><a href="#%E5%87%BD%E6%95%B0%E6%B2%A1%E6%9C%89return%E8%BF%94%E5%9B%9Enone">函数没有return，返回None</a></li>
-<li><a href="#%E5%8F%AA%E8%A6%81%E6%89%A7%E8%A1%8C%E4%BA%86return%E5%90%8E%E7%BB%AD%E4%BB%A3%E7%A0%81%E5%B0%86%E4%B8%8D%E4%BC%9A%E6%89%A7%E8%A1%8C">只要执行了return，后续代码将不会执行</a></li>
-</ul>
-</li>
+<li><a href="#4-%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC">4. 函数的返回值</a></li>
 <li><a href="#5-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E4%B8%8E%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F">5. 局部变量与全局变量</a>
 <ul>
 <li><a href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F">全局变量</a></li>
@@ -2691,20 +2684,11 @@ print(calc(**nums))  # 注意：要写2个*
 </code></pre>
 <h2 id="4-函数的返回值">4. 函数的返回值</h2>
 <ul>
-<li>现实生活中的场景：
-<ul>
-<li>我给儿子10块钱，让他给我买包烟。这个例子中，10块钱是我给儿子的，就相当于调用函数时传递到参数，让儿子买烟这个事情最终的目标是，让他把烟给你带回来然后给你对么，，，此时烟就是返回值</li>
-</ul>
-</li>
-<li>定义
-<ul>
-<li>程序中函数完成一件事后，最终给调用者的结果</li>
-</ul>
-</li>
-</ul>
-<h4 id="return">return</h4>
-<ul>
-<li>想要在函数中把结果返回给调用者，需要用return</li>
+<li>现实生活中的场景：<br>
+我给儿子10块钱，让他给我买包烟。这个例子中，10块钱是我给儿子的，就相当于调用函数时传递到参数，让儿子买烟这个事情最终的目标是，让他把烟给你带回来然后给你对么，，，此时烟就是返回值</li>
+<li>定义：程序中函数完成一件事后，最终给调用者的结果<br>
+<strong>return</strong><br>
+想要在函数中把结果返回给调用者，需要用return</li>
 </ul>
 <pre><code class="language-python"># 用return返回结果给调用者
 def add2num(a,b):
@@ -2715,7 +2699,7 @@ print(c)
 </code></pre>
 <pre><code>3
 </code></pre>
-<h4 id="函数没有return返回none">函数没有return，返回None</h4>
+<p><strong>函数没有return，返回None</strong></p>
 <pre><code class="language-python">def add2num(a,b):
     c = a + b
 
@@ -2724,7 +2708,7 @@ print(result)
 </code></pre>
 <pre><code>None
 </code></pre>
-<h4 id="只要执行了return后续代码将不会执行">只要执行了return，后续代码将不会执行</h4>
+<p><strong>只要执行了return，后续代码将不会执行</strong></p>
 <pre><code class="language-python">def add2num(a,b):
     c = a + b
     
@@ -3012,8 +2996,8 @@ newFile.close()
 </code></pre>
 <h1 id="第十七章-异常">第十七章 异常</h1>
 <h2 id="1-捕获异常">1. 捕获异常</h2>
+<p>当代码出现异常时，会抛出异常并停止执行。如果希望<code>出现异常后还继续执行</code>剩下的代码就必须捕捉异常</p>
 <ul>
-<li>当代码出现异常时，会抛出异常并停止执行。如果希望<code>出现异常后还继续执行</code>剩下的代码就必须捕捉异常</li>
 <li>格式</li>
 </ul>
 <pre><code>try:
