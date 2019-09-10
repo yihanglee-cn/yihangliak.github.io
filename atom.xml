@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>一杭的博客</title>
-    <updated>2019-09-10T07:38:09.762Z</updated>
+    <updated>2019-09-10T09:56:25.637Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -16,124 +16,84 @@
         <link href="https://yihangliak.github.io/post/UQ96yPt5M">
         </link>
         <updated>2019-09-10T06:30:01.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="文字编辑">文字编辑</h1>
-<ul>
-<li>思维脑图
+        <content type="html"><![CDATA[<h1 id="文字编辑">文字编辑    📕</h1>
+<p><strong>思维导图</strong></p>
 <ul>
 <li>幕布：<a href="https://mubu.com/">https://mubu.com</a></li>
-<li>xmind
-<ul>
-<li>xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit-9.2.0-201904271935.exe">http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit-9.2.0-201904271935.exe</a></li>
-<li>破解补丁：<a href="https://carrot.ctfile.com/dir/11269771-31680249-fdf2c2/">https://carrot.ctfile.com/dir/11269771-31680249-fdf2c2/</a></li>
+<li>xmind<br>
+xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit-9.2.0-201904271935.exe">http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit-9.2.0-201904271935.exe</a><br>
+破解补丁：<a href="https://carrot.ctfile.com/dir/11269771-31680249-fdf2c2/">https://carrot.ctfile.com/dir/11269771-31680249-fdf2c2/</a></li>
 </ul>
-</li>
-</ul>
-</li>
-<li>Markdown编辑器
+<p><strong>Markdown编辑器</strong></p>
 <ul>
 <li>Typora：<a href="https://www.typora.io/">https://www.typora.io/</a></li>
 </ul>
-</li>
-<li>万能编辑器
+<p><strong>万能编辑器</strong></p>
 <ul>
 <li>notepad ++</li>
 </ul>
-</li>
-<li>文档，表格，幻灯片
+<p><strong>文档，表格，幻灯片</strong></p>
 <ul>
 <li>WPS（政企专版，无广告）：<a href="http://wpspro.support.wps.cn/gov/heilongjiang/daqing/installation/WPS_Office_2019_%E5%A4%A7%E5%BA%86%E5%B8%82%E5%85%9A%E6%94%BF%E6%9C%BA%E5%85%B3%E4%B8%93%E7%94%A8%E7%89%88.exe">http://wpspro.support.wps.cn/gov/heilongjiang/daqing/installation/WPS_Office_2019_大庆市党政机关专用版.exe</a></li>
+<li>在线emoji：<a href="http://emojihomepage.com/">http://emojihomepage.com/</a></li>
 </ul>
-</li>
-</ul>
-<h1 id="开发工具">开发工具</h1>
-<ul>
-<li>图形化Git工具
+<h1 id="开发工具">开发工具    💻</h1>
+<p><strong>图形化Git工具</strong></p>
 <ul>
 <li>sourcetree：<a href="https://www.sourcetreeapp.com/">https://www.sourcetreeapp.com/</a></li>
 </ul>
-</li>
-<li>python编辑器
+<p><strong>python编辑器</strong></p>
 <ul>
 <li>pycharm：<a href="http://www.jetbrains.com/pycharm/">http://www.jetbrains.com/pycharm/</a></li>
 </ul>
-</li>
-<li>MySQL连接软件
+<p><strong>MySQL连接软件</strong></p>
 <ul>
 <li>Navicat for mysql 绿色版：<a href="https://www.cr173.com/soft/38153.html">https://www.cr173.com/soft/38153.html</a></li>
 </ul>
-</li>
-<li>Java8
+<p><strong>Java8</strong></p>
 <ul>
 <li>JDK下载地址：<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></li>
 </ul>
-</li>
-<li></li>
-</ul>
-<h1 id="生活类">生活类</h1>
+<p><strong>淘宝镜像站</strong></p>
 <ul>
-<li>护眼
+<li>地址：<a href="https://npm.taobao.com">https://npm.taobao.com</a></li>
+</ul>
+<h1 id="生活类">生活类    👀</h1>
+<p><strong>护眼</strong></p>
 <ul>
 <li>护眼宝：<a href="http://www.huyanapp.com/portal.php">http://www.huyanapp.com/portal.php</a></li>
 </ul>
-</li>
-</ul>
-<h1 id="图片处理类">图片处理类</h1>
-<ul>
-<li>截图工具
+<h1 id="图片处理类">图片处理类    🎨</h1>
+<p><strong>截图工具</strong></p>
 <ul>
 <li>Snipaste：<a href="https://www.snipaste.com/">https://www.snipaste.com/</a></li>
 </ul>
-</li>
-<li>免费图床
+<p><strong>免费图床</strong></p>
 <ul>
 <li>smpic：<a href="https://github.com/kookob/smpic">https://github.com/kookob/smpic</a></li>
 <li>聚合图床：<a href="https://www.superbed.cn/">https://www.superbed.cn/</a></li>
 </ul>
-</li>
-<li>Gif录制
-<ul>
-<li>GifCam：<a href="https://gifcam.en.softonic.com/">https://gifcam.en.softonic.com/</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="系统美化类">系统美化类</h1>
-<ul>
-<li>任务栏全透明
+<h1 id="系统美化类">系统美化类    🐼</h1>
+<p><strong>任务栏全透明</strong></p>
 <ul>
 <li>TranslucentTB：<a href="https://translucenttb.en.softonic.com/">https://translucenttb.en.softonic.com/</a></li>
 </ul>
-</li>
-<li>Windows字体优化
+<p><strong>Windows字体优化</strong></p>
 <ul>
 <li>Mactype：<a href="https://www.mactype.net/">https://www.mactype.net/</a></li>
 </ul>
-</li>
-</ul>
-<h1 id="效率类">效率类</h1>
-<ul>
-<li>待办事项管理
+<h1 id="效率类">效率类     📚</h1>
+<p><strong>待办事项管理</strong></p>
 <ul>
 <li>MicrosoftToDo：<a href="https://todo.microsoft.com/">https://todo.microsoft.com/</a></li>
 </ul>
-</li>
-<li>本地文件搜索工具（一秒找到文件）
+<p><strong>本地文件搜索工具（一秒找到文件）</strong></p>
 <ul>
 <li>everything：<a href="https://www.voidtools.com/zh-cn/">https://www.voidtools.com/zh-cn/</a></li>
 </ul>
-</li>
-<li>百度云不限速下载
+<p><strong>百度云不限速下载</strong></p>
 <ul>
 <li>speedpan：<a href="https://www.speedpan.com/">https://www.speedpan.com/</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="手机助手类">手机助手类</h1>
-<ul>
-<li>iPhone助手
-<ul>
-<li>爱思助手</li>
-</ul>
-</li>
 </ul>
 ]]></content>
     </entry>
