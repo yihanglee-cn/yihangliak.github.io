@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>一杭的博客</title>
-    <updated>2019-09-10T16:36:05.168Z</updated>
+    <updated>2019-09-11T03:22:15.173Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -65,7 +65,7 @@ xiaobai.bark()       # 调用狗吠方法
 
 print('='*50)
 
-class xiaotianquan(Dog):
+class xiaotianquan(Dog):   # 定义哮天犬类继承狗类
     def bark(self):
         super().bark()  # 使用super().父类方法调用父类方法并执行
         print('eqweqdasdasdasdsad')  # 编写子类特有的功能，哮天犬除了狗吠还会鸟语...
@@ -83,7 +83,7 @@ eqweqdasdasdasdsad
 <blockquote>
 <p>提示</p>
 </blockquote>
-<p>在Python2.x时，如果需要调用父类方法，还可以使用一下方式实现：</p>
+<p>在Python2.x时，如果需要调用父类方法，还可以使用以下方式实现：</p>
 <pre><code>父类名.方法（self）
 </code></pre>
 <ul>
@@ -165,6 +165,7 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 <ul>
 <li>smpic：<a href="https://github.com/kookob/smpic">https://github.com/kookob/smpic</a></li>
 <li>聚合图床：<a href="https://www.superbed.cn/">https://www.superbed.cn/</a></li>
+<li>智图图片压缩：<a href="https://zhitu.isux.us/">https://zhitu.isux.us/</a></li>
 </ul>
 <h1 id="系统美化类">系统美化类    🐼</h1>
 <p><strong>任务栏全透明</strong></p>
