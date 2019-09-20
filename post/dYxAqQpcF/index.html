@@ -35,9 +35,19 @@
           </p>
           <div class="toc-container hidden lg:block">
             <ul class="markdownIt-TOC">
-<li><a href="#%E4%B8%80%E4%B8%87%E4%BB%BD%E6%96%B0%E9%B2%9C-d">一万份新鲜   :D</a>
+<li>
 <ul>
-<li><a href="#%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F">联系方式</a></li>
+<li><a href="#1-%E4%BB%80%E4%B9%88%E6%98%AFhtml">1. 什么是HTML</a></li>
+<li><a href="#2-html%E6%A0%87%E7%AD%BE">2. HTML标签</a></li>
+<li><a href="#3-html%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91%E4%BB%A5%E5%8F%8A%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F">3. HTML文件编辑以及文件格式</a></li>
+<li><a href="#4-%E6%B3%A8%E9%87%8A">4. 注释</a></li>
+<li><a href="#5-html%E5%9F%BA%E7%A1%80">5. HTML基础</a>
+<ul>
+<li><a href="#%E6%A0%87%E9%A2%98">标题</a></li>
+<li><a href="#%E6%AE%B5%E8%90%BD">段落</a></li>
+<li><a href="#%E9%93%BE%E6%8E%A5">链接</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -86,19 +96,73 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">关于</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">HTML基础</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2019-06-06 / 1 min read
+          2019-09-20 / 1 min read
         </div>
         
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://ae01.alicdn.com/kf/H458f6ca2b1044744b76b79e18ae90be3x.jpg" alt="">
+        
         <div class="post-content yue">
-          <p><img src="https://ae01.alicdn.com/kf/H567c683650c54a2d952021293a28e347n.png" alt=""></p>
-<h1 id="一万份新鲜-d">一万份新鲜   :D</h1>
-<h2 id="联系方式">联系方式</h2>
-<ul>
-<li>Email        yihang.lee@qq.com</li>
-<li>QQ            846811543</li>
-</ul>
+          <h2 id="1-什么是html">1. 什么是HTML</h2>
+<p>HTML是用来描述网页的一种语言，英文全称是：<code>Hyper Text markup language</code></p>
+<blockquote>
+<p>注意：HTML不是编程语言，是一种标记语言</p>
+</blockquote>
+<p>HTML使用标记标签来描述网页，然后通过浏览器读取 HTML 文档，并以网页的形式显示出它们</p>
+<h2 id="2-html标签">2. HTML标签</h2>
+<p>HTML标签是由尖括号包围的关键词，比如<code>&lt;html&gt;</code></p>
+<p>HTML标签一般都是成对出现的，比如<code>&lt;html&gt; &lt;/html&gt;</code></p>
+<p>标签对中的第一个标签是<code>开始标签</code>，第二个标签是<code>结束标签</code></p>
+<h2 id="3-html文件编辑以及文件格式">3. HTML文件编辑以及文件格式</h2>
+<p>编辑HTML文件，可以使用<code>Notepad++</code></p>
+<p>HTML文件的格式为：<code>htm 或 html</code>，两者没有任何差别，根据自己喜好选择即可</p>
+<p>HTML文件保存好以后，可以通过浏览器<code>（chrome/IE/FireFox...）</code>打开进行浏览</p>
+<h2 id="4-注释">4. 注释</h2>
+<p>html文档代码中可以插入注释，注释是对代码的说明和解释，注释的内容不会显示在页面上，html代码中插入注释的方法是：</p>
+<pre><code>&lt;!-- 这是一段注释  --&gt;
+</code></pre>
+<h2 id="5-html基础">5. HTML基础</h2>
+<h3 id="标题">标题</h3>
+<p>HTML标题通过<code>&lt;h1&gt;-&lt;h6&gt;</code>标签进行定义的，其中<code>&lt;h1&gt;</code>为最大级别标题，<code>&lt;h6&gt;为最小级别标题</code></p>
+<blockquote>
+<p>代码</p>
+</blockquote>
+<pre><code class="language-html">&lt;h1&gt;This is heading 1&lt;/h1&gt;
+&lt;h2&gt;This is heading 2&lt;/h2&gt;
+&lt;h3&gt;This is heading 3&lt;/h3&gt;
+&lt;h4&gt;This is heading 4&lt;/h4&gt;
+&lt;h5&gt;This is heading 5&lt;/h5&gt;
+&lt;h6&gt;This is heading 6&lt;/h6&gt;
+</code></pre>
+<blockquote>
+<p>效果图</p>
+</blockquote>
+<p><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-04-51.png" alt="Snipaste_2019-08-21_11-04-51.png"></p>
+<h3 id="段落">段落</h3>
+<p>HTML 段落是通过 <code>&lt;p&gt;</code> 标签进行定义的</p>
+<blockquote>
+<p>代码</p>
+</blockquote>
+<pre><code class="language-html">&lt;p&gt;这是段落。&lt;/p&gt;
+&lt;p&gt;这是段落。&lt;/p&gt;
+&lt;p&gt;这是段落。&lt;/p&gt;
+</code></pre>
+<blockquote>
+<p>效果图</p>
+</blockquote>
+<p><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-11-07.png" alt="Snipaste_2019-08-21_11-11-07.png"></p>
+<h3 id="链接">链接</h3>
+<p>HTML 链接是通过<code>&lt;a&gt;</code>标签进行定义的</p>
+<blockquote>
+<p>代码</p>
+</blockquote>
+<pre><code class="language-html">&lt;a href=&quot;http://www.w3school.com.cn&quot;&gt;This is a link&lt;/a&gt;
+</code></pre>
+<blockquote>
+<p>效果图</p>
+</blockquote>
+<p><a href="https://www.z4a.net/image/Ucix29"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-17-07.png" alt=""></a></p>
 
         </div>
 
@@ -108,6 +172,15 @@
         <div class="flex justify-between py-8">
           
 
+          
+            <div class="next-post">
+              <a href="https://yihangliak.github.io/post/phI3IExH8">
+                <h3 class="post-title">
+                  Python全栈（三）：多态
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
           
         </div>
 
