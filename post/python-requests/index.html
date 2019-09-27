@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>一杭的博客</title>
 <meta name="description" content="你好  靓仔   :D" />
-<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1568973173424">
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1569554460617">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -24,7 +24,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://yihangliak.github.io">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yihangliak.github.io/images/avatar.png?v=1568973173424" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yihangliak.github.io/images/avatar.png?v=1569554460617" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">一杭的博客</h1>
       </div>
@@ -114,7 +114,7 @@
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
         <h1 class="text-3xl font-bold lg:mt-16">Python Requests</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2019-07-20 / 4 min read
+          2019-07-20 / 13 min read
         </div>
         
           <img class="post-feature-image rounded-lg mx-auto my-4" src="https://ae01.alicdn.com/kf/H69ac5960f6274e7eb878a41e38f158f3D.jpg" alt="">
@@ -255,7 +255,7 @@ print(r.text)
 </ul>
 <p>ecshop登录实例：</p>
 <p>首先，通过<code>fiddler</code>抓包，查看ecshop登录请求头中的<code>Content-Type</code>，可以看到请求中的数据是以<code>from</code>的形式发送到服务器的，如图：</p>
-<p><img src="https://i.loli.net/2019/07/22/5d352bcc4179d47999.png" alt=""></p>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2019/07/22/5d352bcc4179d47999.png" alt=""></figure>
 <p>所以，在使用<code>requests</code>发送<code>post</code>请求时，用户名与密码都会以<code>data</code>关键字参数传入</p>
 <pre><code class="language-python">import requests
 import re
@@ -382,7 +382,7 @@ print(r.text)
 <h2 id="53-实例">5.3 实例</h2>
 <p>以<code>知乎发现</code>页面为例，在没有通过自定义请求头<code>伪装</code>成真实浏览器时，是获取不到该页面中的信息的，只有在将请求头伪装成与真实浏览器一样以后，才可以获取到该页面的信息</p>
 <p>首先，用<code>fiddler</code>抓取知乎-发现页面请求信息，在headers中找到<code>user-agent</code>信息，并将其复制</p>
-<p><img src="https://mypic-1256006100.cos.ap-chengdu.myqcloud.com/markdown_pic/Snipaste_2019-07-24_10-24-41.png" alt=""></p>
+<figure data-type="image" tabindex="2"><img src="https://mypic-1256006100.cos.ap-chengdu.myqcloud.com/markdown_pic/Snipaste_2019-07-24_10-24-41.png" alt=""></figure>
 <p>然后在代码中自定义header</p>
 <pre><code class="language-python">import requests
 
