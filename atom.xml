@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>一杭的博客</title>
-    <updated>2019-09-27T03:59:22.473Z</updated>
+    <updated>2019-09-27T07:29:59.340Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -119,6 +119,76 @@
 </code></pre>
 <p><strong>测试报告</strong></p>
 <figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H1e08664510f940bb90331fc8433bd6a9M.jpg" alt=""></figure>
+<h1 id="测试执行">测试执行</h1>
+<p><strong>指定测试报告存放目录</strong></p>
+<pre><code>hrun xxx.yml --report-dir report_dir
+</code></pre>
+<p><strong>指定日志级别</strong></p>
+<pre><code>hrun xxx.yml --log-level debug   # 最详细级别
+</code></pre>
+<h1 id="录制脚本">录制脚本</h1>
+<p>使用<code>Fiddler</code>或其他抓包工具，将抓取到的数据保存成<code>har</code>文件，然后使用<code>HttpRunner</code>测试用例生成功能，快速生成测试用例。</p>
+<p><strong>使用抓包工具抓取数据</strong></p>
+<blockquote>
+<p>以<code>幕布</code>登录为例</p>
+</blockquote>
+<pre><code>POST https://mubu.com/api/login/submit HTTP/1.1
+Host: mubu.com
+Connection: keep-alive
+Content-Length: 51
+Accept: application/json, text/javascript, */*; q=0.01
+Origin: https://mubu.com
+X-Requested-With: XMLHttpRequest
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Referer: https://mubu.com/login/password
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+Cookie: _ga=GA1.2.2093024221.1563846010; csrf_token=c91c2dd6-c26b-42ba-90fc-59997418fd82; data_unique_id=f8f42b69-299d-4ac7-9311-699f0e469ab3; SESSION=ZTc2Y2Q0YzgtYjdlNS00ZGRmLWI1ZDYtNmI3MDg4N2FlMmYz; _gid=GA1.2.347269472.1569567796; reg_entrance=https%3A%2F%2Fmubu.com%2F; user_persistence=59c84236-124f-4071-86d3-a1edef6dba3f; _gat=1
+
+phone=手机号&amp;password=密码&amp;remember=true
+</code></pre>
+<p><strong>导出<code>har</code>文件</strong></p>
+<figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Hd67aef48078f47ea8bc6b610d85fe2c5S.jpg" alt=""></figure>
+<p><strong>转换脚本</strong><br>
+进入<code>har</code>文件保存目录，打开命令行，输入如下命令将数据包转为<code>yml</code>格式的脚本文件：</p>
+<pre><code>har2case xxx.har -2y
+</code></pre>
+<p><strong>转换后效果</strong></p>
+<pre><code class="language-yml">config:
+    name: testcase description
+    variables: {}
+teststeps:
+-   name: /api/login/submit
+    request:
+        data:
+            password: 密码
+            phone: '手机'
+            remember: 'true'
+        headers:
+            Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+            User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36
+            X-Requested-With: XMLHttpRequest
+        method: POST
+        url: https://mubu.com/api/login/submit
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=UTF-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - null
+
+</code></pre>
+<p><strong>测试报告</strong></p>
+<figure data-type="image" tabindex="5"><img src="https://ae01.alicdn.com/kf/Hc8cf1a1932574fd798aa1669bc943e9cz.jpg" alt=""></figure>
 ]]></content>
     </entry>
     <entry>
