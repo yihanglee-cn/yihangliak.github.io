@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>一杭的博客</title>
 <meta name="description" content="你好  靓仔   :D" />
-<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1571059904680">
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1571241591776">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -24,7 +24,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://yihangliak.github.io">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yihangliak.github.io/images/avatar.png?v=1571059904680" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yihangliak.github.io/images/avatar.png?v=1571241591776" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">一杭的博客</h1>
       </div>
@@ -89,7 +89,7 @@
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
         <h1 class="text-3xl font-bold lg:mt-16">HTTP Runner</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2019-09-27 / 5 min read
+          2019-09-27 / 2 min read
         </div>
         
           <img class="post-feature-image rounded-lg mx-auto my-4" src="https://ae01.alicdn.com/kf/He872da82855244d08e543a173ea1cba6d.jpg" alt="">
@@ -122,7 +122,7 @@
 </code></pre>
 <h1 id="登录案例">登录案例</h1>
 <p><strong>接口文档如下</strong></p>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H9faba9dad2a2470ba59e4e11eac4074aS.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H9faba9dad2a2470ba59e4e11eac4074aS.jpg" alt=""></p>
 <p><strong>yml格式脚本如下</strong></p>
 <pre><code class="language-yml">- config:                          # 全局配置项，作用域为整个测试用例文件
     name: logincase                # 测试用例名
@@ -152,7 +152,7 @@
 <h1 id="关联token">关联token</h1>
 <p>如何将上个接口的返回token，传给下个接口当做请求参数?这是最常见的一个问题了。解决这个问题其实很简单，我们只需取出token值，设置为一个中间变量a，下个接口传这个变量a就可以了。</p>
 <p>比如 <strong>查询商品详情</strong> 接口，在请求中需要传入登录后token，接口文档如下：</p>
-<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/Hf3791bcadb304b608ca4b090a81bf292B.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hf3791bcadb304b608ca4b090a81bf292B.jpg" alt=""></p>
 <p>那么在<code>HttpRunner</code>中可以使用<code>extract</code>提取<code>token</code>，比如：</p>
 <pre><code class="language-yml">extract:
 	- token: content.token
@@ -197,7 +197,7 @@
 
 </code></pre>
 <p><strong>测试报告</strong></p>
-<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H1e08664510f940bb90331fc8433bd6a9M.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H1e08664510f940bb90331fc8433bd6a9M.jpg" alt=""></p>
 <h1 id="测试执行">测试执行</h1>
 <p><strong>指定测试报告存放目录</strong></p>
 <pre><code>hrun xxx.yml --report-dir report_dir
@@ -228,7 +228,7 @@ Cookie: _ga=GA1.2.2093024221.1563846010; csrf_token=c91c2dd6-c26b-42ba-90fc-5999
 phone=手机号&amp;password=密码&amp;remember=true
 </code></pre>
 <p><strong>导出<code>har</code>文件</strong></p>
-<figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Hd67aef48078f47ea8bc6b610d85fe2c5S.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hd67aef48078f47ea8bc6b610d85fe2c5S.jpg" alt=""></p>
 <p><strong>转换脚本</strong><br>
 进入<code>har</code>文件保存目录，打开命令行，输入如下命令将数据包转为<code>yml</code>格式的脚本文件：</p>
 <pre><code>har2case xxx.har -2y
@@ -267,7 +267,7 @@ teststeps:
 
 </code></pre>
 <p><strong>测试报告</strong></p>
-<figure data-type="image" tabindex="5"><img src="https://ae01.alicdn.com/kf/Hc8cf1a1932574fd798aa1669bc943e9cz.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hc8cf1a1932574fd798aa1669bc943e9cz.jpg" alt=""></p>
 
         </div>
 

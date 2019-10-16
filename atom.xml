@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>一杭的博客</title>
-    <updated>2019-10-14T13:31:47.536Z</updated>
+    <updated>2019-10-16T16:01:20.821Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -52,7 +52,7 @@
 </code></pre>
 <h1 id="登录案例">登录案例</h1>
 <p><strong>接口文档如下</strong></p>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H9faba9dad2a2470ba59e4e11eac4074aS.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H9faba9dad2a2470ba59e4e11eac4074aS.jpg" alt=""></p>
 <p><strong>yml格式脚本如下</strong></p>
 <pre><code class="language-yml">- config:                          # 全局配置项，作用域为整个测试用例文件
     name: logincase                # 测试用例名
@@ -82,7 +82,7 @@
 <h1 id="关联token">关联token</h1>
 <p>如何将上个接口的返回token，传给下个接口当做请求参数?这是最常见的一个问题了。解决这个问题其实很简单，我们只需取出token值，设置为一个中间变量a，下个接口传这个变量a就可以了。</p>
 <p>比如 <strong>查询商品详情</strong> 接口，在请求中需要传入登录后token，接口文档如下：</p>
-<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/Hf3791bcadb304b608ca4b090a81bf292B.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hf3791bcadb304b608ca4b090a81bf292B.jpg" alt=""></p>
 <p>那么在<code>HttpRunner</code>中可以使用<code>extract</code>提取<code>token</code>，比如：</p>
 <pre><code class="language-yml">extract:
 	- token: content.token
@@ -127,7 +127,7 @@
 
 </code></pre>
 <p><strong>测试报告</strong></p>
-<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H1e08664510f940bb90331fc8433bd6a9M.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H1e08664510f940bb90331fc8433bd6a9M.jpg" alt=""></p>
 <h1 id="测试执行">测试执行</h1>
 <p><strong>指定测试报告存放目录</strong></p>
 <pre><code>hrun xxx.yml --report-dir report_dir
@@ -158,7 +158,7 @@ Cookie: _ga=GA1.2.2093024221.1563846010; csrf_token=c91c2dd6-c26b-42ba-90fc-5999
 phone=手机号&amp;password=密码&amp;remember=true
 </code></pre>
 <p><strong>导出<code>har</code>文件</strong></p>
-<figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Hd67aef48078f47ea8bc6b610d85fe2c5S.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hd67aef48078f47ea8bc6b610d85fe2c5S.jpg" alt=""></p>
 <p><strong>转换脚本</strong><br>
 进入<code>har</code>文件保存目录，打开命令行，输入如下命令将数据包转为<code>yml</code>格式的脚本文件：</p>
 <pre><code>har2case xxx.har -2y
@@ -197,7 +197,7 @@ teststeps:
 
 </code></pre>
 <p><strong>测试报告</strong></p>
-<figure data-type="image" tabindex="5"><img src="https://ae01.alicdn.com/kf/Hc8cf1a1932574fd798aa1669bc943e9cz.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hc8cf1a1932574fd798aa1669bc943e9cz.jpg" alt=""></p>
 ]]></content>
     </entry>
     <entry>
@@ -241,7 +241,7 @@ teststeps:
 <blockquote>
 <p>效果图</p>
 </blockquote>
-<figure data-type="image" tabindex="1"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-04-51.png" alt="Snipaste_2019-08-21_11-04-51.png"></figure>
+<p><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-04-51.png" alt="Snipaste_2019-08-21_11-04-51.png"></p>
 <h3 id="52段落">5.2段落</h3>
 <p>HTML 段落是通过 <code>&lt;p&gt;</code> 标签进行定义的</p>
 <blockquote>
@@ -254,7 +254,7 @@ teststeps:
 <blockquote>
 <p>效果图</p>
 </blockquote>
-<figure data-type="image" tabindex="2"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-11-07.png" alt="Snipaste_2019-08-21_11-11-07.png"></figure>
+<p><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-11-07.png" alt="Snipaste_2019-08-21_11-11-07.png"></p>
 <p><strong>换行</strong></p>
 <p>换行标签是单个出现的</p>
 <pre><code>不规范写法：&lt;br&gt;
@@ -281,7 +281,7 @@ teststeps:
 <blockquote>
 <p>效果图</p>
 </blockquote>
-<figure data-type="image" tabindex="3"><a href="https://www.z4a.net/image/Ucix29"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-17-07.png" alt=""></a></figure>
+<p><a href="https://www.z4a.net/image/Ucix29"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-17-07.png" alt=""></a></p>
 <h3 id="54-块标签">5.4 块标签</h3>
 <p><code>div</code>标签，表示一块内容，没有具体语义</p>
 <p><code>p</code>标签与<code>div</code>的区别：</p>
@@ -322,7 +322,7 @@ teststeps:
 <blockquote>
 <p>实例代码结构图示</p>
 </blockquote>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H0b8155e7965844d0a5903c42093acf00R.png" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H0b8155e7965844d0a5903c42093acf00R.png" alt=""></p>
 <blockquote>
 <p>代码</p>
 </blockquote>
@@ -640,7 +640,7 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 <li>镜像类似虚拟机的镜像</li>
 <li>容器则是从镜像创建的一个运行实例</li>
 </ul>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H508f8c2700f043c79194c1ef521c17fao.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H508f8c2700f043c79194c1ef521c17fao.jpg" alt=""></p>
 <h2 id="4拉取镜像">4.拉取镜像</h2>
 <p>拉取MySQL镜像，版本选择5.7</p>
 <pre><code>docker pull mysql:5.7
@@ -649,7 +649,7 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 <p>验证刚刚拉取的镜像是否成功</p>
 <pre><code>docker images
 </code></pre>
-<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/Hb52cbf8cac344605b2c688b9bff42b73t.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hb52cbf8cac344605b2c688b9bff42b73t.jpg" alt=""></p>
 <h2 id="6创建mysql目录">6.创建MySQL目录</h2>
 <p>创建MySQL的储存目录，用来存放数据库数据</p>
 <p><code>mkdir -p</code>可以递归创建目录</p>
@@ -670,11 +670,11 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 <p>查看容器状态命令：</p>
 <pre><code>docker ps -a
 </code></pre>
-<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H30935c3f43784024a3b9d640e6a4baf0w.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H30935c3f43784024a3b9d640e6a4baf0w.jpg" alt=""></p>
 <h2 id="9进入容器">9.进入容器</h2>
 <pre><code>docker exec -i -t firstmysql bash
 </code></pre>
-<figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Ha34afe45477240aa8e74e6a1d5eec0fdu.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Ha34afe45477240aa8e74e6a1d5eec0fdu.jpg" alt=""></p>
 ]]></content>
     </entry>
     <entry>
@@ -721,7 +721,7 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 <li>找到编译包目录中<code>BOOT-INF\classes\application-druid.yml</code>文件</li>
 <li>用notepad打开，将其中的<code>主数据库源</code>配置项中的密码改成本机MySQL的密码</li>
 </ul>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/Heabb9bbbc3f94b159ac29c938f9602741.png" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Heabb9bbbc3f94b159ac29c938f9602741.png" alt=""></p>
 <h2 id="5导入sql文件">5.导入SQL文件</h2>
 <p>在启动LuckyFrame之前，需要先在MySQL数据库中导入<code>初始化sql</code>文件</p>
 <ul>
@@ -740,14 +740,14 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 <p>启动成功后，会看到如下提示</p>
 </li>
 </ul>
-<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/H3bb471a358a64da28a46a31a45dd130eN.png" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H3bb471a358a64da28a46a31a45dd130eN.png" alt=""></p>
 <h2 id="7访问">7.访问</h2>
 <ul>
 <li>在浏览器中输入<code>本机ip：80</code>即可访问LuckyFrame，默认为80端口，可以省略不写</li>
 <li>如要修改端口号，需要在编译包中找到<code>BOOT-INF\classes\application.yml</code>文件，修改默认端口配置</li>
 </ul>
 <p>访问效果图如下：</p>
-<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H50d41bdd78bd40889b1bfdc4a47e89cdr.png" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H50d41bdd78bd40889b1bfdc4a47e89cdr.png" alt=""></p>
 ]]></content>
     </entry>
     <entry>
@@ -901,15 +901,15 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 </ul>
 </li>
 </ul>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H50ba236c8fd54827b2cb8db540b8bff3B.png" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H50ba236c8fd54827b2cb8db540b8bff3B.png" alt=""></p>
 <p>在取样器中添加响应断言</p>
-<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/Hf48d6854c1504741bf996e26a66c1ea26.png" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hf48d6854c1504741bf996e26a66c1ea26.png" alt=""></p>
 <p>断言界面详解</p>
-<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H4ffa89ad39cf4c91a5f754de0b3f786f0.png" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H4ffa89ad39cf4c91a5f754de0b3f786f0.png" alt=""></p>
 <p>添加聚合报告</p>
-<figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Hed61829eba6f429fb8aa50adcae88ec3G.png" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hed61829eba6f429fb8aa50adcae88ec3G.png" alt=""></p>
 <p>聚合报告详情</p>
-<figure data-type="image" tabindex="5"><img src="https://puui.qpic.cn/fans_admin/0/3_1452561028_1568392796619/0" alt=""></figure>
+<p><img src="https://puui.qpic.cn/fans_admin/0/3_1452561028_1568392796619/0" alt=""></p>
 <h2 id="4-第一个脚本">4 第一个脚本</h2>
 <p>1.新建测试计划</p>
 <p>2.创建线程组</p>
@@ -918,27 +918,27 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 <p>5.添加断言-response assertion</p>
 <p>6.添加聚合报告</p>
 <p>ecshop登录脚本</p>
-<figure data-type="image" tabindex="6"><img src="https://ae01.alicdn.com/kf/H2330733451dc4f3c8ae6d5ef2acb8d88R.png" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H2330733451dc4f3c8ae6d5ef2acb8d88R.png" alt=""></p>
 <h1 id="第六章-jmeter常用组件">第六章 jmeter常用组件</h1>
 <h2 id="1-参数化">1 参数化</h2>
 <p>1.设置用户自定义变量</p>
-<figure data-type="image" tabindex="7"><img src="https://ae01.alicdn.com/kf/H296e10c5f63d458fbe85e4e1dfab87b5Q.png" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H296e10c5f63d458fbe85e4e1dfab87b5Q.png" alt=""></p>
 <p>调用方式与RF一致，${变量名}</p>
-<figure data-type="image" tabindex="8"><img src="https://ae01.alicdn.com/kf/Hcabf2b45b57a4db2af85972e0fdf50ccP.png" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hcabf2b45b57a4db2af85972e0fdf50ccP.png" alt=""></p>
 <p>添加参数化文件读取组件</p>
-<figure data-type="image" tabindex="9"><img src="https://ae01.alicdn.com/kf/Ha84c2299573c432ba776b71f204c9568I.png" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Ha84c2299573c432ba776b71f204c9568I.png" alt=""></p>
 <h2 id="2-cookie关联">2 cookie关联</h2>
 <p>把上一个取样器的结果关联到一下个取样器</p>
 <p>http cookie manager 可以把cookie自动关联到下一个取样器的请求中</p>
 <p>在同一个线程组中添加一个 HTTP cookie manager</p>
-<figure data-type="image" tabindex="10"><img src="https://ae01.alicdn.com/kf/H079959fdcd494091b3046b85a8ff6b50O.png" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H079959fdcd494091b3046b85a8ff6b50O.png" alt=""></p>
 <p>添加完成以后无需配置，即可将第一个取样器中的cookie自动同步至所有线程组</p>
 <h2 id="3-上传文件">3  上传文件</h2>
 <p>以ecshop留言上传文件为例</p>
 <p>首先添加一个发表留言并且要上传文件的取样器，并配置好取样器</p>
-<figure data-type="image" tabindex="11"><img src="C:%5CUsers%5CAlex%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1568393079080.png" alt=""></figure>
+<p><img src="C:%5CUsers%5CAlex%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1568393079080.png" alt=""></p>
 <p>配置文件上传参数</p>
-<figure data-type="image" tabindex="12"><img src="https://ae01.alicdn.com/kf/Hbf0a71a4f1074950a64fa947302d01a6b.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hbf0a71a4f1074950a64fa947302d01a6b.jpg" alt=""></p>
 <p>运行成功示意图</p>
 <h2 id="4-正则提取器">4  正则提取器</h2>
 <p>提取取样器结果中的任何内容</p>
@@ -961,44 +961,44 @@ $      : 结尾
 
 </code></pre>
 <p>添加正则提取器</p>
-<figure data-type="image" tabindex="13"><img src="https://ae01.alicdn.com/kf/H01a00a5f00c84c9b9bd4f907960c966d8.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H01a00a5f00c84c9b9bd4f907960c966d8.jpg" alt=""></p>
 <p>配置正则提取器</p>
-<figure data-type="image" tabindex="14"><img src="https://ae01.alicdn.com/kf/Heca919a2c0654a31973056072ba8004fq.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Heca919a2c0654a31973056072ba8004fq.jpg" alt=""></p>
 <p>在一下个查询订单详情的取样器中使用上述提取出的变量</p>
-<figure data-type="image" tabindex="15"><img src="https://ae01.alicdn.com/kf/Hedbe48d95f4c448fb22bfaed563d03d3d.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hedbe48d95f4c448fb22bfaed563d03d3d.jpg" alt=""></p>
 <h2 id="5-添加debug组件">5  添加debug组件</h2>
 <p>该组件可以查看所有使用过的变量</p>
 <p>添加debug组件</p>
-<figure data-type="image" tabindex="16"><img src="https://ae01.alicdn.com/kf/Ha9dd85c2e22a46edbba0333e5a5beadfn.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Ha9dd85c2e22a46edbba0333e5a5beadfn.jpg" alt=""></p>
 <p>为该组件添加一个结果树，即可查看使用过的变量</p>
 <h2 id="6-逻辑控制器">6  逻辑控制器</h2>
 <p>逻辑控制器，可以控制取样器的执行顺序</p>
 <h3 id="61-for">6.1 for</h3>
 <p>添加for循环控制器</p>
-<figure data-type="image" tabindex="17"><img src="https://ae01.alicdn.com/kf/He2e145376ba44a508d4fd5afaef61f35C.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/He2e145376ba44a508d4fd5afaef61f35C.jpg" alt=""></p>
 <p>将查询订单详情挪至for控制器里面</p>
-<figure data-type="image" tabindex="18"><img src="https://ae01.alicdn.com/kf/Hb1e3aab477ba428a86d37b5faf3bf0fd2.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hb1e3aab477ba428a86d37b5faf3bf0fd2.jpg" alt=""></p>
 <p>配置for控制器</p>
-<figure data-type="image" tabindex="19"><img src="https://ae01.alicdn.com/kf/H7ac93b17b5c8422d8130391e1ffce8d6j.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H7ac93b17b5c8422d8130391e1ffce8d6j.jpg" alt=""></p>
 <p>修改正则提取中的配置</p>
-<figure data-type="image" tabindex="20"><img src="https://ae01.alicdn.com/kf/He614b551973c4cdfb3cb3241b6243a53f.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/He614b551973c4cdfb3cb3241b6243a53f.jpg" alt=""></p>
 <p>在查询订单中使用遍历出来得变量即可</p>
-<figure data-type="image" tabindex="21"><img src="https://ae01.alicdn.com/kf/H2c818e481014438bb777bc1882f70dd11.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H2c818e481014438bb777bc1882f70dd11.jpg" alt=""></p>
 <h3 id="62-if">6.2 if</h3>
 <p>添加if控制器</p>
-<figure data-type="image" tabindex="22"><img src="https://ae01.alicdn.com/kf/H95720511fb0e49c89acb7b98b4b3d177m.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H95720511fb0e49c89acb7b98b4b3d177m.jpg" alt=""></p>
 <p>确定判断逻辑</p>
 <p>在第一步登录取样器中提取登录结果</p>
-<figure data-type="image" tabindex="23"><img src="https://ae01.alicdn.com/kf/Hea9fbfb1ca494e949a03706fdc58780b2.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hea9fbfb1ca494e949a03706fdc58780b2.jpg" alt=""></p>
 <p>然后分别配置登录成功与登录失败需要执行的步骤</p>
-<figure data-type="image" tabindex="24"><img src="https://ae01.alicdn.com/kf/Hf72d6d092f1241f88b38b4fc72bd6d27c.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hf72d6d092f1241f88b38b4fc72bd6d27c.jpg" alt=""></p>
 <h2 id="7-开关控制器">7 开关控制器</h2>
 <p>方式一：通过0和1决定执行哪个，0执行第一个，1执行第二个</p>
 <p>方式二：通过取样器名字决定执行哪个，名字必须与取样器完成一致才会执行</p>
-<figure data-type="image" tabindex="25"><img src="https://ae01.alicdn.com/kf/H2fcf3a500b5c46f98338ac6247c607a3l.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H2fcf3a500b5c46f98338ac6247c607a3l.jpg" alt=""></p>
 <h2 id="8-循环控制器">8  循环控制器</h2>
 <p>对单个取样器进行循环操作</p>
-<figure data-type="image" tabindex="26"><img src="https://ae01.alicdn.com/kf/H7b218c4b63b14a798a0b0b699912518e0.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H7b218c4b63b14a798a0b0b699912518e0.jpg" alt=""></p>
 <h1 id="第七章-并发数">第七章  并发数</h1>
 <h2 id="1-平均并发数">1 平均并发数</h2>
 <p>计算平均并发数</p>
@@ -1044,19 +1044,19 @@ yum -y install java-1.8.0-openjdk*
 <li>在option菜单中启动插件管理器</li>
 <li>在打开的插件管理器安装</li>
 </ul>
-<figure data-type="image" tabindex="27"><img src="https://ae01.alicdn.com/kf/Hbedb18dfb2814564a30a0c8d999c9cdaX.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hbedb18dfb2814564a30a0c8d999c9cdaX.jpg" alt=""></p>
 <ul>
 <li>在jmeter脚本线程组中添加jpgc监听器</li>
 </ul>
-<figure data-type="image" tabindex="28"><img src="https://ae01.alicdn.com/kf/H5b543b96f5bf4a47b8cf1d6762a07b63I.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H5b543b96f5bf4a47b8cf1d6762a07b63I.jpg" alt=""></p>
 <ul>
 <li>配置该监听器</li>
 </ul>
-<figure data-type="image" tabindex="29"><img src="https://ae01.alicdn.com/kf/H35f126cf112a46d4a8dd7b9cb745f989a.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H35f126cf112a46d4a8dd7b9cb745f989a.jpg" alt=""></p>
 <ul>
 <li>不要忘了设置线程组，配置几个线程，运行时间等</li>
 </ul>
-<figure data-type="image" tabindex="30"><img src="https://ae01.alicdn.com/kf/Hbc5ce94529824970b066116118ba3326H.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hbc5ce94529824970b066116118ba3326H.jpg" alt=""></p>
 <h1 id="第九章-性能测试流程">第九章  性能测试流程</h1>
 <p>需求分析(学习业务，分析规格文档)	<br>
 场景设计(测试场景、测试类型、并发数、步长、思考时间)<br>
@@ -1082,44 +1082,44 @@ yum install -y glibc*i686
 <pre><code>netstat -anp|grep 80   # 查看httpd端口是否启动，httpd就是Apache的进程
 netstat -anp|grep 3306 # 查看mysql的端口是否存在
 </code></pre>
-<figure data-type="image" tabindex="31"><img src="https://ae01.alicdn.com/kf/Hfb9353eed354499998261198cfee1c113.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hfb9353eed354499998261198cfee1c113.jpg" alt=""></p>
 <p>4.上传ecshop项目包到htdocs目录</p>
 <p>5.解压安装即可</p>
 <h1 id="第十一章-练习">第十一章  练习</h1>
 <h2 id="1-ecshop登录实现参数化">1. ecshop登录实现参数化</h2>
 <h3 id="11-创建登录脚本">1.1 创建登录脚本</h3>
 <p>创建测试计划</p>
-<figure data-type="image" tabindex="32"><img src="https://ae01.alicdn.com/kf/H65adaa3cef914798a1298bdd3d6181e7F.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H65adaa3cef914798a1298bdd3d6181e7F.jpg" alt=""></p>
 <p>添加线程组</p>
-<figure data-type="image" tabindex="33"><img src="https://ae01.alicdn.com/kf/Hc06b39cdfaa14369b46059d83e0103ebT.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hc06b39cdfaa14369b46059d83e0103ebT.jpg" alt=""></p>
 <p>添加取样器</p>
-<figure data-type="image" tabindex="34"><img src="https://ae01.alicdn.com/kf/Hba10332425544c2a9cfef61b91edcaa7v.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hba10332425544c2a9cfef61b91edcaa7v.jpg" alt=""></p>
 <p>配置取样器</p>
-<figure data-type="image" tabindex="35"><img src="https://ae01.alicdn.com/kf/Hfcad5d3d0d4e41e399c60d7edd9b6268C.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hfcad5d3d0d4e41e399c60d7edd9b6268C.jpg" alt=""></p>
 <p>添加观察结果树</p>
-<figure data-type="image" tabindex="36"><img src="https://ae01.alicdn.com/kf/Hda3fe507ea8e462aa67808688d01c3dd3.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hda3fe507ea8e462aa67808688d01c3dd3.jpg" alt=""></p>
 <p>验证是否登录成功</p>
-<figure data-type="image" tabindex="37"><img src="https://ae01.alicdn.com/kf/Hb1628955ed7549569aa86975ec8a2a6bD.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hb1628955ed7549569aa86975ec8a2a6bD.jpg" alt=""></p>
 <h3 id="12-添加参数化组件">1.2 添加参数化组件</h3>
 <p>添加参数读取组件</p>
-<figure data-type="image" tabindex="38"><img src="https://ae01.alicdn.com/kf/Hacb60fb62b384eaa8ca9d40858f889f6S.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hacb60fb62b384eaa8ca9d40858f889f6S.jpg" alt=""></p>
 <p>创建参数化文件</p>
-<figure data-type="image" tabindex="39"><img src="https://ae01.alicdn.com/kf/H0f3376fbac59496c8640abd41e76a0bdP.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H0f3376fbac59496c8640abd41e76a0bdP.jpg" alt=""></p>
 <p>配置参数化组件</p>
-<figure data-type="image" tabindex="40"><img src="https://ae01.alicdn.com/kf/H6c324e37688641e7961760e7f4c9171bC.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H6c324e37688641e7961760e7f4c9171bC.jpg" alt=""></p>
 <p>重新用参数化形式配置取样器</p>
-<figure data-type="image" tabindex="41"><img src="https://ae01.alicdn.com/kf/H646a447f0682468b89276f91603a6c26Z.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H646a447f0682468b89276f91603a6c26Z.jpg" alt=""></p>
 <h3 id="13-添加循环控制器">1.3 添加循环控制器</h3>
 <p>添加一个循环控制器</p>
-<figure data-type="image" tabindex="42"><img src="https://ae01.alicdn.com/kf/Hcd03ffe8bd3f45788773005b239082845.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hcd03ffe8bd3f45788773005b239082845.jpg" alt=""></p>
 <p>配置循环控制器，循环执行次数为3次，与参数化源文件数量对应</p>
-<figure data-type="image" tabindex="43"><img src="https://ae01.alicdn.com/kf/Ha88f4d50a6b04faa8bce9347644a340e1.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Ha88f4d50a6b04faa8bce9347644a340e1.jpg" alt=""></p>
 <h3 id="14-验证结果">1.4 验证结果</h3>
 <p>执行，验证是否三个账号都登录成功</p>
 <p>添加断言</p>
-<figure data-type="image" tabindex="44"><img src="https://ae01.alicdn.com/kf/H2097954b56b345a69cae172e9414a70dO.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H2097954b56b345a69cae172e9414a70dO.jpg" alt=""></p>
 <p>手工验证</p>
-<figure data-type="image" tabindex="45"><img src="https://ae01.alicdn.com/kf/Hbfed1219a6f4492e82d25b5f7d647f7dj.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hbfed1219a6f4492e82d25b5f7d647f7dj.jpg" alt=""></p>
 <h2 id="2-ecshop浏览器商品">2. ecshop浏览器商品</h2>
 <h3 id="21-准备工作">2.1 准备工作</h3>
 <p>以登录脚本为基础</p>
@@ -1130,23 +1130,23 @@ netstat -anp|grep 3306 # 查看mysql的端口是否存在
 </ul>
 <h3 id="22-关联cookie">2.2 关联cookie</h3>
 <p>添加cookie关联</p>
-<figure data-type="image" tabindex="46"><img src="https://ae01.alicdn.com/kf/H81a3722b00014dfc8de90e18f4bb76c0P.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H81a3722b00014dfc8de90e18f4bb76c0P.jpg" alt=""></p>
 <h3 id="23-配置用户自定义变量">2.3 配置用户自定义变量</h3>
 <p>配置用户自定义变量可以在创建多个取样器时，方便取样器的配置统一性</p>
 <p>添加用户自定义变量组件</p>
-<figure data-type="image" tabindex="47"><img src="https://ae01.alicdn.com/kf/H137122734c9b44878fa892f4e798fcfa5.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H137122734c9b44878fa892f4e798fcfa5.jpg" alt=""></p>
 <p>配置用户自定义变量组件</p>
-<figure data-type="image" tabindex="48"><img src="https://ae01.alicdn.com/kf/H0955c1164bbc42dc81d761cc0b3dfa58K.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H0955c1164bbc42dc81d761cc0b3dfa58K.jpg" alt=""></p>
 <p>修改登录取样器，调用用户自定义变量</p>
-<figure data-type="image" tabindex="49"><img src="https://ae01.alicdn.com/kf/H6c4b60df30bb463bad93f47e7144e568j.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H6c4b60df30bb463bad93f47e7144e568j.jpg" alt=""></p>
 <p>修改浏览商品取样器配置</p>
-<figure data-type="image" tabindex="50"><img src="https://ae01.alicdn.com/kf/He4888e37d6334c3cb91dd657ae8cabe4R.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/He4888e37d6334c3cb91dd657ae8cabe4R.jpg" alt=""></p>
 <h3 id="24-观察结果与断言">2.4 观察结果与断言</h3>
 <p>为浏览器商品分别添加结果树，断言，以及整个线程组的聚合报告</p>
-<figure data-type="image" tabindex="51"><img src="https://ae01.alicdn.com/kf/Hc99131ad367f4d2084278e9c3805df9a1.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/Hc99131ad367f4d2084278e9c3805df9a1.jpg" alt=""></p>
 <h3 id="25-验证结果">2.5 验证结果</h3>
 <p>执行脚本，查看聚合报告中的结果是否正确</p>
-<figure data-type="image" tabindex="52"><img src="https://ae01.alicdn.com/kf/H872d4d78d88a4c169dd8825b62ce982b0.jpg" alt=""></figure>
+<p><img src="https://ae01.alicdn.com/kf/H872d4d78d88a4c169dd8825b62ce982b0.jpg" alt=""></p>
 <p>负载测试  持续120s</p>
 <p>sql语句调优</p>
 <h1 id="第十三章-图形化报告">第十三章 图形化报告</h1>
