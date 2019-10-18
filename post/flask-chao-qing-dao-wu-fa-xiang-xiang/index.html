@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>一杭的博客</title>
 <meta name="description" content="你好  靓仔   :D" />
-<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1571242826464">
+<link rel="shortcut icon" href="https://yihangliak.github.io/favicon.ico?v=1571401569506">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -24,7 +24,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://yihangliak.github.io">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yihangliak.github.io/images/avatar.png?v=1571242826464" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yihangliak.github.io/images/avatar.png?v=1571401569506" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">一杭的博客</h1>
       </div>
@@ -124,7 +124,7 @@
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
         <h1 class="text-3xl font-bold lg:mt-16">进入Flask世界！ </h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2019-06-21 / 4 min read
+          2019-06-21 / 14 min read
         </div>
         
           <img class="post-feature-image rounded-lg mx-auto my-4" src="https://ae01.alicdn.com/kf/Hdc6256420e6b46369cf05a7ea4cfacd5V.jpg" alt="">
@@ -158,7 +158,7 @@ WSGI工具箱采用<code>Werzeug</code>，模板引擎使用<code>Jinjia2</code>
 </code></pre>
 <h1 id="url与视图">URL与视图</h1>
 <h2 id="1服务器解释">1.服务器解释</h2>
-<p><img src="https://i.loli.net/2019/06/05/5cf698581159673776.png" alt=""></p>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2019/06/05/5cf698581159673776.png" alt=""></figure>
 <h2 id="2第一个flask程序">2.第一个Flask程序</h2>
 <p>Flask的优势：</p>
 <ul>
@@ -185,9 +185,9 @@ if __name__=='__main__':
 
 </code></pre>
 <p>执行这个py文件</p>
-<p><img src="https://i.loli.net/2019/06/05/5cf69949b9fd033530.png" alt=""></p>
+<figure data-type="image" tabindex="2"><img src="https://i.loli.net/2019/06/05/5cf69949b9fd033530.png" alt=""></figure>
 <p>浏览器访问hello_world视图函数对应的网址</p>
-<p><img src="https://i.loli.net/2019/06/05/5cf6998ce1e2a79941.png" alt=""></p>
+<figure data-type="image" tabindex="3"><img src="https://i.loli.net/2019/06/05/5cf6998ce1e2a79941.png" alt=""></figure>
 <h2 id="3dubug模式">3.DUBUG模式</h2>
 <h3 id="31-为什么要开启dubug模式">3.1 为什么要开启DUBUG模式</h3>
 <ul>
@@ -214,7 +214,7 @@ print(isinstance(app.config, dict))  # 确认config是否是字典
 <p>创建一个配置文件，再以模块形式导入</p>
 </li>
 <li>
-<p><img src="https://i.loli.net/2019/06/05/5cf69af23e58681823.png" alt=""></p>
+<figure data-type="image" tabindex="4"><img src="https://i.loli.net/2019/06/05/5cf69af23e58681823.png" alt=""></figure>
 <pre><code class="language-python">from demo import config
 
 app = Flask(__name__)  
@@ -278,7 +278,7 @@ def page_detail(test):
     return '您请求的页面是:{}'.format(test)
 </code></pre>
 <p>请求之后的页面：</p>
-<p><img src="https://i.loli.net/2019/06/06/5cf8cf06db0f727689.png" alt=""></p>
+<figure data-type="image" tabindex="5"><img src="https://i.loli.net/2019/06/06/5cf8cf06db0f727689.png" alt=""></figure>
 <p>5.uuid：接受符合<code>uuid</code>规则的字符串，全宇宙唯一，缺点就是太长了，一般用来做表的主键</p>
 <p>先导包生成一个uuid</p>
 <pre><code class="language-python">import uuid
@@ -291,7 +291,7 @@ def user_detail(user_id):
     return '用户的uuid为：%s' %user_id
 </code></pre>
 <p>效果图</p>
-<p><img src="https://i.loli.net/2019/06/06/5cf8d2853c4ba94451.png" alt=""></p>
+<figure data-type="image" tabindex="6"><img src="https://i.loli.net/2019/06/06/5cf8d2853c4ba94451.png" alt=""></figure>
 <p>6.any：多个URL映射到同一个视图函数</p>
 <p>代码</p>
 <pre><code class="language-python">@app.route('/&lt;any(user,blog):url_path&gt;/&lt;id&gt;/')
@@ -312,7 +312,7 @@ def d():
     return '通过字符串传递的参数是：%s' %wd
 </code></pre>
 <p>验证</p>
-<p><img src="https://i.loli.net/2019/06/06/5cf8dad77772c11673.png" alt=""></p>
+<figure data-type="image" tabindex="7"><img src="https://i.loli.net/2019/06/06/5cf8dad77772c11673.png" alt=""></figure>
 <p>如果有多个键值对做为参数时，使用<code>&amp;</code>符号进行分割</p>
 <p>实例</p>
 <pre><code class="language-python">@app.route('/d/')
@@ -321,7 +321,7 @@ def d():
     ie = request.args.get('ie')  # 多个参数再写一个请求即可
     return '通过字符串传递的参数是：wd=%s,ie=%s' %(wd,ie)
 </code></pre>
-<p><img src="https://i.loli.net/2019/06/06/5cf8dbe03246a52713.png" alt=""></p>
+<figure data-type="image" tabindex="8"><img src="https://i.loli.net/2019/06/06/5cf8dbe03246a52713.png" alt=""></figure>
 <p><mark>如果页面想要做SEO优化，就是被搜索引擎搜索到，那么推荐使用第一种（path）传递方式，如果不在乎SEO，则可以使用第二种</mark></p>
 <h2 id="7-url_for">7. url_for</h2>
 <p>url_for第一个参数，应该是视图函数的名字的字符串，后面的参数传递给url</p>
@@ -419,9 +419,9 @@ if __name__=='__main__':
     app.run(debug=True, port=81)
 </code></pre>
 <p>访问profile在没有加name参数的情况下会自动暂时性重定向到登录页面</p>
-<p><img src="https://i.loli.net/2019/06/11/5cff5e9c07a6469200.gif" alt=""></p>
+<figure data-type="image" tabindex="9"><img src="https://i.loli.net/2019/06/11/5cff5e9c07a6469200.gif" alt=""></figure>
 <p>访问profile加了name参数以后，正常访问到个人中心页面</p>
-<p><img src="https://i.loli.net/2019/06/11/5cff5f0d7c57687406.png" alt=""></p>
+<figure data-type="image" tabindex="10"><img src="https://i.loli.net/2019/06/11/5cff5f0d7c57687406.png" alt=""></figure>
 <h2 id="11关于响应response">11.关于响应（Response）</h2>
 <p>视图函数的返回值会被自动转换为一个响应对象，flask的转换逻辑如下：</p>
 <ul>
@@ -454,7 +454,7 @@ def hello():
 def about2():
     return 'about2',200,{'X-NAME':'Alex'}
 </code></pre>
-<p><img src="https://i.loli.net/2019/06/12/5d00680c5542521648.png" alt=""></p>
+<figure data-type="image" tabindex="11"><img src="https://i.loli.net/2019/06/12/5d00680c5542521648.png" alt=""></figure>
 <blockquote>
 <p>第四个例子，<code>自定义响应</code>，自定义响应必须满足三个条件：</p>
 </blockquote>
@@ -480,7 +480,7 @@ app.response_class = JSONResponse
 def json_response():
     return {'username':'alex'}
 </code></pre>
-<p><img src="https://i.loli.net/2019/06/12/5d0099fd2a97e99449.png" alt=""></p>
+<figure data-type="image" tabindex="12"><img src="https://i.loli.net/2019/06/12/5d0099fd2a97e99449.png" alt=""></figure>
 <h1 id="jinja2模板">Jinja2模板</h1>
 <h2 id="1模板基础">1.模板基础</h2>
 <p>在渲染模板的时候，默认会从项目根目录下的<code>templates</code>目录下查找模板</p>
