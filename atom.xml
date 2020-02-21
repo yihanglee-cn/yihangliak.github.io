@@ -2,27 +2,27 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>一杭的博客</title>
-    <updated>2019-11-26T06:52:16.901Z</updated>
+    <updated>2020-02-21T07:26:45.278Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
     <subtitle>你好  靓仔   :D</subtitle>
     <logo>https://yihangliak.github.io/images/avatar.png</logo>
     <icon>https://yihangliak.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2019, 一杭的博客</rights>
+    <rights>All rights reserved 2020, 一杭的博客</rights>
     <entry>
         <title type="html"><![CDATA[一张图学习Python3]]></title>
-        <id>https://yihangliak.github.io/post/he1qEtsn3</id>
-        <link href="https://yihangliak.github.io/post/he1qEtsn3">
+        <id>https://yihangliak.github.io/post/he1qEtsn3/</id>
+        <link href="https://yihangliak.github.io/post/he1qEtsn3/">
         </link>
         <updated>2019-11-26T06:46:04.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/Hd08faf2fb079423585c8fdda933016b9b.jpg" alt=""></figure>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/Hd08faf2fb079423585c8fdda933016b9b.jpg" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[国庆快乐]]></title>
-        <id>https://yihangliak.github.io/post/Happy-National-Day</id>
-        <link href="https://yihangliak.github.io/post/Happy-National-Day">
+        <id>https://yihangliak.github.io/post/Happy-National-Day/</id>
+        <link href="https://yihangliak.github.io/post/Happy-National-Day/">
         </link>
         <updated>2019-10-02T03:17:06.000Z</updated>
         <content type="html"><![CDATA[<p>国庆快乐！</p>
@@ -30,8 +30,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[HTTP Runner]]></title>
-        <id>https://yihangliak.github.io/post/F__PjWJCK</id>
-        <link href="https://yihangliak.github.io/post/F__PjWJCK">
+        <id>https://yihangliak.github.io/post/F__PjWJCK/</id>
+        <link href="https://yihangliak.github.io/post/F__PjWJCK/">
         </link>
         <updated>2019-09-27T01:35:18.000Z</updated>
         <content type="html"><![CDATA[<h1 id="前言">前言</h1>
@@ -61,7 +61,7 @@
 </code></pre>
 <h1 id="登录案例">登录案例</h1>
 <p><strong>接口文档如下</strong></p>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H9faba9dad2a2470ba59e4e11eac4074aS.jpg" alt=""></figure>
+<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H9faba9dad2a2470ba59e4e11eac4074aS.jpg" alt="" loading="lazy"></figure>
 <p><strong>yml格式脚本如下</strong></p>
 <pre><code class="language-yml">- config:                          # 全局配置项，作用域为整个测试用例文件
     name: logincase                # 测试用例名
@@ -87,11 +87,11 @@
 <pre><code>hrun fecshop01_login.yml
 </code></pre>
 <p><strong>查看报告</strong><br>
-<img src="https://ae01.alicdn.com/kf/H6ab4d4a855e54c0ea5d012468829066er.jpg" alt=""></p>
+<img src="https://ae01.alicdn.com/kf/H6ab4d4a855e54c0ea5d012468829066er.jpg" alt="" loading="lazy"></p>
 <h1 id="关联token">关联token</h1>
 <p>如何将上个接口的返回token，传给下个接口当做请求参数?这是最常见的一个问题了。解决这个问题其实很简单，我们只需取出token值，设置为一个中间变量a，下个接口传这个变量a就可以了。</p>
 <p>比如 <strong>查询商品详情</strong> 接口，在请求中需要传入登录后token，接口文档如下：</p>
-<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/Hf3791bcadb304b608ca4b090a81bf292B.jpg" alt=""></figure>
+<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/Hf3791bcadb304b608ca4b090a81bf292B.jpg" alt="" loading="lazy"></figure>
 <p>那么在<code>HttpRunner</code>中可以使用<code>extract</code>提取<code>token</code>，比如：</p>
 <pre><code class="language-yml">extract:
 	- token: content.token
@@ -136,7 +136,7 @@
 
 </code></pre>
 <p><strong>测试报告</strong></p>
-<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H1e08664510f940bb90331fc8433bd6a9M.jpg" alt=""></figure>
+<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H1e08664510f940bb90331fc8433bd6a9M.jpg" alt="" loading="lazy"></figure>
 <h1 id="测试执行">测试执行</h1>
 <p><strong>指定测试报告存放目录</strong></p>
 <pre><code>hrun xxx.yml --report-dir report_dir
@@ -167,7 +167,7 @@ Cookie: _ga=GA1.2.2093024221.1563846010; csrf_token=c91c2dd6-c26b-42ba-90fc-5999
 phone=手机号&amp;password=密码&amp;remember=true
 </code></pre>
 <p><strong>导出<code>har</code>文件</strong></p>
-<figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Hd67aef48078f47ea8bc6b610d85fe2c5S.jpg" alt=""></figure>
+<figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Hd67aef48078f47ea8bc6b610d85fe2c5S.jpg" alt="" loading="lazy"></figure>
 <p><strong>转换脚本</strong><br>
 进入<code>har</code>文件保存目录，打开命令行，输入如下命令将数据包转为<code>yml</code>格式的脚本文件：</p>
 <pre><code>har2case xxx.har -2y
@@ -206,13 +206,13 @@ teststeps:
 
 </code></pre>
 <p><strong>测试报告</strong></p>
-<figure data-type="image" tabindex="5"><img src="https://ae01.alicdn.com/kf/Hc8cf1a1932574fd798aa1669bc943e9cz.jpg" alt=""></figure>
+<figure data-type="image" tabindex="5"><img src="https://ae01.alicdn.com/kf/Hc8cf1a1932574fd798aa1669bc943e9cz.jpg" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[HTML基础]]></title>
-        <id>https://yihangliak.github.io/post/dYxAqQpcF</id>
-        <link href="https://yihangliak.github.io/post/dYxAqQpcF">
+        <id>https://yihangliak.github.io/post/dYxAqQpcF/</id>
+        <link href="https://yihangliak.github.io/post/dYxAqQpcF/">
         </link>
         <updated>2019-09-20T09:18:38.000Z</updated>
         <content type="html"><![CDATA[<h2 id="1-什么是html">1. 什么是HTML</h2>
@@ -250,7 +250,7 @@ teststeps:
 <blockquote>
 <p>效果图</p>
 </blockquote>
-<figure data-type="image" tabindex="1"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-04-51.png" alt="Snipaste_2019-08-21_11-04-51.png"></figure>
+<figure data-type="image" tabindex="1"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-04-51.png" alt="Snipaste_2019-08-21_11-04-51.png" loading="lazy"></figure>
 <h3 id="52段落">5.2段落</h3>
 <p>HTML 段落是通过 <code>&lt;p&gt;</code> 标签进行定义的</p>
 <blockquote>
@@ -263,7 +263,7 @@ teststeps:
 <blockquote>
 <p>效果图</p>
 </blockquote>
-<figure data-type="image" tabindex="2"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-11-07.png" alt="Snipaste_2019-08-21_11-11-07.png"></figure>
+<figure data-type="image" tabindex="2"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-11-07.png" alt="Snipaste_2019-08-21_11-11-07.png" loading="lazy"></figure>
 <p><strong>换行</strong></p>
 <p>换行标签是单个出现的</p>
 <pre><code>不规范写法：&lt;br&gt;
@@ -290,7 +290,7 @@ teststeps:
 <blockquote>
 <p>效果图</p>
 </blockquote>
-<figure data-type="image" tabindex="3"><a href="https://www.z4a.net/image/Ucix29"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-17-07.png" alt=""></a></figure>
+<figure data-type="image" tabindex="3"><a href="https://www.z4a.net/image/Ucix29"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-17-07.png" alt="" loading="lazy"></a></figure>
 <h3 id="54-块标签">5.4 块标签</h3>
 <p><code>div</code>标签，表示一块内容，没有具体语义</p>
 <p><code>p</code>标签与<code>div</code>的区别：</p>
@@ -303,8 +303,8 @@ teststeps:
     </entry>
     <entry>
         <title type="html"><![CDATA[Python全栈（三）：多态]]></title>
-        <id>https://yihangliak.github.io/post/phI3IExH8</id>
-        <link href="https://yihangliak.github.io/post/phI3IExH8">
+        <id>https://yihangliak.github.io/post/phI3IExH8/</id>
+        <link href="https://yihangliak.github.io/post/phI3IExH8/">
         </link>
         <updated>2019-09-13T15:44:44.000Z</updated>
         <content type="html"><![CDATA[<h3 id="面向对象三大特性">面向对象三大特性</h3>
@@ -331,7 +331,7 @@ teststeps:
 <blockquote>
 <p>实例代码结构图示</p>
 </blockquote>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H0b8155e7965844d0a5903c42093acf00R.png" alt=""></figure>
+<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H0b8155e7965844d0a5903c42093acf00R.png" alt="" loading="lazy"></figure>
 <blockquote>
 <p>代码</p>
 </blockquote>
@@ -371,8 +371,8 @@ xiaoming.game_with_dog(xiaohei)  # 调用人类中的与狗玩耍方法，并将
     </entry>
     <entry>
         <title type="html"><![CDATA[Python全栈（二）：私有属性与私有方法]]></title>
-        <id>https://yihangliak.github.io/post/dz4T-djIi</id>
-        <link href="https://yihangliak.github.io/post/dz4T-djIi">
+        <id>https://yihangliak.github.io/post/dz4T-djIi/</id>
+        <link href="https://yihangliak.github.io/post/dz4T-djIi/">
         </link>
         <updated>2019-09-11T03:51:37.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
@@ -438,8 +438,8 @@ print(p.get_name())    # 访问被修改之后的name属性
     </entry>
     <entry>
         <title type="html"><![CDATA[Python全栈（一）：子类扩展父类方法]]></title>
-        <id>https://yihangliak.github.io/post/QpPt8XA7M</id>
-        <link href="https://yihangliak.github.io/post/QpPt8XA7M">
+        <id>https://yihangliak.github.io/post/QpPt8XA7M/</id>
+        <link href="https://yihangliak.github.io/post/QpPt8XA7M/">
         </link>
         <updated>2019-09-10T15:54:29.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
@@ -527,8 +527,8 @@ eqweqdasdasdasdsad
     </entry>
     <entry>
         <title type="html"><![CDATA[实用工具大搜罗]]></title>
-        <id>https://yihangliak.github.io/post/UQ96yPt5M</id>
-        <link href="https://yihangliak.github.io/post/UQ96yPt5M">
+        <id>https://yihangliak.github.io/post/UQ96yPt5M/</id>
+        <link href="https://yihangliak.github.io/post/UQ96yPt5M/">
         </link>
         <updated>2019-09-10T06:30:01.000Z</updated>
         <summary type="html"><![CDATA[<p>盘点那些不为人知的工具-们！</p>
@@ -623,8 +623,8 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
     </entry>
     <entry>
         <title type="html"><![CDATA[Dcoker 安装MySQL]]></title>
-        <id>https://yihangliak.github.io/post/SuD1zwuyw</id>
-        <link href="https://yihangliak.github.io/post/SuD1zwuyw">
+        <id>https://yihangliak.github.io/post/SuD1zwuyw/</id>
+        <link href="https://yihangliak.github.io/post/SuD1zwuyw/">
         </link>
         <updated>2019-08-30T08:40:29.000Z</updated>
         <content type="html"><![CDATA[<h1 id="dcoker-安装mysql">Dcoker 安装MySQL</h1>
@@ -649,7 +649,7 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 <li>镜像类似虚拟机的镜像</li>
 <li>容器则是从镜像创建的一个运行实例</li>
 </ul>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H508f8c2700f043c79194c1ef521c17fao.jpg" alt=""></figure>
+<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H508f8c2700f043c79194c1ef521c17fao.jpg" alt="" loading="lazy"></figure>
 <h2 id="4拉取镜像">4.拉取镜像</h2>
 <p>拉取MySQL镜像，版本选择5.7</p>
 <pre><code>docker pull mysql:5.7
@@ -658,7 +658,7 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 <p>验证刚刚拉取的镜像是否成功</p>
 <pre><code>docker images
 </code></pre>
-<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/Hb52cbf8cac344605b2c688b9bff42b73t.jpg" alt=""></figure>
+<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/Hb52cbf8cac344605b2c688b9bff42b73t.jpg" alt="" loading="lazy"></figure>
 <h2 id="6创建mysql目录">6.创建MySQL目录</h2>
 <p>创建MySQL的储存目录，用来存放数据库数据</p>
 <p><code>mkdir -p</code>可以递归创建目录</p>
@@ -679,17 +679,17 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 <p>查看容器状态命令：</p>
 <pre><code>docker ps -a
 </code></pre>
-<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H30935c3f43784024a3b9d640e6a4baf0w.jpg" alt=""></figure>
+<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H30935c3f43784024a3b9d640e6a4baf0w.jpg" alt="" loading="lazy"></figure>
 <h2 id="9进入容器">9.进入容器</h2>
 <pre><code>docker exec -i -t firstmysql bash
 </code></pre>
-<figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Ha34afe45477240aa8e74e6a1d5eec0fdu.jpg" alt=""></figure>
+<figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Ha34afe45477240aa8e74e6a1d5eec0fdu.jpg" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[LuckyFrame自动化测试平台部署指南]]></title>
-        <id>https://yihangliak.github.io/post/luckyframe</id>
-        <link href="https://yihangliak.github.io/post/luckyframe">
+        <id>https://yihangliak.github.io/post/luckyframe/</id>
+        <link href="https://yihangliak.github.io/post/luckyframe/">
         </link>
         <updated>2019-08-28T02:09:31.000Z</updated>
         <summary type="html"><![CDATA[<p>LuckyFrame测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了接口自动化、WEB UI自动化、APP自动化，并且支持分布式测试，测试关键字驱动也很大程度上解决了测试同学代码基础弱的问题。</p>
@@ -730,7 +730,7 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 <li>找到编译包目录中<code>BOOT-INF\classes\application-druid.yml</code>文件</li>
 <li>用notepad打开，将其中的<code>主数据库源</code>配置项中的密码改成本机MySQL的密码</li>
 </ul>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/Heabb9bbbc3f94b159ac29c938f9602741.png" alt=""></figure>
+<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/Heabb9bbbc3f94b159ac29c938f9602741.png" alt="" loading="lazy"></figure>
 <h2 id="5导入sql文件">5.导入SQL文件</h2>
 <p>在启动LuckyFrame之前，需要先在MySQL数据库中导入<code>初始化sql</code>文件</p>
 <ul>
@@ -749,14 +749,14 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 <p>启动成功后，会看到如下提示</p>
 </li>
 </ul>
-<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/H3bb471a358a64da28a46a31a45dd130eN.png" alt=""></figure>
+<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/H3bb471a358a64da28a46a31a45dd130eN.png" alt="" loading="lazy"></figure>
 <h2 id="7访问">7.访问</h2>
 <ul>
 <li>在浏览器中输入<code>本机ip：80</code>即可访问LuckyFrame，默认为80端口，可以省略不写</li>
 <li>如要修改端口号，需要在编译包中找到<code>BOOT-INF\classes\application.yml</code>文件，修改默认端口配置</li>
 </ul>
 <p>访问效果图如下：</p>
-<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H50d41bdd78bd40889b1bfdc4a47e89cdr.png" alt=""></figure>
+<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H50d41bdd78bd40889b1bfdc4a47e89cdr.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>
