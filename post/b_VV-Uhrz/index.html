@@ -35,20 +35,13 @@
           </p>
           <div class="toc-container hidden lg:block">
             <ul class="markdownIt-TOC">
-<li>
+<li><a href="#%E4%B8%80-%E6%A6%82%E5%BF%B5">一、概念</a>
 <ul>
-<li><a href="#1-%E4%BB%80%E4%B9%88%E6%98%AFhtml">1. 什么是HTML</a></li>
-<li><a href="#2-html%E6%A0%87%E7%AD%BE">2. HTML标签</a></li>
-<li><a href="#3-html%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91%E4%BB%A5%E5%8F%8A%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F">3. HTML文件编辑以及文件格式</a></li>
-<li><a href="#4-%E6%B3%A8%E9%87%8A">4. 注释</a></li>
-<li><a href="#5-html%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BE">5. HTML常用标签</a>
-<ul>
-<li><a href="#51%E6%A0%87%E9%A2%98">5.1标题</a></li>
-<li><a href="#52%E6%AE%B5%E8%90%BD">5.2段落</a></li>
-<li><a href="#53%E9%93%BE%E6%8E%A5">5.3链接</a></li>
-<li><a href="#54-%E5%9D%97%E6%A0%87%E7%AD%BE">5.4 块标签</a></li>
-</ul>
-</li>
+<li><a href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93">1. 什么是数据库</a></li>
+<li><a href="#2-%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93rdbms">2. 关系型数据库（RDBMS）</a></li>
+<li><a href="#3-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%B1%BB%E4%B8%8E%E6%8E%92%E5%90%8D">3. 数据库分类与排名</a></li>
+<li><a href="#4-sql">4. SQL</a></li>
+<li><a href="#5-mysql">5. MySQL</a></li>
 </ul>
 </li>
 </ul>
@@ -97,97 +90,92 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">HTML基础</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">MySQL系列入门（一）：数据库的概念</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2019-09-20 / 4 min read
+          2020-02-21 / 3 min read
         </div>
         
-          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://ae01.alicdn.com/kf/H458f6ca2b1044744b76b79e18ae90be3x.jpg" alt="">
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://pic.downk.cc/item/5e4fa67b48b86553ee3ab605.jpg" alt="">
         
         <div class="post-content yue">
-          <h2 id="1-什么是html">1. 什么是HTML</h2>
-<p>HTML是用来描述网页的一种语言，英文全称是：<code>Hyper Text markup language</code></p>
+          <h1 id="一-概念">一、概念</h1>
+<h2 id="1-什么是数据库">1. 什么是数据库</h2>
+<p>**数据库：**按照数据结构来组织、储存和管理数据的仓库</p>
 <blockquote>
-<p>注意：HTML不是编程语言，是一种标记语言</p>
+<p>**疑问：**我的数据可以存在<code>excel</code>等文件中，那还要数据库干嘛？<br>
+这就引出以下数据存储的几个阶段：</p>
 </blockquote>
-<p>HTML使用标记标签来描述网页，然后通过浏览器读取 HTML 文档，并以网页的形式显示出它们</p>
-<h2 id="2-html标签">2. HTML标签</h2>
-<p>HTML标签是由尖括号包围的关键词，比如<code>&lt;html&gt;</code></p>
-<p>HTML标签一般都是成对出现的，比如<code>&lt;html&gt; &lt;/html&gt;</code></p>
-<p>标签对中的第一个标签是<code>开始标签</code>，第二个标签是<code>结束标签</code></p>
-<h2 id="3-html文件编辑以及文件格式">3. HTML文件编辑以及文件格式</h2>
-<p>编辑HTML文件，可以使用<code>Notepad++</code></p>
-<p>HTML文件的格式为：<code>htm 或 html</code>，两者没有任何差别，根据自己喜好选择即可</p>
-<p>HTML文件保存好以后，可以通过浏览器<code>（chrome/IE/FireFox...）</code>打开进行浏览</p>
-<h2 id="4-注释">4. 注释</h2>
-<p>html文档代码中可以插入注释，注释是对代码的说明和解释，注释的内容不会显示在页面上，html代码中插入注释的方法是：</p>
-<pre><code>&lt;!-- 这是一段注释  --&gt;
-</code></pre>
-<h2 id="5-html常用标签">5. HTML常用标签</h2>
-<h3 id="51标题">5.1标题</h3>
-<p>HTML标题通过<code>&lt;h1&gt;-&lt;h6&gt;</code>标签进行定义的，其中<code>&lt;h1&gt;</code>为最大级别标题，<code>&lt;h6&gt;为最小级别标题</code></p>
-<p>搜索引擎会爬取标题标签编制索引，所以标题标签很重要</p>
-<blockquote>
-<p>代码</p>
-</blockquote>
-<pre><code class="language-html">&lt;h1&gt;This is heading 1&lt;/h1&gt;
-&lt;h2&gt;This is heading 2&lt;/h2&gt;
-&lt;h3&gt;This is heading 3&lt;/h3&gt;
-&lt;h4&gt;This is heading 4&lt;/h4&gt;
-&lt;h5&gt;This is heading 5&lt;/h5&gt;
-&lt;h6&gt;This is heading 6&lt;/h6&gt;
-</code></pre>
-<blockquote>
-<p>效果图</p>
-</blockquote>
-<figure data-type="image" tabindex="1"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-04-51.png" alt="Snipaste_2019-08-21_11-04-51.png" loading="lazy"></figure>
-<h3 id="52段落">5.2段落</h3>
-<p>HTML 段落是通过 <code>&lt;p&gt;</code> 标签进行定义的</p>
-<blockquote>
-<p>代码</p>
-</blockquote>
-<pre><code class="language-html">&lt;p&gt;这是段落。&lt;/p&gt;
-&lt;p&gt;这是段落。&lt;/p&gt;
-&lt;p&gt;这是段落。&lt;/p&gt;
-</code></pre>
-<blockquote>
-<p>效果图</p>
-</blockquote>
-<figure data-type="image" tabindex="2"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-11-07.png" alt="Snipaste_2019-08-21_11-11-07.png" loading="lazy"></figure>
-<p><strong>换行</strong></p>
-<p>换行标签是单个出现的</p>
-<pre><code>不规范写法：&lt;br&gt;
-规范写法：&lt;br /&gt;
-</code></pre>
-<p><strong>字符实体</strong></p>
-<blockquote>
-<p>有的时候需要在段落中插入一些空格，但是直接在代码中写入空格的话是无法被正常渲染成空格的，需要使用字符实体</p>
-</blockquote>
-<pre><code>&lt;!--  在段落前想缩进两个文字的空格，使用空格的字符实体：&amp;nbsp;   --&gt;
-&lt;p&gt;
-&amp;nbsp;&amp;nbsp;一个html文件就是一个网页，html文件用编辑器打开显示的是文本，可以用&lt;br /&gt;
-文本的方式编辑它，如果用浏览器打开，浏览器会按照标签描述内容将文件&lt;br /&gt;
-渲染成网页，显示的网页可以从一个网页链接跳转到另外一个网页。&lt;/p&gt;
-</code></pre>
-<p>注意：如果只是加入少量空格，是可以用 <strong>字符实体</strong> ，但如果需要大量插入空格，推荐使用样式去控制</p>
-<h3 id="53链接">5.3链接</h3>
-<p>HTML 链接是通过<code>&lt;a&gt;</code>标签进行定义的</p>
-<blockquote>
-<p>代码</p>
-</blockquote>
-<pre><code class="language-html">&lt;a href=&quot;http://www.w3school.com.cn&quot;&gt;This is a link&lt;/a&gt;
-</code></pre>
-<blockquote>
-<p>效果图</p>
-</blockquote>
-<figure data-type="image" tabindex="3"><a href="https://www.z4a.net/image/Ucix29"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-17-07.png" alt="" loading="lazy"></a></figure>
-<h3 id="54-块标签">5.4 块标签</h3>
-<p><code>div</code>标签，表示一块内容，没有具体语义</p>
-<p><code>p</code>标签与<code>div</code>的区别：</p>
+<p><strong>人工管理阶段</strong></p>
+<p>数据靠人工整理，储存和管理。不方便保存，查询和管理</p>
+<p>典型的如古代的<code>结绳记事</code>，以及现代的<code>图书馆</code>等</p>
+<figure data-type="image" tabindex="1"><img src="https://pic.downk.cc/item/5e4f985d48b86553ee37e9bf.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://pic.downk.cc/item/5e4f9a2048b86553ee384017.jpg" alt="" loading="lazy"></figure>
+<p><strong>文件系统阶段</strong></p>
+<p>将文件数据储存在硬盘上，通过文件管理系统，比人工方便很多。</p>
+<p>但在查询数据内容时，依旧不太方便。想知道哪个文件里面有什么内容，还得一个个打开确认</p>
+<figure data-type="image" tabindex="3"><img src="https://pic.downk.cc/item/5e4f9b2b48b86553ee3872a1.jpg" alt="" loading="lazy"></figure>
+<p><strong>数据库系统阶段</strong></p>
+<p>网页显示的商品信息</p>
+<figure data-type="image" tabindex="4"><img src="https://pic.downk.cc/item/5e4f9c0c48b86553ee38ac7b.jpg" alt="" loading="lazy"></figure>
+<p>数据库中储存的商品信息</p>
+<figure data-type="image" tabindex="5"><img src="https://pic.downk.cc/item/5e4f9c2448b86553ee38b38e.jpg" alt="" loading="lazy"></figure>
+<h2 id="2-关系型数据库rdbms">2. 关系型数据库（RDBMS）</h2>
 <ul>
-<li><code>p</code>带有空行等样式</li>
-<li><code>div</code>标签不带任何样式</li>
-<li><code>div</code>一般里面是可以嵌套的，比如嵌套<code>h，p</code>标签等</li>
+<li><code>RDBMS</code>全称<code>relational database management system</code></li>
+<li>中文意思为：<strong>关系型数据库管理系统</strong></li>
+<li>关系型数据库采用了关系模型（一对一，多对多... ...）来组织数据</li>
+</ul>
+<figure data-type="image" tabindex="6"><img src="https://pic1.superbed.cn/item/5dfc6ef276085c3289171fde.jpg" alt="" loading="lazy"></figure>
+<blockquote>
+<p>什么是关系型数据库？<br>
+比如上图中，有两个表格，一个角色表，一个技能表。这个两个表格中有一列数据-姓名是相同的，我们用这个一列相同的数据来连接两个表格，使它们产生联系，一旦其中一个表格的数据更改了另外一个表格的数据也会跟着更改，这种联系使他们的数据具有一致性，这就是关系型数据库。</p>
+</blockquote>
+<h2 id="3-数据库分类与排名">3. 数据库分类与排名</h2>
+<p>查看数据库排行榜：https://db-engines.com/en/ranking</p>
+<figure data-type="image" tabindex="7"><img src="https://pic.superbed.cn/item/5dfc706276085c32891794f5.jpg" alt="" loading="lazy"></figure>
+<blockquote>
+<p>上述排名不与数据库使用安装数量相等</p>
+</blockquote>
+<p><strong>关系型</strong></p>
+<ul>
+<li><code>oracle</code>：甲骨文公司开发，收费软件，一般用于大型项目，如：银行，电信等</li>
+<li><code>MySQL</code>：甲骨文公司收购<code>sun(java)</code>而来，开源免费数据库，<code>web</code>项目中使用最广泛</li>
+<li><code>Microsoft SQL Server</code>：微软开发的项目中使用</li>
+</ul>
+<p><strong>非关系型</strong></p>
+<ul>
+<li><code>Redis</code>：高性能缓存数据库</li>
+<li><code>SQLite</code>：轻量级数据库，主要用于移动端</li>
+</ul>
+<p><strong>关系型数据库核心元素</strong></p>
+<ul>
+<li><code>数据库</code>：这里的数据库指数据仓库，一个数据库系统可以有多个数据仓库</li>
+<li><code>数据表</code>：一个数据仓库可以有多张数据表</li>
+<li><code>数据列</code>：字段信息</li>
+<li><code>数据行</code>：一条数据记录</li>
+</ul>
+<h2 id="4-sql">4. SQL</h2>
+<blockquote>
+<p><code>structured query language</code></p>
+</blockquote>
+<ul>
+<li>
+<p>结构化查询语言，用来操作关系型数据库的语言</p>
+</li>
+<li>
+<p><code>SQL</code>不区分大小写</p>
+</li>
+</ul>
+<h2 id="5-mysql">5. MySQL</h2>
+<p>由瑞典<code>MySQL AB</code>开发，后来被<code>sun</code>收购，<code>sun</code>又被<code>oracle</code>收购。所以现在是<code>Oracle</code>旗下产品</p>
+<blockquote>
+<p>目前开源版本与收费版并存（其实以后全部闭源也没事，因为有出过其他好用的衍生版本）</p>
+</blockquote>
+<p>特点</p>
+<ul>
+<li>开源，免费</li>
+<li>支持多平台</li>
+<li>是学习数据库的首选</li>
 </ul>
 
         </div>
@@ -197,21 +185,12 @@
 
         <div class="flex justify-between py-8">
           
-            <div class="prev-post">
-              <a href="https://yihangliak.github.io/post/F__PjWJCK/">
-                <h3 class="post-title">
-                  <i class="remixicon-arrow-left-line"></i>
-                  HTTP Runner
-                </h3>
-              </a>
-            </div>
-          
 
           
             <div class="next-post">
-              <a href="https://yihangliak.github.io/post/phI3IExH8/">
+              <a href="https://yihangliak.github.io/post/he1qEtsn3/">
                 <h3 class="post-title">
-                  Python全栈（三）：多态
+                  一张图学习Python3
                   <i class="remixicon-arrow-right-line"></i>
                 </h3>
               </a>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>一杭的博客</title>
-    <updated>2020-02-21T07:26:45.278Z</updated>
+    <updated>2020-02-21T09:45:20.924Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -10,6 +10,93 @@
     <logo>https://yihangliak.github.io/images/avatar.png</logo>
     <icon>https://yihangliak.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 一杭的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[MySQL系列入门（一）：数据库的概念]]></title>
+        <id>https://yihangliak.github.io/post/b_VV-Uhrz/</id>
+        <link href="https://yihangliak.github.io/post/b_VV-Uhrz/">
+        </link>
+        <updated>2020-02-21T08:29:07.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="一-概念">一、概念</h1>
+<h2 id="1-什么是数据库">1. 什么是数据库</h2>
+<p>**数据库：**按照数据结构来组织、储存和管理数据的仓库</p>
+<blockquote>
+<p>**疑问：**我的数据可以存在<code>excel</code>等文件中，那还要数据库干嘛？<br>
+这就引出以下数据存储的几个阶段：</p>
+</blockquote>
+<p><strong>人工管理阶段</strong></p>
+<p>数据靠人工整理，储存和管理。不方便保存，查询和管理</p>
+<p>典型的如古代的<code>结绳记事</code>，以及现代的<code>图书馆</code>等</p>
+<figure data-type="image" tabindex="1"><img src="https://pic.downk.cc/item/5e4f985d48b86553ee37e9bf.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://pic.downk.cc/item/5e4f9a2048b86553ee384017.jpg" alt="" loading="lazy"></figure>
+<p><strong>文件系统阶段</strong></p>
+<p>将文件数据储存在硬盘上，通过文件管理系统，比人工方便很多。</p>
+<p>但在查询数据内容时，依旧不太方便。想知道哪个文件里面有什么内容，还得一个个打开确认</p>
+<figure data-type="image" tabindex="3"><img src="https://pic.downk.cc/item/5e4f9b2b48b86553ee3872a1.jpg" alt="" loading="lazy"></figure>
+<p><strong>数据库系统阶段</strong></p>
+<p>网页显示的商品信息</p>
+<figure data-type="image" tabindex="4"><img src="https://pic.downk.cc/item/5e4f9c0c48b86553ee38ac7b.jpg" alt="" loading="lazy"></figure>
+<p>数据库中储存的商品信息</p>
+<figure data-type="image" tabindex="5"><img src="https://pic.downk.cc/item/5e4f9c2448b86553ee38b38e.jpg" alt="" loading="lazy"></figure>
+<h2 id="2-关系型数据库rdbms">2. 关系型数据库（RDBMS）</h2>
+<ul>
+<li><code>RDBMS</code>全称<code>relational database management system</code></li>
+<li>中文意思为：<strong>关系型数据库管理系统</strong></li>
+<li>关系型数据库采用了关系模型（一对一，多对多... ...）来组织数据</li>
+</ul>
+<figure data-type="image" tabindex="6"><img src="https://pic1.superbed.cn/item/5dfc6ef276085c3289171fde.jpg" alt="" loading="lazy"></figure>
+<blockquote>
+<p>什么是关系型数据库？<br>
+比如上图中，有两个表格，一个角色表，一个技能表。这个两个表格中有一列数据-姓名是相同的，我们用这个一列相同的数据来连接两个表格，使它们产生联系，一旦其中一个表格的数据更改了另外一个表格的数据也会跟着更改，这种联系使他们的数据具有一致性，这就是关系型数据库。</p>
+</blockquote>
+<h2 id="3-数据库分类与排名">3. 数据库分类与排名</h2>
+<p>查看数据库排行榜：https://db-engines.com/en/ranking</p>
+<figure data-type="image" tabindex="7"><img src="https://pic.superbed.cn/item/5dfc706276085c32891794f5.jpg" alt="" loading="lazy"></figure>
+<blockquote>
+<p>上述排名不与数据库使用安装数量相等</p>
+</blockquote>
+<p><strong>关系型</strong></p>
+<ul>
+<li><code>oracle</code>：甲骨文公司开发，收费软件，一般用于大型项目，如：银行，电信等</li>
+<li><code>MySQL</code>：甲骨文公司收购<code>sun(java)</code>而来，开源免费数据库，<code>web</code>项目中使用最广泛</li>
+<li><code>Microsoft SQL Server</code>：微软开发的项目中使用</li>
+</ul>
+<p><strong>非关系型</strong></p>
+<ul>
+<li><code>Redis</code>：高性能缓存数据库</li>
+<li><code>SQLite</code>：轻量级数据库，主要用于移动端</li>
+</ul>
+<p><strong>关系型数据库核心元素</strong></p>
+<ul>
+<li><code>数据库</code>：这里的数据库指数据仓库，一个数据库系统可以有多个数据仓库</li>
+<li><code>数据表</code>：一个数据仓库可以有多张数据表</li>
+<li><code>数据列</code>：字段信息</li>
+<li><code>数据行</code>：一条数据记录</li>
+</ul>
+<h2 id="4-sql">4. SQL</h2>
+<blockquote>
+<p><code>structured query language</code></p>
+</blockquote>
+<ul>
+<li>
+<p>结构化查询语言，用来操作关系型数据库的语言</p>
+</li>
+<li>
+<p><code>SQL</code>不区分大小写</p>
+</li>
+</ul>
+<h2 id="5-mysql">5. MySQL</h2>
+<p>由瑞典<code>MySQL AB</code>开发，后来被<code>sun</code>收购，<code>sun</code>又被<code>oracle</code>收购。所以现在是<code>Oracle</code>旗下产品</p>
+<blockquote>
+<p>目前开源版本与收费版并存（其实以后全部闭源也没事，因为有出过其他好用的衍生版本）</p>
+</blockquote>
+<p>特点</p>
+<ul>
+<li>开源，免费</li>
+<li>支持多平台</li>
+<li>是学习数据库的首选</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[一张图学习Python3]]></title>
         <id>https://yihangliak.github.io/post/he1qEtsn3/</id>
@@ -684,79 +771,6 @@ xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit
 <pre><code>docker exec -i -t firstmysql bash
 </code></pre>
 <figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Ha34afe45477240aa8e74e6a1d5eec0fdu.jpg" alt="" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[LuckyFrame自动化测试平台部署指南]]></title>
-        <id>https://yihangliak.github.io/post/luckyframe/</id>
-        <link href="https://yihangliak.github.io/post/luckyframe/">
-        </link>
-        <updated>2019-08-28T02:09:31.000Z</updated>
-        <summary type="html"><![CDATA[<p>LuckyFrame测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了接口自动化、WEB UI自动化、APP自动化，并且支持分布式测试，测试关键字驱动也很大程度上解决了测试同学代码基础弱的问题。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>LuckyFrame测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了接口自动化、WEB UI自动化、APP自动化，并且支持分布式测试，测试关键字驱动也很大程度上解决了测试同学代码基础弱的问题。</p>
-<!-- more -->
-<h1 id="关于luckyframe">关于LuckyFrame</h1>
-<p>​	<code>LuckyFrame</code>测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了<code>接口自动化</code>、<code>WEB UI自动化</code>、<code>APP自动化</code>，并且支持<code>分布式测试</code>，<code>测试关键字驱动</code>也很大程度上解决了测试同学代码基础弱的问题。同时也集成了<code>质量管理</code>相关的一些功能，解决QA的日常工作中，项目过程数据的收集问题，并能展示一些简单质量报表。</p>
-<h1 id="windows平台部署">Windows平台部署</h1>
-<h2 id="1-安装jdk">1. 安装JDK</h2>
-<ul>
-<li>部署LuckyFrame之前，需要先安装jdk，且版本要求在<code>1.8</code>以上</li>
-<li>JDK去<code>oracle</code>官网下载即可</li>
-<li>打开环境变量配置界面，在用户变量中新增<code>JAVA_HOME=jdk安装路径</code>，再将<code>%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin</code>添加至系统变量<code>path</code>中即可</li>
-<li>在命令行中输入<code>java -version</code>验证</li>
-</ul>
-<h2 id="2-安装mysql">2. 安装MySQL</h2>
-<p>下载xampp集成环境，免去单独配置安装MySQL的麻烦</p>
-<ul>
-<li>将xampp解压到某磁盘根目录</li>
-<li>打开xampp-control程序，启动MySQL</li>
-<li>进入xampp中的<code>mysql\bin</code>目录，在当前路径下打开命令行</li>
-<li>使用<code>mysql -uroot -p</code>登录（xampp集成的MySQL无密码）</li>
-<li>切换到MySQL数据库：<code>use mysql</code></li>
-<li>修改MySQL密码：<code>update user set password=password('123456') where user='root'</code></li>
-<li>刷新权限：<code>flush privileges</code></li>
-</ul>
-<h2 id="3-下载luckyframe">3. 下载LuckyFrame</h2>
-<p>访问Luckyframe官网，直接下载编译包，下载地址如下：</p>
-<pre><code>链接：  https://pan.baidu.com/s/1SNUhzoKFgH2TRQN2Rx711A 密码：u845
-</code></pre>
-<blockquote>
-<p>注意：下载3.0bata版本，同时还要下载数据库初始化sql文件</p>
-</blockquote>
-<h2 id="4修改编译包数据库配置">4.修改编译包数据库配置</h2>
-<ul>
-<li>使用压缩工具打开下载好的编译包</li>
-<li>找到编译包目录中<code>BOOT-INF\classes\application-druid.yml</code>文件</li>
-<li>用notepad打开，将其中的<code>主数据库源</code>配置项中的密码改成本机MySQL的密码</li>
-</ul>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/Heabb9bbbc3f94b159ac29c938f9602741.png" alt="" loading="lazy"></figure>
-<h2 id="5导入sql文件">5.导入SQL文件</h2>
-<p>在启动LuckyFrame之前，需要先在MySQL数据库中导入<code>初始化sql</code>文件</p>
-<ul>
-<li>登录MySQL，新建<code>luckyframe</code>数据库：<code>create database luckyframe charset=utf8;</code></li>
-<li>回到命令行，使用<code>mysql -h localhost -uroot -p luckyframe &lt; V3.sql --default-character-set=utf8</code>将初始化SQL文件导入进数据库，注意要在sql文件所在目录执行该命令</li>
-</ul>
-<h2 id="6启动luckyframe">6.启动LuckyFrame</h2>
-<ul>
-<li>
-<p>进入LuckyFrame服务端jar包存放目录，在此目录打开命令行</p>
-</li>
-<li>
-<p>命令行输入：<code>java -jar LuckyFrameWeb.jar</code>启动服务即可</p>
-</li>
-<li>
-<p>启动成功后，会看到如下提示</p>
-</li>
-</ul>
-<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/H3bb471a358a64da28a46a31a45dd130eN.png" alt="" loading="lazy"></figure>
-<h2 id="7访问">7.访问</h2>
-<ul>
-<li>在浏览器中输入<code>本机ip：80</code>即可访问LuckyFrame，默认为80端口，可以省略不写</li>
-<li>如要修改端口号，需要在编译包中找到<code>BOOT-INF\classes\application.yml</code>文件，修改默认端口配置</li>
-</ul>
-<p>访问效果图如下：</p>
-<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H50d41bdd78bd40889b1bfdc4a47e89cdr.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>
