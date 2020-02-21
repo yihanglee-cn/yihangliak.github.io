@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
-    <title>一杭的博客</title>
-    <updated>2020-02-21T10:44:08.809Z</updated>
+    <title>yihang&apos;s blog</title>
+    <updated>2020-02-21T10:50:08.041Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
     <subtitle>九万里风鹏正举   风休住</subtitle>
     <logo>https://yihangliak.github.io/images/avatar.png</logo>
     <icon>https://yihangliak.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, 一杭的博客</rights>
+    <rights>All rights reserved 2020, yihang&apos;s blog</rights>
     <entry>
         <title type="html"><![CDATA[MySQL系列入门（四）：SQL语言]]></title>
         <id>https://yihangliak.github.io/post/VEx6epPa3/</id>
