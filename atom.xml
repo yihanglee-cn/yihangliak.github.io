@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>yihang&apos;s blog</title>
-    <updated>2020-03-27T16:57:53.530Z</updated>
+    <updated>2020-03-27T17:00:57.688Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -35,775 +35,6 @@
         </link>
         <updated>2019-10-02T03:17:06.000Z</updated>
         <content type="html"><![CDATA[<p>国庆快乐！</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[HTTP Runner]]></title>
-        <id>https://yihangliak.github.io/post/F__PjWJCK/</id>
-        <link href="https://yihangliak.github.io/post/F__PjWJCK/">
-        </link>
-        <updated>2019-09-27T01:35:18.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="前言">前言</h1>
-<p>HttpRunner 是一款面向 HTTP(S) 协议的通用测试框架，只需编写维护一份 YAML/JSON 脚本，即可实现自动化测试。</p>
-<p><strong>优势</strong></p>
-<ul>
-<li>继承 Requests 的全部特性，轻松实现 HTTP(S) 的各种测试需求</li>
-<li>采用 YAML/JSON 的形式描述测试场景，保障测试用例描述的统一性和可维护性</li>
-<li>借助辅助函数（debugtalk.py），在测试脚本中轻松实现复杂的动态计算逻辑</li>
-<li>支持完善的测试用例分层机制，充分实现测试用例的复用</li>
-<li>测试前后支持完善的 hook 机制</li>
-<li>响应结果支持丰富的校验机制</li>
-<li>基于 HAR 实现接口录制和用例生成功能（har2case）</li>
-<li>结合 Locust 框架，无需额外的工作即可实现分布式性能测试</li>
-<li>执行方式采用 CLI 调用，可与 Jenkins 等持续集成工具完美结合</li>
-<li>测试结果统计报告简洁清晰，附带详尽统计信息和日志记录</li>
-<li>极强的可扩展性，轻松实现二次开发和 Web 平台化</li>
-</ul>
-<h1 id="环境准备">环境准备</h1>
-<p><strong>HttpRunner</strong>目前有2个版本，1.x和2x版本</p>
-<p>详见仓库：<a href="https://github.com/HttpRunner/HttpRunner">https://github.com/HttpRunner/HttpRunner</a></p>
-<p><strong>使用pip安装：</strong></p>
-<pre><code>pip install httprunner
-</code></pre>
-<p><strong>验证版本</strong></p>
-<pre><code>hrun -V
-</code></pre>
-<h1 id="登录案例">登录案例</h1>
-<p><strong>接口文档如下</strong></p>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H9faba9dad2a2470ba59e4e11eac4074aS.jpg" alt="" loading="lazy"></figure>
-<p><strong>yml格式脚本如下</strong></p>
-<pre><code class="language-yml">- config:                          # 全局配置项，作用域为整个测试用例文件
-    name: logincase                # 测试用例名
-    variables: {}
-- test:                            # 测试步骤（可以有多个）
-    name: login case1
-    request:
-        url: http://appapi.fecshop.com/v1/account/login
-        method: POST
-        headers:
-            Content-Type: application/json
-            User-Agent: python-requests/2.18.4
-        json:
-            username: admin
-            password: admin123
-    validate:                      # 断言
-        - eq: [status_code, 200]
-        - eq: [content.status, success]
-        - eq: [content.code, 200]
-
-</code></pre>
-<p><strong>命令行中执行该脚本</strong></p>
-<pre><code>hrun fecshop01_login.yml
-</code></pre>
-<p><strong>查看报告</strong><br>
-<img src="https://ae01.alicdn.com/kf/H6ab4d4a855e54c0ea5d012468829066er.jpg" alt="" loading="lazy"></p>
-<h1 id="关联token">关联token</h1>
-<p>如何将上个接口的返回token，传给下个接口当做请求参数?这是最常见的一个问题了。解决这个问题其实很简单，我们只需取出token值，设置为一个中间变量a，下个接口传这个变量a就可以了。</p>
-<p>比如 <strong>查询商品详情</strong> 接口，在请求中需要传入登录后token，接口文档如下：</p>
-<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/Hf3791bcadb304b608ca4b090a81bf292B.jpg" alt="" loading="lazy"></figure>
-<p>那么在<code>HttpRunner</code>中可以使用<code>extract</code>提取<code>token</code>，比如：</p>
-<pre><code class="language-yml">extract:
-	- token: content.token
-</code></pre>
-<p><strong>案例脚本</strong></p>
-<blockquote>
-<p>查询商品详情（需登录）</p>
-</blockquote>
-<pre><code class="language-yml">- config:                          
-    name: fetch_product              
-    variables: {}
-- test:                            
-    name: login_success
-    request:
-        url: http://appapi.fecshop.com/v1/account/login
-        method: POST
-        headers:
-            Content-Type: application/json
-        json:
-            username: admin
-            password: admin123
-    extract:
-        - token: content.access-token           # 提取token
-    validate:
-        - eq: [status_code, 200]
-        - eq: [content.status, success]
-        - eq: [content.code, 200]
-
-- test:
-    name: fetch_product_success
-    request:
-        url: http://appapi.fecshop.com/v1/product/fetchone
-        method: GET 
-        headers:
-            Content-Type: application/json
-            Access-Token: $token               # 引用token
-        json:
-            id: 57bab0d5f656f2940a3bf56e
-    validate:
-        - eq: [content.code, 200]
-        - eq: [content.message, fetch product success]
-
-</code></pre>
-<p><strong>测试报告</strong></p>
-<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H1e08664510f940bb90331fc8433bd6a9M.jpg" alt="" loading="lazy"></figure>
-<h1 id="测试执行">测试执行</h1>
-<p><strong>指定测试报告存放目录</strong></p>
-<pre><code>hrun xxx.yml --report-dir report_dir
-</code></pre>
-<p><strong>指定日志级别</strong></p>
-<pre><code>hrun xxx.yml --log-level debug   # 最详细级别
-</code></pre>
-<h1 id="录制脚本">录制脚本</h1>
-<p>使用<code>Fiddler</code>或其他抓包工具，将抓取到的数据保存成<code>har</code>文件，然后使用<code>HttpRunner</code>测试用例生成功能，快速生成测试用例。</p>
-<p><strong>使用抓包工具抓取数据</strong></p>
-<blockquote>
-<p>以<code>幕布</code>登录为例</p>
-</blockquote>
-<pre><code>POST https://mubu.com/api/login/submit HTTP/1.1
-Host: mubu.com
-Connection: keep-alive
-Content-Length: 51
-Accept: application/json, text/javascript, */*; q=0.01
-Origin: https://mubu.com
-X-Requested-With: XMLHttpRequest
-User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36
-Content-Type: application/x-www-form-urlencoded; charset=UTF-8
-Referer: https://mubu.com/login/password
-Accept-Encoding: gzip, deflate, br
-Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
-Cookie: _ga=GA1.2.2093024221.1563846010; csrf_token=c91c2dd6-c26b-42ba-90fc-59997418fd82; data_unique_id=f8f42b69-299d-4ac7-9311-699f0e469ab3; SESSION=ZTc2Y2Q0YzgtYjdlNS00ZGRmLWI1ZDYtNmI3MDg4N2FlMmYz; _gid=GA1.2.347269472.1569567796; reg_entrance=https%3A%2F%2Fmubu.com%2F; user_persistence=59c84236-124f-4071-86d3-a1edef6dba3f; _gat=1
-
-phone=手机号&amp;password=密码&amp;remember=true
-</code></pre>
-<p><strong>导出<code>har</code>文件</strong></p>
-<figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Hd67aef48078f47ea8bc6b610d85fe2c5S.jpg" alt="" loading="lazy"></figure>
-<p><strong>转换脚本</strong><br>
-进入<code>har</code>文件保存目录，打开命令行，输入如下命令将数据包转为<code>yml</code>格式的脚本文件：</p>
-<pre><code>har2case xxx.har -2y
-</code></pre>
-<p><strong>转换后效果</strong></p>
-<pre><code class="language-yml">config:
-    name: testcase description
-    variables: {}
-teststeps:
--   name: /api/login/submit
-    request:
-        data:
-            password: 密码
-            phone: '手机'
-            remember: 'true'
-        headers:
-            Content-Type: application/x-www-form-urlencoded; charset=UTF-8
-            User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36
-                (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36
-            X-Requested-With: XMLHttpRequest
-        method: POST
-        url: https://mubu.com/api/login/submit
-    validate:
-    -   eq:
-        - status_code
-        - 200
-    -   eq:
-        - headers.Content-Type
-        - application/json;charset=UTF-8
-    -   eq:
-        - content.code
-        - 0
-    -   eq:
-        - content.msg
-        - null
-
-</code></pre>
-<p><strong>测试报告</strong></p>
-<figure data-type="image" tabindex="5"><img src="https://ae01.alicdn.com/kf/Hc8cf1a1932574fd798aa1669bc943e9cz.jpg" alt="" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[实用工具大搜罗]]></title>
-        <id>https://yihangliak.github.io/post/UQ96yPt5M/</id>
-        <link href="https://yihangliak.github.io/post/UQ96yPt5M/">
-        </link>
-        <updated>2019-09-10T06:30:01.000Z</updated>
-        <summary type="html"><![CDATA[<p>盘点那些不为人知的工具-们！</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>盘点那些不为人知的工具-们！</p>
- <!-- more -->
-<h1 id="文字编辑">文字编辑    📕</h1>
-<p><strong>思维导图</strong></p>
-<ul>
-<li>幕布：<a href="https://mubu.com/">https://mubu.com</a></li>
-<li>xmind<br>
-xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit-9.2.0-201904271935.exe">http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit-9.2.0-201904271935.exe</a><br>
-破解补丁：<a href="https://carrot.ctfile.com/dir/11269771-31680249-fdf2c2/">https://carrot.ctfile.com/dir/11269771-31680249-fdf2c2/</a></li>
-</ul>
-<p><strong>Markdown编辑器</strong></p>
-<ul>
-<li>Typora：<a href="https://www.typora.io/">https://www.typora.io/</a></li>
-</ul>
-<p><strong>万能编辑器</strong></p>
-<ul>
-<li>notepad ++</li>
-</ul>
-<p><strong>文档，表格，幻灯片</strong></p>
-<ul>
-<li>WPS（政企专版，无广告）：<a href="http://wpspro.support.wps.cn/gov/heilongjiang/daqing/installation/WPS_Office_2019_%E5%A4%A7%E5%BA%86%E5%B8%82%E5%85%9A%E6%94%BF%E6%9C%BA%E5%85%B3%E4%B8%93%E7%94%A8%E7%89%88.exe">http://wpspro.support.wps.cn/gov/heilongjiang/daqing/installation/WPS_Office_2019_大庆市党政机关专用版.exe</a></li>
-<li>在线emoji：<a href="http://emojihomepage.com/">http://emojihomepage.com/</a></li>
-</ul>
-<h1 id="开发工具">开发工具    💻</h1>
-<p><strong>图形化Git工具</strong></p>
-<ul>
-<li>sourcetree：<a href="https://www.sourcetreeapp.com/">https://www.sourcetreeapp.com/</a></li>
-</ul>
-<p><strong>python编辑器</strong></p>
-<ul>
-<li>pycharm：<a href="http://www.jetbrains.com/pycharm/">http://www.jetbrains.com/pycharm/</a></li>
-</ul>
-<p><strong>MySQL连接软件</strong></p>
-<ul>
-<li>Navicat for mysql 绿色版：<a href="https://www.cr173.com/soft/38153.html">https://www.cr173.com/soft/38153.html</a></li>
-</ul>
-<p><strong>Java8</strong></p>
-<ul>
-<li>JDK下载地址：<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></li>
-</ul>
-<p><strong>淘宝镜像站</strong></p>
-<ul>
-<li>地址：<a href="https://npm.taobao.com">https://npm.taobao.com</a></li>
-</ul>
-<h1 id="生活类">生活类    👀</h1>
-<p><strong>护眼</strong></p>
-<ul>
-<li>护眼宝：<a href="http://www.huyanapp.com/portal.php">http://www.huyanapp.com/portal.php</a></li>
-</ul>
-<h1 id="图片处理类">图片处理类    🎨</h1>
-<p><strong>截图工具</strong></p>
-<ul>
-<li>Snipaste：<a href="https://www.snipaste.com/">https://www.snipaste.com/</a></li>
-</ul>
-<p><strong>免费图床</strong></p>
-<ul>
-<li>smpic：<a href="https://github.com/kookob/smpic">https://github.com/kookob/smpic</a></li>
-<li>聚合图床：<a href="https://www.superbed.cn/">https://www.superbed.cn/</a></li>
-<li>智图图片压缩：<a href="https://zhitu.isux.us/">https://zhitu.isux.us/</a></li>
-</ul>
-<h1 id="系统美化类">系统美化类    🐼</h1>
-<p><strong>任务栏全透明</strong></p>
-<ul>
-<li>TranslucentTB：<a href="https://translucenttb.en.softonic.com/">https://translucenttb.en.softonic.com/</a></li>
-</ul>
-<p><strong>Windows字体优化</strong></p>
-<ul>
-<li>Mactype：<a href="https://www.mactype.net/">https://www.mactype.net/</a></li>
-</ul>
-<p><strong>超美壁纸</strong></p>
-<ul>
-<li>Pexels：<a href="https://www.pexels.com/">https://www.pexels.com/</a></li>
-</ul>
-<h1 id="效率类">效率类     📚</h1>
-<p><strong>待办事项管理</strong></p>
-<ul>
-<li>MicrosoftToDo：<a href="https://todo.microsoft.com/">https://todo.microsoft.com/</a></li>
-</ul>
-<p><strong>本地文件搜索工具（一秒找到文件）</strong></p>
-<ul>
-<li>everything：<a href="https://www.voidtools.com/zh-cn/">https://www.voidtools.com/zh-cn/</a></li>
-</ul>
-<p><strong>百度云不限速下载</strong></p>
-<ul>
-<li>speedpan：<a href="https://www.speedpan.com/">https://www.speedpan.com/</a></li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[LuckyFrame自动化测试平台部署指南]]></title>
-        <id>https://yihangliak.github.io/post/luckyframe/</id>
-        <link href="https://yihangliak.github.io/post/luckyframe/">
-        </link>
-        <updated>2019-08-28T02:09:31.000Z</updated>
-        <summary type="html"><![CDATA[<p>LuckyFrame测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了接口自动化、WEB UI自动化、APP自动化，并且支持分布式测试，测试关键字驱动也很大程度上解决了测试同学代码基础弱的问题。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>LuckyFrame测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了接口自动化、WEB UI自动化、APP自动化，并且支持分布式测试，测试关键字驱动也很大程度上解决了测试同学代码基础弱的问题。</p>
-<!-- more -->
-<h1 id="关于luckyframe">关于LuckyFrame</h1>
-<p>​	<code>LuckyFrame</code>测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了<code>接口自动化</code>、<code>WEB UI自动化</code>、<code>APP自动化</code>，并且支持<code>分布式测试</code>，<code>测试关键字驱动</code>也很大程度上解决了测试同学代码基础弱的问题。同时也集成了<code>质量管理</code>相关的一些功能，解决QA的日常工作中，项目过程数据的收集问题，并能展示一些简单质量报表。</p>
-<h1 id="windows平台部署">Windows平台部署</h1>
-<h2 id="1-安装jdk">1. 安装JDK</h2>
-<ul>
-<li>部署LuckyFrame之前，需要先安装jdk，且版本要求在<code>1.8</code>以上</li>
-<li>JDK去<code>oracle</code>官网下载即可</li>
-<li>打开环境变量配置界面，在用户变量中新增<code>JAVA_HOME=jdk安装路径</code>，再将<code>%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin</code>添加至系统变量<code>path</code>中即可</li>
-<li>在命令行中输入<code>java -version</code>验证</li>
-</ul>
-<h2 id="2-安装mysql">2. 安装MySQL</h2>
-<p>下载xampp集成环境，免去单独配置安装MySQL的麻烦</p>
-<ul>
-<li>将xampp解压到某磁盘根目录</li>
-<li>打开xampp-control程序，启动MySQL</li>
-<li>进入xampp中的<code>mysql\bin</code>目录，在当前路径下打开命令行</li>
-<li>使用<code>mysql -uroot -p</code>登录（xampp集成的MySQL无密码）</li>
-<li>切换到MySQL数据库：<code>use mysql</code></li>
-<li>修改MySQL密码：<code>update user set password=password('123456') where user='root'</code></li>
-<li>刷新权限：<code>flush privileges</code></li>
-</ul>
-<h2 id="3-下载luckyframe">3. 下载LuckyFrame</h2>
-<p>访问Luckyframe官网，直接下载编译包，下载地址如下：</p>
-<pre><code>链接：  https://pan.baidu.com/s/1SNUhzoKFgH2TRQN2Rx711A 密码：u845
-</code></pre>
-<blockquote>
-<p>注意：下载3.0bata版本，同时还要下载数据库初始化sql文件</p>
-</blockquote>
-<h2 id="4修改编译包数据库配置">4.修改编译包数据库配置</h2>
-<ul>
-<li>使用压缩工具打开下载好的编译包</li>
-<li>找到编译包目录中<code>BOOT-INF\classes\application-druid.yml</code>文件</li>
-<li>用notepad打开，将其中的<code>主数据库源</code>配置项中的密码改成本机MySQL的密码</li>
-</ul>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/Heabb9bbbc3f94b159ac29c938f9602741.png" alt="" loading="lazy"></figure>
-<h2 id="5导入sql文件">5.导入SQL文件</h2>
-<p>在启动LuckyFrame之前，需要先在MySQL数据库中导入<code>初始化sql</code>文件</p>
-<ul>
-<li>登录MySQL，新建<code>luckyframe</code>数据库：<code>create database luckyframe charset=utf8;</code></li>
-<li>回到命令行，使用<code>mysql -h localhost -uroot -p luckyframe &lt; V3.sql --default-character-set=utf8</code>将初始化SQL文件导入进数据库，注意要在sql文件所在目录执行该命令</li>
-</ul>
-<h2 id="6启动luckyframe">6.启动LuckyFrame</h2>
-<ul>
-<li>
-<p>进入LuckyFrame服务端jar包存放目录，在此目录打开命令行</p>
-</li>
-<li>
-<p>命令行输入：<code>java -jar LuckyFrameWeb.jar</code>启动服务即可</p>
-</li>
-<li>
-<p>启动成功后，会看到如下提示</p>
-</li>
-</ul>
-<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/H3bb471a358a64da28a46a31a45dd130eN.png" alt="" loading="lazy"></figure>
-<h2 id="7访问">7.访问</h2>
-<ul>
-<li>在浏览器中输入<code>本机ip：80</code>即可访问LuckyFrame，默认为80端口，可以省略不写</li>
-<li>如要修改端口号，需要在编译包中找到<code>BOOT-INF\classes\application.yml</code>文件，修改默认端口配置</li>
-</ul>
-<p>访问效果图如下：</p>
-<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H50d41bdd78bd40889b1bfdc4a47e89cdr.png" alt="" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Jemeter性能测试完整入门]]></title>
-        <id>https://yihangliak.github.io/post/begin_jemeter/</id>
-        <link href="https://yihangliak.github.io/post/begin_jemeter/">
-        </link>
-        <updated>2019-07-23T01:18:12.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="性能测试笔记">性能测试笔记</h1>
-<h1 id="第一章-性能基础知识">第一章 性能基础知识</h1>
-<h2 id="1-性能测试的概念">1. 性能测试的概念</h2>
-<p>通过性能测试工具模拟多种正常，峰值，以及异常负载条件来对系统的各项性能指标进行测试</p>
-<h2 id="2性能测试的目的">2.性能测试的目的</h2>
-<ul>
-<li>评估系统能力</li>
-<li>测试系统可靠性</li>
-<li>识别系统的弱点（内存泄漏）</li>
-<li>性能调优（满足用户需求，优化瓶颈，提高整体性能）</li>
-</ul>
-<blockquote>
-<p>性能测试时间点，功能测试之后</p>
-</blockquote>
-<h2 id="3性能测试归属">3.性能测试归属</h2>
-<p>测试阶段划分：系统测试</p>
-<p>性能测试属于黑盒测试</p>
-<p>属于6大质量特性中的：效率特性</p>
-<h1 id="第二章-性能测试的分类">第二章 性能测试的分类</h1>
-<h2 id="1-负载测试">1 负载测试</h2>
-<ul>
-<li>通过逐步给服务器增加压力，直到某项数据不达标，测试软件的瓶颈</li>
-<li>评测和评估对象在不同工作量条件下的性能行为</li>
-<li>负载的目标是确保系统测试超出预期工作量的情况下仍然可以继续运行</li>
-</ul>
-<h2 id="2-压力测试">2 压力测试</h2>
-<ul>
-<li>强度测试，通过高负载的手段来使服务器资源处于极限状态，直到某项数据失效，测试系统的极限</li>
-<li>通过高负载的手段，可以更快的发现系统内存泄漏以及稳定性等问题</li>
-</ul>
-<h2 id="3-失效恢复性测试">3 失效恢复性测试</h2>
-<ul>
-<li>出现问题后能否根据预先制定的策略恢复，且恢复后能正常工作</li>
-</ul>
-<h2 id="4-并发测试">4 并发测试</h2>
-<ul>
-<li>测试多用户按照预定的场景请求某个业务或者功能时，是否会出现问题</li>
-<li>几乎所有的性能测试都会涉及到并发测试，并发测试的主要目的是找出并发问题（资源争用）</li>
-</ul>
-<h2 id="5-稳定性测试">5 稳定性测试</h2>
-<ul>
-<li>一般使用目标负载的1.5-2倍的负载量或者CPU占用达到70%，测试系统长时间运行（7x24），观察系统稳定性</li>
-</ul>
-<h2 id="6-配置测试">6 配置测试</h2>
-<ul>
-<li>通过调整系统软件、硬件环境，了解在不同情况下系统性能指标情况，从而找到系统最优配置</li>
-</ul>
-<blockquote>
-<p>新产品上线以前，先做一个配置测试，找到最优配置，然后进行负载，压力，稳定，失效恢复性等测试</p>
-<p>产品上线以后主要做压力测试</p>
-<p>当然，具体做什么类型的性能测试，需要根据项目背景去灵活选择</p>
-</blockquote>
-<h1 id="第三章-性能术语">第三章 性能术语</h1>
-<h2 id="1-事务">1 事务</h2>
-<p>一个任务从开始到结束的过程</p>
-<blockquote>
-<p>事务具有原子性</p>
-<p>原子性：整个程序操作过程中的所有操作，要么全部完成，要么全部不完成</p>
-</blockquote>
-<h2 id="2-响应时间">2 响应时间</h2>
-<p>系统对请求作出响应的时间（一个事务处理完成的时间）</p>
-<blockquote>
-<p>响应时间=网络传输时间+web服务器处理时间+DB服务器处理时间+浪费时间</p>
-<p>258原则：</p>
-<p>​	&lt;2秒快<br>
-​	大于2小于5秒可以<br>
-​	大于5小于8秒勉强接受<br>
-​	大于8秒不耐烦了，或者认为系统已经失去响应，而选择离开这个Web站点，或者发起第二次请</p>
-</blockquote>
-<h2 id="3-吞吐量">3 吞吐量</h2>
-<p>每秒服务器处理的请求或者事务数</p>
-<p>吞吐量衡量单位：</p>
-<ul>
-<li>每秒请求数</li>
-<li>每秒事务数（TPS）</li>
-<li>每秒页面数</li>
-<li>每秒查询数（QPS）</li>
-</ul>
-<h2 id="4-并发">4 并发</h2>
-<ul>
-<li>绝对并发：不同用户，在同一时刻，做同一个操作</li>
-<li>相对并发：不用用户，在同一时刻，做不同操作</li>
-</ul>
-<h2 id="5-并发数">5 并发数</h2>
-<p>同一时间操作的用户个数</p>
-<h2 id="6-场景">6 场景</h2>
-<p>模拟用户的真实操作过程</p>
-<p>分类：</p>
-<ul>
-<li>单一场景：单个操作</li>
-<li>混合场景：多个组合操作</li>
-</ul>
-<h2 id="7-思考时间">7 思考时间</h2>
-<p>用户每个操作之间的间隔时间，增加间隔时间可以更真实地模拟用户使用的场景</p>
-<h2 id="8-性能瓶颈">8 性能瓶颈</h2>
-<p>软件的性能缺陷</p>
-<p>这个缺陷主要分布在：</p>
-<ul>
-<li>硬件：如cpu等配置过低</li>
-<li>应用服务器：如web服务器，数据库系统等</li>
-<li>程序：程序设计的问题</li>
-<li>操作系统：如Windows虚拟内存交换效果不理想等</li>
-<li>网络设备：防火墙，交换机等</li>
-</ul>
-<h1 id="第四章-性能测试工具">第四章 性能测试工具</h1>
-<h2 id="1-工具分类">1 工具分类</h2>
-<p><strong>jmeter</strong></p>
-<ul>
-<li>免费，开源</li>
-<li>支持二次开发</li>
-<li>支持分布式部署</li>
-<li>支持命令行模式</li>
-</ul>
-<p><strong>LoadRunner</strong></p>
-<ul>
-<li>商业，收费</li>
-</ul>
-<p><strong>Locust</strong></p>
-<ul>
-<li>python开源性能测试工具</li>
-</ul>
-<p><strong>Apache ab</strong></p>
-<ul>
-<li>Apache的web性能测试工具</li>
-</ul>
-<h1 id="第五章-jmeter原理与安装">第五章  Jmeter原理与安装</h1>
-<h2 id="1-工作原理">1 工作原理</h2>
-<p>使用取样器向服务器发送请求，从服务器获取响应结果，然后通过线程组模拟服务器压力</p>
-<h2 id="2-安装">2 安装</h2>
-<p>安装JDK并配置环境变量</p>
-<p>官网下载jmeter压缩包，并解压</p>
-<p>双击bin目录下的jmeter.bat启动即可</p>
-<h2 id="3-常用组件">3 常用组件</h2>
-<p>Test Plan：测试计划（场景）</p>
-<ul>
-<li>Thread Group：线程组，模拟并发数
-<ul>
-<li>http request ：取样器，模拟用户请求
-<ul>
-<li>view result tree：查看结果树，监听取样器的结果</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H50ba236c8fd54827b2cb8db540b8bff3B.png" alt="" loading="lazy"></figure>
-<p>在取样器中添加响应断言</p>
-<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/Hf48d6854c1504741bf996e26a66c1ea26.png" alt="" loading="lazy"></figure>
-<p>断言界面详解</p>
-<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H4ffa89ad39cf4c91a5f754de0b3f786f0.png" alt="" loading="lazy"></figure>
-<p>添加聚合报告</p>
-<figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Hed61829eba6f429fb8aa50adcae88ec3G.png" alt="" loading="lazy"></figure>
-<p>聚合报告详情</p>
-<figure data-type="image" tabindex="5"><img src="https://puui.qpic.cn/fans_admin/0/3_1452561028_1568392796619/0" alt="" loading="lazy"></figure>
-<h2 id="4-第一个脚本">4 第一个脚本</h2>
-<p>1.新建测试计划</p>
-<p>2.创建线程组</p>
-<p>3.添加http取样器</p>
-<p>4.添加监听器-view result tree</p>
-<p>5.添加断言-response assertion</p>
-<p>6.添加聚合报告</p>
-<p>ecshop登录脚本</p>
-<figure data-type="image" tabindex="6"><img src="https://ae01.alicdn.com/kf/H2330733451dc4f3c8ae6d5ef2acb8d88R.png" alt="" loading="lazy"></figure>
-<h1 id="第六章-jmeter常用组件">第六章 jmeter常用组件</h1>
-<h2 id="1-参数化">1 参数化</h2>
-<p>1.设置用户自定义变量</p>
-<figure data-type="image" tabindex="7"><img src="https://ae01.alicdn.com/kf/H296e10c5f63d458fbe85e4e1dfab87b5Q.png" alt="" loading="lazy"></figure>
-<p>调用方式与RF一致，${变量名}</p>
-<figure data-type="image" tabindex="8"><img src="https://ae01.alicdn.com/kf/Hcabf2b45b57a4db2af85972e0fdf50ccP.png" alt="" loading="lazy"></figure>
-<p>添加参数化文件读取组件</p>
-<figure data-type="image" tabindex="9"><img src="https://ae01.alicdn.com/kf/Ha84c2299573c432ba776b71f204c9568I.png" alt="" loading="lazy"></figure>
-<h2 id="2-cookie关联">2 cookie关联</h2>
-<p>把上一个取样器的结果关联到一下个取样器</p>
-<p>http cookie manager 可以把cookie自动关联到下一个取样器的请求中</p>
-<p>在同一个线程组中添加一个 HTTP cookie manager</p>
-<figure data-type="image" tabindex="10"><img src="https://ae01.alicdn.com/kf/H079959fdcd494091b3046b85a8ff6b50O.png" alt="" loading="lazy"></figure>
-<p>添加完成以后无需配置，即可将第一个取样器中的cookie自动同步至所有线程组</p>
-<h2 id="3-上传文件">3  上传文件</h2>
-<p>以ecshop留言上传文件为例</p>
-<p>首先添加一个发表留言并且要上传文件的取样器，并配置好取样器</p>
-<figure data-type="image" tabindex="11"><img src="C:%5CUsers%5CAlex%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1568393079080.png" alt="" loading="lazy"></figure>
-<p>配置文件上传参数</p>
-<figure data-type="image" tabindex="12"><img src="https://ae01.alicdn.com/kf/Hbf0a71a4f1074950a64fa947302d01a6b.jpg" alt="" loading="lazy"></figure>
-<p>运行成功示意图</p>
-<h2 id="4-正则提取器">4  正则提取器</h2>
-<p>提取取样器结果中的任何内容</p>
-<p>通过表达式从一堆数据中提取符合表达式规则的数据</p>
-<p>语法：</p>
-<pre><code>[0-9]  : 表示任意一个数字，等价于/d
-[a-z]  : 表示任意一个小写字母
-[A-Z]  : 表示任意一个大写字母
-\w     : 表示任意一个字符，包含大小写字母，中文，数字以及一个_
-\s     : 表示一个空格
-{}     : 表示匹配前面表达式的连续n个
-{m,n}  : 表示匹配前面表达式的连续m-n个
-+      : 表示匹配前面表达式的一个或多个
-\      : 去转义
-.      : 表示出了换行符之外的任意一个字符
-$      : 结尾
-^      : 开头
-？     ： 非贪婪匹配，匹配到一个结果后结束匹配
-()     : 需要提取的内容用小括号包围
-
-</code></pre>
-<p>添加正则提取器</p>
-<figure data-type="image" tabindex="13"><img src="https://ae01.alicdn.com/kf/H01a00a5f00c84c9b9bd4f907960c966d8.jpg" alt="" loading="lazy"></figure>
-<p>配置正则提取器</p>
-<figure data-type="image" tabindex="14"><img src="https://ae01.alicdn.com/kf/Heca919a2c0654a31973056072ba8004fq.jpg" alt="" loading="lazy"></figure>
-<p>在一下个查询订单详情的取样器中使用上述提取出的变量</p>
-<figure data-type="image" tabindex="15"><img src="https://ae01.alicdn.com/kf/Hedbe48d95f4c448fb22bfaed563d03d3d.jpg" alt="" loading="lazy"></figure>
-<h2 id="5-添加debug组件">5  添加debug组件</h2>
-<p>该组件可以查看所有使用过的变量</p>
-<p>添加debug组件</p>
-<figure data-type="image" tabindex="16"><img src="https://ae01.alicdn.com/kf/Ha9dd85c2e22a46edbba0333e5a5beadfn.jpg" alt="" loading="lazy"></figure>
-<p>为该组件添加一个结果树，即可查看使用过的变量</p>
-<h2 id="6-逻辑控制器">6  逻辑控制器</h2>
-<p>逻辑控制器，可以控制取样器的执行顺序</p>
-<h3 id="61-for">6.1 for</h3>
-<p>添加for循环控制器</p>
-<figure data-type="image" tabindex="17"><img src="https://ae01.alicdn.com/kf/He2e145376ba44a508d4fd5afaef61f35C.jpg" alt="" loading="lazy"></figure>
-<p>将查询订单详情挪至for控制器里面</p>
-<figure data-type="image" tabindex="18"><img src="https://ae01.alicdn.com/kf/Hb1e3aab477ba428a86d37b5faf3bf0fd2.jpg" alt="" loading="lazy"></figure>
-<p>配置for控制器</p>
-<figure data-type="image" tabindex="19"><img src="https://ae01.alicdn.com/kf/H7ac93b17b5c8422d8130391e1ffce8d6j.jpg" alt="" loading="lazy"></figure>
-<p>修改正则提取中的配置</p>
-<figure data-type="image" tabindex="20"><img src="https://ae01.alicdn.com/kf/He614b551973c4cdfb3cb3241b6243a53f.jpg" alt="" loading="lazy"></figure>
-<p>在查询订单中使用遍历出来得变量即可</p>
-<figure data-type="image" tabindex="21"><img src="https://ae01.alicdn.com/kf/H2c818e481014438bb777bc1882f70dd11.jpg" alt="" loading="lazy"></figure>
-<h3 id="62-if">6.2 if</h3>
-<p>添加if控制器</p>
-<figure data-type="image" tabindex="22"><img src="https://ae01.alicdn.com/kf/H95720511fb0e49c89acb7b98b4b3d177m.jpg" alt="" loading="lazy"></figure>
-<p>确定判断逻辑</p>
-<p>在第一步登录取样器中提取登录结果</p>
-<figure data-type="image" tabindex="23"><img src="https://ae01.alicdn.com/kf/Hea9fbfb1ca494e949a03706fdc58780b2.jpg" alt="" loading="lazy"></figure>
-<p>然后分别配置登录成功与登录失败需要执行的步骤</p>
-<figure data-type="image" tabindex="24"><img src="https://ae01.alicdn.com/kf/Hf72d6d092f1241f88b38b4fc72bd6d27c.jpg" alt="" loading="lazy"></figure>
-<h2 id="7-开关控制器">7 开关控制器</h2>
-<p>方式一：通过0和1决定执行哪个，0执行第一个，1执行第二个</p>
-<p>方式二：通过取样器名字决定执行哪个，名字必须与取样器完成一致才会执行</p>
-<figure data-type="image" tabindex="25"><img src="https://ae01.alicdn.com/kf/H2fcf3a500b5c46f98338ac6247c607a3l.jpg" alt="" loading="lazy"></figure>
-<h2 id="8-循环控制器">8  循环控制器</h2>
-<p>对单个取样器进行循环操作</p>
-<figure data-type="image" tabindex="26"><img src="https://ae01.alicdn.com/kf/H7b218c4b63b14a798a0b0b699912518e0.jpg" alt="" loading="lazy"></figure>
-<h1 id="第七章-并发数">第七章  并发数</h1>
-<h2 id="1-平均并发数">1 平均并发数</h2>
-<p>计算平均并发数</p>
-<pre><code>平均并发数 = 每日活跃用户数*用户使用时间/访问时间段
-</code></pre>
-<p>一个系统，每天2000个用户访问，访问时间集中在上午9-12点，平均每个用户访问10分钟，计算并发数</p>
-<pre><code>(2000*10)/(60*3)=111(大约)
-# 2000为用户数量
-# 10为用户使用时间
-# 60*3是为了前后单位统一，访问时间段为3个小时
-</code></pre>
-<h2 id="2-峰值用户数">2 峰值用户数</h2>
-<pre><code>峰值用户数 = 平均并发数 + 3*sqrt（平均并发数）
-</code></pre>
-<h1 id="第八章-搭建资源监控环境">第八章  搭建资源监控环境</h1>
-<h2 id="1服务端">1.服务端</h2>
-<ul>
-<li>在服务器端安装java，并且配置环境变量</li>
-</ul>
-<pre><code>创建java存放目录：/usr/local/java
-Linux配置环境变量
-cd ~   # 进入root目录
-vi .bash_profile
-
-
-yum -y install java-1.8.0-openjdk*
-</code></pre>
-<ul>
-<li>上传ServerAgent.zip到/opt目录，然后解压</li>
-<li>进入ServerAgent目录，启动该代理</li>
-</ul>
-<pre><code>./startAgent.sh     # 启动监控代理
-./startAgent.sh &amp;   # 以进程方式启动监控代理
-</code></pre>
-<h2 id="2-jmeter端">2. jmeter端</h2>
-<ul>
-<li>jmeter安装插件管理器</li>
-</ul>
-<pre><code>将jmeter-plugins-manager-1.3.jar放至jmeter安装目录下的lib\ext中
-重启jmeter
-</code></pre>
-<ul>
-<li>在option菜单中启动插件管理器</li>
-<li>在打开的插件管理器安装</li>
-</ul>
-<figure data-type="image" tabindex="27"><img src="https://ae01.alicdn.com/kf/Hbedb18dfb2814564a30a0c8d999c9cdaX.jpg" alt="" loading="lazy"></figure>
-<ul>
-<li>在jmeter脚本线程组中添加jpgc监听器</li>
-</ul>
-<figure data-type="image" tabindex="28"><img src="https://ae01.alicdn.com/kf/H5b543b96f5bf4a47b8cf1d6762a07b63I.jpg" alt="" loading="lazy"></figure>
-<ul>
-<li>配置该监听器</li>
-</ul>
-<figure data-type="image" tabindex="29"><img src="https://ae01.alicdn.com/kf/H35f126cf112a46d4a8dd7b9cb745f989a.jpg" alt="" loading="lazy"></figure>
-<ul>
-<li>不要忘了设置线程组，配置几个线程，运行时间等</li>
-</ul>
-<figure data-type="image" tabindex="30"><img src="https://ae01.alicdn.com/kf/Hbc5ce94529824970b066116118ba3326H.jpg" alt="" loading="lazy"></figure>
-<h1 id="第九章-性能测试流程">第九章  性能测试流程</h1>
-<p>需求分析(学习业务，分析规格文档)	<br>
-场景设计(测试场景、测试类型、并发数、步长、思考时间)<br>
-编写计划<br>
-环境搭建、数据准备、脚本开发<br>
-性能测试(性能数据收集)<br>
-性能分析、性能调优<br>
-性能测试报告<br>
-结束</p>
-<h1 id="第十章-centos搭建ecshop">第十章  centos搭建ecshop</h1>
-<p>1.上传xampp压缩包并解压</p>
-<pre><code>tar -xzvf xampp-linux-1.7.7.tar.gz
-</code></pre>
-<p>2.进入lampp目录</p>
-<p>3.输入命令启动xampp</p>
-<pre><code class="language-shell">./lampp start
-
-# 如果提示xampp只能在32位系统运行
-# 使用yum命令安装32位包
-yum install -y glibc*i686
-</code></pre>
-<p>3.启动成功后，验证是否启动成功</p>
-<pre><code>netstat -anp|grep 80   # 查看httpd端口是否启动，httpd就是Apache的进程
-netstat -anp|grep 3306 # 查看mysql的端口是否存在
-</code></pre>
-<figure data-type="image" tabindex="31"><img src="https://ae01.alicdn.com/kf/Hfb9353eed354499998261198cfee1c113.jpg" alt="" loading="lazy"></figure>
-<p>4.上传ecshop项目包到htdocs目录</p>
-<p>5.解压安装即可</p>
-<h1 id="第十一章-练习">第十一章  练习</h1>
-<h2 id="1-ecshop登录实现参数化">1. ecshop登录实现参数化</h2>
-<h3 id="11-创建登录脚本">1.1 创建登录脚本</h3>
-<p>创建测试计划</p>
-<figure data-type="image" tabindex="32"><img src="https://ae01.alicdn.com/kf/H65adaa3cef914798a1298bdd3d6181e7F.jpg" alt="" loading="lazy"></figure>
-<p>添加线程组</p>
-<figure data-type="image" tabindex="33"><img src="https://ae01.alicdn.com/kf/Hc06b39cdfaa14369b46059d83e0103ebT.jpg" alt="" loading="lazy"></figure>
-<p>添加取样器</p>
-<figure data-type="image" tabindex="34"><img src="https://ae01.alicdn.com/kf/Hba10332425544c2a9cfef61b91edcaa7v.jpg" alt="" loading="lazy"></figure>
-<p>配置取样器</p>
-<figure data-type="image" tabindex="35"><img src="https://ae01.alicdn.com/kf/Hfcad5d3d0d4e41e399c60d7edd9b6268C.jpg" alt="" loading="lazy"></figure>
-<p>添加观察结果树</p>
-<figure data-type="image" tabindex="36"><img src="https://ae01.alicdn.com/kf/Hda3fe507ea8e462aa67808688d01c3dd3.jpg" alt="" loading="lazy"></figure>
-<p>验证是否登录成功</p>
-<figure data-type="image" tabindex="37"><img src="https://ae01.alicdn.com/kf/Hb1628955ed7549569aa86975ec8a2a6bD.jpg" alt="" loading="lazy"></figure>
-<h3 id="12-添加参数化组件">1.2 添加参数化组件</h3>
-<p>添加参数读取组件</p>
-<figure data-type="image" tabindex="38"><img src="https://ae01.alicdn.com/kf/Hacb60fb62b384eaa8ca9d40858f889f6S.jpg" alt="" loading="lazy"></figure>
-<p>创建参数化文件</p>
-<figure data-type="image" tabindex="39"><img src="https://ae01.alicdn.com/kf/H0f3376fbac59496c8640abd41e76a0bdP.jpg" alt="" loading="lazy"></figure>
-<p>配置参数化组件</p>
-<figure data-type="image" tabindex="40"><img src="https://ae01.alicdn.com/kf/H6c324e37688641e7961760e7f4c9171bC.jpg" alt="" loading="lazy"></figure>
-<p>重新用参数化形式配置取样器</p>
-<figure data-type="image" tabindex="41"><img src="https://ae01.alicdn.com/kf/H646a447f0682468b89276f91603a6c26Z.jpg" alt="" loading="lazy"></figure>
-<h3 id="13-添加循环控制器">1.3 添加循环控制器</h3>
-<p>添加一个循环控制器</p>
-<figure data-type="image" tabindex="42"><img src="https://ae01.alicdn.com/kf/Hcd03ffe8bd3f45788773005b239082845.jpg" alt="" loading="lazy"></figure>
-<p>配置循环控制器，循环执行次数为3次，与参数化源文件数量对应</p>
-<figure data-type="image" tabindex="43"><img src="https://ae01.alicdn.com/kf/Ha88f4d50a6b04faa8bce9347644a340e1.jpg" alt="" loading="lazy"></figure>
-<h3 id="14-验证结果">1.4 验证结果</h3>
-<p>执行，验证是否三个账号都登录成功</p>
-<p>添加断言</p>
-<figure data-type="image" tabindex="44"><img src="https://ae01.alicdn.com/kf/H2097954b56b345a69cae172e9414a70dO.jpg" alt="" loading="lazy"></figure>
-<p>手工验证</p>
-<figure data-type="image" tabindex="45"><img src="https://ae01.alicdn.com/kf/Hbfed1219a6f4492e82d25b5f7d647f7dj.jpg" alt="" loading="lazy"></figure>
-<h2 id="2-ecshop浏览器商品">2. ecshop浏览器商品</h2>
-<h3 id="21-准备工作">2.1 准备工作</h3>
-<p>以登录脚本为基础</p>
-<ul>
-<li>去掉参数化配置</li>
-<li>去掉循环控制器</li>
-<li>保证登录成功</li>
-</ul>
-<h3 id="22-关联cookie">2.2 关联cookie</h3>
-<p>添加cookie关联</p>
-<figure data-type="image" tabindex="46"><img src="https://ae01.alicdn.com/kf/H81a3722b00014dfc8de90e18f4bb76c0P.jpg" alt="" loading="lazy"></figure>
-<h3 id="23-配置用户自定义变量">2.3 配置用户自定义变量</h3>
-<p>配置用户自定义变量可以在创建多个取样器时，方便取样器的配置统一性</p>
-<p>添加用户自定义变量组件</p>
-<figure data-type="image" tabindex="47"><img src="https://ae01.alicdn.com/kf/H137122734c9b44878fa892f4e798fcfa5.jpg" alt="" loading="lazy"></figure>
-<p>配置用户自定义变量组件</p>
-<figure data-type="image" tabindex="48"><img src="https://ae01.alicdn.com/kf/H0955c1164bbc42dc81d761cc0b3dfa58K.jpg" alt="" loading="lazy"></figure>
-<p>修改登录取样器，调用用户自定义变量</p>
-<figure data-type="image" tabindex="49"><img src="https://ae01.alicdn.com/kf/H6c4b60df30bb463bad93f47e7144e568j.jpg" alt="" loading="lazy"></figure>
-<p>修改浏览商品取样器配置</p>
-<figure data-type="image" tabindex="50"><img src="https://ae01.alicdn.com/kf/He4888e37d6334c3cb91dd657ae8cabe4R.jpg" alt="" loading="lazy"></figure>
-<h3 id="24-观察结果与断言">2.4 观察结果与断言</h3>
-<p>为浏览器商品分别添加结果树，断言，以及整个线程组的聚合报告</p>
-<figure data-type="image" tabindex="51"><img src="https://ae01.alicdn.com/kf/Hc99131ad367f4d2084278e9c3805df9a1.jpg" alt="" loading="lazy"></figure>
-<h3 id="25-验证结果">2.5 验证结果</h3>
-<p>执行脚本，查看聚合报告中的结果是否正确</p>
-<figure data-type="image" tabindex="52"><img src="https://ae01.alicdn.com/kf/H872d4d78d88a4c169dd8825b62ce982b0.jpg" alt="" loading="lazy"></figure>
-<p>负载测试  持续120s</p>
-<p>sql语句调优</p>
-<h1 id="第十三章-图形化报告">第十三章 图形化报告</h1>
-<p>以命令行的模式运行jmeter脚本,生成图形化的报告</p>
-<pre><code>jmeter -n -t C:\Users\Administrator\Desktop\lejifen.jmx -l result.jtl -e -o E:\apache-jmeter-5.1.1\bin\WebReport
-</code></pre>
-<ul>
-<li>n：非GUI模式执行JMeter；</li>
-<li>t： 脚本文件(.jmx文件)的路径；</li>
-<li>l： 指定生成测试结果的保存文件(.jtl格式)，此文件必须不存在；</li>
-<li>e：测试结束后，生成测试报告；</li>
-<li>o：用于存放测试报告的路径；</li>
-</ul>
-<blockquote>
-<p>注意：如果要重新生成一份测试报告，都需要将Jmeter的bin目录下的jtl文件以及webreport文件夹进行删除。<br>
-可以在Jmeter的bin目录下手动直接删除，也可以通过命令删除。</p>
-</blockquote>
-<pre><code>del /s /Q D:\Jmeter\apache-jmeter-3.2\bin\result.jtl //删除jtl文件
-rd /s /Q D:\Jmeter\apache-jmeter-3.2\bin\WebReport //删除webreport文件夹
-</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -1252,6 +483,3236 @@ pm.test(&quot;Response time is less than 200ms&quot;, function () {
 <p>在接口地址使用变量为双花括号包围变量名，如：</p>
 <p><code>{{url}}autonumber/autoComNum?resultv2=1&amp;text=3102615141528</code></p>
 <figure data-type="image" tabindex="12"><img src="https://ae01.alicdn.com/kf/H22f0e86004a04dc8a1b0fb52216a9ce87.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Selenium 从入门到实战]]></title>
+        <id>https://yihangliak.github.io/post/selenium-cong-ru-men-dao-shi-zhan/</id>
+        <link href="https://yihangliak.github.io/post/selenium-cong-ru-men-dao-shi-zhan/">
+        </link>
+        <updated>2019-06-21T03:29:54.000Z</updated>
+        <summary type="html"><![CDATA[<p>Selenium是一个用于Web应用程序自动化测试工具</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Selenium是一个用于Web应用程序自动化测试工具</p>
+<!-- more -->
+<h1 id="第一章-自动化环境搭建">第一章  自动化环境搭建</h1>
+<h2 id="1安装python3">1.安装Python3</h2>
+<ul>
+<li>安装好Python3</li>
+<li>配置好环境变量</li>
+</ul>
+<h2 id="2安装selenium">2.安装Selenium</h2>
+<ul>
+<li>
+<p>win+r，打开命令行窗口</p>
+</li>
+<li>
+<p>使用pip安装Selenium</p>
+<pre><code>  # 安装Selenium的最新版本
+  pip install selenium
+
+  # 安装Selenium指定版本
+  pip install selenium==2.53.0
+</code></pre>
+</li>
+</ul>
+<h2 id="3下载webdriver驱动">3.下载webdriver驱动</h2>
+<ul>
+<li>以chrome浏览器为例</li>
+<li>查看chrome浏览器版本：在地址栏输入<code>chrome://version</code></li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2018/12/21/5c1c98f627bb7.png" alt="查看chrome版本" loading="lazy"></figure>
+<ul>
+<li>chromedriver下载地址：http://chromedriver.storage.googleapis.com/index.html</li>
+<li>淘宝镜像站：http://npm.taobao.org/mirrors/chromedriver/</li>
+<li>下载与浏览器版本对应的chrome driver</li>
+<li>将下载好的chrome driver 解压，并放至到Python安装路径的根目录</li>
+</ul>
+<h2 id="4第一个自动化测试脚本">4.第一个自动化测试脚本</h2>
+<ul>
+<li>需求
+<ul>
+<li>打开浏览器</li>
+<li>访问百度首页</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python">from selenium import webdriver   # 导入webdriver
+
+d = webdriver.Chrome()           # 创建浏览器对象
+d.get('https://www.baidu.com')   # 调用get方法访问百度首页
+
+d.close()                        # 关闭浏览器
+</code></pre>
+<h1 id="第二章-webdriver-api">第二章  webdriver API</h1>
+<h2 id="1浏览器操作">1.浏览器操作</h2>
+<h3 id="11浏览器最大化">1.1浏览器最大化</h3>
+<ul>
+<li>
+<p><code>driver.maximize_window()</code></p>
+</li>
+<li>
+<p>在统一的浏览器大小下运行用例，可以提高用例的适用性</p>
+</li>
+</ul>
+<pre><code class="language-python">from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+print('浏览器最大化')
+driver.maximize_window()
+driver.close()
+</code></pre>
+<h3 id="12-设置浏览器宽-高">1.2 设置浏览器宽、高</h3>
+<ul>
+<li>在不同浏览器大小下运行用例，可以对缩放、样式等进行评估</li>
+<li><code>driver.set_window_size(480, 800)</code></li>
+</ul>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+print('设置浏览器宽480，高800显示')
+driver.set_window_size(480, 800)
+
+sleep(2)
+driver.close()
+</code></pre>
+<h3 id="13-控制浏览器前进-后退">1.3 控制浏览器前进、后退</h3>
+<ul>
+<li>前进：<code>driver.forward()</code></li>
+<li>后退：<code>driver.back()</code></li>
+</ul>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+
+#访问百度首页
+driver.get('https://www.baidu.com')
+#访问百度新闻
+driver.find_element_by_link_text('新闻').click()
+#暂停1秒
+sleep(1)
+#后退到百度首页
+driver.back()
+#暂停1秒
+sleep(1)
+#前进到百度新闻
+driver.forward()
+#暂停1秒
+sleep(1)
+
+#关闭浏览器
+driver.close()
+</code></pre>
+<h3 id="14-关闭浏览器">1.4 关闭浏览器</h3>
+<ul>
+<li>关闭当前窗口：<code>driver.close()</code></li>
+<li>关闭浏览器：<code>driver.quit()</code></li>
+</ul>
+<h3 id="15-浏览器刷新">1.5 浏览器刷新</h3>
+<ul>
+<li><code>driver.refresh()</code></li>
+</ul>
+<h3 id="16-获取当前url">1.6 获取当前URL</h3>
+<ul>
+<li>
+<p><code>driver.current_url</code></p>
+<pre><code class="language-python">from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 获取当前页面的URL
+url = driver.current_url
+print(url)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<pre><code>https://www.baidu.com/
+</code></pre>
+</li>
+</ul>
+<h3 id="17-获取当前title">1.7 获取当前title</h3>
+<ul>
+<li>
+<p><code>driver.title</code></p>
+<pre><code class="language-python">from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+title = driver.title
+print(title)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<pre><code>百度一下，你就知道
+</code></pre>
+</li>
+</ul>
+<h3 id="18-浏览器截图">1.8 浏览器截图</h3>
+<ul>
+<li>
+<p><code>driver.save_screenshot()</code></p>
+<ul>
+<li>路径参数必填</li>
+<li>图片格式必须为png</li>
+</ul>
+<pre><code class="language-python">from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 截图并保存到当前路径下，名字为s1.png
+driver.save_screenshot('s1.png')
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<h2 id="2html基础">2.HTML基础</h2>
+</li>
+</ul>
+<h3 id="21-什么是html">2.1 什么是HTML</h3>
+<ul>
+<li>HTML：超文本标记语言（Hyper Text Markup Language）</li>
+<li>HTML使用标记标签来描述网页</li>
+</ul>
+<h3 id="22-html标签">2.2 HTML标签</h3>
+<ul>
+<li>标签由尖括号包围</li>
+<li>标签是成对出现的</li>
+<li>标签对中：第一个为开始标签，第二个为结束标签</li>
+</ul>
+<h3 id="23-第一个网页">2.3 第一个网页</h3>
+<pre><code class="language-html">&lt;html&gt;
+    &lt;body&gt;
+        &lt;h1&gt;我的第一个标题&lt;/h1&gt;
+        &lt;p&gt;我的第一个段落&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="24-元素常见的属性">2.4 元素常见的属性</h3>
+<ul>
+<li>class：元素的类名</li>
+<li>id：元素的唯一id</li>
+<li>name：元素名，大部分情况唯一</li>
+</ul>
+<h3 id="25-常见的标签">2.5 常见的标签</h3>
+<ul>
+<li><code>&lt;a&gt;</code>：超链接</li>
+<li><code>&lt;input&gt;</code>：输入标签，如输入框，按钮等</li>
+<li><code>&lt;div&gt;</code>：块级元素，把文档分割为独立的、不同的部分</li>
+<li><code>&lt;form&gt;</code>：为用户输入创建HTML表单</li>
+<li><code>&lt;img&gt;</code>：图片</li>
+<li><code>&lt;iframe&gt;</code>：定义内嵌框架，在一个HTML中嵌入另一个HTML（QQ邮箱）</li>
+<li><code>&lt;span&gt;</code>：组合行内元素</li>
+</ul>
+<pre><code class="language-html">&lt;html&gt;
+    &lt;body&gt;
+        &lt;h1&gt;我的第一个标题&lt;/h1&gt;
+        &lt;p&gt;我的第一个段落&lt;/p&gt;
+        &lt;form&gt;
+            账号
+            &lt;input type=&quot;text&quot; name=&quot;uaername&quot;&gt;
+            &lt;/br&gt;
+            密码
+            &lt;input type=&quot;text&quot; name=&quot;password&quot;&gt;
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="3元素定位">3.元素定位</h2>
+<ul>
+<li>元素定位和操作是自动化测试的核心部分</li>
+<li>一个元素就像一个人，有自己的特征（属性）</li>
+<li>webdriver提供了一系列的元素定位方法，常用的有下面几种：
+<ul>
+<li>id：根据元素id值</li>
+<li>name：根据元素name值</li>
+<li>class name：根据元素class值</li>
+<li>tag name：根据元素标签名字</li>
+<li>link text：根据超链接的文本内容</li>
+<li>partial link text：根据超链接的部分文本内容</li>
+<li>xpath：根据xpath</li>
+<li>css selector：通过css定位</li>
+</ul>
+</li>
+</ul>
+<h3 id="31-id和name定位">3.1 id和name定位</h3>
+<ul>
+<li>id：规定元素的唯一id</li>
+<li><code>driver.find_element_by_id('su')</code></li>
+<li><code>driver.find_element_by_name('wd')</code></li>
+</ul>
+<pre><code class="language-html"># 百度搜索框元素
+&lt;input id=&quot;kw&quot; name=&quot;wd&quot; class=&quot;s_ipt&quot; value=&quot;&quot; maxlength=&quot;255&quot; autocomplete=&quot;off&quot;&gt;
+
+# 搜索按钮元素
+&lt;input type=&quot;submit&quot; id=&quot;su&quot; value=&quot;百度一下&quot; class=&quot;bg s_btn&quot;&gt;
+</code></pre>
+<ul>
+<li>根据id定位搜索框，根据name定位到搜索按钮</li>
+</ul>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+driver.maximize_window()
+
+# 根据id定位到百度搜索框,并输入Selenium
+driver.find_element_by_name('wd').send_keys('Selenium')
+
+# 根据name定位到搜索按钮，并点击
+driver.find_element_by_id('su').click()
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<h3 id="32-tag-name和class-name定位">3.2 tag name和class name定位</h3>
+<p>HTML文本</p>
+<pre><code class="language-html">&lt;div id=&quot;searchform&quot; class=&quot;jhp_big&quot; style=&quot;margin-top:-2px&quot;&gt;
+&lt;form id=&quot;tsf&quot; onsubmit=&quot;return name=&quot;f&quot; method=&quot;GET&quot; action=&quot;/search&quot;&gt;
+&lt;input id=&quot;kw&quot; class=&quot;s_ipt&quot; type=&quot;text&quot; name=&quot;wd&quot; autocomplete=&quot;off&quot;&gt;
+</code></pre>
+<ul>
+<li>tag name
+<ul>
+<li>通过标签名定位</li>
+<li>不推荐使用，因为HTML文件中有很多同名的标签名，不唯一</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python">&lt;div&gt;
+find_element_by_tag_name('div')
+</code></pre>
+<ul>
+<li>class name：直接访问百度首页讲解，可以通过class name定位到输入框</li>
+</ul>
+<pre><code>class=&quot;s_ipt&quot;
+find_element_by_class_name('s_ipt')
+</code></pre>
+<h3 id="33-link-text和partial-link-text定位">3.3 link text和partial link text定位</h3>
+<ul>
+<li>根据链接文本定位：<code>driver.find_element_by_link_text('新闻')</code></li>
+<li>根据链接部分文本定位：<code>driver.find_element_by_partial_link_text('央视快评')</code></li>
+<li>根据超链接中的文本内容定位</li>
+</ul>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 根据link_text定位到百度新闻超链接，并点击
+driver.find_element_by_link_text('新闻').click()
+# 暂停1秒
+sleep(1)
+# 在新闻新闻页面，根据一条新闻链接的部分文本定位，并点击
+driver.find_element_by_partial_link_text('央视快评').click()
+# 暂停1秒
+sleep(1)
+
+# 关闭浏览器,quit关闭所有浏览器窗口
+driver.quit()
+</code></pre>
+<h3 id="34-xpath定位">3.4 XPath定位</h3>
+<ul>
+<li>
+<p>XPath是一种在XML文档中定位元素的语言，有多种可能性</p>
+</li>
+<li>
+<p>语法</p>
+<ul>
+<li><code>/</code>：从根节点选取（绝对路径）</li>
+<li><code>//</code>：从当前节点选取，不考虑节点的位置（相对路径）</li>
+<li><code>.</code>：选取当前节点</li>
+<li><code>..</code>：选取当前节点的父节点    搜索框的上两级父节点：<code>//*[@id='kw']/../..</code></li>
+<li><code>@</code>：选取属性</li>
+</ul>
+</li>
+<li>
+<p>绝对路径定位上面文档中的输入框</p>
+<ul>
+<li>不推荐使用绝对路径定位</li>
+<li>难以阅读和维护</li>
+</ul>
+</li>
+<li>
+<p>xpath定位元素时，元素没有属性，可以定位他的父节点再定位到他本身</p>
+</li>
+</ul>
+<blockquote>
+<p>注意：如果一个元素本身没有任何属性值，则可以通过xapth定位到它的父级元素再定位到它自己</p>
+</blockquote>
+<p><code>案例：</code><br>
+使用<code>绝对路径</code>定位百度首页输入框：<code>/html/body/div/div/div/div/div/form/span/input</code><br>
+使用<code>相对路径</code>定位百度首页输入框：<code>//input[@id=&quot;kw&quot;]</code><br>
+当子节点有多个<code>同名</code>标签时，可以用[数字]的方法按顺序选取元素：<code>//input[@id=&quot;kw&quot;]/input[2]</code>  (选取百度首页输入框下的第二个input)</p>
+<pre><code>百度搜索框：//*[@id=&quot;form&quot;]/span/input
+</code></pre>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 通过绝对路径定位到输入框，并且输入selenium
+driver.find_element_by_xpath(&quot;/html/body/div/div/div/div/div/form/span/input&quot;).send_keys('selenium')
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<ul>
+<li>相对路径定位上面文档中的输入框</li>
+</ul>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 通过相对路径定位到输入框，并且输入selenium
+# // 从当前节点选取
+# *：匹配任何标签
+# @：选取id属性为kw的节点
+# 另一种写法：//input[@id='kw']
+driver.find_element_by_xpath(&quot;//*[@id='kw']&quot;).send_keys('selenium')
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<h3 id="35-css定位">3.5 CSS定位</h3>
+<ul>
+<li>
+<p>语法</p>
+<ul>
+<li><code>#</code>：元素id属性选取，如 #kw：id为kw的元素</li>
+<li><code>.</code>：元素class属性选取，如 .s_ipt：class值为s_ipt的元素</li>
+<li><code>[]</code>：其他属性选取，如 [id='kw']</li>
+<li>层级关系选取，如 #form &gt; span:nth-of-type(1) &gt;input
+<ul>
+<li>第几个span用“span:nth-of-type(n)”表示</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>范例</p>
+<ul>
+<li>
+<p><code>#</code>：元素id属性选取</p>
+</li>
+<li>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 使用# 通过id属性定位到百度首页搜索框，并输入selenium
+driver.find_element_by_css_selector(&quot;#kw&quot;).send_keys('selenium')
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<pre><code class="language-python">
+from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 使用. 通过class值定位百度首页搜索框，并输入selenium
+driver.find_element_by_css_selector(&quot;.s_ipt&quot;).send_keys('selenium')
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+
+</code></pre>
+</li>
+<li>
+<p><code>[]</code>：其他属性选取</p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 使用[] 通过id属性定位百度首页搜索框，并输入selenium
+driver.find_element_by_css_selector(&quot;[id='kw']&quot;).send_keys('selenium')
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+</li>
+<li>
+<p>层级关系选取</p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# css层级关系定位
+# 首先通过id属性定位到form
+# 然后定位form里面的第一个span
+# 最后再span的子节点input为最终选取的节点
+driver.find_element_by_css_selector(&quot;#form &gt; span:nth-of-type(1) &gt;input&quot;).send_keys('selenium')
+
+# 暂停2秒
+sleep(2)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="36-捕获元素定位失败异常">3.6 捕获元素定位失败异常</h3>
+<p>在元素可能定位失败时，为了让代码继续执行，可以捕获异常</p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+from selenium.common.exceptions import NoSuchElementException # 需要先导入异常包
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+try:
+    driver.find_element_by_id('kw123').send_keys('python')
+except NoSuchElementException as e:
+    print('元素定位失败，异常信息是：{}'.format(e))
+
+sleep(2)
+driver.quit()
+</code></pre>
+<p>输出信息：</p>
+<pre><code>元素定位失败，异常信息是：Message: no such element: Unable to locate element: {&quot;method&quot;:&quot;id&quot;,&quot;selector&quot;:&quot;kw123&quot;}
+  (Session info: chrome=73.0.3683.86)
+  (Driver info: chromedriver=70.0.3538.97 (d035916fe243477005bc95fe2a5778b8f20b6ae1),platform=Windows NT 10.0.14393 x86_64)
+</code></pre>
+<h2 id="4元素操作">4.元素操作</h2>
+<h3 id="41-输入内容">4.1 输入内容</h3>
+<ul>
+<li>
+<p>send_keys()</p>
+<pre><code class="language-python">driver.find_element_by_id('kw').send_keys('selenium')
+</code></pre>
+</li>
+</ul>
+<h3 id="42-点击元素">4.2 点击元素</h3>
+<ul>
+<li>
+<p>click（）</p>
+<pre><code class="language-python">driver.find_element_by_id('kw').click()
+</code></pre>
+</li>
+</ul>
+<h3 id="43-清空元素中的内容">4.3 清空元素中的内容</h3>
+<ul>
+<li>
+<p>clear（）</p>
+<pre><code class="language-python">driver.find_element_by_id('kw').clear()
+</code></pre>
+</li>
+</ul>
+<h3 id="44-获取元素文本内容">4.4 获取元素文本内容</h3>
+<ul>
+<li>
+<p>text</p>
+<pre><code class="language-python">from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 定位到新闻超链接，再获取元素文本
+text = driver.find_element_by_link_text(&quot;新闻&quot;).text
+print(text)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<pre><code>新闻
+</code></pre>
+</li>
+</ul>
+<h3 id="45-获取元素的尺寸">4.5 获取元素的尺寸</h3>
+<ul>
+<li>
+<p>size</p>
+<pre><code class="language-python">from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 定位到搜索框，再获取元素尺寸
+size = driver.find_element_by_css_selector('#kw').size
+print(size)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<pre><code>{'height': 22, 'width': 500}
+</code></pre>
+</li>
+</ul>
+<h3 id="46-获取元素属性">4.6 获取元素属性</h3>
+<ul>
+<li>
+<p>get_attribute（）</p>
+<pre><code class="language-python">from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 定位到搜索框，再获取元素属性
+attribute = driver.find_element_by_css_selector('#kw').get_attribute('type')
+print(attribute)
+
+# 关闭浏览器
+driver.close()
+</code></pre>
+<pre><code>text
+</code></pre>
+</li>
+</ul>
+<h3 id="47-提交表单">4.7 提交表单</h3>
+<ul>
+<li>
+<p>submit（）</p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 定位到搜索框
+driver.find_element_by_css_selector('#kw').send_keys('selenium')
+# 使用submit，代替click
+driver.find_element_by_css_selector('#su').submit()
+
+sleep(2)
+# 关闭浏览器
+driver.close()
+</code></pre>
+</li>
+</ul>
+<h2 id="5设置等待时间">5.设置等待时间</h2>
+<h3 id="51-强制等待">5.1 强制等待</h3>
+<ul>
+<li>导入time模块下的sleep</li>
+<li>强制让代码等待若干秒</li>
+</ul>
+<h3 id="52-隐式等待">5.2 隐式等待</h3>
+<ul>
+<li>
+<p><code>driver.implicitly_wait（）</code></p>
+</li>
+<li>
+<p>隐式等待是在等待周期内一直检测元素是否出现，元素出现后则马上继续，如果等待超时就会报错</p>
+</li>
+<li>
+<p>隐式等待只需设置一次即可对整个测试周期生效</p>
+</li>
+<li>
+<p>任何时候都应该加上隐式等待</p>
+</li>
+<li>
+<p>建议设置等待时间：30s内</p>
+</li>
+<li>
+<p>隐式等待缺陷</p>
+<ul>
+<li>对一些一直存在但值在变化的元素没有意义</li>
+<li>如网页title</li>
+</ul>
+<pre><code class="language-python">
+from selenium import webdriver
+
+from time import sleep
+
+driver = webdriver.Chrome()
+
+driver.get('https://www.baidu.com')
+
+# 添加智能等待
+
+driver.implicitly_wait(10)
+
+# 获取当前页面的title
+
+old_title  = driver.title
+
+print(old_title)
+
+# 进行搜索操作
+
+driver.find_element_by_css_selector('#kw').send_keys('selenium')
+
+driver.find_element_by_css_selector('#su').click()
+
+# 实验：添加强制等待后再获取新title
+
+#sleep(3)
+
+# 获取搜索界面的title
+
+new_title = driver.title
+
+print(new_title)
+
+if old_title == new_title:
+
+    print('智能等待对title失效，title还没有变化')
+
+else:
+
+    print('智能等待对title已生效')
+
+driver.close()
+</code></pre>
+</li>
+</ul>
+<h3 id="53-显示等待">5.3 显示等待</h3>
+<h4 id="531-title-is">5.3.1 title is</h4>
+<pre><code class="language-python">from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait  # 导入webdriverwait类
+from selenium.webdriver.support.expected_conditions import title_is
+
+driver = webdriver.Chrome()         # 创建浏览器对象
+
+# 创建webdriverwait对象
+# 最长超时时间为10s
+wait = WebDriverWait(driver, 10)
+
+# 访问百度首页
+driver.get('https://www.baidu.com')
+
+# 百度首页的页面标题为：百度一下，你就知道
+# 使用title_is判断
+title = wait.until(title_is('百度一下，你就知道'))
+
+# 打印title值，true表示页面标题正确，反之不正确
+print(title)
+
+# 这部分会抛出timeout异常
+# 因为10s后，页面标题还是百度一下，你就知道
+# 注意是用的until_not
+title2 = wait.until_not(title_is('百度一下，你就知道'))
+print(title2)
+
+driver.quit()
+</code></pre>
+<h2 id="6浏览器控制滚动条">6.浏览器控制滚动条</h2>
+<ul>
+<li>
+<p>阅读用户协议等页面时，通过滚动条是否拉到最下方判断用户阅读情况</p>
+</li>
+<li>
+<p>需要操作的元素不在视觉范围内，需要拖动滚动条</p>
+</li>
+<li>
+<p><mark>注意：拖动滚动条要加强制等待，不然拖不了</mark></p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://www.baidu.com')
+
+# 添加智能等待
+driver.implicitly_wait(10)
+
+# 进行搜索操作
+driver.find_element_by_css_selector('#kw').send_keys('selenium')
+driver.find_element_by_css_selector('#su').click()
+
+# 加一个等待，避免页面没有加载完成导致不能拖动
+sleep(1)
+
+# 将页面滚动条拖动到底部（纵坐标）
+js = 'window.scrollTo(0,10000)'
+driver.execute_script(js)
+
+# 横坐标可以与纵坐标结合使用
+
+sleep(1)
+
+# 将滚动条拖动到最右（横坐标）
+js2 = 'window.scrollTo(10000,0)'
+driver.execute_script(js2)
+
+sleep(2)
+
+driver.quit()
+</code></pre>
+</li>
+</ul>
+<h2 id="7下拉框操作">7.下拉框操作</h2>
+<ul>
+<li>下拉框源码</li>
+</ul>
+<pre><code class="language-html">&lt;html&gt;
+	&lt;body&gt;
+		&lt;select  id='kw'&gt;
+			&lt;option  value='1'&gt;湖南&lt;/option&gt;
+			&lt;option  value='2'&gt;广东&lt;/option&gt;
+			&lt;option  value='3'&gt;湖北&lt;/option&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="71-使用二次定位">7.1 使用二次定位</h3>
+<ul>
+<li>
+<p>先定位到下拉框，再点击里面的选项</p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+import os
+
+driver = webdriver.Chrome()
+file_path = 'file:///' + os.path.abspath('下拉框.html')
+driver.get(file_path)
+
+sleep(2)
+
+# 定位到下拉框
+m = driver.find_element_by_id('kw')
+# 再点击选择里面的选项
+m.find_element_by_xpath(&quot;//option[@value='2']&quot;).click()
+
+sleep(3)
+
+driver.quit()
+</code></pre>
+</li>
+</ul>
+<h3 id="73-使用select库">7.3 使用Select库</h3>
+<ul>
+<li>
+<p>导入selenium自带的select库</p>
+</li>
+<li>
+<p>再通过索引、值、文本等定位下拉框选项</p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+import os
+from selenium.webdriver.support.select import Select # 导入select
+
+driver = webdriver.Chrome()
+file_path = 'file:///' + os.path.abspath('下拉框.html')
+driver.get(file_path)
+
+sleep(2)
+
+# 定位到下拉框
+m = driver.find_element_by_id('ShippingMethod')
+
+# 使用select库选择
+#Select(m).select_by_index(2)  # 根据索引选择，注意索引从0开始
+#Select(m).select_by_value(&quot;7.45&quot;) # 根据value值选择
+Select(m).select_by_visible_text('UPS Ground ==&gt; $8.34')  # 根据标签文本选择
+
+sleep(3)
+
+driver.quit()
+</code></pre>
+</li>
+</ul>
+<h2 id="8多窗口处理">8.多窗口处理</h2>
+<ul>
+<li>
+<p>根据窗口的handle值进行切换</p>
+</li>
+<li>
+<p>获取当前窗口：<code>driver.current_window_handle</code></p>
+</li>
+<li>
+<p>切换到指定窗口：<code>driver.switch_to.window()</code></p>
+</li>
+<li>
+<p>获取所有窗口：<code>driver.window_handles</code></p>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get('https://news.baidu.com')
+driver.implicitly_wait(20)
+
+# 获取当前窗口handle
+shouye_handle = driver.current_window_handle
+print('新闻首页窗口的handle是：{}'.format(shouye_handle))
+
+# 打开一条新闻
+driver.find_element_by_partial_link_text('创新是').click()
+
+sleep(3)
+
+# 切换到新闻首页窗口
+driver.switch_to.window(shouye_handle)
+
+#获取所有窗口handle，返回列表
+all_handle = driver.window_handles
+print('所有窗口的handle是:{}'.format(all_handle))
+
+sleep(2)
+
+driver.quit()
+</code></pre>
+</li>
+</ul>
+<h2 id="9弹框处理">9.弹框处理</h2>
+<ul>
+<li>弹框源码（test目录中alert.html）</li>
+<li>点击弹框中的确定：<code>driver.switch_to.alert.accept()</code></li>
+<li>点击弹框中的取消：<code>driver.switch_to.alert.dismiss()</code></li>
+<li>弹框中输入文本：<code>driver.switch_to.alert.send_keys('xiaoming')</code></li>
+<li>获取弹框中的文本：<code>driver.switch_to.alert.text</code></li>
+</ul>
+<h3 id="91-点击弹框中的确定">9.1 点击弹框中的确定</h3>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+import os
+
+driver = webdriver.Chrome()
+file_path = 'file:///' + os.path.abspath('alert.html')
+driver.get(file_path)
+
+# 点击第三种弹框
+driver.find_element_by_id('b3').click()
+sleep(1)
+# 点击弹框中的确定
+driver.switch_to.alert.accept()
+sleep(1)
+
+# 点击第三种弹框
+driver.find_element_by_id('b3').click()
+sleep(1)
+# 点击弹框中的取消
+driver.switch_to.alert.dismiss()
+
+# 点击第二种弹框
+driver.find_element_by_id('b2').click()
+sleep(1)
+# 在弹框中输入xiaoming
+driver.switch_to.alert.send_keys('xiaoming')
+sleep(2)
+# 点击确定
+driver.switch_to.alert.accept()
+sleep(2)    # 输入小明后，有一句提示语
+driver.switch_to.alert.accept()
+
+# 点击第三种弹框
+driver.find_element_by_id('b3').click()
+print(driver.switch_to.alert.text)
+
+sleep(2)
+
+driver.quit()
+</code></pre>
+<h2 id="10框架切换">10.框架切换</h2>
+<ul>
+<li>
+<p>框架：frame</p>
+</li>
+<li>
+<p>通过frame中的id/name切换：<code>driver.switch_to.frame(frame id/name)</code></p>
+</li>
+<li>
+<p>返回默认框架：<code>driver.switch_to.default_content()</code></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;窗口切换&lt;/title&gt;
+&lt;/head&gt;
+&lt;frameset rows=&quot;50%,50%&quot; ,border=&quot;0&quot; scrolling=&quot;no&quot;
+    noresize=&quot;noresize&quot;&gt;
+    &lt;frame src=&quot;https://www.baidu.com/&quot; name=&quot;top&quot; noresize=&quot;noresize&quot; /&gt;
+    &lt;frame src=&quot;https://www.taobao.com/&quot; name=&quot;bottom&quot; /&gt;
+&lt;/frameset&gt;
+&lt;/frameset&gt;
+&lt;/html&gt;
+</code></pre>
+<pre><code class="language-python">from selenium import webdriver
+from time import sleep
+driver = webdriver.Chrome()
+file_path = 'file:///C:/Users/%E6%9D%8E%E4%B8%80%E6%9D%AD/Desktop/frame.html'
+driver.get(file_path)
+driver.implicitly_wait(20)
+
+# 切换到最顶层frame
+driver.switch_to.frame('top')
+# 在百度搜索框中输入selenium
+driver.find_element_by_id('kw').send_keys('selenium')
+
+# 返回默认层
+driver.switch_to.default_content()
+
+# 切换到中间层frame
+driver.switch_to.frame('body')
+# 如果frame没有id/name属性，则通过二次定位解决
+# f = driver.find_element_by_xpath('/html/frameset/frame[2]')
+# driver.switch_to.frame(f)
+# 点击新浪首页中的新闻链接
+driver.find_element_by_link_text('新闻').click()
+
+sleep(2)
+
+# 返回默认层
+driver.switch_to.default_content()
+
+driver.quit()
+</code></pre>
+</li>
+</ul>
+<pre><code class="language-python"># QQ登录
+from selenium import webdriver
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.get(&quot;https://mail.qq.com&quot;)  #/cgi-bin/loginpage
+driver.implicitly_wait(30)
+
+# 切换到登录frame
+driver.switch_to.frame('login_frame')
+# 切换到账号密码登录
+driver.find_element_by_id('switcher_plogin').click()
+# 输入用户名
+driver.find_element_by_id('u').send_keys('630746762')
+# 输入密码
+driver.find_element_by_id('p').send_keys('wo@NI123')
+# 点击登录
+driver.find_element_by_id('login_button').click()
+
+sleep(2)
+driver.quit()
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Python 基础]]></title>
+        <id>https://yihangliak.github.io/post/begin_python/</id>
+        <link href="https://yihangliak.github.io/post/begin_python/">
+        </link>
+        <updated>2019-06-20T15:35:14.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="python基础">Python基础</h1>
+<h1 id="第一章-python简介">第一章 Python简介</h1>
+<h2 id="1python起源">1.Python起源</h2>
+<ul>
+<li>Python是<code>吉多*范罗苏姆</code>在1989年圣诞节，为了打发无聊而编写的一个解释程序</li>
+<li>python的意思：<strong>蟒蛇</strong></li>
+<li>解释型编程语言，无需编译</li>
+<li>一般情况下，同样的功能，python的代码量是java的1/5</li>
+<li>名言：<code>life is short，you need python</code>（人生苦短，我用python）</li>
+<li>现有版本
+<ul>
+<li><code>python2.X</code>（过去的版本），发布于2001年</li>
+<li><code>python3.X</code>（现在和未来主流版本，3.0发布于2008年）</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-python的应用">2. Python的应用</h2>
+<ul>
+<li><strong>云计算</strong>：云计算最火语言（云服务器）</li>
+<li><strong>web开发</strong>：YouTube，豆瓣，知乎</li>
+<li><strong>人工智能</strong>：语音助手，AI音箱</li>
+<li><strong>自动化测试</strong>：我们使用的</li>
+</ul>
+<h2 id="3-python的优点">3. Python的优点</h2>
+<ul>
+<li>易学</li>
+<li>免费，开源</li>
+<li>可移植性强（Windows，macOS，Linux）</li>
+<li>丰富的库（拓展功能）</li>
+</ul>
+<h1 id="第二章-安装python">第二章 安装Python</h1>
+<h2 id="1-下载python安装包">1. 下载Python安装包</h2>
+<ul>
+<li>网址：www.python.org</li>
+<li>注意：下载前要先确定系统位数</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://img2018.cnblogs.com/blog/1190279/201910/1190279-20191018201554437-568932626.png" alt="" loading="lazy"></figure>
+<h2 id="2-安装">2. 安装</h2>
+<ul>
+<li>注意勾选添加python至系统环境变量（path）</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://img2018.cnblogs.com/blog/1190279/201910/1190279-20191018200719688-1102329767.png" alt="" loading="lazy"></figure>
+<ul>
+<li>修改安装路径（安装至C盘根目录，方便查找）</li>
+</ul>
+<figure data-type="image" tabindex="3"><img src="https://img2018.cnblogs.com/blog/1190279/201910/1190279-20191018200737330-25255358.png" alt="" loading="lazy"></figure>
+<p>安装Python截图</p>
+<figure data-type="image" tabindex="4"><img src="https://img2018.cnblogs.com/blog/1190279/201910/1190279-20191018200749137-1932055395.png" alt="" loading="lazy"></figure>
+<h2 id="3第一个python程序">3.第一个python程序</h2>
+<ul>
+<li><code>win+r</code>，输入cmd，打开命令行窗口</li>
+<li>在命令行窗口中输入<code>python</code>，进入python<strong>交互模式</strong></li>
+<li>在交互模式中输入如下代码：</li>
+</ul>
+<pre><code class="language-python"># 打印“你好，世界！”
+print('Hello World!')
+</code></pre>
+<pre><code>Hello World!
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://img2018.cnblogs.com/blog/1190279/201910/1190279-20191018200804892-1028530226.png" alt="" loading="lazy"></figure>
+<h1 id="第三章-输出与输入">第三章 输出与输入</h1>
+<h2 id="1输出">1.输出</h2>
+<p>使用print函数在控制台输出指定内容</p>
+<h3 id="11-输出字符串和数字">1.1 输出字符串和数字</h3>
+<pre><code class="language-python"># 输出字符串
+print('Helloworld')
+
+# 输出数字
+print(123)
+</code></pre>
+<h3 id="12-输出多个内容">1.2 输出多个内容</h3>
+<p>需要同时输出多个内容时，使用逗号隔开</p>
+<pre><code class="language-python">print('Helloworld',123)
+</code></pre>
+<h3 id="13-输出不换行">1.3 输出不换行</h3>
+<p>print输出时默认是换行的，如果不想换行需要传入end参数</p>
+<pre><code class="language-python">print('Helloworld',end='')
+</code></pre>
+<h2 id="2输入">2.输入</h2>
+<p>python3中使用input函数从键盘获取数据，返回string类型</p>
+<blockquote>
+<p>注意：在python3中，input将所有输入的数据都保存为字符串类型</p>
+</blockquote>
+<pre><code class="language-python">username = input('请输入您的用户名：')
+</code></pre>
+<blockquote>
+<p>使用input输入数据，如果需要保持原类型，比如输入数字保存为原数字类型，需要进行转型操作</p>
+</blockquote>
+<pre><code class="language-python"># 在input前加int（）将输入数据转成整数类型
+username = int(input('请输入您的用户名：'))
+</code></pre>
+<h1 id="第四章-安装pycharm编辑器">第四章 安装Pycharm(编辑器)</h1>
+<h2 id="1下载pycharm">1.下载Pycharm</h2>
+<ul>
+<li>Pycharm官网地址：http://www.jetbrains.com/pycharm/</li>
+</ul>
+<figure data-type="image" tabindex="6"><img src="https://img2018.cnblogs.com/blog/1190279/201910/1190279-20191018200832018-175594966.png" alt="" loading="lazy"></figure>
+<h2 id="2安装pycharm">2.安装Pycharm</h2>
+<figure data-type="image" tabindex="7"><img src="https://img2018.cnblogs.com/blog/1190279/201910/1190279-20191018200845407-2046847183.png" alt="" loading="lazy"></figure>
+<h2 id="3配置本地解释器">3.配置本地解释器</h2>
+<figure data-type="image" tabindex="8"><img src="https://img2018.cnblogs.com/blog/1190279/201910/1190279-20191018200859129-1512649507.png" alt="" loading="lazy"></figure>
+<h1 id="第五章-注释">第五章 注释</h1>
+<h2 id="1-注释的作用">1. 注释的作用</h2>
+<ul>
+<li>注释一般是用来说明代码的作用</li>
+<li>纯给人看的，机器不会执行注释里的内容</li>
+</ul>
+<h2 id="2-单行注释">2. 单行注释</h2>
+<ul>
+<li>单行注释，用<code>#</code>号表示</li>
+<li>单行注释可以单独写一行，也可以写在需要注释的代码的右侧</li>
+</ul>
+<pre><code class="language-python"># 这是一个单行注释
+# 单行注释用一个#表示
+# 可以在单独行写，也可以在某行代码后面写
+print(&quot;hello word&quot;)
+</code></pre>
+<pre><code>hello word
+</code></pre>
+<h2 id="3-多行注释块注释">3. 多行注释（块注释）</h2>
+<ul>
+<li>多行注释，用一对三单引号或者双引号表示</li>
+<li>多行注释通常用来为python文件、模块、类或者函数添加版权，功能等信息</li>
+<li>多行注释可以用单行注释来实现</li>
+</ul>
+<pre><code class="language-python">'''
+这是多行注释
+多行注释用三个单引号表示
+多行注释中间会保持原格式
+多行注释也叫文档注释(一般放在函数里)
+'''
+
+</code></pre>
+<pre><code>'\n这是多行注释\n多行注释用三个单引号表示\n多行注释中间会保持原格式\n多行注释也叫文档注释(一般放在函数里)\n'
+</code></pre>
+<h1 id="第六章-基础数据类型">第六章 基础数据类型</h1>
+<ul>
+<li>查看数据类型用type（）函数，不能传两个数据类型</li>
+</ul>
+<h2 id="1-整数int">1. 整数（int）</h2>
+<p>游戏中使用数字记录分数，销售网站使用数字记录数量等</p>
+<ul>
+<li>100，0，-100</li>
+</ul>
+<pre><code class="language-python">a = 100				# 正整数
+b = 0				# 0也是整数
+c = -100			# 负整数
+print(type(a))
+print(type(b))
+print(type(c))
+
+
+</code></pre>
+<pre><code>&lt;class 'int'&gt;
+&lt;class 'int'&gt;
+&lt;class 'int'&gt;
+
+
+</code></pre>
+<h2 id="2-浮点数float">2. 浮点数（float）</h2>
+<ul>
+<li>1.23，-1.0，0.0</li>
+<li>注意：python中的除法结果会将整数转换成浮点数</li>
+</ul>
+<pre><code class="language-python">a = 1.23			# 正浮点数
+b = -1.0			# 负浮点数
+c = 0.0				# 0.0也是浮点数
+print(type(a))
+print(type(b))
+print(type(c))
+
+
+</code></pre>
+<pre><code>&lt;class 'float'&gt;
+&lt;class 'float'&gt;
+&lt;class 'float'&gt;
+
+
+</code></pre>
+<blockquote>
+<p>注意：使用浮点数计算时，可能会出现小数位不确定的情况，暂时忽略即可，所有语言都有这个问题</p>
+</blockquote>
+<pre><code class="language-python">print(0.1 + 0.2)
+
+#0.30000000000000004
+
+
+</code></pre>
+<h2 id="3-字符串str">3. 字符串（str）</h2>
+<ul>
+<li>‘abc’</li>
+<li>‘’（空字符也是字符串类型）</li>
+</ul>
+<pre><code class="language-python">a = 'abc'
+b = ''              # 空字符串
+c = '我爱中国！'
+print(type(a))
+print(type(b))
+print(type(c))
+print(a)
+print(b)
+print(c)
+
+
+</code></pre>
+<pre><code>&lt;class 'str'&gt;
+&lt;class 'str'&gt;
+&lt;class 'str'&gt;
+abc
+
+我爱中国！
+
+
+</code></pre>
+<h2 id="4-布尔值bool">4. 布尔值（bool）</h2>
+<ul>
+<li>True（真）</li>
+<li>False（假）</li>
+</ul>
+<blockquote>
+<p>注意：布尔值可以转换为数值，True表示1，False表示0，但是不建议对布尔值进行计算</p>
+</blockquote>
+<pre><code class="language-python">a = 1
+b = 2
+print(a&lt;b)
+print(a&gt;b)
+
+
+</code></pre>
+<pre><code>True
+False
+
+
+</code></pre>
+<pre><code># 布尔值的计算
+# True为1，Flase为0
+a = 1
+b = 2
+c = a &lt; b    # c为True
+d = a &gt; b    # d为False
+
+e = d - c    # e = 0 - -1
+print(e)
+
+
+</code></pre>
+<h2 id="5-空值none">5. 空值（None）</h2>
+<ul>
+<li>表示什么也没有</li>
+<li>注意：不同于0和空字符串</li>
+<li>用来占位置</li>
+</ul>
+<pre><code class="language-python">a = None
+print(type(a))
+
+
+</code></pre>
+<pre><code>&lt;class 'NoneType'&gt;
+
+
+
+</code></pre>
+<h1 id="第七章-变量">第七章 变量</h1>
+<h2 id="1-变量的定义">1. 变量的定义</h2>
+<ul>
+<li>变量是一个<strong>容器</strong>，里面可以存<strong>任意类型</strong>的数据</li>
+</ul>
+<pre><code class="language-python">teacher = '刘老师'  # 定义了一个变量，变量名叫teacher，他里面储存了一个字符串刘老师
+
+
+</code></pre>
+<pre><code class="language-python">print(teacher + '简直帅毙了！')
+
+
+</code></pre>
+<blockquote>
+<p>如果又看见一次teacher=xxx，那么就不是定义变量了</p>
+<p>而是变量的重新赋值</p>
+</blockquote>
+<ul>
+<li>变量实质是储存在<strong>内存中</strong>的值，创建变量会在内存中开辟一个空间</li>
+<li>变量是可以重复使用的一个量</li>
+</ul>
+<h2 id="2-变量的命名规范">2. 变量的命名规范</h2>
+<ul>
+<li>只能由数字、大小写字母、下划线组成</li>
+<li>不能以数字开头
+<ul>
+<li>4man，5for  是不可以的</li>
+<li>man4，for5  是可以的</li>
+</ul>
+</li>
+<li>区分大小写
+<ul>
+<li>forMan 与 forman不是一个变量名称</li>
+</ul>
+</li>
+<li>不能使用系统关键字
+<ul>
+<li>class，from等 不可以</li>
+</ul>
+</li>
+<li>不推荐使用下划线开头，下划线开头具有特殊含义</li>
+<li>推荐
+<ul>
+<li>使用具有固定含义的英文单词缩写：srv=server，number=num</li>
+<li>驼峰命名法
+<ul>
+<li>大驼峰：每个单词第一个字母大写（FirstName，LastName）  用在类名</li>
+<li>小驼峰：第一个字母小写，第二个单词开始每个单词首字母大小（firstName，lastName）变量或者函数名</li>
+<li>下划线：多个单词用下划线连接，单词全部小写（first_name, last_name）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="什么是系统关键字">什么是系统关键字？</h3>
+<ul>
+<li>python一些具有特殊功能的标示符，这就是所谓的关键字
+<ul>
+<li>class, def, for...</li>
+</ul>
+</li>
+</ul>
+<h3 id="怎么查看系统自带关键字">怎么查看系统自带关键字</h3>
+<ul>
+<li>导入keyword包</li>
+<li>使用<code>keyword.list</code>查看</li>
+</ul>
+<pre><code class="language-python"># 查看关键字的方法
+import keyword     # 导入关键字模块
+print(keyword.kwlist)  # 打印出全部系统关键字
+
+</code></pre>
+<pre><code>['False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
+</code></pre>
+<h2 id="3-变量的赋值">3. 变量的赋值</h2>
+<h3 id="普通赋值">普通赋值</h3>
+<ul>
+<li>把赋值运算符右边的值给左边的变量</li>
+</ul>
+<pre><code class="language-python">a = 100            #把整数100赋值给a
+print(a)
+
+</code></pre>
+<pre><code>100
+</code></pre>
+<h3 id="序列解包赋值">序列解包赋值</h3>
+<ul>
+<li>左边的变量与右边的值一一对应</li>
+</ul>
+<pre><code class="language-python">a,b,c = 1,2,3
+print(a, b, c)
+
+</code></pre>
+<pre><code>1 2 3
+</code></pre>
+<h3 id="链式赋值">链式赋值</h3>
+<ul>
+<li>一个值给多个变量</li>
+</ul>
+<pre><code class="language-python"># 三个变量都放入同一个值
+a = b = c = 1
+print(a)
+print(b)
+print(c)
+
+</code></pre>
+<pre><code>1
+1
+1
+
+</code></pre>
+<h1 id="第八章-运算符">第八章 运算符</h1>
+<h2 id="1-算术运算符">1. 算术运算符</h2>
+<h3 id="加-减-乘-除">加、减、乘、除</h3>
+<p>注意：</p>
+<ul>
+<li>除法会将整数转为浮点数</li>
+<li>除数不能为0，否则会报错</li>
+</ul>
+<pre><code class="language-python"># 两个对象相加
+a, b = 1, 2
+print(a + b)
+
+# 两个对象相减
+a, b = 10, 5
+print(a - b)
+# 使用负号得到负数
+c = -5
+print(c)
+
+# 两个数相乘，乘号用*表示
+a, b = 1, 2
+c = a * b
+print(c)
+
+# 两个数相除，除号使用/表示
+# 注意：除法会将整数转为浮点数
+# 注意：除数不能为0，否则会报错
+a, b = 10, 5
+print(a/b)
+
+
+
+</code></pre>
+<h3 id="取整除">取整除</h3>
+<ul>
+<li>两个数相除，返回商的整数部分</li>
+</ul>
+<pre><code class="language-python">a, b = 10, 5
+print(a//b)
+
+
+</code></pre>
+<pre><code>2
+
+</code></pre>
+<h3 id="取余">取余</h3>
+<ul>
+<li>两个数相除，返回余数</li>
+</ul>
+<blockquote>
+<p>注意：取余时，如果除数是负数，那么结果也是一个负数</p>
+</blockquote>
+<pre><code class="language-python">a, b = 3, 2
+print(a%b)
+
+
+</code></pre>
+<pre><code>1
+
+</code></pre>
+<h2 id="2-赋值运算符">2. 赋值运算符</h2>
+<ul>
+<li>“=”表示赋值运算符</li>
+<li>把右边的结果给左边的变量</li>
+</ul>
+<pre><code class="language-python">a = 2
+c = a + 2
+print(a)
+print(c)
+
+
+</code></pre>
+<pre><code>2
+4
+
+</code></pre>
+<h3 id="加法赋值运算符">加法赋值运算符</h3>
+<ul>
+<li>c += a 等效于 c = c + a</li>
+</ul>
+<pre><code class="language-python">a = 1
+a += 1
+print(a)
+
+</code></pre>
+<h2 id="4-逻辑运算符">4. 逻辑运算符</h2>
+<ul>
+<li>and：与，并且
+<ul>
+<li>两个都为真，结果为真</li>
+<li>有一个为假，结果为假</li>
+</ul>
+</li>
+<li>or：或
+<ul>
+<li>有一个为真，结果为真</li>
+</ul>
+</li>
+<li>not：非</li>
+</ul>
+<pre><code class="language-python">a = True
+b = False
+c = True
+
+d = a and b    # 有一个假，结果为假
+print(d)
+
+d = a and c    # 两个都为真，结果为真
+print(d)
+
+d = a or b    # 有一个为真，结果为真
+print(d)    
+
+d = not a     # 非真即假
+print(d)
+
+d = not b     # 非假即真
+print(d)
+
+</code></pre>
+<pre><code>False
+True
+True
+False
+True
+</code></pre>
+<h2 id="6比较运算符">6.比较运算符</h2>
+<p>如果比较结果为真，则返回<code>True</code>；</p>
+<p>如果比较结果为假，则返回<code>False</code>。</p>
+<ul>
+<li>大于：<code>&gt;</code></li>
+<li>小于：<code>&lt;</code></li>
+<li>大于等于：<code>&gt;=</code></li>
+<li>小于等于：<code>&lt;=</code></li>
+<li>不等于：<code>!=</code></li>
+<li>等等于：<code>==</code>（两边值相等返回true，不相等返回false）</li>
+</ul>
+<h2 id="7-运算符的优先级">7. 运算符的优先级</h2>
+<ul>
+<li>永远记住，括号具有最高优先级</li>
+</ul>
+<pre><code class="language-python">a, b, c = 1, 2, 3
+
+d = a + (c - b)      # 把想要优先运算的部分用括号括起来
+print(d)
+
+
+</code></pre>
+<pre><code>2
+
+</code></pre>
+<h1 id="第九章-字符串">第九章 字符串</h1>
+<h2 id="1-字符串的定义">1. 字符串的定义</h2>
+<ul>
+<li>字符串是python中的一种基础数据结构</li>
+<li>通常是由引号包围的序列
+<ul>
+<li>单引号</li>
+<li>双引号</li>
+<li>三单引号</li>
+<li>三双引号</li>
+</ul>
+</li>
+<li>特点
+<ul>
+<li>有序</li>
+<li>不可变</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python">love = 'i love you'    # 单引号
+print(love)
+
+love = &quot;i love you&quot;    #双引号
+print(love)
+
+# 三单引号
+love = '''             
+i
+love
+you
+'''
+print(love)
+
+# 三双引号
+love = &quot;&quot;&quot;
+i
+love
+you
+&quot;&quot;&quot;
+print(love)
+
+
+</code></pre>
+<pre><code>i love you
+i love you
+             
+i
+love
+you
+
+</code></pre>
+<h2 id="2-格式化">2. 格式化</h2>
+<ul>
+<li>把数据按照一定的格式打印或者填充</li>
+</ul>
+<h3 id="21-百分号格式化">2.1 百分号格式化</h3>
+<p>利用百分号（%）</p>
+<ul>
+<li>%s：字符串</li>
+<li>%d：整数</li>
+<li>%f：浮点数</li>
+</ul>
+<pre><code class="language-python"># 使用百分号格式化输出
+name = '小明'
+age = 18
+crash = 100.0
+
+print('%s今年%d了，他有%f元现金。' %(name, age, crash))
+
+# %f输出浮点数的时候可以指定精度，%.2f：保留两位
+print('%s今年%d了，他有%.2f元现金。' %(name, age, crash))
+
+
+</code></pre>
+<pre><code>小明今年18了，他有100.000000元现金。
+小明今年18了，他有100.00元现金。
+
+</code></pre>
+<h3 id="22-format格式化">2.2 format格式化</h3>
+<pre><code class="language-python"># 使用format函数格式化输出
+# 用大括号占位
+s = &quot;i love {}&quot;.format(&quot;china&quot;)
+print(s)
+
+# 用大括号加编号占位，从0开始编号
+y = &quot;i love {0}, i am {1} years old, i love {0} very much!&quot;.format(&quot;china&quot;, 20)
+print(y)
+
+
+</code></pre>
+<pre><code>i love china
+i love china, i am 20 years old, i love china very much!
+</code></pre>
+<h2 id="3-转义字符">3. 转义字符</h2>
+<p>转义字符：是指使用反斜杠<code>\</code>对一些特殊字符进行转义</p>
+<p>常见的转义字符如下：</p>
+<pre><code>\n		换行符
+\t		水平制表符
+
+</code></pre>
+<blockquote>
+<p>注意：在字符串前加上字母r（或R），那么该字符串就会原样输出，其中的转义字符将不会进行转义</p>
+</blockquote>
+<pre><code class="language-python"># 打印出 i'm ‘OK’！
+print(&quot;I\'m \'ok\'!&quot; )
+
+# 打印文件路径：c:\user
+print('c\\:user')
+
+print(r&quot;\t表示制表符&quot;)
+print('制表符前\t制表符后')
+
+print(r'\n表示换行')
+print(&quot;第一行\n第二行&quot;)
+
+print(r&quot;这句话里的东西都不转义\\&quot;)
+
+print(&quot;打印结束加end&quot;, end='hi')#end为空字符串时，可以起到不换行的作用
+
+</code></pre>
+<pre><code>I'm 'ok'!
+c\:user
+\t表示制表符
+制表符前	制表符后
+\n表示换行
+第一行
+第二行
+这句话里的东西都不转义\\
+打印结束加endhi
+</code></pre>
+<h2 id="4-字符串的索引和取值">4. 字符串的索引和取值</h2>
+<h3 id="索引">索引</h3>
+<ul>
+<li>&lt;索引&gt;就是编号</li>
+<li>索引从0开始，不是从1开始</li>
+<li>字符串实际上是字符的数组，所以也支持索引</li>
+</ul>
+<figure data-type="image" tabindex="9"><img src="https://img2018.cnblogs.com/blog/1190279/201910/1190279-20191018201045681-1477900305.png" alt="" loading="lazy"></figure>
+<pre><code class="language-python">name = 'HelloWorld'
+print(name[0])		# H
+print(name[1])		# e
+print(name[2])		# l
+
+
+</code></pre>
+<h3 id="取值">取值</h3>
+<ul>
+<li>
+<p>取值是指对操作对象截取其中的一部分操作</p>
+</li>
+<li>
+<p>取值的语法：<strong>[起始：结束：步长]</strong></p>
+<ul>
+<li>注意：截取的区间为<strong>左闭右开</strong>，即从起始开始到结束前一位，不包括结束</li>
+</ul>
+</li>
+<li>
+<p>使用方法：</p>
+<ul>
+<li>
+<p><code>[:]</code>：从开始提取到结尾</p>
+</li>
+<li>
+<p><code>[start:]</code>：从起始下标提取到结尾</p>
+</li>
+<li>
+<p><code>[:end]</code>：从开头提取到结束下标，不包括结束下标</p>
+</li>
+<li>
+<p><code>[start:end]</code>：从起始下标截取到结束下标，不包括结束下标</p>
+<pre><code class="language-python">name = 'zhangsan'           # 从开头提取到结尾
+print('从开头截取到结尾：{}'.format(name[:]))
+
+name = 'zhangsan'           # 从起始下标提取到结尾
+print('从起始下标1截取到结尾：{}'.format(name[1:]))
+
+name = 'zhangsan'           # 从开头提取到结束下标5
+print('从开头提取到结束下标5：{}'.format(name[:5]))
+
+name = 'zhangsan'           # 从起始下标截取到结束下标3
+print('从起始下标1截取到结束下标3：{}'.format(name[1:3]))
+
+name = 'zhangsan'           # 从开头截取到结尾，步长为2
+print('从开头截取到结尾，步长为2：{}'.format(name[::2]))
+
+
+</code></pre>
+<pre><code>从开头截取到结尾：zhangsan
+从起始下标1截取到结尾：hangsan
+从开头提取到结束下标5：zhang
+从起始下标1截取到结束下标3：ha
+从开头截取到结尾，步长为2：za
+
+
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-字符串的常见方法">5. 字符串的常见方法</h2>
+<ul>
+<li>分割字符串：<code>str.split()</code></li>
+<li>将字符串中的某字符替换成其他字符
+<ul>
+<li><code>str.replace(原字符，新字符，替换次数)</code></li>
+<li>注意：可以通过次数来指定替换几次，适用于一个字符出现多次的情况</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python"># 分割字符串
+name = &quot;a,b,c,d&quot;
+print(name.split(&quot;,&quot;))   # 遇到逗号就分割，返回列表
+
+# 将字符串转为大写
+name = &quot;abcd&quot;
+print(name.upper())
+
+# 将字符串转为小写
+name = &quot;ABCD&quot;
+print(name.lower())
+
+# 替换字符
+name = &quot;abcd&quot;
+print(name.replace(&quot;a&quot;, &quot;A&quot;))  # 参数：被替换字符，替换后字符
+
+
+</code></pre>
+<pre><code>['a', 'b', 'c', 'd']
+ABCD
+abcd
+Abcd
+
+</code></pre>
+<h2 id="6-查找字符串">6. 查找字符串</h2>
+<p>使用<code>str.find()</code>可以查找字符串中字符串出现的位置</p>
+<p>返回字符串的<mark>第一次出现的索引</mark>，找不到则返回-1</p>
+<p>格式：<code>str.find(目标字符，开始位置，结束位置)</code></p>
+<pre><code class="language-python">str = 'abbcdefg'
+print(str.find('b'))  # 查找a字符出现的位置，返回索引值
+print(str.find('b',2))  # 从索引2的位置开始查找a字符，注意返回的索引值还是从0开始的
+
+</code></pre>
+<pre><code class="language-python">1
+2
+
+</code></pre>
+<h1 id="第十章-列表">第十章 列表</h1>
+<h2 id="1列表的定义">1.列表的定义</h2>
+<ul>
+<li>列表是Python中的一种<code>基础数据结构</code>之一</li>
+<li>列表用<code>[]</code>包围，元素用逗号隔开</li>
+<li>元素可是任意数据类型</li>
+<li>特点
+<ul>
+<li>有序</li>
+<li>可变</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>虽然列表元素可以是任意数据类型，但是通常情况只放入一种类型的数据，这样可以提高程序的可读性</p>
+</blockquote>
+<pre><code class="language-python"># 定义一个列表
+a = [1, 2, 3]
+print(a)
+
+</code></pre>
+<pre><code>[1, 2, 3]
+</code></pre>
+<blockquote>
+<p>list搭配range函数可以快速生成列表</p>
+</blockquote>
+<pre><code class="language-python"># 快速生成一个偶数列表
+l = list(range(2,11,2))
+print(l)
+
+</code></pre>
+<h2 id="2-列表的循环嵌套取值">2. 列表的循环嵌套取值</h2>
+<ul>
+<li>将取出的列表作为新的列表继续取值即可</li>
+</ul>
+<pre><code class="language-python">a = [[&quot;a&quot;, &quot;b&quot;], &quot;c&quot;, [1, 2]]
+
+# 取出数字2
+print(a[2][1])
+
+
+</code></pre>
+<pre><code>2
+
+</code></pre>
+<h2 id="3-列表的常见方法">3. 列表的常见方法</h2>
+<p><strong>增加</strong></p>
+<pre><code class="language-python"># 添加值
+a = [1, 2 ,3]
+a.append(4)
+print(a)
+
+
+</code></pre>
+<pre><code>[1, 2, 3, 4]
+
+</code></pre>
+<pre><code class="language-python"># 指定位置插入值
+# 注意：insert插入值得效率没有append高
+a = [1, 2 ,3]
+a.insert(0, 0)   # 索引，值
+print(a)
+
+
+</code></pre>
+<pre><code>[0, 1, 2, 3]
+
+</code></pre>
+<p><strong>删除</strong></p>
+<pre><code class="language-python"># 删除指定索引位置的值，不填索引删除最后一个
+a = [1, 2 ,3]
+a.pop()
+print(a)
+
+a = [1, 2 ,3]
+a.pop(0)
+print(a)
+
+
+</code></pre>
+<pre><code>[1, 2]
+[2, 3]
+
+</code></pre>
+<pre><code class="language-python"># 删除指定值
+a = [1, 2, 3]
+a.remove(3)
+print(a)
+
+
+</code></pre>
+<pre><code>[1, 2]
+
+</code></pre>
+<p><strong>修改</strong></p>
+<pre><code class="language-python"># 修改指定索引位置的值
+a = [1, 2, 3, 4]
+a[0] = 2
+print(a)
+
+
+</code></pre>
+<pre><code>[2, 2, 3, 4]
+
+</code></pre>
+<p><strong>反转</strong></p>
+<pre><code class="language-python"># 反转列表
+a = [1, 2, 3, 4]
+a.reverse()
+print(a)
+
+
+</code></pre>
+<pre><code>[4, 3, 2, 1]
+
+</code></pre>
+<p><strong>统计</strong></p>
+<pre><code class="language-python"># 求列表最大值
+a = [1, 2, 3, 4]
+print(max(a))
+
+
+</code></pre>
+<pre><code>4
+
+</code></pre>
+<pre><code class="language-python"># 求列表最小值
+a = [1, 2, 3, 4]
+print(min(a))
+
+
+</code></pre>
+<pre><code>1
+
+</code></pre>
+<pre><code class="language-python"># 统计值在列表中出现的次数
+a = [1, 2, 3, 4, 4, 4]
+print(a.count(4))
+
+
+</code></pre>
+<pre><code>3
+
+</code></pre>
+<pre><code class="language-python"># 计算列表的长度
+a = [1, 2, 3, 4]
+print(len(a))
+
+
+</code></pre>
+<pre><code>4
+
+</code></pre>
+<pre><code class="language-python"># 列表从小到大排序
+a = [2,4,1,3]
+a.sort()			# [1, 2, 3, 4]
+
+# 列表从大到小排序
+a = [2,4,1,3]
+a.sort(reverse=True)	# [4, 3, 2, 1]
+
+
+</code></pre>
+<h1 id="第十一章-元祖">第十一章 元祖</h1>
+<h2 id="1元祖的定义">1.元祖的定义</h2>
+<ul>
+<li>元祖由<code>（）</code>包围，元素以逗号隔开</li>
+<li>特点
+<ul>
+<li>有序</li>
+<li>不可变</li>
+</ul>
+</li>
+<li>如果元祖只有一个元素，必须加逗号以示区分</li>
+</ul>
+<pre><code class="language-python"># 当元祖只有一个元素时
+a =(1)       # 不加逗号类型就不是元祖了
+print(a)
+print(type(a))
+
+b = (1,)     # 只有一个元素时，要加逗号区分
+print(b)
+print(type(b))
+
+
+</code></pre>
+<pre><code>1
+&lt;class 'int'&gt;
+(1,)
+&lt;class 'tuple'&gt;
+
+</code></pre>
+<h2 id="2-元祖的常见方法">2. 元祖的常见方法</h2>
+<pre><code class="language-python"># 元祖转为列表
+a = (1, 2, 3)
+b = list(a)
+print(b)
+
+
+</code></pre>
+<pre><code>[1, 2, 3]
+
+</code></pre>
+<pre><code class="language-python"># 列表转元祖
+a = [1, 2, 3]
+b = tuple(a)
+print(b)
+
+
+</code></pre>
+<pre><code>(1, 2, 3)
+
+</code></pre>
+<pre><code class="language-python"># 求元祖的最大值
+a = (1, 2, 3)
+print(max(a))
+
+
+</code></pre>
+<pre><code>3
+
+</code></pre>
+<pre><code class="language-python"># 求元祖的最小值
+a = (1, 2, 3)
+print(min(a))
+
+
+</code></pre>
+<pre><code>1
+
+</code></pre>
+<pre><code class="language-python"># 求元祖的长度
+a = (1, 2, 3)
+print(len(a))
+
+
+</code></pre>
+<pre><code>3
+
+</code></pre>
+<h1 id="第十二章-字典">第十二章 字典</h1>
+<h2 id="1字典的定义">1.字典的定义</h2>
+<ul>
+<li>字典用<code>{}</code>包围，元素以逗号隔开</li>
+<li>字典中的数据必须以键值对的形式存在</li>
+<li><strong>键不可重复</strong>，值可以重复（若键重复，只会记住该键对应的最后一个值）</li>
+<li>特点
+<ul>
+<li>无序</li>
+<li>可变</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python"># 定义一个字典
+student = {&quot;name&quot;:&quot;zhangsan&quot;, &quot;age&quot;:18}
+print(student)
+print(type(student))
+
+</code></pre>
+<pre><code>{'name': 'zhangsan', 'age': 18}
+&lt;class 'dict'&gt;
+</code></pre>
+<h2 id="2-字典的常用方法">2. 字典的常用方法</h2>
+<p><strong>获取值</strong></p>
+<pre><code class="language-python"># 根据键获取值
+student = {&quot;name&quot;:&quot;zhangsan&quot;, &quot;age&quot;:18}
+print(student[&quot;name&quot;])
+
+</code></pre>
+<pre><code>zhangsan
+</code></pre>
+<p><strong>修改值</strong></p>
+<pre><code class="language-python"># 根据键修改值，如果值不存在则添加
+student = {&quot;name&quot;:&quot;zhangsan&quot;, &quot;age&quot;:18}
+student[&quot;age&quot;] = 19
+print(student)
+
+student[&quot;sex&quot;] = &quot;boy&quot;
+print(student)
+
+</code></pre>
+<pre><code>{'name': 'zhangsan', 'age': 19}
+{'name': 'zhangsan', 'age': 19, 'sex': 'boy'}
+</code></pre>
+<p><strong>删除值</strong></p>
+<pre><code class="language-python"># 根据键删除键值对
+student = {&quot;name&quot;:&quot;zhangsan&quot;, &quot;age&quot;:18}
+student.pop(&quot;age&quot;)
+print(student)
+
+</code></pre>
+<pre><code>{'name': 'zhangsan'}
+
+</code></pre>
+<pre><code class="language-python"># 随机删除一组键值对,以元祖形式返回被随机删除的键值对
+stu1 = {&quot;name&quot;:&quot;zhangsan&quot;, &quot;age&quot;:18, &quot;sex&quot;:&quot;boy&quot;}
+stu2 = stu1.popitem()
+print(&quot;随机删除的是：&quot;)
+print(stu2)
+print(&quot;元祖中键值对少了一个：&quot;)
+print(stu1)
+
+
+</code></pre>
+<pre><code>随机删除的是：
+('sex', 'boy')
+元祖中键值对少了一个：
+{'name': 'zhangsan', 'age': 18}
+
+</code></pre>
+<p><strong>获取键</strong></p>
+<pre><code class="language-python"># 获取键
+stu1 = {&quot;name&quot;:&quot;zhangsan&quot;, &quot;age&quot;:18, &quot;sex&quot;:&quot;boy&quot;}
+stu2 = stu1.keys()
+print(stu2)
+
+
+</code></pre>
+<pre><code>dict_keys(['name', 'age', 'sex'])
+
+</code></pre>
+<p><strong>获取值</strong></p>
+<pre><code class="language-python"># 获取值
+stu1 = {&quot;name&quot;:&quot;zhangsan&quot;, &quot;age&quot;:18, &quot;sex&quot;:&quot;boy&quot;}
+stu2 = stu1.values()
+print(stu2)
+
+
+</code></pre>
+<pre><code>dict_values(['zhangsan', 18, 'boy'])
+
+</code></pre>
+<p><strong>获取键值对</strong></p>
+<pre><code class="language-python"># 获取键值对
+stu1 = {&quot;name&quot;:&quot;zhangsan&quot;, &quot;age&quot;:18, &quot;sex&quot;:&quot;boy&quot;}
+stu2 = stu1.items()
+print(stu2)
+
+
+</code></pre>
+<pre><code>dict_items([('name', 'zhangsan'), ('age', 18), ('sex', 'boy')])
+
+</code></pre>
+<h1 id="第十三章-选择语句">第十三章 选择语句</h1>
+<ul>
+<li>语句格式：
+<ul>
+<li>if  条件：
+<ul>
+<li>条件满足要做的事情1</li>
+<li>条件满足要做的事情2</li>
+<li>...</li>
+</ul>
+</li>
+<li>else：
+<ul>
+<li>条件不满足时要做的事情1</li>
+<li>条件不满足时要做的事情2</li>
+<li>...</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-if-else">1. if-else</h2>
+<pre><code class="language-python">#  判断能否进入酒吧，18岁以上能进入，18岁以下禁止进入
+age = int(input('请输入您的年龄：'))
+
+if age&gt;=18:
+     print('欢迎光临魅力四射~')
+else:
+     print('抱歉，您不能进入！')
+
+
+</code></pre>
+<h2 id="2-elif">2. elif</h2>
+<ul>
+<li>格式：
+<ul>
+<li>if xxx1:
+<ul>
+<li>事情1</li>
+</ul>
+</li>
+<li>elif xxx2:
+<ul>
+<li>事情2</li>
+</ul>
+</li>
+<li>elif xxx3:
+<ul>
+<li>事情3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>elif必须和if一起使用，否则会出错</p>
+</blockquote>
+<pre><code class="language-python"># 判断成绩等级
+# 优秀：90 &lt;= 成绩 &lt;= 100
+# 良好：80 &lt;= 成绩 &lt; 90
+# 中等：70 &lt;= 成绩 &lt; 80
+# 一般：60 &lt;= 成绩 &lt; 70
+# 不及格：0 &lt;= 成绩 &lt; 60
+score = 95
+if score&gt;=90 and score&lt;=100:
+    print(&quot;本次考试，成绩优秀！&quot;)
+elif score&gt;=80 and score&lt;90:
+    print(&quot;本次考试，成绩良好！&quot;)
+elif score&gt;=70 and score&lt;80:
+    print(&quot;本次考试，成绩中等！&quot;)
+elif score&gt;=60 and score&lt;70:
+    print(&quot;本次考试，成绩一般！&quot;)
+elif score&gt;=0 and score&lt;60:
+    print(&quot;本次考试，成绩不及格！&quot;)
+                                       
+
+
+</code></pre>
+<blockquote>
+<p>练习：<strong>季节判断</strong></p>
+</blockquote>
+<pre><code class="language-python">month = int(input('Month:'))
+if month in [3,4,5]:
+  print('春季')
+elif month in [6,7,8]:
+  print('夏季')
+elif month in [9,10,11]:
+  print('秋季')
+elif month in [12,1,2]:
+  print('冬季')
+else:
+  print('输入不合法')
+  
+
+month = int(input(&quot;请输入月份：&quot;))
+if month &gt;= 3 and month &lt;= 5:
+    print(&quot;你输入的{}月份是春天&quot;.format(month))
+elif month &gt;= 6 and month &lt;= 8:
+    print(&quot;你输入的{}月份是夏天&quot;.format(month))
+elif month &gt;= 9 and month &lt;= 11:
+    print(&quot;你输入的{}月份是秋天&quot;.format(month))
+elif month ==12 or month == 1 or month == 2 :
+    print(&quot;你输入的{}月份是冬天&quot;.format(month))
+else:
+    print(&quot;月份输入不规范,请重新输入！&quot;)
+
+</code></pre>
+<h2 id="3-if嵌套">3. if嵌套</h2>
+<ul>
+<li>格式
+<ul>
+<li>if 条件1:
+<ul>
+<li>满足条件1 做的事情1</li>
+<li>满足条件1 做的事情2</li>
+<li>...(省略)...</li>
+<li>if 条件2:
+<ul>
+<li>满足条件2 做的事情1</li>
+<li>满足条件2 做的事情2</li>
+<li>...(省略)...</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python">age = 17
+food = 'no'
+if age&gt;=18:
+    if food=='yes':
+        print('您带了酒水，不能进入')
+    else:
+        print('欢迎光临')
+    
+
+</code></pre>
+<h2 id="4-if应用猜拳游戏">4. if应用：猜拳游戏</h2>
+<pre><code class="language-python"># 猜拳游戏
+import random
+
+player = input(&quot;请输入：剪刀（0） 石头（1） 布（2）：&quot;)
+
+player = int(player)      # 把输入的字符串转为整型
+
+computer = random.randint(0,2)   # 随机生成一个在0-2之间的数
+
+print(&quot;玩家输入：{}, 电脑输入：{}&quot;.format(player, computer))  # 测试
+
+if (player == 0 and computer == 2) or (player == 1 and computer == 0) or (player == 2 and computer == 1):
+    print(&quot;获胜，哈哈，你太厉害了！&quot;)
+elif player == computer:
+    print(&quot;平局哦，要不要再来一局&quot;)
+else:
+    print(&quot;你输了，不要走，决战到天亮！&quot;)
+</code></pre>
+<h1 id="第十四章-循环语句">第十四章 循环语句</h1>
+<h2 id="1-程序的三大执行">1. 程序的三大执行</h2>
+<ul>
+<li>1.顺序执行</li>
+<li>2.选择执行
+<ul>
+<li>if else</li>
+</ul>
+</li>
+<li>3.循环执行</li>
+</ul>
+<figure data-type="image" tabindex="10"><img src="https://img2018.cnblogs.com/blog/1190279/201910/1190279-20191018201126685-280752322.png" alt="" loading="lazy"></figure>
+<h2 id="2-while循环">2. while循环</h2>
+<ul>
+<li>格式
+<ul>
+<li>while 条件：
+<ul>
+<li>满足条件做的事情</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>先判断再执行</li>
+</ul>
+<p><strong>打印1-10之间的数字</strong></p>
+<pre><code class="language-python"># 打印1-10之间的数字
+
+# print(1)
+# print(2)
+# ...
+
+# num = 1
+# print(num)
+
+# num = num + 1             找出需要重复执行的代码
+# print(num)                在上面加上while
+
+# num = num +1
+# print(num)
+
+i = 1
+while i&lt;=10:
+    print(i)
+    i = i + 1
+    
+    
+# 这样的程序就叫循环执行
+
+</code></pre>
+<pre><code>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+</code></pre>
+<pre><code class="language-python"># 打印1-20之间的数
+i = 1
+while i&lt;=20:
+    print(i)
+    i = i + 1    # 这句如果忘了写，就会一直打印1，陷入了一个死循环
+                 # 这句不写，语法没错，但是逻辑错了
+
+</code></pre>
+<pre><code>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+
+</code></pre>
+<h2 id="3-while嵌套">3. while嵌套</h2>
+<ul>
+<li>格式
+<ul>
+<li>while 条件：
+<ul>
+<li>条件满足时做的事情</li>
+<li>...</li>
+<li>while 条件2：
+<ul>
+<li>条件2满足时做的事情</li>
+<li>...</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python"># 举例
+'''
+给个任务：执行下面的动作10次
+1.站起来
+2.转5个圈
+3.坐下
+站起来坐下一共执行10次
+转圈一共转了50个
+
+用while来写：
+while 条件：
+    1.站起来
+    while 执行5次：
+        2.转1个圈
+    3.坐下
+'''
+</code></pre>
+<pre><code>'\n给个任务：执行下面的动作10次\n1.站起来\n2.转5个圈\n3.坐下\n站起来坐下一共执行10次\n转圈一共转了50个\n\n用while来写：\nwhile 条件：\n    1.站起来\n    while 执行5次：\n        2.转1个圈\n    3.坐下\n'
+</code></pre>
+<h3 id="打印一个三角形">打印一个三角形</h3>
+<pre><code class="language-python">'''
+*
+**
+***
+****
+*****
+
+分析：
+有五行，每行的东西不一样
+既要控制行，又要控制列
+做不到？
+先做一个简单的
+先打印一个类似，再去修改，程序不是一次就写好的
+先打印出一个矩形
+
+'''
+</code></pre>
+<pre><code>'\n*\n**\n***\n****\n*****\n\n分析：\n有五行，每行的东西不一样\n既要控制行，又要控制列\n做不到？\n先做一个简单的\n先打印一个类似，再去修改，程序不是一次就写好的\n先打印出一个矩形\n\n'
+
+</code></pre>
+<p><strong>三角形无法一步到位打印出来，先打印矩形</strong></p>
+<pre><code class="language-python"># 打印矩形
+
+# i = 1
+# while i&lt;=5:
+#     print(&quot;*****&quot;)
+#     i = i + 1
+
+# i = 1
+# while i&lt;=5:
+#     j = 1
+#     while j&lt;=5:
+#         print(&quot;*&quot;)            # print打印默认换行了，怎么做到不换行？
+#         j = j + 1
+#     i = i + 1
+
+# i = 1
+# while i&lt;=5:
+#     j = 1
+#     while j&lt;=5:
+#         print(&quot;*&quot;, end=&quot;&quot;)       # 加上end=‘’，打印不换行，但是*全在一行里了     
+#         j = j + 1
+#     i = i + 1
+
+i = 1
+while i&lt;=5:
+    j = 1
+    while j&lt;=5:
+        print(&quot;*&quot;, end=&quot;&quot;)           
+        j = j + 1
+    print('')                      # 等到里边的while结束了，也就是打印了一行5个星号后，换行
+    i = i + 1
+
+
+</code></pre>
+<pre><code>*****
+*****
+*****
+*****
+*****
+
+</code></pre>
+<p><strong>打印三角形</strong></p>
+<pre><code class="language-python"># 打印三角形
+i = 1
+while i&lt;=5:
+    j = 1
+    while j&lt;=i:             # 第一行一个，第二行两个...正好与i的值一致，并且i的值不受内循环影响
+        print(&quot;*&quot;, end=&quot;&quot;)           
+        j = j + 1
+    print('')                     
+    i = i + 1
+
+
+</code></pre>
+<pre><code>*
+**
+***
+****
+*****
+
+</code></pre>
+<p><strong>打印九九乘法表</strong></p>
+<pre><code class="language-python"># 打印九九乘法表
+# i = 1
+# while i&lt;=9:
+#     j = 1
+#     while j&lt;=i:             
+#         print(&quot;X*Y=Z &quot;, end=&quot;&quot;)           # 先把格式换上去
+#         j = j + 1
+#     print('')                     
+#     i = i + 1
+
+i = 1
+while i&lt;=9:
+    j = 1
+    while j&lt;=i:             
+        print(&quot;{}*{}={}\t&quot;.format(j,i,j*i), end=&quot;&quot;)      #加上一个\t对齐     
+        j = j + 1
+    print('')                     
+    i = i + 1
+
+</code></pre>
+<pre><code>1*1=1	   
+1*2=2	2*2=4	
+1*3=3	2*3=6	3*3=9	
+1*4=4	2*4=8	3*4=12	4*4=16	
+1*5=5	2*5=10	3*5=15	4*5=20	5*5=25	
+1*6=6	2*6=12	3*6=18	4*6=24	5*6=30	6*6=36	
+1*7=7	2*7=14	3*7=21	4*7=28	5*7=35	6*7=42	7*7=49	
+1*8=8	2*8=16	3*8=24	4*8=32	5*8=40	6*8=48	7*8=56	8*8=64	
+1*9=9	2*9=18	3*9=27	4*9=36	5*9=45	6*9=54	7*9=63	8*9=72	9*9=81	
+
+</code></pre>
+<h2 id="4-for循环">4. for循环</h2>
+<ul>
+<li>格式
+<ul>
+<li>for 变量 in 序列：
+<ul>
+<li>执行语句</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>作用：遍历对象</li>
+</ul>
+<p><strong>遍历字符串</strong></p>
+<pre><code class="language-python"># 遍历字符串
+name = 'zhangsan'
+
+for i in name:
+    print(i)
+
+
+</code></pre>
+<pre><code>z
+h
+a
+n
+g
+s
+a
+n
+
+</code></pre>
+<p><strong>遍历列表</strong></p>
+<pre><code class="language-python">name = ['zhangsan', 'lisi', 'wangwu']
+
+for i in name:
+    print(i)
+
+
+</code></pre>
+<pre><code>zhangsan
+lisi
+wangwu
+
+</code></pre>
+<p><strong>遍历字典</strong></p>
+<pre><code class="language-python"># 遍历字典
+stu = {'name':'zhangsan', 'age':18, 'sex':'man'}
+
+# 遍历建和值
+for key, value in stu.items():
+    print(key, ':', value)
+    
+print('-'*50)
+
+# 遍历键
+for key in stu.keys():
+    print('key=', key)
+
+print('-'*50)
+
+# 遍历值
+for value in stu.values():
+    print('value=', value)
+
+
+</code></pre>
+<pre><code>name : zhangsan
+age : 18
+sex : man
+--------------------------------------------------
+key= name
+key= age
+key= sex
+--------------------------------------------------
+value= zhangsan
+value= 18
+value= man
+
+</code></pre>
+<p><strong>打印1-10之间的数字</strong></p>
+<pre><code class="language-python">for i in range(1,11):
+    print(i)
+
+
+</code></pre>
+<p><strong>打印矩形</strong></p>
+<pre><code class="language-python"># 打印矩形
+for i in range(1,9):
+    for j in range(1,9):
+        print(&quot;*&quot;, end=&quot;&quot;)
+    print(&quot;&quot;)
+
+
+</code></pre>
+<p><strong>打印三角形</strong></p>
+<pre><code class="language-python"># 打印三角形
+for i in range(1,9):
+    for j in range(1,i+1):
+        print(&quot;*&quot;, end=&quot;&quot;)
+    print(&quot;&quot;)
+for i in range(1,1):
+    print(&quot;开始打印rang1-1&quot;)
+    print(i)   #根本就没有值
+
+</code></pre>
+<pre><code>*
+**
+***
+****
+*****
+******
+*******
+********
+</code></pre>
+<p><strong>打印九九乘法表</strong></p>
+<pre><code class="language-python"># 打印九九乘法表
+for i in range(1,10):
+    for j in range(1,i+1):
+        print(&quot;{}*{}={}&quot;.format(j,i,j*i), end=&quot;\t&quot;)
+    print(&quot;&quot;)
+  
+
+
+</code></pre>
+<pre><code>1*1=1	
+1*2=2	2*2=4	
+1*3=3	2*3=6	3*3=9	
+1*4=4	2*4=8	3*4=12	4*4=16	
+1*5=5	2*5=10	3*5=15	4*5=20	5*5=25	
+1*6=6	2*6=12	3*6=18	4*6=24	5*6=30	6*6=36	
+1*7=7	2*7=14	3*7=21	4*7=28	5*7=35	6*7=42	7*7=49	
+1*8=8	2*8=16	3*8=24	4*8=32	5*8=40	6*8=48	7*8=56	8*8=64	
+1*9=9	2*9=18	3*9=27	4*9=36	5*9=45	6*9=54	7*9=63	8*9=72	9*9=81	
+</code></pre>
+<p><strong>for if 嵌套</strong></p>
+<pre><code class="language-python"># for if 嵌套
+# 打印列表里的所有姓名
+# 如果是wangwu，就提示，他中奖了
+name = [&quot;zhangsan&quot;, &quot;lisi&quot;, &quot;wangwu&quot;]
+for i in name:
+    print(i)
+    if i == &quot;wangwu&quot;:
+        print(&quot;恭喜你中奖了！&quot;)
+    else:
+        print(&quot;不好意思，你没中奖！&quot;)
+    
+
+</code></pre>
+<pre><code>zhangsan
+不好意思，你没中奖！
+lisi
+不好意思，你没中奖！
+wangwu
+恭喜你中奖了！
+
+</code></pre>
+<p><mark>注意：if while 同样可以嵌套</mark></p>
+<h3 id="for循环练习题">for循环练习题</h3>
+<h4 id="1-获取任意字符串的长度">1. 获取任意字符串的长度</h4>
+<pre><code class="language-python">s = 'name'  # 定义字符串
+num = 0     # 定义长度为0
+for i in s:
+	num += 1 # 每循环一次，num加1
+print(num)
+
+
+</code></pre>
+<pre><code>4
+
+
+</code></pre>
+<h4 id="2-给出任意一个字符串打印出该字符串中的字母个数以及数字个数">2. 给出任意一个字符串，打印出该字符串中的字母个数以及数字个数</h4>
+<pre><code class="language-python">str = input('请输入需要统计的字符串：')
+letter = 0
+num = 0
+for i in str:
+    if i in 'abcdefghijklmnopqrstuvwxyzABC':
+        letter += 1
+    elif i in '1234567890':
+        num += 1
+print('这个字符串中有%d字母，%d个数字' %(letter, num))
+
+
+</code></pre>
+<h4 id="3-生成10个的斐波那契数列">3. 生成10个的斐波那契数列</h4>
+<pre><code class="language-python"># 从1开始，后面的数是前面两数之和
+# 1  1  2  3  5
+a, b = 0, 1
+nums = []
+for i in range(10):
+    nums.append(b)
+    a, b = b, a+b
+print(nums)
+
+
+</code></pre>
+<h4 id="4-求1-100之间的所有偶数和">4. 求1-100之间的所有偶数和</h4>
+<pre><code class="language-python">sum = 0
+for i in range(2,101,2):
+    sum += i
+print(sum)
+
+sum2 = 0
+for i in range(1,101):
+    if i%2==0:
+        sum2+=i
+print(sum2)
+
+
+</code></pre>
+<h4 id="5-计算2-34-56-78100的值">5. 计算2-3+4-5+6-7+8....100的值</h4>
+<pre><code class="language-python">num = 0
+for i in range(2, 101):
+    if i%2==0:
+        num += i
+    else:
+        num -= i
+print(num)
+
+
+</code></pre>
+<h1 id="第十五章-函数">第十五章 函数</h1>
+<h2 id="1-函数的定义">1. 函数的定义</h2>
+<ul>
+<li>把具有独立功能的代码块组织成一个小模块</li>
+</ul>
+<blockquote>
+<p>格式</p>
+</blockquote>
+<pre><code class="language-python">def 函数名()：
+	函数代码
+
+
+</code></pre>
+<h2 id="2-函数的文档注释">2. 函数的文档注释</h2>
+<ul>
+<li>函数的文档注释用一对三双引号包围，用来解释说明函数的作用</li>
+</ul>
+<pre><code class="language-python">def GuShi():
+    '''这个函数用来打印一首古诗'''
+    print('百日依山尽')
+    print('黄河入海流')
+    print('欲穷千里目')
+    print('更上一层楼')
+    
+help(GuShi)
+
+
+</code></pre>
+<pre><code>Help on function GuShi in module __main__:
+
+GuShi()
+    这个函数用来打印一首古诗
+
+</code></pre>
+<h2 id="3-函数的参数">3. 函数的参数</h2>
+<ul>
+<li>需求：定义一个函数，用来计算两个数之和</li>
+</ul>
+<h3 id="31-函数不带参数">3.1 函数不带参数</h3>
+<ul>
+<li>不带参数只能固定计算函数里定义好的值</li>
+</ul>
+<pre><code class="language-python"># 定义一个函数用来计算两个数之和
+def add2num():
+    a = 1
+    b = 2
+    c = a + b
+    print(c)
+
+add2num()
+
+
+</code></pre>
+<pre><code>3
+
+</code></pre>
+<h3 id="32-函数的形参和实参">3.2 函数的形参和实参</h3>
+<ul>
+<li><code>a,b</code>叫形参（形式参数）：定义函数时的参数</li>
+<li><code>1,2</code>叫实参（实际参数）：实际调用时的参数</li>
+<li>在调用函数时，用实参（1,2）替换形参（a,b），再去执行函数里面的代码</li>
+</ul>
+<pre><code class="language-python"># 由于需要计算的值不固定，所以定义函数时携带两个参数
+def add2num(a,b):      # a，b  形式参数
+    c = a + b
+    print(c)
+    
+add2num(1,2)           # 1,2  实际参数
+
+
+</code></pre>
+<h3 id="33-函数参数的传递">3.3 函数参数的传递</h3>
+<h4 id="331-位置传递">3.3.1 位置传递</h4>
+<pre><code class="language-python"># 参数按照位置顺序传入
+def add2num(a,b):      # a，b  形式参数
+    c = a + b
+    print(c)
+    
+add2num(1,2)           # 1,2  实际参数
+
+</code></pre>
+<h4 id="332-关键字传递">3.3.2 关键字传递</h4>
+<pre><code class="language-python"># 指定形参的值，位置可以不按照形参顺序
+def add2num(a,b):      # a，b  形式参数
+    c = a + b
+    print(c)
+    
+add2num(b=1,a=2)           # 1,2  实际参数
+
+</code></pre>
+<h4 id="333-函数参数的默认值">3.3.3 函数参数的默认值</h4>
+<ul>
+<li>函数参数在定义时可以给默认值，如果调用函数时没有传入实参，就使用参数的默认值</li>
+<li>注意：拥有默认值的参数一般放在最后一个参数的位置，否则会报错</li>
+</ul>
+<pre><code class="language-python"># 函数参数的默认值
+def add2num(b, a=1):      # a，b  形式参数，注意：拥有默认值的参数a，应该放在参数的最后一个位置
+    c = a + b
+    print(c)
+    
+add2num(2)           # 1,2  实际参数
+
+</code></pre>
+<h2 id="4-函数的返回值">4. 函数的返回值</h2>
+<ul>
+<li>函数在执行完成后，一般情况下都会产生一个结果，使用<code>return</code>将这个结果返回给调用者，这就是返回值</li>
+<li>函数中如果没有定义<code>return</code>，那么返回值为空（<code>None</code>）</li>
+<li>函数只要执行到<code>return</code>就不会继续往下执行</li>
+</ul>
+<pre><code class="language-python"># 用return返回结果给调用者
+def add2num(a,b):
+    return a + b
+
+c = add2num(1,2)
+print(c)
+
+</code></pre>
+<pre><code>3
+
+</code></pre>
+<p><strong>函数没有return，返回None</strong></p>
+<pre><code class="language-python">def add2num(a,b):
+    c = a + b
+
+result = add2num(1,2)
+print(result)
+
+
+</code></pre>
+<pre><code>None
+
+</code></pre>
+<p><strong>只要执行了return，后续代码将不会执行</strong></p>
+<pre><code class="language-python">def add2num(a,b):
+    c = a + b
+    
+    return c
+    
+    c -= 1
+    
+    
+
+result = add2num(1,2)
+print(result)
+
+
+</code></pre>
+<pre><code>3
+
+</code></pre>
+<h2 id="5-局部变量与全局变量">5. 局部变量与全局变量</h2>
+<ul>
+<li>全局变量：定义在函数外部的变量，在整个代码文件都生效</li>
+<li>局部变量：定义在函数内部的变量，只在函数内部生效</li>
+</ul>
+<h3 id="全局变量">全局变量</h3>
+<pre><code class="language-python">a = 100          # 全局变量定义在函数外，作用于整个文件
+
+def printNum():
+    print(a)     # 在函数内也可以调用该变量
+
+printNum()
+
+
+</code></pre>
+<pre><code>100
+
+</code></pre>
+<h3 id="局部变量">局部变量</h3>
+<pre><code class="language-python">def printNum():
+    b = 100       # 局部变量定义在函数内部，只作用于函数内
+    print(b)
+printNum()
+print(b)          # 函数外部无法调用局部变量，错误提示为该变量未定义
+
+</code></pre>
+<pre><code>100
+
+</code></pre>
+<h3 id="global">global</h3>
+<ul>
+<li>使用global可以声明变量为全局变量</li>
+</ul>
+<pre><code class="language-python">def printNum():
+    global b      # 使用global声明变量为全局变量
+    b = 100       # 局部变量定义在函数内部，只作用于函数内
+    print(b)
+printNum()
+print(b)          # 函数外部无法调用局部变量，错误提示为该变量未定义
+
+</code></pre>
+<pre><code>100
+100
+
+</code></pre>
+<h2 id="6-函数的跨文件使用">6. 函数的跨文件使用</h2>
+<ul>
+<li>函数封装好以后，可以在<strong>其他文件</strong>导入并使用</li>
+<li>导包的方式为：<code>from 文件名 import 函数名</code></li>
+</ul>
+<h1 id="第十六章-文件操作">第十六章 文件操作</h1>
+<h2 id="1-打开文件">1. 打开文件</h2>
+<p>使用<code>open（file，mode）</code>函数可以打开/新建文件</p>
+<p><code>open（）</code>函数参数定义如下：</p>
+<ul>
+<li><strong>file</strong>：文件名</li>
+<li><strong>mode</strong>：文件打开模式
+<ul>
+<li><code>r</code>：只读模式</li>
+<li><code>w</code>：写入模式，文件不存在可以自动创建</li>
+<li><code>a</code>：追加模式，文件不存在可以自动创建</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-关闭文件">2. 关闭文件</h2>
+<p>使用<code>close（）</code>函数可以关闭文件</p>
+<p>使用<code>closed</code>可以判断文件是否已经关闭</p>
+<ul>
+<li>已关闭：返回<code>True</code></li>
+<li>未关闭：返回<code>False</code></li>
+</ul>
+<h2 id="3-文件写入">3. 文件写入</h2>
+<p>使用<code>write（str）</code>将数据写入文件中</p>
+<h2 id="4-文件读取">4. 文件读取</h2>
+<p><strong>read（）</strong></p>
+<ul>
+<li><code>read（）</code>可以一次性读取文件中的所有内容</li>
+<li><code>read（n）</code>，<code>n</code>表示数字，读取前<code>n</code>个内容</li>
+<li>注意：如果多次使用<code>read</code>，会从上次读取的位置继续往后读取，而不是从头开始读取</li>
+</ul>
+<pre><code class="language-python">file2 = open('test.txt', 'r')
+txt = file2.read()   # 读取文件,一次性读取所有内容
+txt = file2.read(2)   # read中可以填数字，填数字几就是读取前几个字符
+txt2 = file2.read(2)  # 如果多次使用read，那么会从上次读取的位置继续往后读取
+file2.close()
+
+
+</code></pre>
+<p><strong>readlines（）</strong></p>
+<ul>
+<li><code>readlines（）</code>：按行读取所有内容，返回列表</li>
+</ul>
+<pre><code class="language-python">file2 = open('test.txt', 'r')
+content = file2.readlines()  # readlines，按行读取, 返回列表类型
+file2.close()
+
+
+</code></pre>
+<h2 id="5-中文处理">5. 中文处理</h2>
+<p>在文件中写入 <strong>中文</strong> 时可能会出现 <strong>乱码</strong> 现象，这时将指定文件的编码格式为<code>utf-8</code>，即可解决该问题</p>
+<pre><code class="language-python">f = open(r'test2.txt', 'w', encoding='utf-8')   # encoding=utf-8  指定编码格式为utf-8
+f.write('中国很强！')
+f.close()
+
+</code></pre>
+<h2 id="6-文件的自动关闭">6. 文件的自动关闭</h2>
+<p>使用<code>with open</code>结构打开文件，在文件操作结束后可以自动关闭文件</p>
+<pre><code class="language-python">with open('test.txt', 'r') as f:   # as是当做的意思
+    print(f.read())   
+    print(f.closed)   # 文件操作未完成前，查看文件关闭状态，返回False
+print(f.closed)       # 文件操作完成后，查看文件关闭状态，返回True
+
+</code></pre>
+<h1 id="第十七章-异常处理">第十七章  异常处理</h1>
+<h2 id="1-捕获异常">1. 捕获异常</h2>
+<p>当代码出现异常时，会抛出异常并且停止运行，如果希望代码<code>在出现异常后暂时忽略这个异常继续往后执行</code>，则需要<code>捕获异常</code></p>
+<p><strong>捕获异常的格式</strong>：</p>
+<pre><code>try：
+	可能会出现异常的代码
+except Exception as e：
+	出现异常后执行的代码
+else：
+	没有异常时执行的代码
+finally：
+	无论是否有异常都会执行的代码
+
+</code></pre>
+<p><strong>案例</strong>：</p>
+<pre><code class="language-python">print('开始执行啦~')
+try:
+    f = open('你好啊.txt', 'r')
+except Exception as e:
+    print('这里的代码出问题了，问题是：{}'.format(e))
+else:
+    print('恭喜你，没有任何问题')
+finally:
+    print('无论怎么样，我都会执行！')
+print('执行结束啦~')
+
+</code></pre>
+<h2 id="2-抛出异常">2. 抛出异常</h2>
+<p>当希望代码<code>在指定情况下出现异常</code>，则需要<code>抛出异常</code></p>
+<p>抛出异常的方法为：<code>raise Exception('错误提示')</code></p>
+<pre><code class="language-python">print('程序开始啦~')
+num = int(input('请输入一个大于100整数：'))
+if num &lt;= 100:
+    raise Exception('您输入的数字不符合要求，请重新输入！')
+else:
+    print('输入成功！')
+print('程序结束啦~')
+
+</code></pre>
+<h1 id="第十八章-模块">第十八章  模块</h1>
+<h2 id="1-定义">1. 定义</h2>
+<p>本质就是一些<strong>函数</strong>或者<strong>类</strong>的集合</p>
+<h2 id="2-导入模块的方法">2. 导入模块的方法</h2>
+<ul>
+<li><code>import 模块名</code></li>
+<li><code>from 模块 import 函数</code></li>
+</ul>
+<h2 id="3-安装模块">3. 安装模块</h2>
+<h3 id="31-使用pip安装">3.1 使用pip安装</h3>
+<ul>
+<li>在命令行输入：<code>pip install 模块名</code></li>
+<li>查看所有已安装模块：<code>pip list</code></li>
+</ul>
+<h3 id="32-手动安装">3.2 手动安装</h3>
+<ul>
+<li>下载模块的压缩包，官网是：<a href="">pypi.org</a></li>
+<li>将压缩包解压，在解压目录打开命令行</li>
+<li>在命令行输入：<code>python setup.py install</code></li>
+<li>安装第三方模块的路径是：<code>C:\Python37\Lib\site-packages</code></li>
+</ul>
+<h2 id="4-常用模块">4. 常用模块</h2>
+<p><strong>时间</strong></p>
+<pre><code class="language-python">import time
+
+# 获取当前时间
+print(time.ctime())
+# 获取当前时间，并且按照指定格式   2019/10/16 15:19 时间戳
+print(time.strftime('%Y-%m-%d %H:%M:%S'))
+# 休眠2秒
+time.sleep(2)
+
+
+</code></pre>
+<p><strong>OS（系统操作）</strong></p>
+<pre><code class="language-python">import os
+
+# 获取当前路径
+print(os.getcwd())
+
+# 创建/删除目录
+os.mkdir('test')
+os.rmdir('test')
+
+# 删除文件
+os.remove('test.txt')
+
+</code></pre>
+<p><strong>json</strong></p>
+<p><code>json</code>是一种广泛使用的轻量数据格式，文件后缀为<code>.json</code></p>
+<p><strong>读取json</strong></p>
+<pre><code class="language-python">import json
+
+c = json.loads('{&quot;name&quot;:&quot;zhangsan&quot;}')  # 将字符串格式的json数据转换为dict
+print(type(c))
+
+</code></pre>
+<p><strong>生成json</strong></p>
+<pre><code class="language-python">a = {&quot;name&quot;:&quot;zs&quot;, &quot;age&quot;:18}  			# 定义字典
+print(type(a))                            
+a = json.dumps(a)                            # 将dict转换成json格式的数据
+print(type(a))
+
+</code></pre>
+<h1 id="第十九章-面向对象">第十九章  面向对象</h1>
+<h2 id="1-面向过程与面向对象的关系">1. 面向过程与面向对象的关系</h2>
+<ul>
+<li><code>面向过程</code>：按照业务逻辑从上往下编写代码（养鸭子---烤鸭子---吃鸭子）</li>
+<li><code>面向对象</code>：将数据跟函数绑定到一起，定义成类，通过类生成多个对象（直接去烤鸭店买烤鸭）</li>
+<li>面向对象代码思想可以减少代码冗余，提高代码使用效率，从而提高开发效率</li>
+</ul>
+<h2 id="2-类和对象">2. 类和对象</h2>
+<ul>
+<li><code>类</code>是泛指一类事物（狗，猫，人... ...）</li>
+<li><code>对象</code>是单指某一个具体的事物（xx家的狗）</li>
+</ul>
+<h2 id="3-类的组成部分">3. 类的组成部分</h2>
+<ul>
+<li>类名（dog）</li>
+<li>属性（狗有2只眼睛，4条腿... ... ）</li>
+<li>方法（狗能吃，跑，叫... ...）</li>
+</ul>
+<h2 id="4-定义类">4. 定义类</h2>
+<p>定义狗类</p>
+<pre><code class="language-python">class Dog():
+    # pass             # 占位符
+    # 属性
+    # 方法
+    def eat(self):
+        print('狗正在吃东西~')
+
+    def run(self):
+        print('狗正在跑~')
+
+</code></pre>
+<p>根据类 <strong>生成对象</strong></p>
+<pre><code class="language-python">xiaoha = Dog()    # 实例化，生成一条狗叫xiaoha
+xiaoha.eat()     # 调用类中的方法
+xiaoha.run()
+</code></pre>
+<h2 id="5-类的初始化">5. 类的初始化</h2>
+<p>在类中使用<code>__init__</code>方法进行自动化，并将类属性定义在该方法中</p>
+<p>类属性与<code>self</code>绑定，这样就可以在其他方法中使用该属性</p>
+<pre><code class="language-python">class Dog():
+    # 属性
+    def __init__(self):    # 初始化函数，一般在里面写属性，一定会自动运行
+        self.color = &quot;黑色&quot;   # 通过self绑定属性值，这样就可以在其他方法中使用该属性
+        self.weight = 10
+</code></pre>
+<h2 id="6-类的继承">6. 类的继承</h2>
+<p>如果一个类是一个大类中的一小类，那么这个类可以继承这个大类</p>
+<p>被继承的类叫 <strong>父类</strong>，继承的类的叫 <strong>子类</strong></p>
+<p>子类继承父类以后有如下特点：</p>
+<ul>
+<li>子类可以使用父类中的 <strong>所有</strong> 方法</li>
+<li>子类可以新增父类中 <strong>没有</strong> 的方法</li>
+<li>子类可以 <strong>修改</strong> 父类中的方法</li>
+</ul>
+<pre><code class="language-python">class Dog():						# 这是父类
+    def __init__(self, color, weight):   
+        self.color = color   
+        self.weight = weight
+    def eat(self):
+        print('{}的狗正在吃东西~'.format(self.color))
+
+    def run(self):
+        print('{}kg的狗正在跑~'.format(self.weight))
+
+class HaShiQi(Dog):     # 将父类名称写在括号中即可继承父类
+    def chai_jia(self):
+        print('哈士奇正在拆家~')  #  子类新增父类没有的方法
+
+    def eat(self):                 # 子类通过定义与父类同名的方法达到修改目的，使用自己的而不使用父类的
+        print('{}的哈士奇正在吃东西'.format(self.color))
+
+erha = HaShiQi('黑白', 20)
+erha.eat()     #  子类使用父类的方法
+erha.chai_jia()  # 子使用自己独有的方法
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[SVN版本控制系统使用技巧]]></title>
+        <id>https://yihangliak.github.io/post/svn01/</id>
+        <link href="https://yihangliak.github.io/post/svn01/">
+        </link>
+        <updated>2019-06-20T15:22:32.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="svn简介">SVN简介</h1>
+<p><code>Subversion</code>是一个开源的版本控制系统</p>
+<ul>
+<li>所有数据存放在一个中央资料档案库中</li>
+<li>可以记住每一次文件的变动</li>
+<li>可以恢复到旧版本档案</li>
+<li>可以浏览文件的变动历史</li>
+</ul>
 ]]></content>
     </entry>
 </feed>
