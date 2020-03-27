@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>yihang&apos;s blog</title>
-    <updated>2020-02-21T10:50:08.041Z</updated>
+    <updated>2020-03-27T16:51:13.847Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -11,1148 +11,12 @@
     <icon>https://yihangliak.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, yihang&apos;s blog</rights>
     <entry>
-        <title type="html"><![CDATA[MySQL系列入门（四）：SQL语言]]></title>
-        <id>https://yihangliak.github.io/post/VEx6epPa3/</id>
-        <link href="https://yihangliak.github.io/post/VEx6epPa3/">
+        <title type="html"><![CDATA[MySQL 从入门到精通]]></title>
+        <id>https://yihangliak.github.io/post/mysql/</id>
+        <link href="https://yihangliak.github.io/post/mysql/">
         </link>
-        <updated>2020-02-21T10:20:50.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="四-sql语言">四、SQL语言</h1>
-<h2 id="1数据表操作">1.数据表操作</h2>
-<h3 id="11-创建表">1.1 创建表</h3>
-<p>格式：</p>
-<pre><code class="language-mysql">create table 表名(
-    字段名 类型 约束
-    字段名 类型 约束
-    ...
-)
-</code></pre>
-<p>例：创建学生表，字段要求如下：</p>
-<ul>
-<li>姓名（长度为10），年龄（不能为负）</li>
-</ul>
-<pre><code class="language-mysql">create table students(
-    name varchar(10), 			-- varchar(10)表示10个字符长度
-    age int unsigned			-- unsigned表示无符号，即不能为负
-);
-</code></pre>
-<p>例：创建学生表，字段要求如下：</p>
-<ul>
-<li>姓名(长度为10)， 年龄，身高(保留小数点2位)</li>
-</ul>
-<pre><code class="language-mysql">create table students2(
-	id int unsigned primary key auto_increment, -- 设置id为主键并自动编号，自动编号须与主键一起使用
-    name varchar(10),
-    age int unsigned,						  -- 不能为负整数
-    height decimal(5, 2)					  -- 共存5位小数，小数占2位，整数占3位
-);
-</code></pre>
-<h3 id="12-删除表">1.2 删除表</h3>
-<p>格式：</p>
-<pre><code class="language-mysql">-- 格式一：被删除的表不存在会报错
-drop table 表名;
-
--- 格式二：如果存在表再删除表，先判断再删除
-drop table if exists 表名;
-</code></pre>
-<h2 id="2数据操作-增删改查">2.数据操作-增删改查</h2>
-<h3 id="21-简单查询">2.1 简单查询</h3>
-<pre><code class="language-mysql">select * from 表名;
-
-select * from students;  -- 查询学生表中的所有数据
-</code></pre>
-<h3 id="22-添加数据">2.2 添加数据</h3>
-<h4 id="添加一行数据">添加一行数据</h4>
-<p><strong>格式一：所有值与字段顺序对应</strong></p>
-<pre><code class="language-mysql">insert into 表名 values(...);
-</code></pre>
-<blockquote>
-<p>注意：主键列是自动增长，插入时需要占位，通常使用<code>0</code>或者<code>default</code>或者<code>null</code>来占位</p>
-</blockquote>
-<p>例：在学生表中插入一个学生信息</p>
-<p>表结构为：</p>
-<pre><code>| id | name | age | height |
-</code></pre>
-<p>插入：</p>
-<pre><code class="language-mysql">insert into student values(0, 'zhangsan', 22, 170.23);
-</code></pre>
-<p>插入完成：</p>
-<pre><code>| id | name     | age | height |
-  1	   zhangsan	  22	170.23
-</code></pre>
-<p><strong>格式二：插入部分数据</strong></p>
-<pre><code class="language-mysql">insert into 表名(字段1, ...) values(值1, ...)
-</code></pre>
-<p>例：插入一个学生，只插入姓名</p>
-<pre><code class="language-mysql">insert into students(name) values('亚索');
-</code></pre>
-<p>插入完成：</p>
-<pre><code>+----+----------+------+--------+
-| id | name     | age  | height |
-+----+----------+------+--------+
-|  1 | zhangsan |   22 | 170.23 |
-|  2 | lisi     |   21 | 160.13 |
-|  3 | 亚索     | NULL | NULL   |      -- 插入在这儿
-+----+----------+------+--------+
-</code></pre>
-<h4 id="添加多行数据">添加多行数据</h4>
-<p><strong>方法一：写多条insert语句，语句间用分号隔开</strong></p>
-<pre><code class="language-mysql">insert into students(name) values('安妮');
-insert into students(name) values('金克斯');
-insert into students values(0, '琴女', 19, 170);
-</code></pre>
-<p><strong>方法二：写一条insert语句，设置多个数据，数据间用逗号隔开</strong></p>
-<pre><code class="language-mysql">-- 格式一  
-insert into students values(0,'kasha', 100, 190),(0, 'lala', 99, 176.4);
-
--- 格式二
-insert into students(name) values('光女一号'),('光女二号'),('光女三号');
-</code></pre>
-<h3 id="23-修改数据">2.3 修改数据</h3>
-<p><strong>格式：</strong></p>
-<pre><code class="language-mysql">update 表名 set 列1=值1,列2=值2... ... where 条件
-</code></pre>
-<p>**例：**修改<code>id</code>为<code>5</code>的学生数据，姓名改为<code>狄仁杰</code>，年龄改为<code>20</code></p>
-<pre><code class="language-mysql">update students set name='狄仁杰', age=20 where id=5;
-</code></pre>
-<h3 id="24-删除数据">2.4 删除数据</h3>
-<p><strong>格式：</strong></p>
-<pre><code class="language-mysql">delete from 表名 where 条件
-</code></pre>
-<p>**例：**删除<code>id</code>为<code>6</code>的学生</p>
-<pre><code class="language-mysql">delete from students where id=6;
-</code></pre>
-<blockquote>
-<p>注意：对于重要的数据，不能轻易执行删除语句，一旦删除，数据无法恢复，推荐进行 <strong>逻辑删除</strong></p>
-</blockquote>
-<p><strong>逻辑删除</strong></p>
-<ul>
-<li>在表中添加<code>isdelete</code>字段，字段值默认为<code>0</code>，<code>0</code>表示未删除，<code>1</code>表示删除</li>
-</ul>
-<pre><code class="language-mysql">alter table students add column `isdelete` tinyint not null default '0' comment '用户是否被删除 0未删除 1已删除';
-</code></pre>
-<blockquote>
-<p>注意：</p>
-<ul>
-<li><code>tinyint</code>类型如果指定<code>unsigned</code>只可以储存<code>0-255</code>的整数，且不能为负数，否则<code>-128-127</code></li>
-<li><code>tinyint(2)</code>括号中的<code>2</code>是指存储宽度，位数不够自动左边补<code>0</code></li>
-</ul>
-</blockquote>
-<ul>
-<li>决定删除某条数据时，将<code>isdelete</code>字段设置为<code>1</code></li>
-</ul>
-<pre><code class="language-mysql">update students set isdelete=1 where id=1; -- 将id为1的学生删除
-</code></pre>
-<ul>
-<li>以后在查询数据时，只查出<code>isdelete=0</code>的数据</li>
-</ul>
-<pre><code class="language-mysql">select * from students where isdelete=0;  -- 只查出没有被删除的学生
-</code></pre>
-<h2 id="3数据操作-查询">3.数据操作-查询</h2>
-<h3 id="31-准备数据">3.1 准备数据</h3>
-<p><strong>创建表</strong></p>
-<pre><code class="language-mysql"> drop table if exists students;
- create table students (
-		studentNo varchar(10) primary key,
-		name varchar(10),
-		sex varchar(1),
-		hometown varchar(20),
-		age tinyint(3), -- tinyint,小整数,有符号-128-127，无符号0-255,3表示显示宽度
-		class varchar(10),
-		card varchar(11)
- );
- 
- insert into students values
- ('001', '王昭君', '女', '北京', 20, '1班', '11010119900'),
- ('002', '诸葛亮', '男', '上海', 18, '2班', '11010119900'),
- ('003', '张飞', '男', '南京', 24, '3班', '11010119900'),
- ('004', '白起', '男', '安徽', 22, '4班', '11010119900'),
- ('005', '大乔', '女', '天津', 19, '3班', '11010119900'),
- ('006', '孙尚香', '女', '河北', 18, '1班', '11010119900'),
- ('007', '百里玄策', '男', '山西', 20, '2班', '11010119900'),
- ('008', '小乔', '女', '河南', 15, '3班', NULL),
- ('009', '百里守约', '男', '湖南', 21, '1班', ''),
- ('010', '妲己', '女', '广东', 26, '2班', '11010119900'),
- ('011', '李白', '男', '北京', 30, '4班', '11010119900'),
- ('012', '孙膑', '男', '新疆', 26, '3班', '11010119900')
-</code></pre>
-<h3 id="32-查询所有">3.2 查询所有</h3>
-<pre><code class="language-mysql">select * from students;
-</code></pre>
-<h3 id="33-查询指定字段">3.3 查询指定字段</h3>
-<pre><code class="language-mysql">-- 单表时，直接字段名即可
-select studentno, name from students;
-
--- 表名.字段名
-select students.name from students;
-
--- 给表取表名
-select s.name, s.hometown from students as s;
-
--- 给字段取别名
-select name as 姓名, hometown as 籍贯 from students;
-</code></pre>
-<h3 id="34-去重复">3.4 去重复</h3>
-<p>​	在<code>select</code>后面，字段前面使用<code>distinct</code>可以消除重复的行</p>
-<pre><code class="language-mysql">select distinct hometown as 籍贯 from students;
-</code></pre>
-<blockquote>
-<p>注意：如果使用<code>distinct</code>查询多列时，只有多列组合重复时才会去重</p>
-</blockquote>
-<pre><code class="language-mysql">select distinct id, name from actors
-</code></pre>
-<pre><code>id	name
-1	吴亦凡     这个和最后一个姓名是重复的，但是组合去重时并没有去掉
-2	王昭君
-3	孙膑
-4	陈军
-5	刘美
-6	吴亦凡
-7	鹿晗
-8	范闲
-9	范若若
-10	司理理
-11	陈萍萍
-12	吴亦凡
-</code></pre>
-<h3 id="35-条件查询">3.5 条件查询</h3>
-<h4 id="语法">语法</h4>
-<ul>
-<li>
-<p>使用<code>where</code>子句对表中的数据进行筛选，符合条件的数据会出现在结果集中</p>
-</li>
-<li>
-<p>语法如下：</p>
-</li>
-</ul>
-<pre><code class="language-mysql">select 字段1，字段2... from 表名 where 条件;
-</code></pre>
-<ul>
-<li>例如：查询<code>studentno</code>为<code>010</code>的学生姓名</li>
-</ul>
-<pre><code class="language-mysql">select name from students where studentno=010;
-</code></pre>
-<h4 id="比较运算符">比较运算符</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">运算符</th>
-<th style="text-align:center">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">&gt;</td>
-<td style="text-align:center">大于</td>
-</tr>
-<tr>
-<td style="text-align:center">&lt;</td>
-<td style="text-align:center">小于</td>
-</tr>
-<tr>
-<td style="text-align:center">&gt;=</td>
-<td style="text-align:center">大于或等于</td>
-</tr>
-<tr>
-<td style="text-align:center">&lt;=</td>
-<td style="text-align:center">小于或等于</td>
-</tr>
-<tr>
-<td style="text-align:center">=</td>
-<td style="text-align:center">等于</td>
-</tr>
-<tr>
-<td style="text-align:center">！=</td>
-<td style="text-align:center">不等于，两边是否不相等</td>
-</tr>
-</tbody>
-</table>
-<p>**例1：**查询 <strong>陈萍萍</strong> 的年龄</p>
-<pre><code class="language-mysql">select age from students where name='陈萍萍';
-</code></pre>
-<p>**例2：**查询 <strong>20岁</strong> 以下的学生</p>
-<pre><code class="language-mysql">select * from students where age&lt;20;
-</code></pre>
-<p>**例3：**查询籍贯不在北京的学生信息</p>
-<pre><code class="language-mysql">select * from students where hometown!='北京';
-</code></pre>
-<p><strong>练习</strong></p>
-<ol>
-<li>查询学号是<code>007</code>的学生的信息</li>
-<li>查询除了<code>1</code>班以外的学生信息</li>
-<li>查询年龄大于<code>20</code>的学生姓名以及性别</li>
-</ol>
-<pre><code class="language-mysql">-- 1
-select * from students where studentno=007;
-
--- 2
-select * from students where class!='1班';
-
--- 3
-select name,sex from students where age&gt;20;
-</code></pre>
-<h4 id="逻辑运算符">逻辑运算符</h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">运算符</th>
-<th style="text-align:center">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">and</td>
-<td style="text-align:center">和，并且</td>
-</tr>
-<tr>
-<td style="text-align:center">or</td>
-<td style="text-align:center">或者</td>
-</tr>
-<tr>
-<td style="text-align:center">not</td>
-<td style="text-align:center">非（否定）</td>
-</tr>
-</tbody>
-</table>
-<p>**例1：**查询年龄小于20的女同学</p>
-<pre><code class="language-mysql">select * from students where age&lt;20 and sex='女';
-</code></pre>
-<p>**例2：**查询女学生或者1班的学生</p>
-<pre><code class="language-mysql">select * from students where sex='女' or class='1班'
-</code></pre>
-<p>**例3：**查询非天津的学生</p>
-<pre><code class="language-mysql">select * from students where not hometown='天津'
-</code></pre>
-<p><strong>练习</strong></p>
-<ol>
-<li>查询河南或江苏的学生</li>
-<li>查询1班的北京学生</li>
-<li>查询非20岁的学生</li>
-</ol>
-<p><strong>答案</strong></p>
-<pre><code class="language-mysql">-- 1
-select * from students where hometown='河南' or hometown='江苏'
--- 2
-select * from students where class='1班' and hometown='北京'
--- 3
-select * from students where not age=20
-</code></pre>
-<h4 id="模糊查询">模糊查询</h4>
-<ul>
-<li><strong>关键字：</strong><code>like</code></li>
-<li><code>%</code>表示一个或多个任意字符</li>
-<li><code>_</code>表示任意一个字符</li>
-</ul>
-<p>**例1：**查询姓范的学生</p>
-<pre><code class="language-mysql">select * from students where name like '范%'
-</code></pre>
-<p>**例2：**查询姓范并且名字只有一个字的学生</p>
-<pre><code class="language-mysql">select * from students where name like '范_'
-</code></pre>
-<p>**例3：**查询名字以凡结尾的学生</p>
-<pre><code class="language-mysql">select * from students where name like '%凡'
-</code></pre>
-<p>**例4：**查询名字中包含范的学生</p>
-<pre><code class="language-mysql">select * from students where name like '%范%'
-</code></pre>
-<h4 id="范围查询">范围查询</h4>
-<ul>
-<li><code>in</code>表示在一个非连续的范围内</li>
-</ul>
-<p>**例：**查询家乡是北京或湖南或上海的学生</p>
-<pre><code class="language-mysql">select * from students where hometown in ('北京','湖南','上海')
-</code></pre>
-<ul>
-<li><code>between...and...</code>表示在一个连续的范围内</li>
-</ul>
-<p>**例：**查询年龄为18到20岁的学生信息</p>
-<pre><code class="language-mysql">select * from students where age between 18 and 20
-</code></pre>
-<blockquote>
-<p>注意：使用<code>between...and...</code>时，数字必须前小后大，否则查不到</p>
-</blockquote>
-<p><strong>练习</strong></p>
-<ol>
-<li>查询年龄在18或19或20的女学生</li>
-<li>查询年龄在20到25以外的学生</li>
-</ol>
-<p><strong>答案</strong></p>
-<pre><code class="language-mysql">-- 1
-select * from students where age in (18,19,20) and sex='女'
--- 2
-select * from students where not age between 20 and 25
-</code></pre>
-<h4 id="空判断">空判断</h4>
-<ul>
-<li><code>null</code>与<code>''</code>(空字符串)是不一样的</li>
-<li>判断是否为空：<code>is null</code></li>
-</ul>
-<p>**例1：**查询没有填写身份证的学生</p>
-<pre><code class="language-mysql">select * from students where card is null
-</code></pre>
-<p>**例2：**查询填写了身份证</p>
-<pre><code class="language-mysql">select * from students where card is not null
-</code></pre>
-<h3 id="36-排序">3.6 排序</h3>
-<ul>
-<li><strong>关键字：</strong><code>order by</code></li>
-<li>升序：<code>asc</code></li>
-<li>降序：<code>desc</code></li>
-</ul>
-<blockquote>
-<p>注意：排序时如果没写<code>asc/desc</code>，则默认<strong>升序</strong>排序</p>
-</blockquote>
-<p>**例1：**查询所有学生的信息并按照年龄升序排序</p>
-<pre><code class="language-mysql">select * from students order by age asc
-或者
-select * from students order by age
-</code></pre>
-<p>**例2：**查询所有学生信息，按年龄从小到大排序，如果年龄相同时再按照学号从大到小排序</p>
-<pre><code class="language-mysql">select * from students order by age asc,studentno desc
-</code></pre>
-<h3 id="37-聚合函数">3.7 聚合函数</h3>
-<p>使用聚合函数可以快速得到统计数据，常用的聚合函数有如下五个</p>
-<h4 id="count">count</h4>
-<p>计算总行数</p>
-<p>**例：**查询学生总数</p>
-<pre><code class="language-mysql">select count(*) from students
-</code></pre>
-<h4 id="max">max</h4>
-<p>求此列最大值</p>
-<p>**例：**求女生的最大年龄</p>
-<pre><code class="language-mysql">select max(age) from students where sex='女'
-</code></pre>
-<h4 id="min">min</h4>
-<p>求此列最小值</p>
-<p>**例：**求3班的最小年龄</p>
-<pre><code class="language-mysql">select min(age) from students where class='3班'
-</code></pre>
-<h4 id="sum">sum</h4>
-<p>求此列的和</p>
-<p>**例：**查询北京学生的年龄总和</p>
-<pre><code class="language-mysql">select sum(age) from students where hometown='北京'
-</code></pre>
-<h4 id="avg">avg</h4>
-<p>求此列的平均值</p>
-<p>**例：**查询女生的平均年龄</p>
-<pre><code class="language-mysql">select avg(age) from students where sex='女'
-</code></pre>
-<p><strong>练习</strong></p>
-<ol>
-<li>查询所有学的最大年龄，最小年龄，平均年龄</li>
-<li>3班一共有多少个学生</li>
-<li>查询3班年龄小于20岁的学生有几个</li>
-</ol>
-<p><strong>答案</strong></p>
-<pre><code class="language-mysql">-- 1
-select max(age) from students
-select min(age) from students
-select avg(age) from students
-
--- 2
-select count(*) from students where class='3班'
-
--- 3
-select count(*) from students where class='3班' and age&lt;20
-</code></pre>
-<h3 id="38-分组函数">3.8 分组函数</h3>
-<ul>
-<li>按照字段分组，字段相同的数据会被放到一个组中</li>
-<li>分组后，分组的依据列会显示在结果集中，其他列不显示</li>
-<li>可以最分组后的数据进行统计，做  <strong>聚合运算</strong></li>
-<li><strong>关键字：</strong><code>group by</code></li>
-<li><strong>数据筛选关键字：</strong><code>having</code></li>
-</ul>
-<p>**例1：**查询各种性别的人数</p>
-<pre><code class="language-mysql">select sex,count(*) from students group by sex
-</code></pre>
-<p>**例2：**查询各种年龄的人数</p>
-<pre><code class="language-mysql">select age,count(*) from students group by age
-</code></pre>
-<p>**例3：**查询男生总人数</p>
-<pre><code class="language-mysql">方案一：
-select sex,count(*) from students group by sex having sex='男'
-方案二：
-select count(*) from students where sex='男'
-</code></pre>
-<blockquote>
-<p>注意：</p>
-<ul>
-<li>
-<p><code>where</code>是对表的数据进行筛选，属于对原始数据进行筛选</p>
-</li>
-<li>
-<p><code>having</code>是对<code>group by</code>的结果进行筛选</p>
-</li>
-<li>
-<p>两者是不同的</p>
-</li>
-</ul>
-</blockquote>
-<h3 id="39-分页">3.9 分页</h3>
-<h4 id="获取部分行">获取部分行</h4>
-<p>从大量的数据中获取一部分数据</p>
-<p><strong>语法：</strong><code>select * from 表 limit 开始位置，数量</code></p>
-<p>**例1：**查询前3行学生信息</p>
-<pre><code class="language-mysql">select * from students limit 0,3
-</code></pre>
-<blockquote>
-<p>注意：表中的数据是从0开始的</p>
-</blockquote>
-<p>**例2：**查询第4到第6行的学生信息</p>
-<pre><code class="language-mysql">select * from students limit 3,3
-</code></pre>
-<h4 id="分页">分页</h4>
-<p>每页显示<code>m</code>条数据，显示<code>n</code>页</p>
-<pre><code class="language-mysql">select * from 表 limit m*(n-1),m
-</code></pre>
-<p>**例：**每页显示5条数据，一共显示3页</p>
-<p>常规思路，首先应该统计总共有几条数据</p>
-<pre><code class="language-mysql">select count(*) from students
-</code></pre>
-<p>第一页</p>
-<pre><code class="language-mysql">select * from students limit 0,5
-</code></pre>
-<p>第二页</p>
-<pre><code class="language-mysql">select * from students limit 5,5
-</code></pre>
-<p>第三页</p>
-<pre><code class="language-mysql">select * from students limit 10,5
-</code></pre>
-<blockquote>
-<p>总结出上面的公式</p>
-</blockquote>
-<h3 id="310-连接查询">3.10 连接查询</h3>
-<p><strong>准备数据</strong></p>
-<p>创建学生表并插入数据</p>
-<pre><code class="language-mysql"> drop table if exists students;
- create table students (
-		studentNo varchar(10) primary key,
-		name varchar(10),
-		sex varchar(1),
-		hometown varchar(20),
-		age tinyint(3), -- tinyint,小整数,有符号-128-127，无符号0-255,3表示显示宽度
-		class varchar(10),
-		card varchar(11)
- );
- 
- insert into students values
- ('001', '王昭君', '女', '北京', 20, '1班', '11010119900'),
- ('002', '诸葛亮', '男', '上海', 18, '2班', '11010119900'),
- ('003', '张飞', '男', '南京', 24, '3班', '11010119900'),
- ('004', '白起', '男', '安徽', 22, '4班', '11010119900'),
- ('005', '大乔', '女', '天津', 19, '3班', '11010119900'),
- ('006', '孙尚香', '女', '河北', 18, '1班', '11010119900'),
- ('007', '百里玄策', '男', '山西', 20, '2班', '11010119900'),
- ('008', '小乔', '女', '河南', 15, '3班', NULL),
- ('009', '百里守约', '男', '湖南', 21, '1班', ''),
- ('010', '妲己', '女', '广东', 26, '2班', '11010119900'),
- ('011', '李白', '男', '北京', 30, '4班', '11010119900'),
- ('012', '孙膑', '男', '新疆', 26, '3班', '11010119900')
-</code></pre>
-<p>创建成绩表并插入数据</p>
-<pre><code class="language-mysql">drop table if exists scores;
-create table scores (
-	id int unsigned primary key auto_increment,
-	coursesNo int(10) unsigned,
-	studentNo varchar(10),
-	socre tinyint(4)
-);
-insert into scores values
-(1, 1, '001', 90),
-(2, 1, '002', 75),
-(3, 2, '002', 98),
-(4, 3, '001', 86),
-(5, 3, '003', 80),
-(6, 4, '004', 79),
-(7, 5, '005', 96),
-(8, 6, '006', 80);
-</code></pre>
-<p>创建课程表并插入数据</p>
-<pre><code class="language-mysql">drop table if exists courses;
-create table courses (
-	coursesNo int unsigned primary key auto_increment,
-	name varchar(10)
-);
-insert into courses values
-(1, '数据库'),
-(2, '自动化测试'),
-(3, 'Linux'),
-(4, '测试理论'),
-(5, 'web网络'),
-(6, 'App测试')
-</code></pre>
-<p>三张表全部准备完毕，如下图：</p>
-<figure data-type="image" tabindex="1"><img src="https://pic.downk.cc/item/5e4a9ffd48b86553ee263fc4.png" alt="" loading="lazy"></figure>
-<h4 id="等值连接">等值连接</h4>
-<p><strong>语法：</strong><code>select * from 表1, 表2 where 表1.列=表2.列</code></p>
-<p>**例：**查询学生信息以及学生成绩</p>
-<pre><code class="language-mysql">select * from students as stu,scores as sco where stu.studentNo=sco.studentNo
-</code></pre>
-<p>查询的信息太多了，精简一下，只要学生姓名和成绩</p>
-<pre><code class="language-mysql">select stu.name,sco.socre from students as stu,scores as sco where stu.studentNo=sco.studentNo
-</code></pre>
-<blockquote>
-<p>注意：使用等值连接查询多表时，一定要先找出两张表中 <strong>共同</strong> 的字段，等值连接会把多个表生成一个 <strong>临时表</strong>，再使用<code>where</code>进行过滤</p>
-</blockquote>
-<h4 id="内连接">内连接</h4>
-<blockquote>
-<p>把多张表用相同的列关联起来，过滤掉不同的数据，只保留相同的数据</p>
-</blockquote>
-<p><strong>图示</strong></p>
-<figure data-type="image" tabindex="2"><img src="https://pic.downk.cc/item/5e4ba12448b86553ee508c78.jpg" alt="" loading="lazy"></figure>
-<p><strong>语法：</strong><code>select * from 表1 inner join 表2 on 表1.列=表2.列</code></p>
-<p>**例1：**查询学生姓名以及学生成绩</p>
-<pre><code class="language-mysql">select stu.name,sco.score from students as stu 
-inner join scores as sco 
-on stu.studentNo=sco.studentNo
-</code></pre>
-<blockquote>
-<p>PS：分数字段名写错了</p>
-<p>​		修改字段名<code>alter table scores change socre score tinyint(4)</code></p>
-</blockquote>
-<blockquote>
-<p>注意： <strong>内连接</strong> 属于 <strong>等值连接</strong>，但是内连接不会创建临时表，所以<strong>性能</strong>会比较好些</p>
-</blockquote>
-<p>**例2：**查询课程信息以及课程的成绩</p>
-<pre><code class="language-mysql">select co.name,sc.score from courses as co 
-inner join scores as sc
-on co.coursesNo=sc.coureseNo
-</code></pre>
-<p>**例3：**查询学生信息以及学生的课程对应的成绩信息</p>
-<pre><code class="language-mysql">select stu.name as 学生姓名, cou.name as 课程名, sco.score as 分数
-from students as stu,scores as sco,courses as cou
-where stu.studentNo=sco.studentNo and sco.coureseNo=cou.coursesNo
-
--- 内连接写法
-select stu.name as 学生姓名, cou.name as 课程名字, sco.score as 分数
-from students as stu
-inner join scores as sco
-on stu.studentNo=sco.studentNo
-inner join courses as cou
-on sco.coursesNo=cou.coursesNo
-</code></pre>
-<pre><code>学生姓名 课程名 分数
-王昭君	数据库	90
-诸葛亮	数据库	75
-诸葛亮	自动化测试	98
-王昭君	Linux	86
-张飞	Linux	80
-白起	测试理论	79
-大乔	web网络	96
-孙尚香	App测试	80
-</code></pre>
-<p>**例4：**查询王昭君的成绩，要求显示姓名、课程号、成绩</p>
-<pre><code class="language-mysql">select stu.name ,cou.name as courseName,sco.score from students as stu,scores as sco, courses as cou
-where stu.studentNo=sco.studentNo and sco.coursesNo=cou.coursesNo
-and stu.name='王昭君'
-
--- 内连接写法
-select stu.name,cou.name as courseName,sco.score from students as stu
-inner join scores as sco
-on stu.studentNo=sco.studentNo
-inner join courses as cou
-on sco.coursesNo=cou.coursesNo
-where stu.name='王昭君'
-</code></pre>
-<p>**例5：**查询王昭君的数据库成绩，要求显示姓名，课程名，成绩</p>
-<pre><code class="language-mysql">select stu.name,cou.name as courseName,sco.score
-from students as stu,scores as sco, courses as cou
-where stu.studentNo=sco.studentNo and sco.coursesNo=cou.coursesNo
-and stu.name='王昭君' and cou.name='数据库'
-
--- 内连接写法
-select stu.name,cou.name as courseName,sco.score from students as stu
-inner join scores as sco
-on stu.studentNo=sco.studentNo
-inner join courses as cou
-on sco.coursesNo=cou.coursesNo
-where stu.name='王昭君' and cou.name='数据库'
-</code></pre>
-<p>**例6：**查询男生中的最高成绩，要求显示姓名，课程名，成绩</p>
-<pre><code class="language-mysql">select stu.name,stu.sex,cou.name as courseName,sco.score from students as stu, scores as sco,courses as cou
-where stu.studentNo=sco.studentNo and sco.coursesNo=cou.coursesNo
-and stu.sex='男'
-order by sco.score desc
-limit 0,1
-
--- 内连接写法
-select stu.name,stu.sex,cou.name as courseName,sco.score from students as stu
-inner join scores as sco
-on stu.studentNo=sco.studentNo
-inner join courses as cou 
-on sco.coursesNo=cou.coursesNo
-where stu.sex='男' 
-order by sco.score desc
-limit 1
-</code></pre>
-<h4 id="左连接">左连接</h4>
-<blockquote>
-<p>以左表为主表，左表的数据全部显示，左表有右表没有的显示为<code>null</code></p>
-</blockquote>
-<p><strong>图示：</strong></p>
-<figure data-type="image" tabindex="3"><img src="C:%5CUsers%5Cliyihang%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200219000359395.png" alt="image-20200219000359395" loading="lazy"></figure>
-<p><strong>语法：</strong><code>select * from 表1 left join 表2 on 表1.列=表2.列</code></p>
-<p>**例1：**查询所有学生的成绩，包括没有成绩的学生</p>
-<pre><code class="language-mysql">select stu.studentNo,stu.name,sco.score 
-from students as stu
-left join scores as sco
-on stu.studentNo=sco.studentNo
-</code></pre>
-<blockquote>
-<p>注意：<code>join</code>前面的表为 <strong>左表</strong>，后面的表为 <strong>右表</strong></p>
-</blockquote>
-<p>**例2：**查询所有学生的课程以及成绩，包括没有成绩的学生</p>
-<pre><code class="language-mysql">select stu.studentNo,stu.name,sco.score,cou.name as courseName from students as stu
-left join scores as sco
-on stu.studentNo=sco.studentNo
-left join courses as cou
-on sco.coursesNo=cou.coursesNo
-</code></pre>
-<figure data-type="image" tabindex="4"><img src="https://pic.downk.cc/item/5e4ce65248b86553ee8fd30d.jpg" alt="" loading="lazy"></figure>
-<h4 id="右连接">右连接</h4>
-<blockquote>
-<p>以右表为主表，右表数据全部显示，右表有而左表没有的显示为<code>null</code></p>
-</blockquote>
-<p><strong>图示：</strong></p>
-<figure data-type="image" tabindex="5"><img src="https://pic.downk.cc/item/5e4c0b0e48b86553ee68dc5c.jpg" alt="" loading="lazy"></figure>
-<p><strong>语法：</strong><code>select * from 表1 right join 表2 on 表1.列=表2.列</code></p>
-<p><strong>准备新数据</strong></p>
-<p>在课程表中插入两门新课程</p>
-<pre><code class="language-mysql">insert into courses values(7,'就业课'), (8, '安全性测试')
-</code></pre>
-<figure data-type="image" tabindex="6"><img src="https://pic.downk.cc/item/5e4ce40848b86553ee8f48d9.jpg" alt="" loading="lazy"></figure>
-<p>**例1：**查询所有课程的成绩，包括没有成绩的课程</p>
-<pre><code class="language-mysql">select * from scores as sco
-right join courses as cou
-on sco.coursesNo=cou.coursesNo
-</code></pre>
-<p>**例2：**查询所有课程的成绩，包括没有成绩的课程，包括学生信息</p>
-<pre><code class="language-mysql">select * from scores as sco
-right join courses as cou 
-on sco.coursesNo=cou.coursesNo
-left join students as stu
-on sco.studentNo=stu.studentNo
-</code></pre>
-<figure data-type="image" tabindex="7"><img src="https://pic.downk.cc/item/5e4cea7d48b86553ee90fdcb.jpg" alt="" loading="lazy"></figure>
-<h3 id="311-自关联">3.11 自关联</h3>
-<p>在设计数据表时，一些具有层次结构的数据，往往可能需要多张表实现，如下图：</p>
-<figure data-type="image" tabindex="8"><img src="https://pic.downk.cc/item/5e4cefac48b86553ee9221f4.jpg" alt="" loading="lazy"></figure>
-<p>虽然这样可以实现，但是很难维护，因为当有多个层级时，就需要多张表才能实现。</p>
-<p>其实，这样的数据可以用一张表来实现，设计结构如下</p>
-<figure data-type="image" tabindex="9"><img src="https://pic.downk.cc/item/5e4cff7d48b86553ee9598e0.jpg" alt="" loading="lazy"></figure>
-<p><strong>准备数据：</strong></p>
-<pre><code class="language-mysql">create table areas (
-		id int unsigned primary key auto_increment,
-		name varchar(10),
-		pid int(5)
-);
-
-insert into areas values
-(1, '湖南省', null),
-(2, '长沙市', 1),
-(3, '益阳市', 1),
-(4, '湖北省', null),
-(5, '武汉市', 4),
-(6, '荆州市', 4)
-</code></pre>
-<p>**例1：**查询一共有多少个省份</p>
-<pre><code class="language-mysql">select * from areas
-where pid is null
-</code></pre>
-<p>**例2：**查询湖南省所有的市</p>
-<pre><code class="language-mysql">select * from areas as sheng, areas as shi
-where sheng.id=shi.pid and sheng.name='湖南省'
-</code></pre>
-<blockquote>
-<p>注意：从<code>areas</code>这张表中查询了两次，只有当两张表中的<code>id</code>与<code>pid</code>相等时，则表示结果为需要的市区信息，再追加一个过滤省份信息即可</p>
-</blockquote>
-<figure data-type="image" tabindex="10"><img src="https://pic.downk.cc/item/5e4cf49c48b86553ee93413c.jpg" alt="" loading="lazy"></figure>
-<p>还可以使用 <strong>内连接</strong> 的写法：</p>
-<pre><code class="language-mysql">select * from areas as sheng
-inner join areas as shi
-on sheng.id=shi.pid
-where sheng.name='湖南省'
-</code></pre>
-<p><strong>增加难度</strong></p>
-<p>再<code>areas</code>表中再增加一个 <strong>区</strong> 层级</p>
-<pre><code class="language-mysql">insert into areas values
-(7, '开福区', 2),
-(8, '岳麓区', 2)
-(9, '洪山区', 5)
-</code></pre>
-<p>图示如下：</p>
-<figure data-type="image" tabindex="11"><img src="https://pic.downk.cc/item/5e4cfb4e48b86553ee94b236.jpg" alt="" loading="lazy"></figure>
-<p>**例：**查询湖南省所有的区</p>
-<pre><code class="language-mysql">select * from areas as shi
-inner join areas as qu on shi.id=qu.pid
-inner join areas as sheng on shi.pid=sheng.id
-where sheng.name='湖南省'
-</code></pre>
-<figure data-type="image" tabindex="12"><img src="https://pic.downk.cc/item/5e4cfd9e48b86553ee952f1c.jpg" alt="" loading="lazy"></figure>
-<h3 id="312-子查询">3.12 子查询</h3>
-<blockquote>
-<p>在一个<code>select</code>语句中，嵌入另外一个<code>select</code>语句，这就是 <strong>子查询</strong></p>
-</blockquote>
-<p>**主查询：**主要查询的对象，一般是第一个<code>select</code></p>
-<p><strong>主查询与子查询的关系：</strong></p>
-<ul>
-<li>子查询是嵌入到主查询中的</li>
-<li>子查询辅助主查询，要么充当条件，要么充当数据源</li>
-<li>子查询是可以独立存在的语句，是一条完整的<code>select</code>语句</li>
-</ul>
-<p><strong>子查询的分类：</strong></p>
-<ul>
-<li>标量子查询：子查询返回的结果是一个数据</li>
-<li>列子查询：子查询返回的结果是一列</li>
-<li>行子查询：子查询返回的结果是一行</li>
-<li>表级子查询：返回的结果是多行多列</li>
-</ul>
-<p><strong>标量子查询：</strong><br>
-**例1：**查询大于平均年龄的学生</p>
-<pre><code class="language-mysql">-- 查询平均年龄
-select avg(age) from students
--- 查询大于平均年龄的学生
-select * from students where age&gt;21.5833
--- 上面用两条sql可以查出答案，但是如果在执行完第一条sql后数据发生了变化，那么最终查询结果会错误
--- 讲两条sql合在一起，就是子查询
-select * from students where age&gt;(select avg(age) from students)
-</code></pre>
-<p>**例2：**查询王昭君的成绩</p>
-<pre><code class="language-mysql">-- 先把王昭君的学号查出来
-select studentNo from students where name='王昭君';
--- 再拿着查出的学号区成绩表中查询成绩
-select score from scores where studentNo=001
--- 组合成子查询
-select score from scores where studentNo=(select studentNo from students where name='王昭君')
-</code></pre>
-<p><strong>列子查询</strong><br>
-**例1：**查询18岁学生的成绩，要求显示成绩</p>
-<pre><code class="language-mysql">-- 先从学生表中查出18岁学生的学号
-select studentNo from students where age=18
--- 再拿着拿出的学号去成绩表中查询成绩，注意有多个学号要查
-select score from scores where studentNo in (002, 006)
--- 组合成列子查询
-select score from scores where studentNo in (select studentNo from students where age=18)
-</code></pre>
-<p><strong>行子查询</strong></p>
-<p>**例1：**查询年龄最大的男生的信息</p>
-<pre><code class="language-mysql">-- 查询男生中年龄最大的学生信息
-select * from students where sex='男' order by age desc limit 1
--- select age from students order by age desc limit 1
-select * from students where (sex,age) = (select sex,age from students where sex='男' order by age desc limit 1)
-</code></pre>
-<blockquote>
-<p>上面的解法只是为了演示行子查询，并不是最优解法</p>
-</blockquote>
-<p><strong>表子查询：</strong></p>
-<p>**例：**查询数据库和自动化测试课程的成绩</p>
-<pre><code class="language-mysql">-- 先查出数据库与自动化课程的编号
-select * from courses where name in ('数据库', '自动化测试')
--- 再拿着查出的编号去成绩表查询成绩
-select * from scores where studentNo in (1,2)
--- 组合成表子查询
-select * from scores as sc
-inner join (select * from courses where name in ('数据库', '自动化测试')) as c
-on sc.coursesNo=c.coursesNo
-</code></pre>
-<p><strong>子查询拓展</strong></p>
-<p>**例1：**查询18到20岁的学生信息</p>
-<pre><code class="language-mysql">select * from students where age in (select age from students where age between 18 and 20)
-</code></pre>
-<p><strong>例2：</strong> 查询小于18岁的学生信息</p>
-<pre><code class="language-mysql">select * from students where age in (select age from students where age&lt;18)
-</code></pre>
-<h3 id="313-查询演练">3.13 查询演练</h3>
-<p><strong>准备数据</strong></p>
-<pre><code class="language-mysql">create table goods(
-    id int unsigned primary key auto_increment,  -- 编号，主键，无符号，自动增长
-    name varchar(150),
-    cate varchar(40),
-    brand_name varchar(40),
-    price decimal(10,3) default 0,  -- 小数，总共10位，小数占3位，正数占7位
-    is_show bit default 1,		-- 位变量，一般用来储存状态，值位0/1，类似true/false
-    is_saleoff bit default 0
-);
-insert into goods values(0,'r510vc 15.6英寸笔记本','笔记本','华硕','3399',default,default); 
-insert into goods values(0,'y400n 14.0英寸笔记本电脑','笔记本','联想','4999',default,default);
-insert into goods values(0,'g150th 15.6英寸游戏本','游戏本','雷神','8499',default,default); 
-insert into goods values(0,'x550cc 15.6英寸笔记本','笔记本','华硕','2799',default,default); 
-insert into goods values(0,'x240 超极本','超级本','联想','4999',default,default); 
-insert into goods values(0,'u330p 13.3英寸超极本','超级本','联想','4299',default,default); 
-insert into goods values(0,'svp13226scb 触控超极本','超级本','索尼','7999',default,default); 
-insert into goods values(0,'ipad mini 7.9英寸平板电脑','平板电脑','苹果','1998',default,default);
-insert into goods values(0,'ipad air 9.7英寸平板电脑','平板电脑','苹果','3388',default,default); 
-insert into goods values(0,'ipad mini 配备 retina 显示屏','平板电脑','苹果','2788',default,default); 
-insert into goods values(0,'ideacentre c340 20英寸一体电脑 ','台式机','联想','3499',default,default); 
-insert into goods values(0,'vostro 3800-r1206 台式电脑','台式机','戴尔','2899',default,default); 
-insert into goods values(0,'imac me086ch/a 21.5英寸一体电脑','台式机','苹果','9188',default,default); 
-insert into goods values(0,'at7-7414lp 台式电脑 linux ）','台式机','宏碁','3699',default,default); 
-insert into goods values(0,'z220sff f4f06pa工作站','服务器/工作站','惠普','4288',default,default); 
-insert into goods values(0,'poweredge ii服务器','服务器/工作站','戴尔','5388',default,default); 
-insert into goods values(0,'mac pro专业级台式电脑','服务器/工作站','苹果','28888',default,default); 
-insert into goods values(0,'hmz-t3w 头戴显示设备','笔记本配件','索尼','6999',default,default); 
-insert into goods values(0,'商务双肩背包','笔记本配件','索尼','99',default,default); 
-insert into goods values(0,'x3250 m4机架式服务器','服务器/工作站','ibm','6888',default,default); 
-insert into goods values(0,'hmz-t3w 头戴显示设备','笔记本配件','索尼','6999',default,default); 
-insert into goods values(0,'商务双肩背包','笔记本配件','索尼','99',default,default);
-</code></pre>
-<p>图示</p>
-<figure data-type="image" tabindex="13"><img src="https://pic.downk.cc/item/5e4d330a48b86553eea795f3.jpg" alt="" loading="lazy"></figure>
-<p><strong>1.查询电脑的平均价格，并保留两位小数</strong></p>
-<pre><code class="language-mysql">select round(avg(price), 2) from goods
-</code></pre>
-<blockquote>
-<p>新用到<code>round</code>函数，语法为<code>round(小数，精度)</code></p>
-</blockquote>
-<p><strong>2.查询所有大于平均价格的商品信息，并按降序排序</strong></p>
-<pre><code class="language-mysql">select * from goods where price&gt;(select avg(price) from goods) order by price desc
-</code></pre>
-<blockquote>
-<p>用到子查询与排序</p>
-</blockquote>
-<p><strong>3.查询类型为'超极本'的商品价格</strong></p>
-<pre><code class="language-mysql">select price from goods where cate='超级本'
-</code></pre>
-<p><strong>4.查询价格大于或等于'超级本'的商品信息，并按价格降序排序</strong></p>
-<pre><code class="language-mysql">select * from goods 
-where price &gt;=any (select price from goods where cate='超级本') order by price desc
-</code></pre>
-<blockquote>
-<p>用到了<code>any</code>,当子查询返回一列多个数据时，匹配其中的某个或多个</p>
-</blockquote>
-<h3 id="314数据分表">3.14数据分表</h3>
-<p><strong>创建商品类型表</strong></p>
-<pre><code class="language-mysql">create table goods_cate(
-		id int unsigned primary key auto_increment,
-		cate_name varchar(10)
-)
-</code></pre>
-<p><strong>查询商品表中的所有类别</strong></p>
-<pre><code class="language-mysql">-- select cate from goods group by cate
-select distinct cate from goods
-</code></pre>
-<p><strong>将查询到的类别数据直接插入到类型表</strong></p>
-<pre><code class="language-mysql">insert into goods_cate(cate_name) select distinct(cate) from goods
-</code></pre>
-<p><strong>创建商品品牌表同时将商品表中查询到的所有品牌类型插入进去</strong></p>
-<pre><code class="language-mysql">create table goods_brand (
-	brand_id int unsigned primary key auto_increment,
-	brand_name varchar(10)
-) select distinct(brand_name) from goods
-</code></pre>
-<blockquote>
-<p>注意：创建与插入时的字段名字要 <strong>一致</strong>，否则就会自动创建查询时的字段名并插入</p>
-</blockquote>
-<p><strong>通过商品类型表来更新商品表</strong></p>
-<pre><code class="language-mysql">update goods as g
-inner join goods_cate as gc on g.cate=gc.cate_name
-set g.cate=gc.id
-</code></pre>
-<p><strong>通过商品品牌表来更新商品表</strong></p>
-<pre><code class="language-mysql">update goods as g
-inner join goods_brand as gb on g.brand_name=gb.brand_name
-set g.brand_name=gb.brand_id
-</code></pre>
-<p><strong>修改商品表的字段名</strong></p>
-<figure data-type="image" tabindex="14"><img src="https://pic.downk.cc/item/5e4d429748b86553eeacd5e7.jpg" alt="" loading="lazy"></figure>
-<p><strong>连接查询</strong></p>
-<p>连接三张表来进行查询</p>
-<p>改造后，商品表的字段数据占用会缩小（节省硬盘空间），便于日后数据的维护，编辑类别与品牌会快捷很多</p>
-<pre><code class="language-mysql">select * from goods as g
-inner join goods_cate as gc on g.cate_id=gc.id
-inner join goods_brand as gb on g.brand_id=gb.brand_id
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[MySQL系列入门（三）：Navicat的使用]]></title>
-        <id>https://yihangliak.github.io/post/c7olK_1tf/</id>
-        <link href="https://yihangliak.github.io/post/c7olK_1tf/">
-        </link>
-        <updated>2020-02-21T10:18:37.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="三-navicat使用">三、Navicat使用</h1>
-<h2 id="1连接">1.连接</h2>
-<figure data-type="image" tabindex="1"><img src="https://pic.superbed.cn/item/5df1ef951f8f59f4d66bef7d.jpg" alt="" loading="lazy"></figure>
-<h2 id="2新建数据库">2.新建数据库</h2>
-<ul>
-<li>双击连接名（本机<code>MySQL</code>），当前面的<code>icon</code>变为 <strong>绿色</strong>，即表示连接成功</li>
-<li>右击连接名，选择 <strong>新建数据库</strong></li>
-<li>数据库名任填，字符集选择<code>utf8 -- UTF-8 Unicode</code>，排序规则选择<code>utf8_general_ci</code></li>
-</ul>
-<figure data-type="image" tabindex="2"><img src="https://pic.superbed.cn/item/5df1f0b71f8f59f4d66cb282.jpg" alt="" loading="lazy"></figure>
-<h2 id="3数据表操作">3.数据表操作</h2>
-<h3 id="新建表">新建表</h3>
-<ul>
-<li>连接某个数据库，右键 <strong>表</strong> ，选择 <strong>新建表</strong></li>
-<li>创建表时，至少要添加一个字段，填写字段名并选择好类型，然后点击 <strong>保存</strong> 按钮</li>
-</ul>
-<figure data-type="image" tabindex="3"><img src="https://pic2.superbed.cn/item/5df1f2911f8f59f4d66e022f.jpg" alt="" loading="lazy"></figure>
-<h3 id="修改表">修改表</h3>
-<p><strong>添加字段</strong></p>
-<figure data-type="image" tabindex="4"><img src="https://pic.superbed.cn/item/5df1f5891f8f59f4d6712b6b.jpg" alt="" loading="lazy"></figure>
-<p><strong>删除表</strong></p>
-<figure data-type="image" tabindex="5"><img src="https://pic2.superbed.cn/item/5df1f5e91f8f59f4d67175b2.jpg" alt="" loading="lazy"></figure>
-<h2 id="4数据操作-增删改查">4.数据操作-增删改查</h2>
-<h2 id="5数据类型与约束">5.数据类型与约束</h2>
-<h2 id="6数据库的备份与恢复">6.数据库的备份与恢复</h2>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[MySQL系列入门（二）：安装MySQL]]></title>
-        <id>https://yihangliak.github.io/post/YUswTYFuL/</id>
-        <link href="https://yihangliak.github.io/post/YUswTYFuL/">
-        </link>
-        <updated>2020-02-21T10:17:23.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="二-安装mysql">二、安装MySQL</h1>
-<h2 id="windows">Windows</h2>
-<h3 id="1-下载安装包">1. 下载安装包</h3>
-<ul>
-<li>
-<p>打开官方下载地址：https://dev.mysql.com/downloads/mysql/</p>
-</li>
-<li>
-<p>默认是最新版本，但是最新版本不一定是学习的最佳版本，这里选择最流行的<code>5.6</code>版本</p>
-</li>
-</ul>
-<figure data-type="image" tabindex="1"><img src="https://pic3.superbed.cn/item/5df1b8fb1f8f59f4d63ac39a.jpg" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="2"><img src="https://pic2.superbed.cn/item/5df1b9631f8f59f4d63b29cc.jpg" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="3"><img src="https://pic.superbed.cn/item/5df1b9871f8f59f4d63b57f6.jpg" alt="" loading="lazy"></figure>
-<h3 id="2解压">2.解压</h3>
-<p>​	解压下载好的压缩包至任意目录（推荐在任意盘符根目录），解压完成后的目录就是<code>mysql</code>的安装目录</p>
-<h3 id="3配置">3.配置</h3>
-<p>​	进入解压好的<code>mysql</code>目录，复制并打开<code>my-default.ini</code>文件，将其重命名为<code>my.ini</code>或<code>my.conf</code></p>
-<blockquote>
-<p>文件中的参考配置如下:</p>
-</blockquote>
-<pre><code class="language-ini">[mysql]
-# 设置mysql客户端默认字符集
-default-character-set=utf8 
-[mysqld]
-#设置3306端口
-port = 3306 
-# 设置mysql的安装目录
-basedir=E:\mysql-5.6.46-winx64
-# 设置mysql数据库的数据的存放目录
-datadir=E:\mysql-5.6.46-winx64\data 
-# 允许最大连接数
-max_connections=200
-# 服务端使用的字符集默认为8比特编码的latin1字符集
-character-set-server=utf8
-# 创建新表时将使用的默认存储引擎
-default-storage-engine=INNODB
-</code></pre>
-<h3 id="4添加环境变量">4.添加环境变量</h3>
-<p>​	在环境变量<code>PATH</code>中添加解压好的<code>mysql</code>文件中的<code>bin</code>目录的路径</p>
-<p>​	如：<code>E:\mysql-5.6.46-winx64\bin</code></p>
-<h3 id="5安装mysql服务">5.安装MySQL服务</h3>
-<p>​	以 <strong>管理员身份</strong> 打开命令行窗口，切换到<code>mysql</code>所在的<code>bin</code>目录，输入<code>mysqld install</code>回车运行</p>
-<figure data-type="image" tabindex="4"><img src="https://pic.superbed.cn/item/5df1e0151f8f59f4d65ca731.jpg" alt="" loading="lazy"></figure>
-<blockquote>
-<p>注意：一定要使用管理员打开命令行执行安装命令</p>
-</blockquote>
-<h3 id="6-启动mysql">6. 启动MySQL</h3>
-<p>​	在命令行中输入：<code>net start mysql</code></p>
-<pre><code class="language-shell">E:\mysql-5.6.46-winx64\bin&gt;net start mysql
-MySQL 服务正在启动 .
-MySQL 服务已经启动成功。
-</code></pre>
-<h3 id="7-登录mysql">7. 登录MySQL</h3>
-<p>​	命令行输入：<code>mysql -u root -p</code>，（第一次登录无需密码）</p>
-<h3 id="8修改密码">8.修改密码</h3>
-<ul>
-<li>切换到<code>mysql</code>库：<code>use mysql</code></li>
-<li>执行：<code>update user set password=password(&quot;新密码&quot;) where user=&quot;root&quot;;</code></li>
-<li>刷新权限：<code>flush privileges;</code></li>
-</ul>
-<h3 id="9停止mysql">9.停止MySQL</h3>
-<p>​	命令行输入：<code>net stop mysql</code>（如需重启，先停止再启动）</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[MySQL系列入门（一）：数据库的概念]]></title>
-        <id>https://yihangliak.github.io/post/b_VV-Uhrz/</id>
-        <link href="https://yihangliak.github.io/post/b_VV-Uhrz/">
-        </link>
-        <updated>2020-02-21T08:29:07.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="一-概念">一、概念</h1>
-<h2 id="1-什么是数据库">1. 什么是数据库</h2>
-<p>**数据库：**按照数据结构来组织、储存和管理数据的仓库</p>
-<blockquote>
-<p>**疑问：**我的数据可以存在<code>excel</code>等文件中，那还要数据库干嘛？<br>
-这就引出以下数据存储的几个阶段：</p>
-</blockquote>
-<p><strong>人工管理阶段</strong></p>
-<p>数据靠人工整理，储存和管理。不方便保存，查询和管理</p>
-<p>典型的如古代的<code>结绳记事</code>，以及现代的<code>图书馆</code>等</p>
-<figure data-type="image" tabindex="1"><img src="https://pic.downk.cc/item/5e4f985d48b86553ee37e9bf.jpg" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="2"><img src="https://pic.downk.cc/item/5e4f9a2048b86553ee384017.jpg" alt="" loading="lazy"></figure>
-<p><strong>文件系统阶段</strong></p>
-<p>将文件数据储存在硬盘上，通过文件管理系统，比人工方便很多。</p>
-<p>但在查询数据内容时，依旧不太方便。想知道哪个文件里面有什么内容，还得一个个打开确认</p>
-<figure data-type="image" tabindex="3"><img src="https://pic.downk.cc/item/5e4f9b2b48b86553ee3872a1.jpg" alt="" loading="lazy"></figure>
-<p><strong>数据库系统阶段</strong></p>
-<p>网页显示的商品信息</p>
-<figure data-type="image" tabindex="4"><img src="https://pic.downk.cc/item/5e4f9c0c48b86553ee38ac7b.jpg" alt="" loading="lazy"></figure>
-<p>数据库中储存的商品信息</p>
-<figure data-type="image" tabindex="5"><img src="https://pic.downk.cc/item/5e4f9c2448b86553ee38b38e.jpg" alt="" loading="lazy"></figure>
-<h2 id="2-关系型数据库rdbms">2. 关系型数据库（RDBMS）</h2>
-<ul>
-<li><code>RDBMS</code>全称<code>relational database management system</code></li>
-<li>中文意思为：<strong>关系型数据库管理系统</strong></li>
-<li>关系型数据库采用了关系模型（一对一，多对多... ...）来组织数据</li>
-</ul>
-<figure data-type="image" tabindex="6"><img src="https://pic1.superbed.cn/item/5dfc6ef276085c3289171fde.jpg" alt="" loading="lazy"></figure>
-<blockquote>
-<p>什么是关系型数据库？<br>
-比如上图中，有两个表格，一个角色表，一个技能表。这个两个表格中有一列数据-姓名是相同的，我们用这个一列相同的数据来连接两个表格，使它们产生联系，一旦其中一个表格的数据更改了另外一个表格的数据也会跟着更改，这种联系使他们的数据具有一致性，这就是关系型数据库。</p>
-</blockquote>
-<h2 id="3-数据库分类与排名">3. 数据库分类与排名</h2>
-<p>查看数据库排行榜：https://db-engines.com/en/ranking</p>
-<figure data-type="image" tabindex="7"><img src="https://pic.superbed.cn/item/5dfc706276085c32891794f5.jpg" alt="" loading="lazy"></figure>
-<blockquote>
-<p>上述排名不与数据库使用安装数量相等</p>
-</blockquote>
-<p><strong>关系型</strong></p>
-<ul>
-<li><code>oracle</code>：甲骨文公司开发，收费软件，一般用于大型项目，如：银行，电信等</li>
-<li><code>MySQL</code>：甲骨文公司收购<code>sun(java)</code>而来，开源免费数据库，<code>web</code>项目中使用最广泛</li>
-<li><code>Microsoft SQL Server</code>：微软开发的项目中使用</li>
-</ul>
-<p><strong>非关系型</strong></p>
-<ul>
-<li><code>Redis</code>：高性能缓存数据库</li>
-<li><code>SQLite</code>：轻量级数据库，主要用于移动端</li>
-</ul>
-<p><strong>关系型数据库核心元素</strong></p>
-<ul>
-<li><code>数据库</code>：这里的数据库指数据仓库，一个数据库系统可以有多个数据仓库</li>
-<li><code>数据表</code>：一个数据仓库可以有多张数据表</li>
-<li><code>数据列</code>：字段信息</li>
-<li><code>数据行</code>：一条数据记录</li>
-</ul>
-<h2 id="4-sql">4. SQL</h2>
-<blockquote>
-<p><code>structured query language</code></p>
-</blockquote>
-<ul>
-<li>
-<p>结构化查询语言，用来操作关系型数据库的语言</p>
-</li>
-<li>
-<p><code>SQL</code>不区分大小写</p>
-</li>
-</ul>
-<h2 id="5-mysql">5. MySQL</h2>
-<p>由瑞典<code>MySQL AB</code>开发，后来被<code>sun</code>收购，<code>sun</code>又被<code>oracle</code>收购。所以现在是<code>Oracle</code>旗下产品</p>
-<blockquote>
-<p>目前开源版本与收费版并存（其实以后全部闭源也没事，因为有出过其他好用的衍生版本）</p>
-</blockquote>
-<p>特点</p>
-<ul>
-<li>开源，免费</li>
-<li>支持多平台</li>
-<li>是学习数据库的首选</li>
-</ul>
+        <updated>2020-03-27T16:42:58.000Z</updated>
+        <content type="html"><![CDATA[<p>1</p>
 ]]></content>
     </entry>
     <entry>
@@ -1355,230 +219,1039 @@ teststeps:
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[HTML基础]]></title>
-        <id>https://yihangliak.github.io/post/dYxAqQpcF/</id>
-        <link href="https://yihangliak.github.io/post/dYxAqQpcF/">
+        <title type="html"><![CDATA[实用工具大搜罗]]></title>
+        <id>https://yihangliak.github.io/post/UQ96yPt5M/</id>
+        <link href="https://yihangliak.github.io/post/UQ96yPt5M/">
         </link>
-        <updated>2019-09-20T09:18:38.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="1-什么是html">1. 什么是HTML</h2>
-<p>HTML是用来描述网页的一种语言，英文全称是：<code>Hyper Text markup language</code></p>
-<blockquote>
-<p>注意：HTML不是编程语言，是一种标记语言</p>
-</blockquote>
-<p>HTML使用标记标签来描述网页，然后通过浏览器读取 HTML 文档，并以网页的形式显示出它们</p>
-<h2 id="2-html标签">2. HTML标签</h2>
-<p>HTML标签是由尖括号包围的关键词，比如<code>&lt;html&gt;</code></p>
-<p>HTML标签一般都是成对出现的，比如<code>&lt;html&gt; &lt;/html&gt;</code></p>
-<p>标签对中的第一个标签是<code>开始标签</code>，第二个标签是<code>结束标签</code></p>
-<h2 id="3-html文件编辑以及文件格式">3. HTML文件编辑以及文件格式</h2>
-<p>编辑HTML文件，可以使用<code>Notepad++</code></p>
-<p>HTML文件的格式为：<code>htm 或 html</code>，两者没有任何差别，根据自己喜好选择即可</p>
-<p>HTML文件保存好以后，可以通过浏览器<code>（chrome/IE/FireFox...）</code>打开进行浏览</p>
-<h2 id="4-注释">4. 注释</h2>
-<p>html文档代码中可以插入注释，注释是对代码的说明和解释，注释的内容不会显示在页面上，html代码中插入注释的方法是：</p>
-<pre><code>&lt;!-- 这是一段注释  --&gt;
-</code></pre>
-<h2 id="5-html常用标签">5. HTML常用标签</h2>
-<h3 id="51标题">5.1标题</h3>
-<p>HTML标题通过<code>&lt;h1&gt;-&lt;h6&gt;</code>标签进行定义的，其中<code>&lt;h1&gt;</code>为最大级别标题，<code>&lt;h6&gt;为最小级别标题</code></p>
-<p>搜索引擎会爬取标题标签编制索引，所以标题标签很重要</p>
-<blockquote>
-<p>代码</p>
-</blockquote>
-<pre><code class="language-html">&lt;h1&gt;This is heading 1&lt;/h1&gt;
-&lt;h2&gt;This is heading 2&lt;/h2&gt;
-&lt;h3&gt;This is heading 3&lt;/h3&gt;
-&lt;h4&gt;This is heading 4&lt;/h4&gt;
-&lt;h5&gt;This is heading 5&lt;/h5&gt;
-&lt;h6&gt;This is heading 6&lt;/h6&gt;
-</code></pre>
-<blockquote>
-<p>效果图</p>
-</blockquote>
-<figure data-type="image" tabindex="1"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-04-51.png" alt="Snipaste_2019-08-21_11-04-51.png" loading="lazy"></figure>
-<h3 id="52段落">5.2段落</h3>
-<p>HTML 段落是通过 <code>&lt;p&gt;</code> 标签进行定义的</p>
-<blockquote>
-<p>代码</p>
-</blockquote>
-<pre><code class="language-html">&lt;p&gt;这是段落。&lt;/p&gt;
-&lt;p&gt;这是段落。&lt;/p&gt;
-&lt;p&gt;这是段落。&lt;/p&gt;
-</code></pre>
-<blockquote>
-<p>效果图</p>
-</blockquote>
-<figure data-type="image" tabindex="2"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-11-07.png" alt="Snipaste_2019-08-21_11-11-07.png" loading="lazy"></figure>
-<p><strong>换行</strong></p>
-<p>换行标签是单个出现的</p>
-<pre><code>不规范写法：&lt;br&gt;
-规范写法：&lt;br /&gt;
-</code></pre>
-<p><strong>字符实体</strong></p>
-<blockquote>
-<p>有的时候需要在段落中插入一些空格，但是直接在代码中写入空格的话是无法被正常渲染成空格的，需要使用字符实体</p>
-</blockquote>
-<pre><code>&lt;!--  在段落前想缩进两个文字的空格，使用空格的字符实体：&amp;nbsp;   --&gt;
-&lt;p&gt;
-&amp;nbsp;&amp;nbsp;一个html文件就是一个网页，html文件用编辑器打开显示的是文本，可以用&lt;br /&gt;
-文本的方式编辑它，如果用浏览器打开，浏览器会按照标签描述内容将文件&lt;br /&gt;
-渲染成网页，显示的网页可以从一个网页链接跳转到另外一个网页。&lt;/p&gt;
-</code></pre>
-<p>注意：如果只是加入少量空格，是可以用 <strong>字符实体</strong> ，但如果需要大量插入空格，推荐使用样式去控制</p>
-<h3 id="53链接">5.3链接</h3>
-<p>HTML 链接是通过<code>&lt;a&gt;</code>标签进行定义的</p>
-<blockquote>
-<p>代码</p>
-</blockquote>
-<pre><code class="language-html">&lt;a href=&quot;http://www.w3school.com.cn&quot;&gt;This is a link&lt;/a&gt;
-</code></pre>
-<blockquote>
-<p>效果图</p>
-</blockquote>
-<figure data-type="image" tabindex="3"><a href="https://www.z4a.net/image/Ucix29"><img src="https://www.z4a.net/images/2019/08/21/Snipaste_2019-08-21_11-17-07.png" alt="" loading="lazy"></a></figure>
-<h3 id="54-块标签">5.4 块标签</h3>
-<p><code>div</code>标签，表示一块内容，没有具体语义</p>
-<p><code>p</code>标签与<code>div</code>的区别：</p>
+        <updated>2019-09-10T06:30:01.000Z</updated>
+        <summary type="html"><![CDATA[<p>盘点那些不为人知的工具-们！</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>盘点那些不为人知的工具-们！</p>
+ <!-- more -->
+<h1 id="文字编辑">文字编辑    📕</h1>
+<p><strong>思维导图</strong></p>
 <ul>
-<li><code>p</code>带有空行等样式</li>
-<li><code>div</code>标签不带任何样式</li>
-<li><code>div</code>一般里面是可以嵌套的，比如嵌套<code>h，p</code>标签等</li>
+<li>幕布：<a href="https://mubu.com/">https://mubu.com</a></li>
+<li>xmind<br>
+xmind ZEN：<a href="http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit-9.2.0-201904271935.exe">http://dl2.xmind.cn/XMind-ZEN-Update-2019-for-Windows-64bit-9.2.0-201904271935.exe</a><br>
+破解补丁：<a href="https://carrot.ctfile.com/dir/11269771-31680249-fdf2c2/">https://carrot.ctfile.com/dir/11269771-31680249-fdf2c2/</a></li>
+</ul>
+<p><strong>Markdown编辑器</strong></p>
+<ul>
+<li>Typora：<a href="https://www.typora.io/">https://www.typora.io/</a></li>
+</ul>
+<p><strong>万能编辑器</strong></p>
+<ul>
+<li>notepad ++</li>
+</ul>
+<p><strong>文档，表格，幻灯片</strong></p>
+<ul>
+<li>WPS（政企专版，无广告）：<a href="http://wpspro.support.wps.cn/gov/heilongjiang/daqing/installation/WPS_Office_2019_%E5%A4%A7%E5%BA%86%E5%B8%82%E5%85%9A%E6%94%BF%E6%9C%BA%E5%85%B3%E4%B8%93%E7%94%A8%E7%89%88.exe">http://wpspro.support.wps.cn/gov/heilongjiang/daqing/installation/WPS_Office_2019_大庆市党政机关专用版.exe</a></li>
+<li>在线emoji：<a href="http://emojihomepage.com/">http://emojihomepage.com/</a></li>
+</ul>
+<h1 id="开发工具">开发工具    💻</h1>
+<p><strong>图形化Git工具</strong></p>
+<ul>
+<li>sourcetree：<a href="https://www.sourcetreeapp.com/">https://www.sourcetreeapp.com/</a></li>
+</ul>
+<p><strong>python编辑器</strong></p>
+<ul>
+<li>pycharm：<a href="http://www.jetbrains.com/pycharm/">http://www.jetbrains.com/pycharm/</a></li>
+</ul>
+<p><strong>MySQL连接软件</strong></p>
+<ul>
+<li>Navicat for mysql 绿色版：<a href="https://www.cr173.com/soft/38153.html">https://www.cr173.com/soft/38153.html</a></li>
+</ul>
+<p><strong>Java8</strong></p>
+<ul>
+<li>JDK下载地址：<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></li>
+</ul>
+<p><strong>淘宝镜像站</strong></p>
+<ul>
+<li>地址：<a href="https://npm.taobao.com">https://npm.taobao.com</a></li>
+</ul>
+<h1 id="生活类">生活类    👀</h1>
+<p><strong>护眼</strong></p>
+<ul>
+<li>护眼宝：<a href="http://www.huyanapp.com/portal.php">http://www.huyanapp.com/portal.php</a></li>
+</ul>
+<h1 id="图片处理类">图片处理类    🎨</h1>
+<p><strong>截图工具</strong></p>
+<ul>
+<li>Snipaste：<a href="https://www.snipaste.com/">https://www.snipaste.com/</a></li>
+</ul>
+<p><strong>免费图床</strong></p>
+<ul>
+<li>smpic：<a href="https://github.com/kookob/smpic">https://github.com/kookob/smpic</a></li>
+<li>聚合图床：<a href="https://www.superbed.cn/">https://www.superbed.cn/</a></li>
+<li>智图图片压缩：<a href="https://zhitu.isux.us/">https://zhitu.isux.us/</a></li>
+</ul>
+<h1 id="系统美化类">系统美化类    🐼</h1>
+<p><strong>任务栏全透明</strong></p>
+<ul>
+<li>TranslucentTB：<a href="https://translucenttb.en.softonic.com/">https://translucenttb.en.softonic.com/</a></li>
+</ul>
+<p><strong>Windows字体优化</strong></p>
+<ul>
+<li>Mactype：<a href="https://www.mactype.net/">https://www.mactype.net/</a></li>
+</ul>
+<p><strong>超美壁纸</strong></p>
+<ul>
+<li>Pexels：<a href="https://www.pexels.com/">https://www.pexels.com/</a></li>
+</ul>
+<h1 id="效率类">效率类     📚</h1>
+<p><strong>待办事项管理</strong></p>
+<ul>
+<li>MicrosoftToDo：<a href="https://todo.microsoft.com/">https://todo.microsoft.com/</a></li>
+</ul>
+<p><strong>本地文件搜索工具（一秒找到文件）</strong></p>
+<ul>
+<li>everything：<a href="https://www.voidtools.com/zh-cn/">https://www.voidtools.com/zh-cn/</a></li>
+</ul>
+<p><strong>百度云不限速下载</strong></p>
+<ul>
+<li>speedpan：<a href="https://www.speedpan.com/">https://www.speedpan.com/</a></li>
 </ul>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Python全栈（三）：多态]]></title>
-        <id>https://yihangliak.github.io/post/phI3IExH8/</id>
-        <link href="https://yihangliak.github.io/post/phI3IExH8/">
+        <title type="html"><![CDATA[LuckyFrame自动化测试平台部署指南]]></title>
+        <id>https://yihangliak.github.io/post/luckyframe/</id>
+        <link href="https://yihangliak.github.io/post/luckyframe/">
         </link>
-        <updated>2019-09-13T15:44:44.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="面向对象三大特性">面向对象三大特性</h3>
-<ol>
-<li><strong>封装</strong> ： 根据职责将属性与方法封装到一个抽象的类中
+        <updated>2019-08-28T02:09:31.000Z</updated>
+        <summary type="html"><![CDATA[<p>LuckyFrame测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了接口自动化、WEB UI自动化、APP自动化，并且支持分布式测试，测试关键字驱动也很大程度上解决了测试同学代码基础弱的问题。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>LuckyFrame测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了接口自动化、WEB UI自动化、APP自动化，并且支持分布式测试，测试关键字驱动也很大程度上解决了测试同学代码基础弱的问题。</p>
+<!-- more -->
+<h1 id="关于luckyframe">关于LuckyFrame</h1>
+<p>​	<code>LuckyFrame</code>测试平台是一款免费开源的测试平台，最大的特点是全纬度覆盖了<code>接口自动化</code>、<code>WEB UI自动化</code>、<code>APP自动化</code>，并且支持<code>分布式测试</code>，<code>测试关键字驱动</code>也很大程度上解决了测试同学代码基础弱的问题。同时也集成了<code>质量管理</code>相关的一些功能，解决QA的日常工作中，项目过程数据的收集问题，并能展示一些简单质量报表。</p>
+<h1 id="windows平台部署">Windows平台部署</h1>
+<h2 id="1-安装jdk">1. 安装JDK</h2>
 <ul>
-<li>定义类的准则</li>
+<li>部署LuckyFrame之前，需要先安装jdk，且版本要求在<code>1.8</code>以上</li>
+<li>JDK去<code>oracle</code>官网下载即可</li>
+<li>打开环境变量配置界面，在用户变量中新增<code>JAVA_HOME=jdk安装路径</code>，再将<code>%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin</code>添加至系统变量<code>path</code>中即可</li>
+<li>在命令行中输入<code>java -version</code>验证</li>
 </ul>
-</li>
-<li><strong>继承</strong> ： 实现代码的重用，相同的代码不需要重复的编写
+<h2 id="2-安装mysql">2. 安装MySQL</h2>
+<p>下载xampp集成环境，免去单独配置安装MySQL的麻烦</p>
 <ul>
-<li>设计类的技巧</li>
-<li>子类针对自己特有的需求，编写特定的代码</li>
+<li>将xampp解压到某磁盘根目录</li>
+<li>打开xampp-control程序，启动MySQL</li>
+<li>进入xampp中的<code>mysql\bin</code>目录，在当前路径下打开命令行</li>
+<li>使用<code>mysql -uroot -p</code>登录（xampp集成的MySQL无密码）</li>
+<li>切换到MySQL数据库：<code>use mysql</code></li>
+<li>修改MySQL密码：<code>update user set password=password('123456') where user='root'</code></li>
+<li>刷新权限：<code>flush privileges</code></li>
 </ul>
-</li>
-<li><strong>多态</strong> ： 不同的子类对象调用相同的父类方法，产生不同的执行结果
-<ul>
-<li>多态可以增加代码的灵活度</li>
-<li>多态以继承和重写父类方法为前提</li>
-<li>多态不会影响到类的内部设计</li>
-</ul>
-</li>
-</ol>
+<h2 id="3-下载luckyframe">3. 下载LuckyFrame</h2>
+<p>访问Luckyframe官网，直接下载编译包，下载地址如下：</p>
+<pre><code>链接：  https://pan.baidu.com/s/1SNUhzoKFgH2TRQN2Rx711A 密码：u845
+</code></pre>
 <blockquote>
-<p>实例代码结构图示</p>
+<p>注意：下载3.0bata版本，同时还要下载数据库初始化sql文件</p>
 </blockquote>
-<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H0b8155e7965844d0a5903c42093acf00R.png" alt="" loading="lazy"></figure>
+<h2 id="4修改编译包数据库配置">4.修改编译包数据库配置</h2>
+<ul>
+<li>使用压缩工具打开下载好的编译包</li>
+<li>找到编译包目录中<code>BOOT-INF\classes\application-druid.yml</code>文件</li>
+<li>用notepad打开，将其中的<code>主数据库源</code>配置项中的密码改成本机MySQL的密码</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/Heabb9bbbc3f94b159ac29c938f9602741.png" alt="" loading="lazy"></figure>
+<h2 id="5导入sql文件">5.导入SQL文件</h2>
+<p>在启动LuckyFrame之前，需要先在MySQL数据库中导入<code>初始化sql</code>文件</p>
+<ul>
+<li>登录MySQL，新建<code>luckyframe</code>数据库：<code>create database luckyframe charset=utf8;</code></li>
+<li>回到命令行，使用<code>mysql -h localhost -uroot -p luckyframe &lt; V3.sql --default-character-set=utf8</code>将初始化SQL文件导入进数据库，注意要在sql文件所在目录执行该命令</li>
+</ul>
+<h2 id="6启动luckyframe">6.启动LuckyFrame</h2>
+<ul>
+<li>
+<p>进入LuckyFrame服务端jar包存放目录，在此目录打开命令行</p>
+</li>
+<li>
+<p>命令行输入：<code>java -jar LuckyFrameWeb.jar</code>启动服务即可</p>
+</li>
+<li>
+<p>启动成功后，会看到如下提示</p>
+</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/H3bb471a358a64da28a46a31a45dd130eN.png" alt="" loading="lazy"></figure>
+<h2 id="7访问">7.访问</h2>
+<ul>
+<li>在浏览器中输入<code>本机ip：80</code>即可访问LuckyFrame，默认为80端口，可以省略不写</li>
+<li>如要修改端口号，需要在编译包中找到<code>BOOT-INF\classes\application.yml</code>文件，修改默认端口配置</li>
+</ul>
+<p>访问效果图如下：</p>
+<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H50d41bdd78bd40889b1bfdc4a47e89cdr.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Jemeter性能测试完整入门]]></title>
+        <id>https://yihangliak.github.io/post/begin_jemeter/</id>
+        <link href="https://yihangliak.github.io/post/begin_jemeter/">
+        </link>
+        <updated>2019-07-23T01:18:12.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="性能测试笔记">性能测试笔记</h1>
+<h1 id="第一章-性能基础知识">第一章 性能基础知识</h1>
+<h2 id="1-性能测试的概念">1. 性能测试的概念</h2>
+<p>通过性能测试工具模拟多种正常，峰值，以及异常负载条件来对系统的各项性能指标进行测试</p>
+<h2 id="2性能测试的目的">2.性能测试的目的</h2>
+<ul>
+<li>评估系统能力</li>
+<li>测试系统可靠性</li>
+<li>识别系统的弱点（内存泄漏）</li>
+<li>性能调优（满足用户需求，优化瓶颈，提高整体性能）</li>
+</ul>
 <blockquote>
-<p>代码</p>
+<p>性能测试时间点，功能测试之后</p>
 </blockquote>
-<pre><code class="language-python">class Dog(object):
+<h2 id="3性能测试归属">3.性能测试归属</h2>
+<p>测试阶段划分：系统测试</p>
+<p>性能测试属于黑盒测试</p>
+<p>属于6大质量特性中的：效率特性</p>
+<h1 id="第二章-性能测试的分类">第二章 性能测试的分类</h1>
+<h2 id="1-负载测试">1 负载测试</h2>
+<ul>
+<li>通过逐步给服务器增加压力，直到某项数据不达标，测试软件的瓶颈</li>
+<li>评测和评估对象在不同工作量条件下的性能行为</li>
+<li>负载的目标是确保系统测试超出预期工作量的情况下仍然可以继续运行</li>
+</ul>
+<h2 id="2-压力测试">2 压力测试</h2>
+<ul>
+<li>强度测试，通过高负载的手段来使服务器资源处于极限状态，直到某项数据失效，测试系统的极限</li>
+<li>通过高负载的手段，可以更快的发现系统内存泄漏以及稳定性等问题</li>
+</ul>
+<h2 id="3-失效恢复性测试">3 失效恢复性测试</h2>
+<ul>
+<li>出现问题后能否根据预先制定的策略恢复，且恢复后能正常工作</li>
+</ul>
+<h2 id="4-并发测试">4 并发测试</h2>
+<ul>
+<li>测试多用户按照预定的场景请求某个业务或者功能时，是否会出现问题</li>
+<li>几乎所有的性能测试都会涉及到并发测试，并发测试的主要目的是找出并发问题（资源争用）</li>
+</ul>
+<h2 id="5-稳定性测试">5 稳定性测试</h2>
+<ul>
+<li>一般使用目标负载的1.5-2倍的负载量或者CPU占用达到70%，测试系统长时间运行（7x24），观察系统稳定性</li>
+</ul>
+<h2 id="6-配置测试">6 配置测试</h2>
+<ul>
+<li>通过调整系统软件、硬件环境，了解在不同情况下系统性能指标情况，从而找到系统最优配置</li>
+</ul>
+<blockquote>
+<p>新产品上线以前，先做一个配置测试，找到最优配置，然后进行负载，压力，稳定，失效恢复性等测试</p>
+<p>产品上线以后主要做压力测试</p>
+<p>当然，具体做什么类型的性能测试，需要根据项目背景去灵活选择</p>
+</blockquote>
+<h1 id="第三章-性能术语">第三章 性能术语</h1>
+<h2 id="1-事务">1 事务</h2>
+<p>一个任务从开始到结束的过程</p>
+<blockquote>
+<p>事务具有原子性</p>
+<p>原子性：整个程序操作过程中的所有操作，要么全部完成，要么全部不完成</p>
+</blockquote>
+<h2 id="2-响应时间">2 响应时间</h2>
+<p>系统对请求作出响应的时间（一个事务处理完成的时间）</p>
+<blockquote>
+<p>响应时间=网络传输时间+web服务器处理时间+DB服务器处理时间+浪费时间</p>
+<p>258原则：</p>
+<p>​	&lt;2秒快<br>
+​	大于2小于5秒可以<br>
+​	大于5小于8秒勉强接受<br>
+​	大于8秒不耐烦了，或者认为系统已经失去响应，而选择离开这个Web站点，或者发起第二次请</p>
+</blockquote>
+<h2 id="3-吞吐量">3 吞吐量</h2>
+<p>每秒服务器处理的请求或者事务数</p>
+<p>吞吐量衡量单位：</p>
+<ul>
+<li>每秒请求数</li>
+<li>每秒事务数（TPS）</li>
+<li>每秒页面数</li>
+<li>每秒查询数（QPS）</li>
+</ul>
+<h2 id="4-并发">4 并发</h2>
+<ul>
+<li>绝对并发：不同用户，在同一时刻，做同一个操作</li>
+<li>相对并发：不用用户，在同一时刻，做不同操作</li>
+</ul>
+<h2 id="5-并发数">5 并发数</h2>
+<p>同一时间操作的用户个数</p>
+<h2 id="6-场景">6 场景</h2>
+<p>模拟用户的真实操作过程</p>
+<p>分类：</p>
+<ul>
+<li>单一场景：单个操作</li>
+<li>混合场景：多个组合操作</li>
+</ul>
+<h2 id="7-思考时间">7 思考时间</h2>
+<p>用户每个操作之间的间隔时间，增加间隔时间可以更真实地模拟用户使用的场景</p>
+<h2 id="8-性能瓶颈">8 性能瓶颈</h2>
+<p>软件的性能缺陷</p>
+<p>这个缺陷主要分布在：</p>
+<ul>
+<li>硬件：如cpu等配置过低</li>
+<li>应用服务器：如web服务器，数据库系统等</li>
+<li>程序：程序设计的问题</li>
+<li>操作系统：如Windows虚拟内存交换效果不理想等</li>
+<li>网络设备：防火墙，交换机等</li>
+</ul>
+<h1 id="第四章-性能测试工具">第四章 性能测试工具</h1>
+<h2 id="1-工具分类">1 工具分类</h2>
+<p><strong>jmeter</strong></p>
+<ul>
+<li>免费，开源</li>
+<li>支持二次开发</li>
+<li>支持分布式部署</li>
+<li>支持命令行模式</li>
+</ul>
+<p><strong>LoadRunner</strong></p>
+<ul>
+<li>商业，收费</li>
+</ul>
+<p><strong>Locust</strong></p>
+<ul>
+<li>python开源性能测试工具</li>
+</ul>
+<p><strong>Apache ab</strong></p>
+<ul>
+<li>Apache的web性能测试工具</li>
+</ul>
+<h1 id="第五章-jmeter原理与安装">第五章  Jmeter原理与安装</h1>
+<h2 id="1-工作原理">1 工作原理</h2>
+<p>使用取样器向服务器发送请求，从服务器获取响应结果，然后通过线程组模拟服务器压力</p>
+<h2 id="2-安装">2 安装</h2>
+<p>安装JDK并配置环境变量</p>
+<p>官网下载jmeter压缩包，并解压</p>
+<p>双击bin目录下的jmeter.bat启动即可</p>
+<h2 id="3-常用组件">3 常用组件</h2>
+<p>Test Plan：测试计划（场景）</p>
+<ul>
+<li>Thread Group：线程组，模拟并发数
+<ul>
+<li>http request ：取样器，模拟用户请求
+<ul>
+<li>view result tree：查看结果树，监听取样器的结果</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H50ba236c8fd54827b2cb8db540b8bff3B.png" alt="" loading="lazy"></figure>
+<p>在取样器中添加响应断言</p>
+<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/Hf48d6854c1504741bf996e26a66c1ea26.png" alt="" loading="lazy"></figure>
+<p>断言界面详解</p>
+<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H4ffa89ad39cf4c91a5f754de0b3f786f0.png" alt="" loading="lazy"></figure>
+<p>添加聚合报告</p>
+<figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Hed61829eba6f429fb8aa50adcae88ec3G.png" alt="" loading="lazy"></figure>
+<p>聚合报告详情</p>
+<figure data-type="image" tabindex="5"><img src="https://puui.qpic.cn/fans_admin/0/3_1452561028_1568392796619/0" alt="" loading="lazy"></figure>
+<h2 id="4-第一个脚本">4 第一个脚本</h2>
+<p>1.新建测试计划</p>
+<p>2.创建线程组</p>
+<p>3.添加http取样器</p>
+<p>4.添加监听器-view result tree</p>
+<p>5.添加断言-response assertion</p>
+<p>6.添加聚合报告</p>
+<p>ecshop登录脚本</p>
+<figure data-type="image" tabindex="6"><img src="https://ae01.alicdn.com/kf/H2330733451dc4f3c8ae6d5ef2acb8d88R.png" alt="" loading="lazy"></figure>
+<h1 id="第六章-jmeter常用组件">第六章 jmeter常用组件</h1>
+<h2 id="1-参数化">1 参数化</h2>
+<p>1.设置用户自定义变量</p>
+<figure data-type="image" tabindex="7"><img src="https://ae01.alicdn.com/kf/H296e10c5f63d458fbe85e4e1dfab87b5Q.png" alt="" loading="lazy"></figure>
+<p>调用方式与RF一致，${变量名}</p>
+<figure data-type="image" tabindex="8"><img src="https://ae01.alicdn.com/kf/Hcabf2b45b57a4db2af85972e0fdf50ccP.png" alt="" loading="lazy"></figure>
+<p>添加参数化文件读取组件</p>
+<figure data-type="image" tabindex="9"><img src="https://ae01.alicdn.com/kf/Ha84c2299573c432ba776b71f204c9568I.png" alt="" loading="lazy"></figure>
+<h2 id="2-cookie关联">2 cookie关联</h2>
+<p>把上一个取样器的结果关联到一下个取样器</p>
+<p>http cookie manager 可以把cookie自动关联到下一个取样器的请求中</p>
+<p>在同一个线程组中添加一个 HTTP cookie manager</p>
+<figure data-type="image" tabindex="10"><img src="https://ae01.alicdn.com/kf/H079959fdcd494091b3046b85a8ff6b50O.png" alt="" loading="lazy"></figure>
+<p>添加完成以后无需配置，即可将第一个取样器中的cookie自动同步至所有线程组</p>
+<h2 id="3-上传文件">3  上传文件</h2>
+<p>以ecshop留言上传文件为例</p>
+<p>首先添加一个发表留言并且要上传文件的取样器，并配置好取样器</p>
+<figure data-type="image" tabindex="11"><img src="C:%5CUsers%5CAlex%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1568393079080.png" alt="" loading="lazy"></figure>
+<p>配置文件上传参数</p>
+<figure data-type="image" tabindex="12"><img src="https://ae01.alicdn.com/kf/Hbf0a71a4f1074950a64fa947302d01a6b.jpg" alt="" loading="lazy"></figure>
+<p>运行成功示意图</p>
+<h2 id="4-正则提取器">4  正则提取器</h2>
+<p>提取取样器结果中的任何内容</p>
+<p>通过表达式从一堆数据中提取符合表达式规则的数据</p>
+<p>语法：</p>
+<pre><code>[0-9]  : 表示任意一个数字，等价于/d
+[a-z]  : 表示任意一个小写字母
+[A-Z]  : 表示任意一个大写字母
+\w     : 表示任意一个字符，包含大小写字母，中文，数字以及一个_
+\s     : 表示一个空格
+{}     : 表示匹配前面表达式的连续n个
+{m,n}  : 表示匹配前面表达式的连续m-n个
++      : 表示匹配前面表达式的一个或多个
+\      : 去转义
+.      : 表示出了换行符之外的任意一个字符
+$      : 结尾
+^      : 开头
+？     ： 非贪婪匹配，匹配到一个结果后结束匹配
+()     : 需要提取的内容用小括号包围
 
-    def __init__(self, name):
-        self.name = name
+</code></pre>
+<p>添加正则提取器</p>
+<figure data-type="image" tabindex="13"><img src="https://ae01.alicdn.com/kf/H01a00a5f00c84c9b9bd4f907960c966d8.jpg" alt="" loading="lazy"></figure>
+<p>配置正则提取器</p>
+<figure data-type="image" tabindex="14"><img src="https://ae01.alicdn.com/kf/Heca919a2c0654a31973056072ba8004fq.jpg" alt="" loading="lazy"></figure>
+<p>在一下个查询订单详情的取样器中使用上述提取出的变量</p>
+<figure data-type="image" tabindex="15"><img src="https://ae01.alicdn.com/kf/Hedbe48d95f4c448fb22bfaed563d03d3d.jpg" alt="" loading="lazy"></figure>
+<h2 id="5-添加debug组件">5  添加debug组件</h2>
+<p>该组件可以查看所有使用过的变量</p>
+<p>添加debug组件</p>
+<figure data-type="image" tabindex="16"><img src="https://ae01.alicdn.com/kf/Ha9dd85c2e22a46edbba0333e5a5beadfn.jpg" alt="" loading="lazy"></figure>
+<p>为该组件添加一个结果树，即可查看使用过的变量</p>
+<h2 id="6-逻辑控制器">6  逻辑控制器</h2>
+<p>逻辑控制器，可以控制取样器的执行顺序</p>
+<h3 id="61-for">6.1 for</h3>
+<p>添加for循环控制器</p>
+<figure data-type="image" tabindex="17"><img src="https://ae01.alicdn.com/kf/He2e145376ba44a508d4fd5afaef61f35C.jpg" alt="" loading="lazy"></figure>
+<p>将查询订单详情挪至for控制器里面</p>
+<figure data-type="image" tabindex="18"><img src="https://ae01.alicdn.com/kf/Hb1e3aab477ba428a86d37b5faf3bf0fd2.jpg" alt="" loading="lazy"></figure>
+<p>配置for控制器</p>
+<figure data-type="image" tabindex="19"><img src="https://ae01.alicdn.com/kf/H7ac93b17b5c8422d8130391e1ffce8d6j.jpg" alt="" loading="lazy"></figure>
+<p>修改正则提取中的配置</p>
+<figure data-type="image" tabindex="20"><img src="https://ae01.alicdn.com/kf/He614b551973c4cdfb3cb3241b6243a53f.jpg" alt="" loading="lazy"></figure>
+<p>在查询订单中使用遍历出来得变量即可</p>
+<figure data-type="image" tabindex="21"><img src="https://ae01.alicdn.com/kf/H2c818e481014438bb777bc1882f70dd11.jpg" alt="" loading="lazy"></figure>
+<h3 id="62-if">6.2 if</h3>
+<p>添加if控制器</p>
+<figure data-type="image" tabindex="22"><img src="https://ae01.alicdn.com/kf/H95720511fb0e49c89acb7b98b4b3d177m.jpg" alt="" loading="lazy"></figure>
+<p>确定判断逻辑</p>
+<p>在第一步登录取样器中提取登录结果</p>
+<figure data-type="image" tabindex="23"><img src="https://ae01.alicdn.com/kf/Hea9fbfb1ca494e949a03706fdc58780b2.jpg" alt="" loading="lazy"></figure>
+<p>然后分别配置登录成功与登录失败需要执行的步骤</p>
+<figure data-type="image" tabindex="24"><img src="https://ae01.alicdn.com/kf/Hf72d6d092f1241f88b38b4fc72bd6d27c.jpg" alt="" loading="lazy"></figure>
+<h2 id="7-开关控制器">7 开关控制器</h2>
+<p>方式一：通过0和1决定执行哪个，0执行第一个，1执行第二个</p>
+<p>方式二：通过取样器名字决定执行哪个，名字必须与取样器完成一致才会执行</p>
+<figure data-type="image" tabindex="25"><img src="https://ae01.alicdn.com/kf/H2fcf3a500b5c46f98338ac6247c607a3l.jpg" alt="" loading="lazy"></figure>
+<h2 id="8-循环控制器">8  循环控制器</h2>
+<p>对单个取样器进行循环操作</p>
+<figure data-type="image" tabindex="26"><img src="https://ae01.alicdn.com/kf/H7b218c4b63b14a798a0b0b699912518e0.jpg" alt="" loading="lazy"></figure>
+<h1 id="第七章-并发数">第七章  并发数</h1>
+<h2 id="1-平均并发数">1 平均并发数</h2>
+<p>计算平均并发数</p>
+<pre><code>平均并发数 = 每日活跃用户数*用户使用时间/访问时间段
+</code></pre>
+<p>一个系统，每天2000个用户访问，访问时间集中在上午9-12点，平均每个用户访问10分钟，计算并发数</p>
+<pre><code>(2000*10)/(60*3)=111(大约)
+# 2000为用户数量
+# 10为用户使用时间
+# 60*3是为了前后单位统一，访问时间段为3个小时
+</code></pre>
+<h2 id="2-峰值用户数">2 峰值用户数</h2>
+<pre><code>峰值用户数 = 平均并发数 + 3*sqrt（平均并发数）
+</code></pre>
+<h1 id="第八章-搭建资源监控环境">第八章  搭建资源监控环境</h1>
+<h2 id="1服务端">1.服务端</h2>
+<ul>
+<li>在服务器端安装java，并且配置环境变量</li>
+</ul>
+<pre><code>创建java存放目录：/usr/local/java
+Linux配置环境变量
+cd ~   # 进入root目录
+vi .bash_profile
 
-    def game(self):
-        print('%s正在玩耍... ...' %self.name)
 
+yum -y install java-1.8.0-openjdk*
+</code></pre>
+<ul>
+<li>上传ServerAgent.zip到/opt目录，然后解压</li>
+<li>进入ServerAgent目录，启动该代理</li>
+</ul>
+<pre><code>./startAgent.sh     # 启动监控代理
+./startAgent.sh &amp;   # 以进程方式启动监控代理
+</code></pre>
+<h2 id="2-jmeter端">2. jmeter端</h2>
+<ul>
+<li>jmeter安装插件管理器</li>
+</ul>
+<pre><code>将jmeter-plugins-manager-1.3.jar放至jmeter安装目录下的lib\ext中
+重启jmeter
+</code></pre>
+<ul>
+<li>在option菜单中启动插件管理器</li>
+<li>在打开的插件管理器安装</li>
+</ul>
+<figure data-type="image" tabindex="27"><img src="https://ae01.alicdn.com/kf/Hbedb18dfb2814564a30a0c8d999c9cdaX.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>在jmeter脚本线程组中添加jpgc监听器</li>
+</ul>
+<figure data-type="image" tabindex="28"><img src="https://ae01.alicdn.com/kf/H5b543b96f5bf4a47b8cf1d6762a07b63I.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>配置该监听器</li>
+</ul>
+<figure data-type="image" tabindex="29"><img src="https://ae01.alicdn.com/kf/H35f126cf112a46d4a8dd7b9cb745f989a.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>不要忘了设置线程组，配置几个线程，运行时间等</li>
+</ul>
+<figure data-type="image" tabindex="30"><img src="https://ae01.alicdn.com/kf/Hbc5ce94529824970b066116118ba3326H.jpg" alt="" loading="lazy"></figure>
+<h1 id="第九章-性能测试流程">第九章  性能测试流程</h1>
+<p>需求分析(学习业务，分析规格文档)	<br>
+场景设计(测试场景、测试类型、并发数、步长、思考时间)<br>
+编写计划<br>
+环境搭建、数据准备、脚本开发<br>
+性能测试(性能数据收集)<br>
+性能分析、性能调优<br>
+性能测试报告<br>
+结束</p>
+<h1 id="第十章-centos搭建ecshop">第十章  centos搭建ecshop</h1>
+<p>1.上传xampp压缩包并解压</p>
+<pre><code>tar -xzvf xampp-linux-1.7.7.tar.gz
+</code></pre>
+<p>2.进入lampp目录</p>
+<p>3.输入命令启动xampp</p>
+<pre><code class="language-shell">./lampp start
 
-class XiaoTianQuan(Dog):
-
-    def game(self):
-        print('%s正在天上玩耍... ...' %self.name)
-
-
-class Person(object):
-
-    def __init__(self, name):
-        self.name = name
-
-    def game_with_dog(self, dog):  # 将狗对象传入
-        print(&quot;%s和%s正在玩耍&quot; %(self.name, dog.name))
-        dog.game()  # 调用狗对象中的game方法
-
-
-# xiaohei = Dog(&quot;小黑&quot;)    # 创建一条狗
-xiaohei = XiaoTianQuan(&quot;哮天犬&quot;)  # 小黑传入game with dog只是普通玩耍，哮天犬传入以后再天上玩耍
-
-xiaoming = Person(&quot;小明&quot;)  # 创建一个人
-xiaoming.game_with_dog(xiaohei)  # 调用人类中的与狗玩耍方法，并将xiaohei传入
-# 不同的子类对象，调用相同的父类对象，产生不同的结果，这就是多态
+# 如果提示xampp只能在32位系统运行
+# 使用yum命令安装32位包
+yum install -y glibc*i686
+</code></pre>
+<p>3.启动成功后，验证是否启动成功</p>
+<pre><code>netstat -anp|grep 80   # 查看httpd端口是否启动，httpd就是Apache的进程
+netstat -anp|grep 3306 # 查看mysql的端口是否存在
+</code></pre>
+<figure data-type="image" tabindex="31"><img src="https://ae01.alicdn.com/kf/Hfb9353eed354499998261198cfee1c113.jpg" alt="" loading="lazy"></figure>
+<p>4.上传ecshop项目包到htdocs目录</p>
+<p>5.解压安装即可</p>
+<h1 id="第十一章-练习">第十一章  练习</h1>
+<h2 id="1-ecshop登录实现参数化">1. ecshop登录实现参数化</h2>
+<h3 id="11-创建登录脚本">1.1 创建登录脚本</h3>
+<p>创建测试计划</p>
+<figure data-type="image" tabindex="32"><img src="https://ae01.alicdn.com/kf/H65adaa3cef914798a1298bdd3d6181e7F.jpg" alt="" loading="lazy"></figure>
+<p>添加线程组</p>
+<figure data-type="image" tabindex="33"><img src="https://ae01.alicdn.com/kf/Hc06b39cdfaa14369b46059d83e0103ebT.jpg" alt="" loading="lazy"></figure>
+<p>添加取样器</p>
+<figure data-type="image" tabindex="34"><img src="https://ae01.alicdn.com/kf/Hba10332425544c2a9cfef61b91edcaa7v.jpg" alt="" loading="lazy"></figure>
+<p>配置取样器</p>
+<figure data-type="image" tabindex="35"><img src="https://ae01.alicdn.com/kf/Hfcad5d3d0d4e41e399c60d7edd9b6268C.jpg" alt="" loading="lazy"></figure>
+<p>添加观察结果树</p>
+<figure data-type="image" tabindex="36"><img src="https://ae01.alicdn.com/kf/Hda3fe507ea8e462aa67808688d01c3dd3.jpg" alt="" loading="lazy"></figure>
+<p>验证是否登录成功</p>
+<figure data-type="image" tabindex="37"><img src="https://ae01.alicdn.com/kf/Hb1628955ed7549569aa86975ec8a2a6bD.jpg" alt="" loading="lazy"></figure>
+<h3 id="12-添加参数化组件">1.2 添加参数化组件</h3>
+<p>添加参数读取组件</p>
+<figure data-type="image" tabindex="38"><img src="https://ae01.alicdn.com/kf/Hacb60fb62b384eaa8ca9d40858f889f6S.jpg" alt="" loading="lazy"></figure>
+<p>创建参数化文件</p>
+<figure data-type="image" tabindex="39"><img src="https://ae01.alicdn.com/kf/H0f3376fbac59496c8640abd41e76a0bdP.jpg" alt="" loading="lazy"></figure>
+<p>配置参数化组件</p>
+<figure data-type="image" tabindex="40"><img src="https://ae01.alicdn.com/kf/H6c324e37688641e7961760e7f4c9171bC.jpg" alt="" loading="lazy"></figure>
+<p>重新用参数化形式配置取样器</p>
+<figure data-type="image" tabindex="41"><img src="https://ae01.alicdn.com/kf/H646a447f0682468b89276f91603a6c26Z.jpg" alt="" loading="lazy"></figure>
+<h3 id="13-添加循环控制器">1.3 添加循环控制器</h3>
+<p>添加一个循环控制器</p>
+<figure data-type="image" tabindex="42"><img src="https://ae01.alicdn.com/kf/Hcd03ffe8bd3f45788773005b239082845.jpg" alt="" loading="lazy"></figure>
+<p>配置循环控制器，循环执行次数为3次，与参数化源文件数量对应</p>
+<figure data-type="image" tabindex="43"><img src="https://ae01.alicdn.com/kf/Ha88f4d50a6b04faa8bce9347644a340e1.jpg" alt="" loading="lazy"></figure>
+<h3 id="14-验证结果">1.4 验证结果</h3>
+<p>执行，验证是否三个账号都登录成功</p>
+<p>添加断言</p>
+<figure data-type="image" tabindex="44"><img src="https://ae01.alicdn.com/kf/H2097954b56b345a69cae172e9414a70dO.jpg" alt="" loading="lazy"></figure>
+<p>手工验证</p>
+<figure data-type="image" tabindex="45"><img src="https://ae01.alicdn.com/kf/Hbfed1219a6f4492e82d25b5f7d647f7dj.jpg" alt="" loading="lazy"></figure>
+<h2 id="2-ecshop浏览器商品">2. ecshop浏览器商品</h2>
+<h3 id="21-准备工作">2.1 准备工作</h3>
+<p>以登录脚本为基础</p>
+<ul>
+<li>去掉参数化配置</li>
+<li>去掉循环控制器</li>
+<li>保证登录成功</li>
+</ul>
+<h3 id="22-关联cookie">2.2 关联cookie</h3>
+<p>添加cookie关联</p>
+<figure data-type="image" tabindex="46"><img src="https://ae01.alicdn.com/kf/H81a3722b00014dfc8de90e18f4bb76c0P.jpg" alt="" loading="lazy"></figure>
+<h3 id="23-配置用户自定义变量">2.3 配置用户自定义变量</h3>
+<p>配置用户自定义变量可以在创建多个取样器时，方便取样器的配置统一性</p>
+<p>添加用户自定义变量组件</p>
+<figure data-type="image" tabindex="47"><img src="https://ae01.alicdn.com/kf/H137122734c9b44878fa892f4e798fcfa5.jpg" alt="" loading="lazy"></figure>
+<p>配置用户自定义变量组件</p>
+<figure data-type="image" tabindex="48"><img src="https://ae01.alicdn.com/kf/H0955c1164bbc42dc81d761cc0b3dfa58K.jpg" alt="" loading="lazy"></figure>
+<p>修改登录取样器，调用用户自定义变量</p>
+<figure data-type="image" tabindex="49"><img src="https://ae01.alicdn.com/kf/H6c4b60df30bb463bad93f47e7144e568j.jpg" alt="" loading="lazy"></figure>
+<p>修改浏览商品取样器配置</p>
+<figure data-type="image" tabindex="50"><img src="https://ae01.alicdn.com/kf/He4888e37d6334c3cb91dd657ae8cabe4R.jpg" alt="" loading="lazy"></figure>
+<h3 id="24-观察结果与断言">2.4 观察结果与断言</h3>
+<p>为浏览器商品分别添加结果树，断言，以及整个线程组的聚合报告</p>
+<figure data-type="image" tabindex="51"><img src="https://ae01.alicdn.com/kf/Hc99131ad367f4d2084278e9c3805df9a1.jpg" alt="" loading="lazy"></figure>
+<h3 id="25-验证结果">2.5 验证结果</h3>
+<p>执行脚本，查看聚合报告中的结果是否正确</p>
+<figure data-type="image" tabindex="52"><img src="https://ae01.alicdn.com/kf/H872d4d78d88a4c169dd8825b62ce982b0.jpg" alt="" loading="lazy"></figure>
+<p>负载测试  持续120s</p>
+<p>sql语句调优</p>
+<h1 id="第十三章-图形化报告">第十三章 图形化报告</h1>
+<p>以命令行的模式运行jmeter脚本,生成图形化的报告</p>
+<pre><code>jmeter -n -t C:\Users\Administrator\Desktop\lejifen.jmx -l result.jtl -e -o E:\apache-jmeter-5.1.1\bin\WebReport
+</code></pre>
+<ul>
+<li>n：非GUI模式执行JMeter；</li>
+<li>t： 脚本文件(.jmx文件)的路径；</li>
+<li>l： 指定生成测试结果的保存文件(.jtl格式)，此文件必须不存在；</li>
+<li>e：测试结束后，生成测试报告；</li>
+<li>o：用于存放测试报告的路径；</li>
+</ul>
+<blockquote>
+<p>注意：如果要重新生成一份测试报告，都需要将Jmeter的bin目录下的jtl文件以及webreport文件夹进行删除。<br>
+可以在Jmeter的bin目录下手动直接删除，也可以通过命令删除。</p>
+</blockquote>
+<pre><code>del /s /Q D:\Jmeter\apache-jmeter-3.2\bin\result.jtl //删除jtl文件
+rd /s /Q D:\Jmeter\apache-jmeter-3.2\bin\WebReport //删除webreport文件夹
 </code></pre>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Python全栈（二）：私有属性与私有方法]]></title>
-        <id>https://yihangliak.github.io/post/dz4T-djIi/</id>
-        <link href="https://yihangliak.github.io/post/dz4T-djIi/">
+        <title type="html"><![CDATA[2019 年中总结]]></title>
+        <id>https://yihangliak.github.io/post/2019_mid_year/</id>
+        <link href="https://yihangliak.github.io/post/2019_mid_year/">
         </link>
-        <updated>2019-09-11T03:51:37.000Z</updated>
-        <content type="html"><![CDATA[<blockquote>
-<p>基本介绍</p>
-</blockquote>
+        <updated>2019-07-22T08:22:12.000Z</updated>
+        <summary type="html"><![CDATA[<p>月亮总不会被太阳抛弃  所以等你的日子不值一提</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>月亮总不会被太阳抛弃  所以等你的日子不值一提</p>
+<!-- more -->
+<p>不知不觉，19年已经过去大半啦<br>
+马上就要再一次经历<code>happy birthday</code>的洗礼<br>
+回顾这大半年  除了工作 好像没干啥事儿<br>
+<strong>视力不断<code>↓</code></strong><br>
+走在路上   四五米开外的东西  已是时见一斑<br>
+<strong>体重不断<code>↑</code></strong><br>
+办了张健身卡 从刚开始拿到卡的打鸡血模式 现在演变成了 耶 又下雨了 可以不用去跑步了的状态<br>
+6月份  公司组织去桂林旅游<br>
+WTF  大学毕业旅行就是去的桂林   时隔多年 竟想不到以这种方式故地重游<br>
+想我一湖南人  张家界都没有去过 竟然去了桂林两次  还是旅游<br>
+心态崩了<br>
+最近迷上焦迈奇的歌   有一首里面写到<br>
+<code>月亮总不会被太阳抛弃 所以等你的日子不值一提</code><br>
+唱的真好  干的漂亮<br>
+原来有时候  一个人干着不为人知的事情  very洒脱<br>
+写这篇总结断断续续<br>
+从早上写到晚上<br>
+绞尽脑汁   东拼西凑<br>
+可是到现在还是混乱得 宛如一片残垣<br>
+得<br>
+还是来根<code>寂寞</code>再说<br>
+记忆是个好东西  可惜我没有<br>
+以摆动的二郎腿结束这篇<code>zongjie</code><br>
+愿顺利度过余下半年 白发少几根  体重减几斤  工资涨几分</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Python Requests]]></title>
+        <id>https://yihangliak.github.io/post/python-requests/</id>
+        <link href="https://yihangliak.github.io/post/python-requests/">
+        </link>
+        <updated>2019-07-20T01:53:31.000Z</updated>
+        <summary type="html"><![CDATA[<p>Requests 唯一的一个非转基因的 Python HTTP 库，人类可以安全享用。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Requests 唯一的一个非转基因的 Python HTTP 库，人类可以安全享用。</p>
+<!-- more -->
+<h1 id="requests">Requests</h1>
+<h1 id="1-安装requests">1. 安装requests</h1>
+<p>命令行使用pip安装：<code>pip install requests</code></p>
+<h1 id="2-get请求">2. get请求</h1>
+<h2 id="21-get请求">2.1 get请求</h2>
+<p>该方法用于向目标网址发送请求，接收响应</p>
+<p><code>get</code>方法中的参数说明：</p>
 <ul>
-<li><strong>私有属性</strong> 就是 <strong>对象</strong> 不希望公开的属性</li>
-<li><strong>私有方法</strong> 就是 <strong>对象</strong> 不希望公开的方法</li>
+<li>url：必填，指定请求的目标网址</li>
+<li>params：字典类型，指定请求参数</li>
 </ul>
+<p>该方法返回一个response对象，常用的方法和属性如下：</p>
+<pre><code class="language-python">import requests
+
+r = requests.get('https://api.github.com/events')  # 使用get请求访问github
+print(r.status_code)                      # 打印响应状态码
+print(r.text)                             # 返回str类型的响应
+print(r.url)                              # 返回请求网站的url
+print(r.encoding)                         # 返回响应时间的编码方式
+print(r.cookies)                          # 返回响应的cookies信息
+print(r.headers)                          # 返回响应头部
+print(r.content)                          # 返回bytes类型的响应体
+print(r.json())                           # 返回字典类型的响应体
+</code></pre>
+<h2 id="22-传递url参数">2.2 传递URL参数</h2>
 <blockquote>
-<p>定义方式</p>
+<p>注意：<code>httpbin.org</code>是一个开源的，用于测试网页请求的网站</p>
 </blockquote>
-<p>在定义属性或者方法时，在属性或者方法名前增加 <strong>两个下划线</strong> ，这就是定义私有属性或者私有方法</p>
+<p>在get请求中，使用<code>params</code>关键字参数，可将字典类型的自定义参数传入到URL中进行拼接</p>
+<pre><code class="language-python">import requests
+
+url = 'http://httpbin.org/get'   # 定义请求目标网址
+params = {                       # 定义自定义请求参数
+    'key1':'value1',
+    'key2':'value2'
+}
+r = requests.get(url, params=params)  # get请求中传入自定义参数
+print(r.status_code)               # 打印状态码
+print(r.url)                       # 打印传入参数后的URL
+print(r.json())                    # 返回dict响应
+</code></pre>
+<pre><code># 状态码
+200
+# 传入参数后的url
+http://httpbin.org/get?key1=value1&amp;key2=value2    
+# 返回的dict类型数据中可以看到自定义参数
+{'args': {'key1': 'value1', 'key2': 'value2'}, 'headers': {'Accept': '*/*', 'Accept-Encodinh': 'gzip, deflate', 'Connectioo': 'keep-alive', 'Host': 'httpbin.org', 'User-Agent': 'python-requests/2.18.4'}, 'origin': '119.123.77.203, 119.123.77.203', 'url': 'https://httpbin.org/get?key1=value1&amp;key2=value2'}
+
+</code></pre>
+<h2 id="23-实例">2.3 实例</h2>
+<p>以百度搜索为例</p>
+<pre><code class="language-python">import requests
+
+url = 'http://www.baidu.com/s'
+params = {'wd':'python'}
+r = requests.get(url, params=params)  # get方法中传入params参数，可以讲自定义参数拼接到URL中
+print(r.url)                          # 打印拼接过后的URL
+print(r.text)                         # 打印响应文本内容
+</code></pre>
+<pre><code>http://www.baidu.com/s?wd=python
+</code></pre>
+<h1 id="3-post请求">3. post请求</h1>
+<p>在web课程中我们已经知晓了，客户端发送一些敏感的信息时，我们需要通过post请求方式，这种传输方式比get请求安全，而且是通过加密的方式传输比较安全，下面我们就介绍一下怎样通过requests库进行发送post请求</p>
+<h2 id="31-data">3.1 data</h2>
+<p>如果想要发送一些编码为表单形式的数据，只需要传递一个字典给<code>data</code>关键字参数，你的字典数据在发出请求时自动编码为表单形式</p>
+<pre><code class="language-python">import requests
+
+# 给data传入字典数据
+r = requests.post('http://httpbin.org/post', data={'key1':'value1', 'key2':'value2'})
+print(r.text)
+</code></pre>
+<pre><code>{
+  &quot;args&quot;: {}, 
+  &quot;data&quot;: &quot;&quot;, 
+  &quot;files&quot;: {}, 
+  &quot;form&quot;: {               # data传入到这里，以表单形式
+    &quot;key1&quot;: &quot;value1&quot;, 
+    &quot;key2&quot;: &quot;value2&quot;
+  }, 
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, 
+    &quot;Content-Length&quot;: &quot;23&quot;, 
+    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;python-requests/2.18.4&quot;
+  }, 
+  &quot;json&quot;: null, 
+  &quot;origin&quot;: &quot;119.123.77.203, 119.123.77.203&quot;, 
+  &quot;url&quot;: &quot;https://httpbin.org/post&quot;
+}
+</code></pre>
+<h2 id="32-json">3.2 json</h2>
+<p>post方法还可以以<code>json</code>关键字参数传入json数据，传入json数据时，<code>header</code>中的<code>Content-Type</code>默认为<code>application/json</code></p>
+<p>将字典数据转化为<code>json</code>数据，需要导入<code>json</code>模块，并用<code>dumps</code>进行转换</p>
+<pre><code class="language-python">import requests
+
+data = {'key1':'value1', 'key2':'value2'}   # 定义字典数据
+
+# 将字典转化为json并传入请求中
+r = requests.post('http://httpbin.org/post', json=json.dumps(data))  
+print(r.text)
+</code></pre>
+<pre><code>{
+  &quot;args&quot;: {}, 
+  &quot;data&quot;: &quot;\&quot;{\\\&quot;key1\\\&quot;: \\\&quot;value1\\\&quot;, \\\&quot;key2\\\&quot;: \\\&quot;value2\\\&quot;}\&quot;&quot;,   # json传到这里
+  &quot;files&quot;: {}, 
+  &quot;form&quot;: {}, 
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, 
+    &quot;Content-Length&quot;: &quot;46&quot;, 
+    &quot;Content-Type&quot;: &quot;application/json&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;python-requests/2.18.4&quot;
+  }, 
+  &quot;json&quot;: &quot;{\&quot;key1\&quot;: \&quot;value1\&quot;, \&quot;key2\&quot;: \&quot;value2\&quot;}&quot;, 
+  &quot;origin&quot;: &quot;119.123.77.203, 119.123.77.203&quot;, 
+  &quot;url&quot;: &quot;https://httpbin.org/post&quot;
+}
+
+</code></pre>
+<h2 id="33-实例">3.3 实例</h2>
 <blockquote>
-<p>提示</p>
+<p>在真实场景中，如何能够确定<code>post</code>请求中应该传入<code>data</code>还是<code>json</code>呢？</p>
 </blockquote>
+<p>确定<code>post</code>请求中，应该传入<code>data</code>还是<code>json</code>，可以通过抓包工具抓取请求数据，查看请求<code>header</code>中<code>Content-Type</code>的值：</p>
 <ul>
-<li>私有属性或者私有方法，在类外无法访问，但是在类中是可以访问的</li>
+<li><code>Content-Type：application/from</code>：传入data</li>
+<li><code>Content-Type：application/json</code>：传入json</li>
 </ul>
+<p>ecshop登录实例：</p>
+<p>首先，通过<code>fiddler</code>抓包，查看ecshop登录请求头中的<code>Content-Type</code>，可以看到请求中的数据是以<code>from</code>的形式发送到服务器的，如图：</p>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2019/07/22/5d352bcc4179d47999.png" alt="" loading="lazy"></figure>
+<p>所以，在使用<code>requests</code>发送<code>post</code>请求时，用户名与密码都会以<code>data</code>关键字参数传入</p>
+<pre><code class="language-python">import requests
+import re
+
+url = 'http://localhost:82/ecshop/user.php'
+datas = {'username':'liyihang', 'password':'tashi123', 'act':'act_login'}
+r = requests.post(url, data=datas)
+print(r.text)
+
+# 加入判断进行断言
+if &quot;欢迎您回来！&quot; in result:
+    print('登录成功')
+else:
+	print('登录失败')
+</code></pre>
+<h1 id="4-保持会话">4. 保持会话</h1>
+<p>一般在项目中，很多操作都是需要先登录再进行，所以需要先发送登录请求，登录成功后，保持登录状态，再进行后续操作，在requests中保持会话，我们可以用<code>session</code>来保持登录状态</p>
 <blockquote>
-<p>代码示例</p>
+<p><strong>为什么session可以实现保持会话呢？</strong></p>
+<p>因为底层使用的是urllib3.connectionpool 一看到连接池就会联想到数据库的连接池，对就是池化的概念。且链接是采用的HTTP 长链接，再底层是用HTTP1.1 Connection: keep-alive来实现的</p>
 </blockquote>
-<p><strong>私有方法</strong></p>
-<pre><code class="language-python">class Test():
-    def test1(self):
-        print('普通方法')
-        self.__test3()     # 私有方法可以在类内部被调用
+<pre><code class="language-python">import requests
 
-    def _test2(self):
-        print('普通方法')
+# 保持登录，然后充值100
+s = requests.session()  # 建立一个session
 
-    def __test3(self):      # 双斜线开头则为私有方法
-        print('私有方法')
+# 定义登录与充值需要的数据
+url = 'http://localhost:82/ecshop/user.php'
+datas1 = {'username':'liyihang', 'password':'tashi123', 'act':'act_login'}
+datas2 = {'amount':'100', 'user_note':'jiekou', 'payment_id':'2', 'act':'act_account'}
 
-t = Test()
-t.test1()
-t._test2()
-# t.__test3()        # 私有方法在外部不能被调用
+# 使用建立的session对象发送登录请求
+# 登录成功后会返回的cookie会被保存在该session中
+r = s.post(url, data=datas1)
+# print(r.cookies)
+# 发送充值请求
+r2 = s.post(url, data=datas2 )
+print(r2.text)
+
+# 这里可以加一个简单判断用来断言结果是否正确
 </code></pre>
-<p><strong>私有属性</strong></p>
-<pre><code class="language-python">class Person():
-    def __init__(self, name):
-        self.__name = name   # 双下划线+属性名=私有属性
-        self.sex = 'boy'
+<h1 id="5自定义请求头">5.自定义请求头</h1>
+<h2 id="51-获取请求头">5.1 获取请求头</h2>
+<blockquote>
+<p><code>httpbin.org/headers</code>会返回发送请求的请求头</p>
+</blockquote>
+<p>请求头内容可以用<code>r.headers</code>获取</p>
+<pre><code class="language-python">import requests
 
-    def get_name(self):
-        return self.__name
+r = requests.get('http://httpbin.org/headers')
+print(r.headers)
+print(r.text)
 
-    def set_name(self, new_name):   # 定义一个修改name属性的方法，一旦name长度小于5则报错
-        if len(new_name)&gt;=5:
-            self.__name = new_name   # 私有属性在类中是可以访问的
-        else:
-            print('error:名字长度需要大于或者等于5')
-
-
-p = Person('zs')
-print(p.sex)           # 普通属性在类外是可以访问到的
-# print(p.__name)      # 私有属性在类外不能访问
-p.set_name('hiiii')    # 调用修改name属性的方法
-print(p.get_name())    # 访问被修改之后的name属性
 </code></pre>
+<p>结果如下，可以看到<code>user-agent</code>为requests</p>
+<pre><code>{
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;*/*&quot;, 
+    &quot;Accept-Encodinh&quot;: &quot;gzip, deflate&quot;, 
+    &quot;Connectioo&quot;: &quot;keep-alive&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;python-requests/2.18.4&quot;   
+  }
+}
+</code></pre>
+<h2 id="52-自定义请求头">5.2 自定义请求头</h2>
+<p>很多网站为了保证安全会设置<code>反爬虫机制</code>，也就是说对于<code>非浏览器</code>的访问拒绝响应，在这种情况下，就需要修改请求中的<code>headers</code>信息<code>伪装</code>成浏览器访问</p>
+<p><strong>使用浏览器访问httpbin 获取headers</strong></p>
+<p>打开浏览器，在地址栏中输入：<code>http://httpbin.org/headers</code></p>
+<p>该URL会返回发送请求的请求头，所以会将浏览器发送的请求头部返回，如下：</p>
+<pre><code>{
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3&quot;, 
+    &quot;Accept-Encodinh&quot;: &quot;gzip, deflate&quot;, 
+    &quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.9,en;q=0.8&quot;, 
+    &quot;Connectioo&quot;: &quot;keep-alive&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;, 
+    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&quot;
+  }
+}
+</code></pre>
+<p><strong><code>headers</code>中各参数的作用如下：</strong></p>
+<ul>
+<li>accept：指定客户单接受的内容类型，<code>/</code>表示任意类型，其余按照字义</li>
+<li><s>accept-encoding：指定客户端接受的编码类型</s></li>
+<li><s>accept-language：指定客户端接受的语言类型，<code>q=0.9</code>表示喜欢程度，不写则是1，数值越高越喜欢</s></li>
+<li>connection：指定长链接处理方式，<code>keep-alive</code>表示希望保持传输链接，http本身是无状态的</li>
+<li>host：服务器主机名</li>
+<li>user-agent：用户代理，服务器从此处知道客户端的系统类型以及版本等信息</li>
+</ul>
+<p><strong>将获取到的headers 传给<code>get</code></strong></p>
+<pre><code class="language-python">import requests
+
+url = 'http://httpbin.org/headers'
+header = {
+    &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3&quot;,
+    &quot;Accept-Encodinh&quot;: &quot;gzip, deflate&quot;,
+    &quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.9,en;q=0.8&quot;,
+    &quot;Connectioo&quot;: &quot;keep-alive&quot;,
+    &quot;Host&quot;: &quot;httpbin.org&quot;,
+    &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;,
+    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&quot;
+  }
+# url = 'http://www.baidu.com'
+r = requests.get(url, headers=header)  # 将自定义headers信息通过headers关键字参数传入
+# print(r.headers)
+print(r.text)
+</code></pre>
+<p>自定义headers后，返回的结果如下：</p>
+<pre><code>{
+  &quot;headers&quot;: {
+    &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3&quot;, 
+    &quot;Accept-Encodinh&quot;: &quot;gzip, deflate,gzip, deflate&quot;, 
+    &quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.9,en;q=0.8&quot;, 
+    &quot;Connectioo&quot;: &quot;keep-alive,keep-alive&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;, 
+    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&quot;
+  }
+}
+
+</code></pre>
+<h2 id="53-实例">5.3 实例</h2>
+<p>以<code>知乎发现</code>页面为例，在没有通过自定义请求头<code>伪装</code>成真实浏览器时，是获取不到该页面中的信息的，只有在将请求头伪装成与真实浏览器一样以后，才可以获取到该页面的信息</p>
+<p>首先，用<code>fiddler</code>抓取知乎-发现页面请求信息，在headers中找到<code>user-agent</code>信息，并将其复制</p>
+<figure data-type="image" tabindex="2"><img src="https://mypic-1256006100.cos.ap-chengdu.myqcloud.com/markdown_pic/Snipaste_2019-07-24_10-24-41.png" alt="" loading="lazy"></figure>
+<p>然后在代码中自定义header</p>
+<pre><code class="language-python">import requests
+
+# 未定义请求头之前
+# r = requests.get('https://www.zhihu.com/explore')
+# print(r.text)   # 不能正常访问页面信息
+
+header = {
+    &quot;User-Agent&quot;:&quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 &quot;
+                 &quot;(KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&quot;
+}
+
+# 通过headers关键字参数将自定义header传入
+r = requests.get('https://www.zhihu.com/explore', headers=header)
+print(r.text)    # 正常访问知乎发现页面
+
+</code></pre>
+<h1 id="6发送https请求">6.发送HTTPS请求</h1>
+<h2 id="61-sslerror">6.1 SSLError</h2>
+<p>requests在发送<code>HTTPS</code>请求时，有时会报证书错误，</p>
+<p>别在开启<code>Fiddler</code>抓包工具时，发送访问百度首页时会报证书错误</p>
+<p>代码与错误如下：</p>
+<pre><code class="language-python">import requests
+
+r = requests.get(&quot;https://www.baidu.com&quot;)
+print(r.status_code)
+</code></pre>
+<p>执行上述代码会报证书错误：<code>requests.exceptions.SSLError: HTTPSConnectionPool</code></p>
+<h2 id="62-关闭证书验证">6.2 关闭证书验证</h2>
+<blockquote>
+<p>解决办法为：关闭证书验证</p>
+</blockquote>
+<p>Requests的请求默认<code>verify=True</code>，如果你将<code>verify</code>设置为<code>False</code>，Requests 也能忽略对 SSL 证书的验<br>
+证</p>
+<pre><code class="language-python">import requests
+
+r = requests.get(&quot;https://www.baidu.com&quot;, verify=False)  # 关闭证书验证
+print(r.status_code)
+</code></pre>
+<h2 id="63-忽略警告信息">6.3 忽略警告信息</h2>
+<pre><code class="language-python">import urllib3
+
+# 关闭警告
+urllib3.disable_warnings()
+r = requests.get(&quot;https://www.baidu.com&quot;, verify=False)  # 关闭证书验证
+print(r.status_code)
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Postman使用技巧]]></title>
+        <id>https://yihangliak.github.io/post/postman-shi-yong-ji-qiao/</id>
+        <link href="https://yihangliak.github.io/post/postman-shi-yong-ji-qiao/">
+        </link>
+        <updated>2019-07-19T03:40:49.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="postman使用教程">Postman使用教程</h1>
+<h1 id="1介绍">1.介绍</h1>
+<p>postman是一个接口测试工具，在做接口测试的时候，postman相当于一个客户端，他可以模拟用户发起各类的<code>HTTP请求</code>，将<code>请求</code>你数据发送至<code>服务端</code>，获取对应的响应结果，从而验证响应中的结果是否与预期值匹配；并确保开发人员能够及时处理接口中的bug，进而保证产品上线后的<code>稳定性</code>与<code>安全性</code></p>
+<h1 id="2优势">2.优势</h1>
+<ul>
+<li>简单易用的图形用户界面</li>
+<li>可以保存API请求历史记录</li>
+<li>可用集合Runner来自动化测试</li>
+<li>灵活的API监控</li>
+</ul>
+<h1 id="3安装">3.安装</h1>
+<p>官网下载地址：<a href="https://www.getpostman.com/downloads/">https://www.getpostman.com/downloads/</a></p>
+<p>下载安装包安装即可，注意系统位数</p>
+<h1 id="4工具界面简介">4.工具界面简介</h1>
+<figure data-type="image" tabindex="1"><img src="https://ae01.alicdn.com/kf/H84688f19fd774b17b2eafd6c4cc8c350j.png" alt="" loading="lazy"></figure>
+<h1 id="5发送请求">5.发送请求</h1>
+<h2 id="51-创建请求选项卡">5.1 创建请求选项卡</h2>
+<p>点击请求构建器中的<code>+</code>号，创建一个新的选项卡</p>
+<figure data-type="image" tabindex="2"><img src="https://ae01.alicdn.com/kf/He85d067bbd8140aeac07218d609a1908J.png" alt="" loading="lazy"></figure>
+<h2 id="52-填写请求地址">5.2 填写请求地址</h2>
+<p>以百度首页为例，在请求地址栏中填写请求地址：<code>https://www.baidu.com/s?wd=python</code></p>
+<p>请求方式选择<code>get</code></p>
+<figure data-type="image" tabindex="3"><img src="https://ae01.alicdn.com/kf/H4e21fb54aca842349d1c5476b65d8842V.png" alt="" loading="lazy"></figure>
+<p>在响应内容中：</p>
+<ul>
+<li>
+<p><code>pretty</code>显示为格式化后的json</p>
+</li>
+<li>
+<p><code>raw</code>是未经处理的数据</p>
+</li>
+<li>
+<p><code>preview</code>可以预览HTML页面</p>
+</li>
+<li>
+<p><code>status</code>为状态码</p>
+</li>
+</ul>
+<h1 id="6使用用例集">6.使用用例集</h1>
+<p>postman中可以通过新建<code>Collections</code>的方式来保存测试请求</p>
+<h2 id="61-新建用例集">6.1 新建用例集</h2>
+<figure data-type="image" tabindex="4"><img src="https://ae01.alicdn.com/kf/Hdbba0f5eaf604bb88492f522fedd94deF.png" alt="" loading="lazy"></figure>
+<h2 id="62-添加请求到用例集">6.2 添加请求到用例集</h2>
+<p>点击发送请求后的<code>save</code>按钮，保存请求到用例集</p>
+<figure data-type="image" tabindex="5"><img src="https://ae01.alicdn.com/kf/H389975a494d340829c8d36cdfc43d292k.png" alt="" loading="lazy"></figure>
+<h1 id="7断言">7.断言</h1>
+<p>postman中可以为每个请求设置<code>断言</code>，用来判断接口功能是否正常</p>
+<h2 id="71-添加断言">7.1 添加断言</h2>
+<p>在请求界面中，点击<code>test</code>选项卡，然后在断言输入框中写入断言即可，注意要按<code>ctrl +s</code>保存</p>
+<figure data-type="image" tabindex="6"><img src="https://ae01.alicdn.com/kf/H1df54d852680450dbe08988b1a60120fN.png" alt="" loading="lazy"></figure>
+<h2 id="72-查看断言结果">7.2 查看断言结果</h2>
+<p>在响应界面中，点击<code>Test Results</code>可以查看到断言的结果</p>
+<figure data-type="image" tabindex="7"><img src="https://ae01.alicdn.com/kf/H7f21f908d3384dfa9c5db08717a25dcdD.png" alt="" loading="lazy"></figure>
+<h2 id="73-常用的断言方法">7.3 常用的断言方法</h2>
+<pre><code class="language-js">pm.test(&quot;Status code is 200&quot;, function () {
+    pm.response.to.have.status(200);
+}); //断言状态码是200可以
+
+pm.test(&quot;Body matches string “yunda”&quot;, function () {
+    pm.expect(pm.response.text()).to.include(&quot;yunda&quot;);
+}); //检查响应主体中是否包含指定字符串
+
+pm.test(&quot;Response time is less than 200ms&quot;, function () {
+    pm.expect(pm.response.responseTime).to.be.below(200);
+}); //检查响应时间是否小于200ms
+</code></pre>
+<h1 id="8批量运行用例集">8.批量运行用例集</h1>
+<p>用例集创建好并且每个请求都写好断言以后，则可以批量执行用例集，并生成相应的报告</p>
+<p>首先点击用例集列表中的箭头，调出批量执行界面，点击<code>run</code></p>
+<figure data-type="image" tabindex="8"><img src="https://ae01.alicdn.com/kf/H01d941ed2df442e39d7675dcb6fa8c0dN.png" alt="" loading="lazy"></figure>
+<p>配置执行参数</p>
+<figure data-type="image" tabindex="9"><img src="https://ae01.alicdn.com/kf/Hfe2feccd6bb741789b96d4b48d9a9207D.png" alt="" loading="lazy"></figure>
+<p>执行结果页面</p>
+<figure data-type="image" tabindex="10"><img src="https://ae01.alicdn.com/kf/H1a71d19354554c498d2404153fcfb7f41.png" alt="" loading="lazy"></figure>
+<h1 id="9设置环境变量">9.设置环境变量</h1>
+<h2 id="91-添加环境变量">9.1 添加环境变量</h2>
+<p>在postman中，设置环境变量可以快速变换接口地址</p>
+<p>比如分别设置<code>生产环境</code>与<code>测试环境</code>环境变量，之后需要改变接口地址只需切换不同的环境即可</p>
+<figure data-type="image" tabindex="11"><img src="https://ae01.alicdn.com/kf/H0a3c0771a997493089f39aece7c13e1fn.png" alt="" loading="lazy"></figure>
+<h2 id="93-切换环境">9.3 切换环境</h2>
+<p>在接口请求界面右上角可以切换该接口的环境，</p>
+<p>在接口地址使用变量为双花括号包围变量名，如：</p>
+<p><code>{{url}}autonumber/autoComNum?resultv2=1&amp;text=3102615141528</code></p>
+<figure data-type="image" tabindex="12"><img src="https://ae01.alicdn.com/kf/H22f0e86004a04dc8a1b0fb52216a9ce87.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>
