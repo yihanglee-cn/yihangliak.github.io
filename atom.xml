@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yihangliak.github.io</id>
     <title>yihang&apos;s blog</title>
-    <updated>2020-03-27T17:00:57.688Z</updated>
+    <updated>2020-04-26T15:21:35.025Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yihangliak.github.io"/>
     <link rel="self" href="https://yihangliak.github.io/atom.xml"/>
@@ -16,7 +16,16 @@
         <link href="https://yihangliak.github.io/post/mysql/">
         </link>
         <updated>2020-03-27T16:42:58.000Z</updated>
-        <content type="html"><![CDATA[<p>1</p>
+        <content type="html"><![CDATA[<h1 id="一-概念">一. 概念</h1>
+<h2 id="数据库的定义">数据库的定义</h2>
+<p><strong>数据库：</strong> 按照数据结构来组织、存储和管理数据的仓库</p>
+<blockquote>
+<p><strong>疑问：</strong> 我的数据明明可以存在Excel或其他的文件中，那还要数据库干嘛？</p>
+</blockquote>
+<p>这就引出 <strong>数据存储</strong> 的几个发展阶段：</p>
+<p>人工管理阶段</p>
+<p>数据依靠人工整理，存储和管理。不方便保存，查询和管理</p>
+<p>典型的案例如古代的 <strong>结绳记事</strong> ，以及后来的 <strong>造纸术，印刷术，图书馆</strong> 等</p>
 ]]></content>
     </entry>
     <entry>
@@ -35,42 +44,6 @@
         </link>
         <updated>2019-10-02T03:17:06.000Z</updated>
         <content type="html"><![CDATA[<p>国庆快乐！</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[2019 年中总结]]></title>
-        <id>https://yihangliak.github.io/post/2019_mid_year/</id>
-        <link href="https://yihangliak.github.io/post/2019_mid_year/">
-        </link>
-        <updated>2019-07-22T08:22:12.000Z</updated>
-        <summary type="html"><![CDATA[<p>月亮总不会被太阳抛弃  所以等你的日子不值一提</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>月亮总不会被太阳抛弃  所以等你的日子不值一提</p>
-<!-- more -->
-<p>不知不觉，19年已经过去大半啦<br>
-马上就要再一次经历<code>happy birthday</code>的洗礼<br>
-回顾这大半年  除了工作 好像没干啥事儿<br>
-<strong>视力不断<code>↓</code></strong><br>
-走在路上   四五米开外的东西  已是时见一斑<br>
-<strong>体重不断<code>↑</code></strong><br>
-办了张健身卡 从刚开始拿到卡的打鸡血模式 现在演变成了 耶 又下雨了 可以不用去跑步了的状态<br>
-6月份  公司组织去桂林旅游<br>
-WTF  大学毕业旅行就是去的桂林   时隔多年 竟想不到以这种方式故地重游<br>
-想我一湖南人  张家界都没有去过 竟然去了桂林两次  还是旅游<br>
-心态崩了<br>
-最近迷上焦迈奇的歌   有一首里面写到<br>
-<code>月亮总不会被太阳抛弃 所以等你的日子不值一提</code><br>
-唱的真好  干的漂亮<br>
-原来有时候  一个人干着不为人知的事情  very洒脱<br>
-写这篇总结断断续续<br>
-从早上写到晚上<br>
-绞尽脑汁   东拼西凑<br>
-可是到现在还是混乱得 宛如一片残垣<br>
-得<br>
-还是来根<code>寂寞</code>再说<br>
-记忆是个好东西  可惜我没有<br>
-以摆动的二郎腿结束这篇<code>zongjie</code><br>
-愿顺利度过余下半年 白发少几根  体重减几斤  工资涨几分</p>
 ]]></content>
     </entry>
     <entry>
@@ -3697,22 +3670,6 @@ erha = HaShiQi('黑白', 20)
 erha.eat()     #  子类使用父类的方法
 erha.chai_jia()  # 子使用自己独有的方法
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[SVN版本控制系统使用技巧]]></title>
-        <id>https://yihangliak.github.io/post/svn01/</id>
-        <link href="https://yihangliak.github.io/post/svn01/">
-        </link>
-        <updated>2019-06-20T15:22:32.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="svn简介">SVN简介</h1>
-<p><code>Subversion</code>是一个开源的版本控制系统</p>
-<ul>
-<li>所有数据存放在一个中央资料档案库中</li>
-<li>可以记住每一次文件的变动</li>
-<li>可以恢复到旧版本档案</li>
-<li>可以浏览文件的变动历史</li>
-</ul>
 ]]></content>
     </entry>
 </feed>
